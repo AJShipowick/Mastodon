@@ -10,6 +10,7 @@ namespace Mastodon.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email (User Name)")]
         public string Email { get; set; }
 
         [Required]
