@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Analyser\" />
-    <Folder Include="Controllers\Slider\" />
-    <Folder Include="Test\" />
-    <Folder Include="Views\Slider\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

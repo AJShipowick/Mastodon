@@ -4,12 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mastodon.Controllers.Analyser
+namespace Mastodon.Slider.Controllers
 {
-    public class AnalyserController : Controller
+    [Area("Slider")]
+    public class SliderController : Controller
     {
         public IActionResult Index()
         {
+
+            //Check if user is logged in or not.....
+
             return View();
         }
     }

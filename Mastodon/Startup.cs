@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Mastodon.Data;
 using Mastodon.Models;
 using Mastodon.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Mastodon
 {
@@ -52,6 +53,14 @@ namespace Mastodon
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            // Define custom routing areas
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.AreaViewLocationFormats.Clear();
+                options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/Slider/Views/{0}.cshtml");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,9 +88,13 @@ namespace Mastodon
 
             app.UseMvc(routes =>
         {
+
+            routes.MapRoute(name: "areaRoute",
+                template: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
+
             routes.MapRoute(
-            name: "default",
-            template: "{controller=Home}/{action=Index}/{id?}");
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
         });
 
         }
