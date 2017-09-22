@@ -1,26 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Mastodon.Models;
+using Mastodon.Slider.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Mastodon.Models;
 
 namespace Mastodon.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Mastodon;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        public ApplicationDbContext() { }
+
+        //To update the SQL Server DB scripts and structure run the following commands in Package Manager Console
+        //Add-Migration InitialCreate
+        //Update-Database
+        //or
+        //Add-Migration InitialCreate -Context MyContext
+        //Update-Database -Context MyContext
+
+        public DbSet<ClientModel> ClientModel { get; set; }
+        public DbSet<ClientsWebsite> ClientsWebsites { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+
+            //builder.Entity<ApplicationUser>()
+            //  .HasMany(e => e.Claims)
+            //  .WithOne()
+            //  .HasForeignKey(e => e.UserId)
+            //  .IsRequired()
+            //  .OnDelete(DeleteBehavior.Cascade);
+
+            //builder.Entity<ApplicationUser>()
+            //    .HasMany(e => e.Logins)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.UserId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //builder.Entity<ApplicationUser>()
+            //    .HasMany(e => e.Roles)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.UserId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

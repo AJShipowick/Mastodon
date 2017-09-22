@@ -1,10 +1,95 @@
+@using Mastodon.Slider.Models
+@model ClientsWebsite
 
 @{
-    ViewData["Title"] = "Slider options";
+    ViewData["Title"] = "Build your website slider";
 }
 
-@*@Html.Partial("~/Views/_ViewImports.cshtml")
-@Html.Partial("~/Views/_ViewStart.cshtml")*@
+<h1>Create your website contact slider below</h1>
+<br />
+<form asp-controller="Slider" asp-action="Save" method="post">
 
-<h2 style="padding-top: 75px;">Slider Page</h2>
+    @*@if (Model.WebsiteUpdated == true)
+        {
+            <div class="row">
+                <p>Settings Updated!</p>
+            </div>
+        }*@
+
+    <div class="row">
+        <div class="col-md-2">
+            <p>Custom Site Script: </p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" readonly asp-for="CustomSiteScript" />
+        </div>
+    </div>
+    <div class="row col-md-offset-2">
+        <div class="col-md-6">
+            <p>
+                *This unique script must be inserted into the source of your website.
+                Please view the help documentation for instructions on how to accomplish this.
+            </p>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <p>Website Name: </p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="WebsiteName" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <p>Company Name: </p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="CompanyName" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <p>Message Header: </p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="MessageHeader" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <p>Message Body: </p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="MesasgeBody" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <p>Additional Message: </p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="AdditionalMessage" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <p>Slider Image: </p>
+        </div>
+        <div class="col-md-4">
+            <img src="@Url.Content(Model.SliderImagePath)" alt="Image" />
+        </div>
+    </div>
+
+
+    <button type="submit">Save</button>
+
+</form>
 

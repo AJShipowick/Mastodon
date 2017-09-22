@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Mastodon.Data;
 
-namespace Mastodon.Data.Migrations
+namespace Mastodon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -15,25 +13,129 @@ namespace Mastodon.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc3")
+                .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Mastodon.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Mastodon.Slider.Models.ClientModel", b =>
+                {
+                    b.Property<string>("ClientID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClientNotes");
+
+                    b.Property<int>("ClientSubscription");
+
+                    b.Property<string>("PrimaryContact");
+
+                    b.Property<string>("PrimaryEmail");
+
+                    b.Property<string>("PrimaryPhoneNumber");
+
+                    b.HasKey("ClientID");
+
+                    b.ToTable("ClientModel");
+                });
+
+            modelBuilder.Entity("Mastodon.Slider.Models.ClientsWebsite", b =>
+                {
+                    b.Property<string>("ClientID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AdditionalMessage");
+
+                    b.Property<string>("ClientModelClientID");
+
+                    b.Property<string>("CompanyName");
+
+                    b.Property<string>("CustomSiteScript");
+
+                    b.Property<string>("MesasgeBody");
+
+                    b.Property<string>("MessageHeader");
+
+                    b.Property<string>("SliderImagePath");
+
+                    b.Property<string>("WebsiteName");
+
+                    b.HasKey("ClientID");
+
+                    b.HasIndex("ClientModelClientID");
+
+                    b.ToTable("ClientsWebsites");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
+                        .IsUnique()
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
@@ -105,8 +207,6 @@ namespace Mastodon.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AspNetUserRoles");
                 });
 
@@ -125,53 +225,11 @@ namespace Mastodon.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Mastodon.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Mastodon.Slider.Models.ClientsWebsite", b =>
                 {
-                    b.Property<string>("Id");
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
+                    b.HasOne("Mastodon.Slider.Models.ClientModel")
+                        .WithMany("ClientSettings")
+                        .HasForeignKey("ClientModelClientID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
