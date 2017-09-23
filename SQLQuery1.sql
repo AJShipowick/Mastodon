@@ -1,1 +1,2 @@
-﻿select * from dbo.ClientsWebsites;
+﻿delete from dbo.AspNetUsers;
+delete from dbo.ClientsWebsites;

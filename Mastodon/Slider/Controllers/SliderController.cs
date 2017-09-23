@@ -7,6 +7,7 @@ using Mastodon.Models;
 using Microsoft.AspNetCore.Identity;
 using Mastodon.Slider.Models;
 using Mastodon.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace Mastodon.Slider.Controllers
 {
@@ -23,7 +24,6 @@ namespace Mastodon.Slider.Controllers
 
         public async Task<IActionResult> Index()
         {
-
             var user = await GetCurrentUserAsync();
             if (user == null)
             {
@@ -39,6 +39,11 @@ namespace Mastodon.Slider.Controllers
 
             if (clientWebsites.Count() > 0)
             {
+                if (HttpContext.Session.GetString("WebsiteUpdated") == "True")
+                {
+                    clientWebsites[0].WebsiteUpdated = true;
+                    HttpContext.Session.SetString("WebsiteUpdated", "False");
+                }
                 return View(clientWebsites[0]);  //Show 1st client site from list
             }
             else
@@ -65,6 +70,7 @@ namespace Mastodon.Slider.Controllers
                         db.Update(vm);
                     }
                     await db.SaveChangesAsync();
+                    HttpContext.Session.SetString("WebsiteUpdated", "True");
                 }
             }
 

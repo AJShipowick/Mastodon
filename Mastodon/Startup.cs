@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -89,15 +88,11 @@ namespace Mastodon
             }
 
             app.UseStaticFiles();
-
-            //app.UseIdentity();
             app.UseAuthentication();
-
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseSession();
 
             app.UseMvc(routes =>
         {
-
             routes.MapRoute(name: "areaRoute",
                 template: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
 

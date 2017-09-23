@@ -9,12 +9,7 @@
 <br />
 <form asp-controller="Slider" asp-action="Save" method="post">
 
-    @*@if (Model.WebsiteUpdated == true)
-        {
-            <div class="row">
-                <p>Settings Updated!</p>
-            </div>
-        }*@
+    <div hidden> <input type="text" class="form-control" readonly asp-for="ClientID" /> </div>
 
     <div class="row">
         <div class="col-md-2">
@@ -87,9 +82,19 @@
             <img src="@Url.Content(Model.SliderImagePath)" alt="Image" />
         </div>
     </div>
+    <br />
 
-
-    <button type="submit">Save</button>
+    <div class="row">
+        <button class="col-md-1" type="submit">Save</button>
+    </div>
+    @if (Model.WebsiteUpdated == true)
+    {
+        <div class="row">
+            <div>
+                <h3 style="color:green">Settings Updated!</h3>
+            </div>
+        </div>
+    }
 
 </form>
 

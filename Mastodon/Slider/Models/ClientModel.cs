@@ -28,12 +28,7 @@ namespace Mastodon.Slider.Models
         public string MessageHeader { get; set; }
         public string MesasgeBody { get; set; }
         public string AdditionalMessage { get; set; }
-        //[NotMapped]
-        //public bool WebsiteUpdated { get; set; }
-
-        public ClientsWebsite()
-        {
-
-        }
+        [NotMapped]
+        public bool WebsiteUpdated { get; set; }
     }
 }
