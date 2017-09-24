@@ -48,9 +48,11 @@ namespace Mastodon.Slider.Controllers
             }
             else
             {
+                //create unique script for website/client here....
+                //This must be a <script> GET call to the API with the custom ID to get the required data.
+                //JS to get HostName of a website - window.location.hostname
                 return View(new ClientsWebsite { ClientID = user.Id });
             }
-
         }
 
         [HttpPost]
@@ -75,7 +77,6 @@ namespace Mastodon.Slider.Controllers
             }
 
             return RedirectToAction("Index");
-
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
