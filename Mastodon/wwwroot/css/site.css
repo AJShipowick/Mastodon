@@ -64,6 +64,12 @@ https://dcrazed.com/free-css3-sign-up-registration-forms/
     z-index: 10;
 }
 
+#slickImageMessage {
+    position: absolute;
+    right: 0px;
+    top: 100px;
+}
+
 #slickImage {
     position: absolute;
     box-shadow: 0 0 8px gray;
