@@ -23,11 +23,10 @@ namespace Mastodon.Slider.Models
         public string ClientID { get; set; }
         public string CustomSiteScript { get; set; }
         public string WebsiteName { get; set; }
-        public string CompanyName { get; set; }
+        public string FormName { get; set; }
         public string SliderImagePath { get; set; }
         public string MessageHeader { get; set; }
-        public string MesasgeBody { get; set; }
-        public string AdditionalMessage { get; set; }
+        public string CallToActionMessage { get; set; }
         [NotMapped]
         public bool WebsiteUpdated { get; set; }
     }

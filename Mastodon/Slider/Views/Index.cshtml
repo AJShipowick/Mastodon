@@ -5,6 +5,9 @@
     ViewData["Title"] = "Build your website slider";
 }
 
+<!--This partial view will be updated to show the user what their custom slider will look and act like....-->
+@{ Html.RenderPartial("UserSlider.cshtml"); }
+
 <div class="row">
     <div class="col-md-2">
         <img src="~/images/slider2.svg" width="100" height="100" />
@@ -57,10 +60,10 @@
     <br />
     <div class="row">
         <div class="col-md-2">
-            <p>Company Name: </p>
+            <p>Form Name: </p>
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="CompanyName" />
+            <input type="text" class="form-control" asp-for="FormName" />
         </div>
     </div>
     <br />
@@ -75,22 +78,14 @@
     <br />
     <div class="row">
         <div class="col-md-2">
-            <p>Message Body: </p>
+            <p>Call To Action: </p>
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="MesasgeBody" />
+            <input type="text" class="form-control" asp-for="CallToActionMessage" />
         </div>
     </div>
     <br />
-    <div class="row">
-        <div class="col-md-2">
-            <p>Additional Message: </p>
-        </div>
-        <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="AdditionalMessage" />
-        </div>
-    </div>
-    <br />
+
     <div class="row">
         <div class="col-md-2">
             <p>Slider Image: </p>
@@ -98,7 +93,7 @@
         <div class="col-md-6">
             <label>
                 <input type="radio" class="form-control" asp-for="SliderImagePath" value="ContactUs1" />
-                <img src="~/images/Slider/ContactUs1.png">
+                <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
             </label>
             <label>
                 <input type="radio" class="form-control" asp-for="SliderImagePath" value="ContactUs2" />
