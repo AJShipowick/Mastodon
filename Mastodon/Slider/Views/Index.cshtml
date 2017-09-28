@@ -1,118 +1,117 @@
-@using Mastodon.Slider.Models
-@model ClientsWebsite
-
 @{
     ViewData["Title"] = "Build your website slider";
 }
 
-<!--This partial view will be updated to show the user what their custom slider will look and act like....-->
-@{ Html.RenderPartial("UserSlider.cshtml"); }
+<!--Vue container-->
+<div id="sliderApp">
 
-<div class="row">
-    <div class="col-md-2">
-        <img src="~/images/slider2.svg" width="100" height="100" />
+    <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
+    @{ Html.RenderPartial("UserSlider.cshtml"); }
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/images/slider2.svg" width="100" height="100" />
+        </div>
+        <div class="col-md-10">
+            <h1 class="col-md-10">Create your website contact slider below</h1>
+        </div>
     </div>
-    <div class="col-md-10">
-        <h1 class="col-md-10">Create your website contact slider below</h1>
+    <br />
+
+    <div v-if="axajLoading" style="text-align:center; color:red">
+        <div class="animated infinite pulse">
+            <h3>Loading...</h3>
+            <img src="~/images/slider2.svg" width="50" height="50" />
+        </div>
+    </div>
+
+    <div style="display:none" id="vueData">
+        <div class="row">
+            <div class="col-md-2">
+                <p>Custom Site Script: </p>
+            </div>
+            <div class="col-md-6">
+                @*<text type="text" class="form-control" {{ClientsWebsite.CustomSiteScript}} />*@
+                <p>THISSSSS ISSSSS YOURRRRR SCRIPTTTTT!!!!! </p>
+            </div>
+        </div>
+        <div class="row col-md-offset-2">
+            <div class="col-md-6">
+                <p>
+                    *This unique script must be inserted into the source of your website.
+                    Please view the help documentation for instructions on how to accomplish this.
+                </p>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                <p>Website Name: </p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" v-model="ClientsWebsite.WebsiteName" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                <p>Form Name: </p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" v-model="ClientsWebsite.FormName" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                <p>Message Header: </p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" v-model="ClientsWebsite.MessageHeader" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                <p>Call To Action: </p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" v-model="ClientsWebsite.CallToActionMessage" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-2">
+                <p>Slider Image: </p>
+            </div>
+            <div class="col-md-6" onclick="showCustomSliderImage()">
+                <label>
+                    <input type="radio" class="form-control" value="ContactUs1" v-model="ClientsWebsite.SliderImagePath" />
+                    <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
+                </label>
+                <label>
+                    <input type="radio" class="form-control" value="ContactUs2" v-model="ClientsWebsite.SliderImagePath" />
+                    <img id="ContactUs2" src="~/images/Slider/ContactUs2.png">
+                </label>
+                <label>
+                    <input type="radio" class="form-control" value="ContactUs3" v-model="ClientsWebsite.SliderImagePath" />
+                    <img id="ContactUs3" src="~/images/Slider/ContactUs3.png">
+                </label>
+                <label>
+                    <input type="radio" class="form-control" value="ContactUs4" v-model="ClientsWebsite.SliderImagePath" />
+                    <img id="ContactUs4" src="~/images/Slider/ContactUs4.png">
+                </label>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings()">Save</button> <!--type="submit"-->
+            <p style="display:none; color:green" id="saveSuccessMsg" class="col-md-3">Save Successful</p>
+        </div>
     </div>
 </div>
-<br />
 
-@if (Model.WebsiteUpdated == true)
-{
-    <div class="row">
-        <div>
-            <h2 style="color:green">Settings Updated!</h2>
-        </div>
-    </div>
-}
-
-<form asp-controller="Slider" asp-action="Save" method="post">
-
-    <div hidden> <input type="text" class="form-control" readonly asp-for="ClientID" /> </div>
-
-    <div class="row">
-        <div class="col-md-2">
-            <p>Custom Site Script: </p>
-        </div>
-        <div class="col-md-6">
-            <text type="text" class="form-control" readonly asp-for="CustomSiteScript" />
-        </div>
-    </div>
-    <div class="row col-md-offset-2">
-        <div class="col-md-6">
-            <p>
-                *This unique script must be inserted into the source of your website.
-                Please view the help documentation for instructions on how to accomplish this.
-            </p>
-        </div>
-    </div>
-
-    <br />
-    <div class="row">
-        <div class="col-md-2">
-            <p>Website Name: </p>
-        </div>
-        <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="WebsiteName" />
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-2">
-            <p>Form Name: </p>
-        </div>
-        <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="FormName" />
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-2">
-            <p>Message Header: </p>
-        </div>
-        <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="MessageHeader" />
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-2">
-            <p>Call To Action: </p>
-        </div>
-        <div class="col-md-6">
-            <input type="text" class="form-control" asp-for="CallToActionMessage" />
-        </div>
-    </div>
-    <br />
-
-    <div class="row">
-        <div class="col-md-2">
-            <p>Slider Image: </p>
-        </div>
-        <div class="col-md-6">
-            <label>
-                <input type="radio" class="form-control" asp-for="SliderImagePath" value="ContactUs1" />
-                <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
-            </label>
-            <label>
-                <input type="radio" class="form-control" asp-for="SliderImagePath" value="ContactUs2" />
-                <img id="ContactUs2" src="~/images/Slider/ContactUs2.png">
-            </label>
-            <label>
-                <input type="radio" class="form-control" asp-for="SliderImagePath" value="ContactUs3" />
-                <img id="ContactUs3" src="~/images/Slider/ContactUs3.png">
-            </label>
-            <label>
-                <input type="radio" class="form-control" asp-for="SliderImagePath" value="ContactUs4" />
-                <img id="ContactUs4" src="~/images/Slider/ContactUs4.png">
-            </label>
-        </div>
-    </div>
-    <br />
-
-    <div class="row">
-        <button class="col-md-1 btn btn-primary" type="submit">Save</button>
-    </div>
-
-</form>
+<script src="~/js/Slider/clientSlider.js"></script>

@@ -2,9 +2,8 @@
     ViewData["Title"] = "Mastodon";
 }
 
-
 <div class="jumbotron" style="padding-top: 75px;">
-    <h1 style="text-align:center">MASTODON</h1>
+    <h1 style="text-align:center; color:white">MASTODON</h1>
 </div>
 
 <div class="row">
@@ -13,7 +12,7 @@
     <div class="col-md-4">
         <h2>Slider Application</h2>
         <a asp-controller="Slider" asp-action="Index">
-            <div id="sliderImage"></div>
+            <div id="sliderImage" onclick="animateHomeImage('sliderImage')"></div>
         </a>
     </div>
 
@@ -22,9 +21,11 @@
     <div class="col-md-4">
         <h2>Local Business Analyser</h2>
         <a asp-controller="Home" asp-action="Error">
-            <div id="analyserImage"></div>
+            <div id="analyserImage" onclick="animateHomeImage('analyserImage')"></div>
         </a>
     </div>
 
     <div class="col-md-1"></div>
 </div>
+
+<script src="~/js/Home/home.js"></script>

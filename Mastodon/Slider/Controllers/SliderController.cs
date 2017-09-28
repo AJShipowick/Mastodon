@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Mastodon.Slider.Models;
 using Mastodon.Data;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Mastodon.Slider.Controllers
 {
@@ -30,6 +30,14 @@ namespace Mastodon.Slider.Controllers
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<string> GetUserSettings()
+        {
+            var user = await GetCurrentUserAsync();
+
             List<ClientsWebsite> clientWebsites = null;
             using (var db = new ApplicationDbContext())
             {
@@ -39,24 +47,17 @@ namespace Mastodon.Slider.Controllers
 
             if (clientWebsites.Count() > 0)
             {
-                if (HttpContext.Session.GetString("WebsiteUpdated") == "True")
-                {
-                    clientWebsites[0].WebsiteUpdated = true;
-                    HttpContext.Session.SetString("WebsiteUpdated", "False");
-                }
-                return View(clientWebsites[0]);  //Show 1st client site from list
+                clientWebsites[0].CustomSiteScript = "scriptURLTEST.com";
+                return JsonConvert.SerializeObject(clientWebsites[0]);
             }
             else
             {
-                //create unique script for website/client here....
-                //This must be a <script> GET call to the API with the custom ID to get the required data.
-                //JS to get HostName of a website - window.location.hostname
-                return View(new ClientsWebsite { ClientID = user.Id });
+                return JsonConvert.SerializeObject(new ClientsWebsite { ClientID = user.Id });
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> Save(ClientsWebsite vm)
+        public async Task<string> SaveCustomSettings([FromBody]ClientsWebsite vm)
         {
             if (ModelState.IsValid)
             {
@@ -72,11 +73,10 @@ namespace Mastodon.Slider.Controllers
                         db.Update(vm);
                     }
                     await db.SaveChangesAsync();
-                    HttpContext.Session.SetString("WebsiteUpdated", "True");
                 }
             }
 
-            return RedirectToAction("Index");
+            return "Success";
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mastodon.Slider.Models
 {
+    [Serializable]
     public class ClientModel
     {
         [Key]
@@ -17,6 +19,7 @@ namespace Mastodon.Slider.Models
         public List<ClientsWebsite> ClientSettings { get; set; }
     }
 
+    [Serializable]
     public class ClientsWebsite
     {
         [Key]
@@ -27,7 +30,5 @@ namespace Mastodon.Slider.Models
         public string SliderImagePath { get; set; }
         public string MessageHeader { get; set; }
         public string CallToActionMessage { get; set; }
-        [NotMapped]
-        public bool WebsiteUpdated { get; set; }
     }
 }

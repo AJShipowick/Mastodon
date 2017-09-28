@@ -1,6 +1,6 @@
 ﻿.jumbotron {
     background-size: cover;
-    background-color: #8c8c8c;
+    background-color: #000000;
 }
 
 
@@ -8,24 +8,16 @@
 */
 
 #sliderImage {
-    background-image: url('../images/slider1.svg');
+    background-image: url('../images/slider2.svg');
     height: 300px;
     width: 300px;
 }
-
-    #sliderImage:hover {
-        background-image: url('../images/slider2.svg');
-    }
 
 #analyserImage {
-    background-image: url('../images/analyser1.svg');
+    background-image: url('../images/analyser2.svg');
     height: 300px;
     width: 300px;
 }
-
-    #analyserImage:hover {
-        background-image: url('../images/analyser2.svg');
-    }
 
 label > input { /* HIDE RADIO */
     visibility: hidden; /* Makes input not-clickable */
