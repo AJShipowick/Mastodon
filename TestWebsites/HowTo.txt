@@ -1,0 +1,12 @@
+How To:
+
+**FOR TESTING YOU MUST ALLOW CROSS-ORIGIN REQUESTS:
+Use this chrome extension: Allow-Control-Allow-Origin https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en
+
+**Minify JS tool:
+https://jscompress.com/
+
+The test websites are self contained basic HTML/CSS/JS websites.
+Each one can be loaded with its own folder structure and opened in a browser.
+The purpose of these sites is to test out the functionality of the API calls and how they behave on different sites.
+

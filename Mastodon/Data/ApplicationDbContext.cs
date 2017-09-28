@@ -19,8 +19,6 @@ namespace Mastodon.Data
             optionsBuilder.UseSqlServer(connectionString);
         }
 
-        public ApplicationDbContext() { }
-
         //To update the SQL Server DB scripts and structure run the following commands in Package Manager Console
         //Add-Migration InitialCreate
         //Update-Database
