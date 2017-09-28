@@ -1,6 +1,6 @@
 ﻿.jumbotron {
     background-size: cover;
-    background-color: #8c8c8c;
+    background-color: #000000;
 }
 
 
@@ -8,21 +8,114 @@
 */
 
 #sliderImage {
-    background-image: url('../images/slider1.svg');
+    background-image: url('../images/slider2.svg');
     height: 300px;
     width: 300px;
 }
-
-    #sliderImage:hover {
-        background-image: url('../images/slider2.svg');
-    }
 
 #analyserImage {
-    background-image: url('../images/analyser1.svg');
+    background-image: url('../images/analyser2.svg');
     height: 300px;
     width: 300px;
 }
 
-    #analyserImage:hover {
-        background-image: url('../images/analyser2.svg');
+label > input { /* HIDE RADIO */
+    visibility: hidden; /* Makes input not-clickable */
+    position: absolute; /* Remove input from document flow */
+}
+
+    label > input + img { /* IMAGE STYLES */
+        cursor: pointer;
+        border: 2px solid transparent;
     }
+
+    label > input:checked + img { /* (RADIO CHECKED) IMAGE STYLES */
+        border: 3px solid #00FF55;
+    }
+
+
+/*Keep div centered in middle of screen:
+http://stackoverflow.com/questions/5012111/how-to-position-a-div-in-the-middle-of-the-screen-when-the-page-is-bigger-than-t
+
+CSS Form Ideas:
+https://www.sanwebe.com/2014/08/css-html-forms-designs
+https://www.freshdesignweb.com/css-registration-form-templates/
+https://dcrazed.com/free-css3-sign-up-registration-forms/
+*/
+
+
+
+.slickFont {
+    font-family: Helvetica;
+}
+
+#slickSlider {
+    right: 0px;
+    position: fixed;
+    top: 50px;
+    z-index: 10;
+}
+
+#slickImageMessage {
+    position: absolute;
+    right: 0px;
+    top: 100px;
+}
+
+#slickImage {
+    position: absolute;
+    box-shadow: 0 0 8px gray;
+    right: 0px;
+    top: 150px;
+    cursor: pointer;
+}
+
+#slickContactForm {
+    position: absolute;
+    width: 300px;
+    height: 450px;
+    right: 0;
+    border: 1px solid #d8d8d8;
+    margin-left: 40px;
+    padding: 20px 40px;
+    border-radius: 3px;
+    box-shadow: 0 0 8px gray;
+    visibility: hidden;
+    background-color: white;
+}
+
+.slickInputBox input[type="text"] {
+    padding: 10px;
+    margin-left: -10px;
+    width: 250px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
+}
+
+    .slickInputBox input[type="text"]:focus,
+    .slickInputBox input[type="text"].focus {
+        border-bottom: solid 4px #c9c9c9;
+    }
+
+.Fixed {
+    position: fixed;
+    top: 20px;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.userInputTextArea {
+    resize: none;
+    height: 100px;
+    width: 240px;
+}
