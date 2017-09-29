@@ -1,4 +1,5 @@
 ﻿using Mastodon_API.Data;
+using Mastodon_API.Responses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,12 @@ namespace Mastodon_API
             // Add framework services.
             services.AddDbContext<APIDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddLogging();
+            services.AddTransient<IMainJS, MainJS>();
+            services.AddTransient<ISliderHTML, SliderHTML>();
+            services.AddTransient<ISliderCSS, SliderCSS>();
+            services.AddTransient<ISliderJS, SliderJS>();
 
             services.AddMvc();
         }
