@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Mastodon.Slider.Models;
 using Mastodon_API.Data;
-using Mastodon.Slider.Models;
 using Mastodon_API.Responses;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace Mastodon_API.Controllers
 {
@@ -32,13 +31,22 @@ namespace Mastodon_API.Controllers
         public string Get(string clientID)
         {
             ClientsWebsite clientWebsites = null;
-            using (_apiDbContext)
-            {
-                clientWebsites = _apiDbContext.ClientsWebsites
-                    .Where(c => c.ClientID == clientID).FirstOrDefault();
-            }
 
-            return _mainJS.GetMainJS(clientWebsites);
+            try
+            {
+                using (_apiDbContext)
+                {
+                    clientWebsites = _apiDbContext.ClientsWebsites
+                        .Where(c => c.ClientID == clientID).FirstOrDefault();
+                }
+
+                return _mainJS.GetMainJS(clientWebsites.ClientID);
+            }
+            catch (Exception ex)
+            {
+                //todo log exception
+                return "Error getting main slider.";
+            }
         }
 
         [HttpGet]
@@ -46,40 +54,71 @@ namespace Mastodon_API.Controllers
         public string GetHTML(string clientID)
         {
             ClientsWebsite clientWebsites = null;
-            using (_apiDbContext)
+
+            try
             {
-                clientWebsites = _apiDbContext.ClientsWebsites
-                    .Where(c => c.ClientID == clientID).FirstOrDefault();
+                using (_apiDbContext)
+                {
+                    clientWebsites = _apiDbContext.ClientsWebsites
+                        .Where(c => c.ClientID == clientID).FirstOrDefault();
+                }
+
+                return _sliderHTML.getSliderHTML(clientWebsites);
+            }
+            catch (Exception ex)
+            {
+                //todo log exception
+                return "Error getting slider HTML.";
             }
 
-            return _sliderHTML.getSliderHTML(clientWebsites);
         }
 
         [HttpGet]
         [Route("css/{clientID}")]
         public string GetCSS(string clientID)
         {
-
             ClientsWebsite clientWebsites = null;
-            using (_apiDbContext)
+
+            try
             {
-                clientWebsites = _apiDbContext.ClientsWebsites
-                    .Where(c => c.ClientID == clientID).FirstOrDefault();
+                using (_apiDbContext)
+                {
+                    clientWebsites = _apiDbContext.ClientsWebsites
+                        .Where(c => c.ClientID == clientID).FirstOrDefault();
+                }
+
+                return _sliderCSS.GetSliderCSS(clientWebsites);
+            }
+            catch (Exception ex)
+            {
+                //todo log exception
+                return "Error getting slider CSS.";
             }
 
-            return _sliderCSS.GetSliderCSS(clientWebsites);
         }
 
         [HttpGet]
         [Route("image/{clientID}")]
         public IActionResult GetImage(string clientID)
         {
+            ClientsWebsite clientWebsites = null;
 
-            //https://stackoverflow.com/questions/40794275/return-jpeg-image-from-asp-net-core-webapi
+            try
+            {
+                using (_apiDbContext)
+                {
+                    clientWebsites = _apiDbContext.ClientsWebsites
+                        .Where(c => c.ClientID == clientID).FirstOrDefault();
+                }
 
-            var image = System.IO.File.OpenRead("wwwroot/images/ContactUs2.png");
-            return File(image, "image/png");
-
+                var image = System.IO.File.OpenRead(string.Format("wwwroot/images/{0}.png", clientWebsites.SliderImageName));
+                return File(image, "image/png");
+            }
+            catch (Exception ex)
+            {
+                //todo log exception
+                return null;
+            }
         }
 
         [HttpGet]
@@ -87,14 +126,22 @@ namespace Mastodon_API.Controllers
         public string GetJS(string clientID)
         {
             ClientsWebsite clientWebsites = null;
-            using (_apiDbContext)
+
+            try
             {
-                clientWebsites = _apiDbContext.ClientsWebsites
-                    .Where(c => c.ClientID == clientID).FirstOrDefault();
+                using (_apiDbContext)
+                {
+                    clientWebsites = _apiDbContext.ClientsWebsites
+                        .Where(c => c.ClientID == clientID).FirstOrDefault();
+                }
+
+                return _sliderJS.GetSliderJS(clientWebsites);
             }
-
-            return _sliderJS.GetSliderJS(clientWebsites);
-
+            catch (Exception ex)
+            {
+                //todo log exception
+                return "Error getting slider JS.";
+            }
         }
     }
 }

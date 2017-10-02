@@ -1,13 +1,14 @@
 ﻿//***********************************************************************************************
 //***********************************************************************************************
 //Use this file to generate a minified version to be used in MainJS.cs class
+//Using single 'x' instead of "x" to help with the string minification process
 //***********************************************************************************************
 //***********************************************************************************************
 
 (function () {
     //create parent element
-    var sliderDiv = document.createElement("div");
-    sliderDiv.setAttribute("id", "slickSlider");
+    var sliderDiv = document.createElement('div');
+    sliderDiv.setAttribute('id', 'slickSlider');
     document.body.appendChild(sliderDiv);
 
     loadSlickHTML();
@@ -19,11 +20,11 @@
     setTimeout(
         function () {
             loadSlickImage();
-        }, 500);
+        }, 100);
 
 
     function loadSlickHTML() {
-        var htmlURL = "http://localhost:51186/api/slider/html/6666ddfdd";
+        var htmlURL = 'http://localhost:51186/api/slider/html/?';
         getSlickResource(htmlURL, handleHTMLCallback);
     }
 
@@ -32,7 +33,7 @@
     }
 
     function loadSlickCSS() {
-        var cssURL = "http://localhost:51186/api/slider/css/6666ddfdd";
+        var cssURL = 'http://localhost:51186/api/slider/css/?';
         getSlickResource(cssURL, handleCSSCallback);
     }
 
@@ -44,7 +45,7 @@
     }
 
     function loadSlickJS() {
-        var jsURL = "http://localhost:51186/api/slider/js/6666ddfdd";
+        var jsURL = 'http://localhost:51186/api/slider/js/?';
         getSlickResource(jsURL, handleJSCallback);
     }
 
@@ -56,7 +57,7 @@
 
     //https://stackoverflow.com/questions/35367830/load-an-image-from-a-xhr-request-and-then-pass-it-to-the-server
     function loadSlickImage() {
-        var imageURL = "http://localhost:51186/api/slider/image/6666ddfdd";
+        var imageURL = 'http://localhost:51186/api/slider/image/?';
         getImageResource(imageURL, handleImageCallback);
     }
 
@@ -82,8 +83,8 @@
 
     function getImageResource(imageURL, callback) {
         var oReq = new XMLHttpRequest();
-        oReq.open("GET", imageURL, true);
-        oReq.responseType = "blob";
+        oReq.open('GET', imageURL, true);
+        oReq.responseType = 'blob';
 
         oReq.onload = function (oEvent) {
             callback(oReq.response);
@@ -94,7 +95,7 @@
     function showSlickImageOnScreen(blobData) {
         var urlCreator = window.URL || window.webkitURL;
         var imageUrl = urlCreator.createObjectURL(blobData);
-        document.querySelector("#slickImage").src = imageUrl;
+        document.querySelector('#slickImage').src = imageUrl;
     }
 
 })();

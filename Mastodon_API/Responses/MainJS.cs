@@ -1,24 +1,23 @@
-﻿using Mastodon.Slider.Models;
-using System.Text;
-
-namespace Mastodon_API.Responses
+﻿namespace Mastodon_API.Responses
 {
-
     public interface IMainJS
     {
-        string GetMainJS(ClientsWebsite clientWebsiteData);
+        string GetMainJS(string clientID);
     }
 
     public class MainJS : IMainJS
     {
-        public string GetMainJS(ClientsWebsite clientWebsiteData)
+
+        /// <summary>
+        /// Gets the main JS to load user defined HTML/CSS/JS in other calls.
+        /// The only varibles here id the clientID that relates currently to only 1 website.
+        /// </summary>
+        /// <param name="clientWebsiteData"></param>
+        public string GetMainJS(string clientID)
         {
-
-            //use clientWebsiteData.stuff....
-
-            var sb = new StringBuilder(1000);        
-            sb.AppendLine("!function(){function e(e){document.getElementById('slickSlider').innerHTML=e}function t(e){var t=document.createElement('style');t.type='text/css',t.innerHTML=e,document.getElementsByTagName('head')[0].appendChild(t)}function n(e){var t=document.createElement('script');t.innerHTML=e,document.getElementsByTagName('head')[0].appendChild(t)}function d(){c('http://localhost:51186/api/slider/image/6666ddfdd',o)}function o(e){a(e)}function i(e,t){var n=new XMLHttpRequest;n.onreadystatechange=function(){4===n.readyState&&t(n.response)},n.open('GET',e,!0),n.send()}function c(e,t){var n=new XMLHttpRequest;n.open('GET',e,!0),n.responseType='blob',n.onload=function(e){t(n.response)},n.send()}function a(e){var t=(window.URL||window.webkitURL).createObjectURL(e);document.querySelector('#slickImage').src=t}var s=document.createElement('div');s.setAttribute('id','slickSlider'),document.body.appendChild(s),i('http://localhost:51186/api/slider/html/6666ddfdd',e),i('http://localhost:51186/api/slider/css/6666ddfdd',t),i('http://localhost:51186/api/slider/js/6666ddfdd',n),setTimeout(function(){d()},500)}();");
-            return sb.ToString(); 
+            //This minified string comes from MainJS.js
+            string minJS = "(function(){var sliderDiv=document.createElement('div');sliderDiv.setAttribute('id','slickSlider');document.body.appendChild(sliderDiv);loadSlickHTML();loadSlickCSS();loadSlickJS();setTimeout(function(){loadSlickImage()},100);function loadSlickHTML(){var htmlURL='http://localhost:51186/api/slider/html/?';getSlickResource(htmlURL,handleHTMLCallback)}function handleHTMLCallback(data){document.getElementById('slickSlider').innerHTML=data}function loadSlickCSS(){var cssURL='http://localhost:51186/api/slider/css/?';getSlickResource(cssURL,handleCSSCallback)}function handleCSSCallback(data){var style=document.createElement('style');style.type='text/css';style.innerHTML=data;document.getElementsByTagName('head')[0].appendChild(style)}function loadSlickJS(){var jsURL='http://localhost:51186/api/slider/js/?';getSlickResource(jsURL,handleJSCallback)}function handleJSCallback(data){var script=document.createElement('script');script.innerHTML=data;document.getElementsByTagName('head')[0].appendChild(script)}function loadSlickImage(){var imageURL='http://localhost:51186/api/slider/image/?';getImageResource(imageURL,handleImageCallback)}function handleImageCallback(data){showSlickImageOnScreen(data)}function getSlickResource(resourceURL,callback){var xhr=new XMLHttpRequest();xhr.onreadystatechange=function(){if(xhr.readyState===4){callback(xhr.response);}else{}};xhr.open('GET',resourceURL,true);xhr.send()}function getImageResource(imageURL,callback){var oReq=new XMLHttpRequest();oReq.open('GET',imageURL,true);oReq.responseType='blob';oReq.onload=function(oEvent){callback(oReq.response)};oReq.send()}function showSlickImageOnScreen(blobData){var urlCreator=window.URL||window.webkitURL;var imageUrl=urlCreator.createObjectURL(blobData);document.querySelector('#slickImage').src=imageUrl}})();";
+            return minJS.Replace("?", clientID);            
         }
     }
 }
