@@ -44,8 +44,8 @@ var currentImage = false;
 function showCustomSliderImage() {
     var currentImage = document.getElementById("slickImage");
 
-    if (sliderApp.ClientsWebsite.SliderImagePath) {
-        var image = document.getElementById(sliderApp.ClientsWebsite.SliderImagePath);
+    if (sliderApp.ClientsWebsite.SliderImageName) {
+        var image = document.getElementById(sliderApp.ClientsWebsite.SliderImageName);
         currentImage.src = image.src;
 
         $(image).addClass('animated bounceIn');  //Animation only fires 1 time for each image...
