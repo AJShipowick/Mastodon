@@ -27,7 +27,7 @@ namespace Mastodon.Slider.Models
         public string CustomSiteScript { get; set; }
         public string WebsiteName { get; set; }
         public string FormName { get; set; }
-        public string SliderImagePath { get; set; }
+        public string SliderImageName { get; set; }
         public string MessageHeader { get; set; }
         public string CallToActionMessage { get; set; }
     }

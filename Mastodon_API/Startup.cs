@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Mastodon_API.Data;
+using Mastodon_API.Responses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Mastodon_API
 {
@@ -23,6 +20,17 @@ namespace Mastodon_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // Add framework services.
+            services.AddDbContext<APIDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddLogging();
+            services.AddTransient<IMainJS, MainJS>();
+            services.AddTransient<ISliderHTML, SliderHTML>();
+            services.AddTransient<ISliderCSS, SliderCSS>();
+            services.AddTransient<ISliderJS, SliderJS>();
+
             services.AddMvc();
         }
 

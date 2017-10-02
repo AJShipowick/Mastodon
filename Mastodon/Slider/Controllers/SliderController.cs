@@ -16,10 +16,12 @@ namespace Mastodon.Slider.Controllers
     {
 
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _dbContext;
 
-        public SliderController(UserManager<ApplicationUser> userManager)
+        public SliderController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
         {
             _userManager = userManager;
+            _dbContext = dbContext;
         }
 
         public async Task<IActionResult> Index()
@@ -39,9 +41,9 @@ namespace Mastodon.Slider.Controllers
             var user = await GetCurrentUserAsync();
 
             List<ClientsWebsite> clientWebsites = null;
-            using (var db = new ApplicationDbContext())
+            using (_dbContext)
             {
-                clientWebsites = db.ClientsWebsites
+                clientWebsites = _dbContext.ClientsWebsites
                     .Where(c => c.ClientID == user.Id).ToList();
             }
 
@@ -61,18 +63,18 @@ namespace Mastodon.Slider.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new ApplicationDbContext())
+                using (_dbContext)
                 {
-                    db.ClientsWebsites.Add(vm);
+                    _dbContext.ClientsWebsites.Add(vm);
 
-                    var matchingItems = from x in db.ClientsWebsites
+                    var matchingItems = from x in _dbContext.ClientsWebsites
                                         where x.ClientID == vm.ClientID
                                         select x;
                     if (matchingItems.Count() > 0)
                     {
-                        db.Update(vm);
+                        _dbContext.Update(vm);
                     }
-                    await db.SaveChangesAsync();
+                    await _dbContext.SaveChangesAsync();
                 }
             }
 
