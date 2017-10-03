@@ -1,1 +1,1 @@
-﻿delete from dbo.ClientsWebsites;
+﻿select * from dbo.ClientsWebsites;

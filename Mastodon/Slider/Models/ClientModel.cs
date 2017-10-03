@@ -26,9 +26,9 @@ namespace Mastodon.Slider.Models
         public string ClientID { get; set; }
         public string CustomSiteScript { get; set; }
         public string WebsiteName { get; set; }
+        public string ContactEmail { get; set; }
         public string FormName { get; set; }
-        public string SliderImageName { get; set; }
-        public string MessageHeader { get; set; }
         public string CallToActionMessage { get; set; }
+        public string SliderImageName { get; set; }        
     }
 }

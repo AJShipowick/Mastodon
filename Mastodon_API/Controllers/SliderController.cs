@@ -153,6 +153,8 @@ namespace Mastodon_API.Controllers
         {
             ClientsWebsite clientWebsites = null;
 
+            //todo validate form fields here...and in JS as well....
+
             try
             {
                 using (_apiDbContext)
@@ -160,6 +162,8 @@ namespace Mastodon_API.Controllers
                     clientWebsites = _apiDbContext.ClientsWebsites
                         .Where(c => c.ClientID == clientID).FirstOrDefault();
                 }
+
+                //send email async to owner of the slider and notify them of the contact....
 
                 return "SUCCESS";
             }

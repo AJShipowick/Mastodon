@@ -11,9 +11,10 @@ using System;
 namespace Mastodon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171003042121_Create6")]
+    partial class Create6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,8 +104,6 @@ namespace Mastodon.Migrations
                     b.Property<string>("CallToActionMessage");
 
                     b.Property<string>("ClientModelClientID");
-
-                    b.Property<string>("ContactEmail");
 
                     b.Property<string>("CustomSiteScript");
 

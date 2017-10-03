@@ -14,7 +14,10 @@ namespace Mastodon_API.Responses.HTML
         {
             //user clientWebsiteData.stuff....
             //build form SliderHTML.html
-            return "<img id='slickImage' onclick='slickSliderClicked()'/><div id='slickContactForm' class='slickFont'> <h2>Contact Form</h2> <p>This is my form.Please fill it out.It's awesome!</p><div class='slickInputBox'> <input required id='sliderName' type='text' placeholder='Name'> </div><div class='slickInputBox'> <input required id='sliderEmail' type='text' placeholder='Email'> </div><div> <textarea required id='sliderComment' class='userInputTextArea' placeholder='Message'></textarea> </div><p id='sliderResponseMessage'></p><div> <button class='button' onclick='submitSlider()'>Send Message</button> </div></div>";
+            string minHTML = "<img id='slickImage' onclick='slickSliderClicked()'/><div id='slickContactForm' class='slickFont'> <h2>?FormName?</h2> <p>?CallToActionMessage?</p><div class='slickInputBox'> <input required id='sliderName' type='text' placeholder='Name'> </div><div class='slickInputBox'> <input required id='sliderEmail' type='text' placeholder='Email'> </div><div> <textarea required id='sliderComment' class='userInputTextArea' placeholder='Message'></textarea> </div><p id='sliderResponseMessage'></p><div> <button class='button' onclick='submitSlider()'>Send Message</button> </div></div>";
+            minHTML = minHTML.Replace("?FormName?", clientWebsiteData.FormName);
+            minHTML = minHTML.Replace("?CallToActionMessage?", clientWebsiteData.CallToActionMessage);
+            return minHTML;
         }
     }
 }

@@ -1,18 +1,20 @@
-﻿<h3 v-if="ClientsWebsite.SliderImageName" class="animated hinge" id="slickImageMessage">Your Slider -></h3>
-
-<div id="slickSlider">
+﻿<div id="sliderContainer">
     <img id="slickImage" onclick="slickSliderClicked()" />
-    <div id="slickContactForm" class="slickFont Fixed">
+    <div id='slickContactForm' class='slickFont'>
         <h2>{{ClientsWebsite.FormName}}</h2>
-        <p>{{ClientsWebsite.MessageHeader}}</p>
-        <div class="slickInputBox">
-            <input type="text" placeholder="Your Name">
+        <p>{{ClientsWebsite.CallToActionMessage}}</p>
+        <div class='slickInputBox'>
+            <input required id='sliderName' type='text' placeholder='Name'>
         </div>
-        <div class="slickInputBox">
-            <input type="text" placeholder="Your Email">
+        <div class='slickInputBox'>
+            <input required id='sliderEmail' type='text' placeholder='Email'>
         </div>
-        <h4>{{ClientsWebsite.CallToActionMessage}}</h4>
-        <textarea id="sliderUserMessage" class="userInputTextArea"></textarea>
-        <button class="button button1">Send Message</button>
+        <div>
+            <textarea required id='sliderComment' class='userInputTextArea' placeholder='Message'></textarea>
+        </div>
+        <p id='sliderResponseMessage'></p>
+        <div>
+            <button class='button' onclick='submitSlider()'>Send Message</button>
+        </div>
     </div>
 </div>

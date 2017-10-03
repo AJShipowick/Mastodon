@@ -88,6 +88,8 @@ function submitSlider() {
     let email = document.getElementById('sliderEmail').value;
     let comment = document.getElementById('sliderComment').value;
 
+    //todo perform some validation on these inputs......
+
     if (!name || !email || !comment) {
         let responseMsg = document.getElementById('sliderResponseMessage');
         responseMsg.innerHTML = 'Please fill out all form fields.';
@@ -121,7 +123,10 @@ function handleSubmitCallback(data) {
         responseMsg.innerHTML = 'You message has been sent!'
         responseMsg.style.color = 'green';
     } else {
-        responseMsg.innerHTML = 'Please fill out all form fields.'
+
+        //todo show msg response from server....success/failure and some general reasons why??
+
+        responseMsg.innerHTML = '???????????????'
         responseMsg.style.color = 'red';
     }
 }
