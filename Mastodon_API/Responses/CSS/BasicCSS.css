@@ -19,7 +19,7 @@
 
 #slickContactForm {
     position: relative;
-    max-width: 250px;
+    width: 250px;
     border: 1px solid #d8d8d8;
     padding: 10px 20px;
     /*border-radius: 5px;  ...for rounded edges...*/ /*todo Adjust this for user*/
@@ -30,22 +30,31 @@
 }
 
 .slickInputBox input[type='text'] {
-    padding: 5px;
-    border-bottom: solid 2px #c9c9c9;
-    transition: border 0.5s;
-    width: 95%
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    width: 95%;
+    margin-bottom: 5px;
 }
 
-    .slickInputBox input[type='text']:focus,
     .slickInputBox input[type='text'].focus {
-        border-bottom: solid 2px #c9c9c9;
+        border: solid 1px #707070;
+        box-shadow: 0 0 5px 1px #969696;
     }
 
 .userInputTextArea {
-    resize: none;
+    padding: 10px;
     height: 50px;
     width: 95%;
+    resize: none;
+    border: solid 1px #dcdcdc;
+    margin-bottom: 5px
 }
+
+    .userInputTextArea.focus {
+        border: solid 1px #707070;
+        box-shadow: 0 0 5px 1px #969696;
+    }
 
 .button {
     background-color: #4CAF50; /* Green */
@@ -53,4 +62,5 @@
     color: white;
     padding: 5% 5%;
     font-size: 100%;
+    cursor: pointer;
 }

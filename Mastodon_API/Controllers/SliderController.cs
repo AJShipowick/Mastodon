@@ -146,5 +146,30 @@ namespace Mastodon_API.Controllers
                 return "Error getting slider JS.";
             }
         }
+
+        [HttpGet]
+        [Route("submit/{clientID}/{name}/{email}/{comment}")]
+        public string SubmitForm(string clientID, string name, string email, string comment)
+        {
+            ClientsWebsite clientWebsites = null;
+
+            try
+            {
+                using (_apiDbContext)
+                {
+                    clientWebsites = _apiDbContext.ClientsWebsites
+                        .Where(c => c.ClientID == clientID).FirstOrDefault();
+                }
+
+                return "SUCCESS";
+            }
+            catch (Exception ex)
+            {
+                //todo log exception
+                return "ERROR";
+            }
+
+        }
+
     }
 }
