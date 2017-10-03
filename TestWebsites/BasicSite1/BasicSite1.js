@@ -16,6 +16,6 @@
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/slider/6056e4a8-32a8-4042-b750-50c609edf140", true);
+    request.open("GET", "http://localhost:51186/api/slider/0c5c6b15-819a-4a29-b76c-bfbf26e5cda4", true);
     request.send(null);
 })();

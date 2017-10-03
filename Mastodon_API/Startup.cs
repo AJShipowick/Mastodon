@@ -1,5 +1,8 @@
 ﻿using Mastodon_API.Data;
 using Mastodon_API.Responses;
+using Mastodon_API.Responses.CSS;
+using Mastodon_API.Responses.HTML;
+using Mastodon_API.Responses.JS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +30,9 @@ namespace Mastodon_API
 
             services.AddLogging();
             services.AddTransient<IMainJS, MainJS>();
-            services.AddTransient<ISliderHTML, SliderHTML>();
-            services.AddTransient<ISliderCSS, SliderCSS>();
-            services.AddTransient<ISliderJS, SliderJS>();
+            services.AddTransient<IBasicHTML, BasicHTML>();
+            services.AddTransient<IBasicCSS, BasicCSS>();
+            services.AddTransient<IBasicJS, BasicJS>();
 
             services.AddMvc();
         }

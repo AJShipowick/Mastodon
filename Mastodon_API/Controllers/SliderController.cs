@@ -1,6 +1,9 @@
 ﻿using Mastodon.Slider.Models;
 using Mastodon_API.Data;
 using Mastodon_API.Responses;
+using Mastodon_API.Responses.CSS;
+using Mastodon_API.Responses.HTML;
+using Mastodon_API.Responses.JS;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -13,11 +16,11 @@ namespace Mastodon_API.Controllers
 
         APIDbContext _apiDbContext;
         IMainJS _mainJS;
-        ISliderHTML _sliderHTML;
-        ISliderCSS _sliderCSS;
-        ISliderJS _sliderJS;
+        IBasicHTML _sliderHTML;
+        IBasicCSS _sliderCSS;
+        IBasicJS _sliderJS;
 
-        public SliderController(APIDbContext apiDbContext, IMainJS mainJS, ISliderHTML sliderHTML, ISliderCSS sliderCSS, ISliderJS sliderJS)
+        public SliderController(APIDbContext apiDbContext, IMainJS mainJS, IBasicHTML sliderHTML, IBasicCSS sliderCSS, IBasicJS sliderJS)
         {
             _apiDbContext = apiDbContext;
             _mainJS = mainJS;

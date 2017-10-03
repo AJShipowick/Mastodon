@@ -1,14 +1,14 @@
 ﻿//***********************************************************************************************
 //***********************************************************************************************
 //Use this file to generate a minified version to be used in MainJS.cs class
-//Using single 'x' instead of "x" to help with the string minification process
+//Using single quotes instead of double quotes to help with the string minification process
 //***********************************************************************************************
 //***********************************************************************************************
 
 (function () {
     //create parent element
     var sliderDiv = document.createElement('div');
-    sliderDiv.setAttribute('id', 'slickSlider');
+    sliderDiv.setAttribute('id', 'sliderContainer');
     document.body.appendChild(sliderDiv);
 
     loadSlickHTML();
@@ -20,7 +20,7 @@
     setTimeout(
         function () {
             loadSlickImage();
-        }, 100);
+        }, 250);
 
 
     function loadSlickHTML() {
@@ -29,7 +29,7 @@
     }
 
     function handleHTMLCallback(data) {
-        document.getElementById('slickSlider').innerHTML = data;
+        document.getElementById('sliderContainer').innerHTML = data;
     }
 
     function loadSlickCSS() {
