@@ -9,20 +9,22 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <!--Font Awesome-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+              asp-fallback-href="~/lib/fontAwesome/font-awesome.min.css" />
         <!--Vue library here so on RenderBody() there is not a Vue null reference.
              Reference here instead of in footer because of null reference of Vue in a View-->
         <script src="https://unpkg.com/vue@2.4.4/dist/vue.min.js" asp-append-version="true"
                 asp-fallback-src="~/lib/vue/vue/min.js">
         </script>
     </environment>
-
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
 
     <!--Stylesheet for object animations (https://github.com/daneden/animate.css)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -40,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Mastodon</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/slider2.svg" width="50" height="50" /> </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

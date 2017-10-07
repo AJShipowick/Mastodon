@@ -27,6 +27,10 @@ namespace Mastodon.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
+                    b.Property<string>("ClientNotes");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -57,6 +61,8 @@ namespace Mastodon.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("SubscriptionPlan");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -75,50 +81,94 @@ namespace Mastodon.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.ClientModel", b =>
+            modelBuilder.Entity("Mastodon.Slider.Models.AccountActivity", b =>
                 {
-                    b.Property<string>("ClientID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClientNotes");
+                    b.Property<string>("ApplicationUserId");
 
-                    b.Property<int>("ClientSubscription");
+                    b.Property<bool>("MonthlyPlanPayment");
 
-                    b.Property<string>("PrimaryContact");
+                    b.Property<decimal>("PaymentAmount");
 
-                    b.Property<string>("PrimaryEmail");
+                    b.Property<DateTime>("PaymentDate");
 
-                    b.Property<string>("PrimaryPhoneNumber");
+                    b.Property<string>("PaymentNotes");
 
-                    b.HasKey("ClientID");
+                    b.Property<bool>("SpecialPurchase");
 
-                    b.ToTable("ClientModel");
+                    b.Property<string>("SpecialPurchaseItem");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("AccountActivity");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.ClientsWebsite", b =>
+            modelBuilder.Entity("Mastodon.Slider.Models.Promotion", b =>
                 {
-                    b.Property<string>("ClientID")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CallToActionMessage");
+                    b.Property<bool>("ActivePromotion");
 
-                    b.Property<string>("ClientModelClientID");
+                    b.Property<string>("ApplicationUserId");
 
-                    b.Property<string>("ContactEmail");
+                    b.Property<DateTime>("EndDate");
 
-                    b.Property<string>("CustomSiteScript");
+                    b.Property<string>("ImageName");
 
-                    b.Property<string>("FormName");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("SliderImageName");
+                    b.Property<int>("PromotionDetails");
 
-                    b.Property<string>("WebsiteName");
+                    b.Property<int?>("PromotionStatsId");
 
-                    b.HasKey("ClientID");
+                    b.Property<DateTime>("StartDate");
 
-                    b.HasIndex("ClientModelClientID");
+                    b.HasKey("Id");
 
-                    b.ToTable("ClientsWebsites");
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("PromotionStatsId");
+
+                    b.ToTable("Promotion");
+                });
+
+            modelBuilder.Entity("Mastodon.Slider.Models.PromotionEntries", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("EmailAddress");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("PromotionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PromotionId");
+
+                    b.ToTable("PromotionEntries");
+                });
+
+            modelBuilder.Entity("Mastodon.Slider.Models.PromotionStats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("TimesClaimed");
+
+                    b.Property<int>("TimesViewed");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PromotionStats");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -229,11 +279,29 @@ namespace Mastodon.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.ClientsWebsite", b =>
+            modelBuilder.Entity("Mastodon.Slider.Models.AccountActivity", b =>
                 {
-                    b.HasOne("Mastodon.Slider.Models.ClientModel")
-                        .WithMany("ClientSettings")
-                        .HasForeignKey("ClientModelClientID");
+                    b.HasOne("Mastodon.Models.ApplicationUser")
+                        .WithMany("AccountActivity")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Mastodon.Slider.Models.Promotion", b =>
+                {
+                    b.HasOne("Mastodon.Models.ApplicationUser")
+                        .WithMany("Promotions")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Mastodon.Slider.Models.PromotionStats", "PromotionStats")
+                        .WithMany()
+                        .HasForeignKey("PromotionStatsId");
+                });
+
+            modelBuilder.Entity("Mastodon.Slider.Models.PromotionEntries", b =>
+                {
+                    b.HasOne("Mastodon.Slider.Models.Promotion")
+                        .WithMany("PromotionEntries")
+                        .HasForeignKey("PromotionId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

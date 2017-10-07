@@ -8,6 +8,8 @@ using Mastodon.Slider.Models;
 using Mastodon.Data;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Mastodon.Slider.Models.DBModels;
+using static Mastodon.Slider.Models.Builder;
 
 namespace Mastodon.Slider.Controllers
 {
@@ -17,11 +19,13 @@ namespace Mastodon.Slider.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IBuilder _dashboardBuilder;
 
-        public SliderController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
+        public SliderController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, IBuilder dashboardBuilder)
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            _dashboardBuilder = dashboardBuilder;
         }
 
         public async Task<IActionResult> Index()
@@ -38,45 +42,39 @@ namespace Mastodon.Slider.Controllers
         [HttpGet]
         public async Task<string> GetUserSettings()
         {
-            var user = await GetCurrentUserAsync();
+            var user = await GetCurrentUserAsync();            
 
-            List<ClientsWebsite> clientWebsites = null;
+            List<Promotion> promotions = null;
             using (_dbContext)
             {
-                clientWebsites = _dbContext.ClientsWebsites
-                    .Where(c => c.ClientID == user.Id).ToList();
+                promotions = _dbContext.Promotion
+                    .Where(c => c.Id == user.Id).ToList();
             }
 
-            if (clientWebsites.Count() > 0)
-            {
-                clientWebsites[0].CustomSiteScript = "scriptURLTEST.com";
-                return JsonConvert.SerializeObject(clientWebsites[0]);
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(new ClientsWebsite { ClientID = user.Id });
-            }
+            Dashboard dashboardModel = _dashboardBuilder.CreateDashboardModel();
+
+            return JsonConvert.SerializeObject(dashboardModel);
         }
 
         [HttpPost]
-        public async Task<string> SaveCustomSettings([FromBody]ClientsWebsite vm)
+        public async Task<string> SaveCustomSettings([FromBody]Promotion vm)
         {
-            if (ModelState.IsValid)
-            {
-                using (_dbContext)
-                {
-                    _dbContext.ClientsWebsites.Add(vm);
+            //if (ModelState.IsValid)
+            //{
+            //    using (_dbContext)
+            //    {
+            //        _dbContext.ClientsWebsites.Add(vm);
 
-                    var matchingItems = from x in _dbContext.ClientsWebsites
-                                        where x.ClientID == vm.ClientID
-                                        select x;
-                    if (matchingItems.Count() > 0)
-                    {
-                        _dbContext.Update(vm);
-                    }
-                    await _dbContext.SaveChangesAsync();
-                }
-            }
+            //        var matchingItems = from x in _dbContext.ClientsWebsites
+            //                            where x.ClientID == vm.ClientID
+            //                            select x;
+            //        if (matchingItems.Count() > 0)
+            //        {
+            //            _dbContext.Update(vm);
+            //        }
+            //        await _dbContext.SaveChangesAsync();
+            //    }
+            //}
 
             return "Success";
         }

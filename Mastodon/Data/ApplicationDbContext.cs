@@ -1,5 +1,5 @@
 ﻿using Mastodon.Models;
-using Mastodon.Slider.Models;
+using Mastodon.Slider.Models.DBModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,8 +26,10 @@ namespace Mastodon.Data
         //Add-Migration CreateXX -Context MyContext
         //Update-Database -Context MyContext
 
-        public DbSet<ClientModel> ClientModel { get; set; }
-        public DbSet<ClientsWebsite> ClientsWebsites { get; set; }
+        public DbSet<Promotion> Promotion { get; set; }
+        public DbSet<PromotionStats> PromotionStats { get; set; }
+        public DbSet<PromotionEntries> PromotionEntries { get; set; }
+        public DbSet<AccountActivity> AccountActivity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,23 +1,142 @@
 @{
-    ViewData["Title"] = "Build your website slider";
+    ViewData["Title"] = "Website Promo Dashboard";
 }
 
 <!--Vue container-->
 <div id="sliderApp">
 
     <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
-    @{ Html.RenderPartial("UserSlider.cshtml"); }
+    @*@{ Html.RenderPartial("UserSlider.cshtml"); }*@
 
     <div class="row">
-        <div class="col-md-2">
-            <img src="~/images/slider2.svg" width="100" height="100" />
+        <h3>Current Subscription: {{Dashboard.CurrentSubscription}}</h3>
+    </div>
+
+    <div class="row">
+        <a class="btn btn-lg btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Active Promotion:</h3>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{Dashboard.ActivePromo}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Start Date: {{Dashboard.ActivePromoClaimedEntries}}</p>
+                            <p>Start Date: {{Dashboard.ActivePromoStartDate}}</p>
+                            <p>End Date: {{Dashboard.ActivePromoEndDate}}</p>
+                        </div>
+                    </div>
+                    <a class="btn btn-lg btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3> <i class="fa fa-code" aria-hidden="true"></i> Active Promo Script </h3>
+                    {{Dashboard.ActivePromoScript}}
+                </div>
+            </div>
         </div>
-        <div class="col-md-10">
-            <h1 class="col-md-10">Create your website contact slider below</h1>
+        <div class="col-sm-6">
+            <h3><i class="fa fa-line-chart" aria-hidden="true"></i> Promo Stats</h3>
+            <div class="well">
+                1
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                1
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                1
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                1
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+
+            </div>
         </div>
     </div>
-    <br />
 
+    <div class="row">
+        <div class="col-sm-6">
+            <h3><i class="fa fa-star-half-full" aria-hidden="true"></i> Inactive Promotions:</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title1</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title2</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title3</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title4</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title3</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title4</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
     <div v-if="axajLoading" style="text-align:center; color:red">
         <div class="animated infinite pulse">
             <h3>Loading...</h3>
@@ -31,7 +150,7 @@
                 <p>Custom Site Script: </p>
             </div>
             <div class="col-md-6">
-                @*<text type="text" class="form-control" {{ClientsWebsite.CustomSiteScript}} />*@
+                <text type="text" class="form-control" {{ClientsWebsite.CustomSiteScript}} />
                 <p>THISSSSS ISSSSS YOURRRRR SCRIPTTTTT!!!!! </p>
             </div>
         </div>
@@ -107,31 +226,32 @@
         </div>
         <br />
 
-        <div class="row">
-            <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings()">Save</button> <!--type="submit"-->
-            <p style="display:none; color:green" id="saveSuccessMsg" class="col-md-3">Save Successful</p>
-        </div>
+    <div class="row">
+        <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings()">Save</button>
+        <p style="display:none; color:green" id="saveSuccessMsg" class="col-md-3">Save Successful</p>
     </div>
+        </div>
+        -->
 </div>
 
-<div id="submitModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Hello there</h2>
-            </div>
-            <div class="modal-body">
-                <p>This is just a sample of what your custom slider will look like on your website.</p>
-                <p>On your live site, the submit button will submit the user's message to the email address you sepcify.  You will then be notifyed of that message.</p>  
-                <p>Have a swell day.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+@*<div id="submitModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Hello there</h2>
+                </div>
+                <div class="modal-body">
+                    <p>This is just a sample of what your custom slider will look like on your website.</p>
+                    <p>On your live site, the submit button will submit the user's message to the email address you sepcify.  You will then be notifyed of that message.</p>
+                    <p>Have a swell day.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
 
 <link rel="stylesheet" href="~/css/slider.css" />
 <script src="~/js/Slider/clientSlider.js"></script>

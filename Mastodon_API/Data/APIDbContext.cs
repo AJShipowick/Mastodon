@@ -1,4 +1,5 @@
 ﻿using Mastodon.Slider.Models;
+using Mastodon.Slider.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mastodon_API.Data
@@ -16,8 +17,7 @@ namespace Mastodon_API.Data
             optionsBuilder.UseSqlServer(connectionString);
         }
 
-        public DbSet<ClientModel> ClientModel { get; set; }
-        public DbSet<ClientsWebsite> ClientsWebsites { get; set; }
+        public DbSet<Promotion> PromotionModel { get; set; }
 
     }
 }

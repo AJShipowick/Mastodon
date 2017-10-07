@@ -1,7 +1,7 @@
 var sliderApp = new Vue({
     el: '#sliderApp',
     data: {
-        ClientsWebsite: [],
+        Dashboard: [],
         axajLoading: true,
         picked: []
     },
@@ -13,9 +13,9 @@ var sliderApp = new Vue({
 function getUserSettings() {
     axios.get('/Slider/Slider/GetUserSettings')
         .then(function (response) {
-            sliderApp.ClientsWebsite = response.data;
+            sliderApp.Dashboard = response.data;
             $("#vueData").show();
-            showCustomSliderImage();
+            //showCustomSliderImage();
             sliderApp.axajLoading = false;
         })
         .catch(function (error) {

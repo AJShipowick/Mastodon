@@ -60,6 +60,7 @@ namespace Mastodon
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<Slider.Models.IBuilder, Slider.Models.Builder>();
 
             // Define custom routing areas
             services.Configure<RazorViewEngineOptions>(options =>

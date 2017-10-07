@@ -1,16 +1,16 @@
-﻿using Mastodon.Slider.Models;
+﻿using Mastodon.Slider.Models.DBModels;
 
 namespace Mastodon_API.Responses.JS
 {
 
     public interface IBasicJS
     {
-        string GetSliderJS(ClientsWebsite clientWebsiteData);
+        string GetSliderJS(Promotion clientWebsiteData);
     }
 
     public class BasicJS : IBasicJS
     {
-        public string GetSliderJS(ClientsWebsite clientWebsiteData)
+        public string GetSliderJS(Promotion clientWebsiteData)
         {
             //user clientWebsiteData.stuff....
             //build form SliderJS.js

@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Slider\Filters\" />
     <Folder Include="wwwroot\images\Slider\" />
+    <Folder Include="wwwroot\lib\fontAwesome\" />
     <Folder Include="wwwroot\lib\vue\" />
   </ItemGroup>
 

@@ -1,16 +1,16 @@
-﻿using Mastodon.Slider.Models;
+﻿using Mastodon.Slider.Models.DBModels;
 
 namespace Mastodon_API.Responses.CSS
 {
 
     public interface IBasicCSS
     {
-        string GetSliderCSS(ClientsWebsite clientWebsiteData);
+        string GetSliderCSS(Promotion clientWebsiteData);
     }
 
     public class BasicCSS : IBasicCSS
     {
-        public string GetSliderCSS(ClientsWebsite clientWebsiteData)
+        public string GetSliderCSS(Promotion clientWebsiteData)
         {
 
             //todo implement custom user settings for CSS here...color, fonts....stuff.
