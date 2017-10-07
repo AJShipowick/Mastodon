@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mastodon.Slider.Models.DBModels
+namespace Mastodon.Promo.Models.DBModels
 {
     public class PromotionEntries
     {

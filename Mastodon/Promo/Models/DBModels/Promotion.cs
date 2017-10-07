@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mastodon.Slider.Models.DBModels
+namespace Mastodon.Promo.Models.DBModels
 {
     [Serializable]
     public class Promotion
@@ -15,7 +15,7 @@ namespace Mastodon.Slider.Models.DBModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool ActivePromotion { get; set; }
-        public int PromotionDetails { get; set; }
+        public string PromotionDetails { get; set; }
         public string ImageName { get; set; }
     }
 }

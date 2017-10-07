@@ -1,5 +1,5 @@
 ﻿using Mastodon.Models;
-using Mastodon.Slider.Models.DBModels;
+using Mastodon.Promo.Models.DBModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

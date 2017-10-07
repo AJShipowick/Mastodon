@@ -1,4 +1,4 @@
-﻿using Mastodon.Slider.Models.DBModels;
+﻿using Mastodon.Promo.Models.DBModels;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
@@ -13,6 +13,16 @@ namespace Mastodon.Models
         public string LastName { get; set; }
         public string Address { get; set; }
         public string SubscriptionPlan { get; set; }
+        public string UserPromoScript { get; set; }
         public string ClientNotes { get; set; }
     }
+
+    public class SubscriptionOptions
+    {
+        public const string FreeAccount = "Free Account";
+        public const string Bronze = "Bronze";
+        public const string Silver = "Silver";
+        public const string Gold = "Gold";
+    }
+
 }

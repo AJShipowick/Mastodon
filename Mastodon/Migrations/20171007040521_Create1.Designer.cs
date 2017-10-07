@@ -11,7 +11,7 @@ using System;
 namespace Mastodon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171005043532_Create1")]
+    [Migration("20171007040521_Create1")]
     partial class Create1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,8 @@ namespace Mastodon.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("UserPromoScript");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -82,9 +84,9 @@ namespace Mastodon.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.AccountActivity", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.AccountActivity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ApplicationUserId");
@@ -108,7 +110,7 @@ namespace Mastodon.Migrations
                     b.ToTable("AccountActivity");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.Promotion", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.Promotion", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -123,9 +125,9 @@ namespace Mastodon.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("PromotionDetails");
+                    b.Property<string>("PromotionDetails");
 
-                    b.Property<int?>("PromotionStatsId");
+                    b.Property<string>("PromotionStatsId");
 
                     b.Property<DateTime>("StartDate");
 
@@ -138,7 +140,7 @@ namespace Mastodon.Migrations
                     b.ToTable("Promotion");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.PromotionEntries", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.PromotionEntries", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -158,9 +160,9 @@ namespace Mastodon.Migrations
                     b.ToTable("PromotionEntries");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.PromotionStats", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.PromotionStats", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("TimesClaimed");
@@ -280,27 +282,27 @@ namespace Mastodon.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.AccountActivity", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.AccountActivity", b =>
                 {
                     b.HasOne("Mastodon.Models.ApplicationUser")
                         .WithMany("AccountActivity")
                         .HasForeignKey("ApplicationUserId");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.Promotion", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.Promotion", b =>
                 {
                     b.HasOne("Mastodon.Models.ApplicationUser")
                         .WithMany("Promotions")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("Mastodon.Slider.Models.PromotionStats", "PromotionStats")
+                    b.HasOne("Mastodon.Promo.Models.DBModels.PromotionStats", "PromotionStats")
                         .WithMany()
                         .HasForeignKey("PromotionStatsId");
                 });
 
-            modelBuilder.Entity("Mastodon.Slider.Models.PromotionEntries", b =>
+            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.PromotionEntries", b =>
                 {
-                    b.HasOne("Mastodon.Slider.Models.Promotion")
+                    b.HasOne("Mastodon.Promo.Models.DBModels.Promotion")
                         .WithMany("PromotionEntries")
                         .HasForeignKey("PromotionId");
                 });

@@ -9,77 +9,92 @@
     @*@{ Html.RenderPartial("UserSlider.cshtml"); }*@
 
     <div class="row">
-        <h3>Current Subscription: {{Dashboard.CurrentSubscription}}</h3>
+        <a asp-controller="Promo" asp-action="Index">
+            <h3 v-cloak><i class="fa fa-question-circle-o" aria-hidden="true"></i> Current Subscription: {{Dashboard.CurrentSubscription}}</h3>
+            <br />
+        </a>
     </div>
 
     <div class="row">
         <a class="btn btn-lg btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
+        <br />
+    </div>
+
+    <div class="col-sm-6" style="left:50%" id="ajaxLoading">
+        <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+        <!--todo, add help doc or video on how/why to create promotions when there is not one active yet.....-->
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3>Active Promotion:</h3>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{Dashboard.ActivePromo}}</h3>
+        <div v-cloak v-if="Dashboard.ActivePromo === null">
+            <h3><i class="fa fa-warning" aria-hidden="true"></i> No active promotion currently</h3>
+        </div>
+        <div hidden id="activePromoData">
+            <div v-if="Dashboard.ActivePromo !== null" class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>Active Promotion:</h3>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{Dashboard.ActivePromo}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</p>
+                                <p>Start Date: {{Dashboard.ActivePromoStartDate}}</p>
+                                <p>End Date: {{Dashboard.ActivePromoEndDate}}</p>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <p>Start Date: {{Dashboard.ActivePromoClaimedEntries}}</p>
-                            <p>Start Date: {{Dashboard.ActivePromoStartDate}}</p>
-                            <p>End Date: {{Dashboard.ActivePromoEndDate}}</p>
-                        </div>
+                        <a class="btn btn-lg btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
                     </div>
-                    <a class="btn btn-lg btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3> <i class="fa fa-code" aria-hidden="true"></i> Active Promo Script </h3>
+                        {{Dashboard.ActivePromoScript}}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3> <i class="fa fa-code" aria-hidden="true"></i> Active Promo Script </h3>
-                    {{Dashboard.ActivePromoScript}}
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <h3><i class="fa fa-line-chart" aria-hidden="true"></i> Promo Stats</h3>
-            <div class="well">
-                1
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                1
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                1
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                1
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+            <div v-if="Dashboard.ActivePromo !== null" class="col-sm-6">
+                <h3><i class="fa fa-line-chart" aria-hidden="true"></i> Promo Stats</h3>
+                <div class="well">
+                    1
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    1
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    1
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    1
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
 
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <h3><i class="fa fa-star-half-full" aria-hidden="true"></i> Inactive Promotions:</h3>
-        </div>
-    </div>
+    <div hidden id="pasPromoData" v-if="Dashboard.ActivePromo !== null" class="row">
 
-    <div class="row">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3><i class="fa fa-star-half-full" aria-hidden="true"></i> Inactive Promotions:</h3>
+            </div>
+        </div>
+
         <div class="col-sm-4">
             <div class="panel panel-warning">
                 <div class="panel-heading">

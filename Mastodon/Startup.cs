@@ -60,14 +60,14 @@ namespace Mastodon
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<Slider.Models.IBuilder, Slider.Models.Builder>();
+            services.AddTransient<Promo.Models.IBuilder, Promo.Models.Builder>();
 
             // Define custom routing areas
             services.Configure<RazorViewEngineOptions>(options =>
             {
                 options.AreaViewLocationFormats.Clear();
                 options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
-                options.AreaViewLocationFormats.Add("/Slider/Views/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/Promo/Views/{0}.cshtml");
             });
         }
 
@@ -95,7 +95,7 @@ namespace Mastodon
             app.UseMvc(routes =>
         {
             routes.MapRoute(name: "areaRoute",
-                template: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
+                template: "{area:exists}/{controller=Promo}/{action=Index}/{id?}");
 
             routes.MapRoute(
                 name: "default",

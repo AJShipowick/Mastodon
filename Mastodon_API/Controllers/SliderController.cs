@@ -1,4 +1,4 @@
-﻿using Mastodon.Slider.Models;
+﻿using Mastodon.Promo.Models;
 using Mastodon_API.Data;
 using Mastodon_API.Responses;
 using Mastodon_API.Responses.CSS;

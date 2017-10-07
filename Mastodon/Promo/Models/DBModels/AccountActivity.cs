@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mastodon.Slider.Models.DBModels
+namespace Mastodon.Promo.Models.DBModels
 {
     public class AccountActivity
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public DateTime PaymentDate { get; set; }
         public decimal PaymentAmount { get; set; }
         public bool MonthlyPlanPayment { get; set; }

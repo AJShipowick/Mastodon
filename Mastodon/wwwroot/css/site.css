@@ -7,6 +7,10 @@
 /*Color for Lime Green: 1FD301 
 */
 
+[v-cloak] {
+    display: none;
+}
+
 #sliderImage {
     background-image: url('../images/slider2.svg');
     height: 300px;

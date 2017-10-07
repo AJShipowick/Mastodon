@@ -46,7 +46,8 @@ namespace Mastodon.Migrations
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubscriptionPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UserPromoScript = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,8 +58,7 @@ namespace Mastodon.Migrations
                 name: "PromotionStats",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TimesClaimed = table.Column<int>(type: "int", nullable: false),
                     TimesViewed = table.Column<int>(type: "int", nullable: false)
                 },
@@ -92,8 +92,7 @@ namespace Mastodon.Migrations
                 name: "AccountActivity",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     MonthlyPlanPayment = table.Column<bool>(type: "bit", nullable: false),
                     PaymentAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
@@ -208,8 +207,8 @@ namespace Mastodon.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PromotionDetails = table.Column<int>(type: "int", nullable: false),
-                    PromotionStatsId = table.Column<int>(type: "int", nullable: true),
+                    PromotionDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PromotionStatsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

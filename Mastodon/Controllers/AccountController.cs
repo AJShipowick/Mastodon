@@ -116,7 +116,9 @@ namespace Mastodon.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    SubscriptionPlan = SubscriptionOptions.FreeAccount,
+                    UserPromoScript = "<script> todo, set custom script here </script>"
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

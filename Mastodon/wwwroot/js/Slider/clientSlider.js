@@ -1,9 +1,7 @@
 var sliderApp = new Vue({
     el: '#sliderApp',
     data: {
-        Dashboard: [],
-        axajLoading: true,
-        picked: []
+        Dashboard: []
     },
     created: function () {
         getUserSettings()
@@ -11,12 +9,12 @@ var sliderApp = new Vue({
 })
 
 function getUserSettings() {
-    axios.get('/Slider/Slider/GetUserSettings')
+    axios.get('/Promo/Promo/GetUserSettings')
         .then(function (response) {
             sliderApp.Dashboard = response.data;
-            $("#vueData").show();
-            //showCustomSliderImage();
-            sliderApp.axajLoading = false;
+            $("#activePromoData").show();
+            $("#pastPromoData").show();
+            $('#ajaxLoading').hide();
         })
         .catch(function (error) {
             //todo Handle errors

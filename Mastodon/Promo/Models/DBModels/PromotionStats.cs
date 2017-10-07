@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mastodon.Slider.Models.DBModels
+namespace Mastodon.Promo.Models.DBModels
 {
     [Serializable]
     public class PromotionStats
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public int TimesViewed { get; set; }
         public int TimesClaimed { get; set; }
     }

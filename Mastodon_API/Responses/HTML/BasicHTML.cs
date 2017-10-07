@@ -1,4 +1,4 @@
-﻿using Mastodon.Slider.Models.DBModels;
+﻿using Mastodon.Promo.Models.DBModels;
 
 namespace Mastodon_API.Responses.HTML
 {

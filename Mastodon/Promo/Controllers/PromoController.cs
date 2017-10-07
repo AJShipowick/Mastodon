@@ -1,27 +1,26 @@
+using Mastodon.Data;
+using Mastodon.Models;
+using Mastodon.Promo.Models;
+using Mastodon.Promo.Models.DBModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Mastodon.Models;
-using Microsoft.AspNetCore.Identity;
-using Mastodon.Slider.Models;
-using Mastodon.Data;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Mastodon.Slider.Models.DBModels;
-using static Mastodon.Slider.Models.Builder;
 
-namespace Mastodon.Slider.Controllers
+namespace Mastodon.Promo.Controllers
 {
-    [Area("Slider")]
-    public class SliderController : Controller
+    [Area("Promo")]
+    public class PromoController : Controller
     {
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _dbContext;
         private readonly IBuilder _dashboardBuilder;
 
-        public SliderController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, IBuilder dashboardBuilder)
+        public PromoController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, IBuilder dashboardBuilder)
         {
             _userManager = userManager;
             _dbContext = dbContext;
@@ -42,16 +41,27 @@ namespace Mastodon.Slider.Controllers
         [HttpGet]
         public async Task<string> GetUserSettings()
         {
-            var user = await GetCurrentUserAsync();            
+            var user = await GetCurrentUserAsync();
 
-            List<Promotion> promotions = null;
+            List<Promotion> allUserPromotions = null;
+            List<PromotionStats> promotionStats = null;
+
             using (_dbContext)
             {
-                promotions = _dbContext.Promotion
-                    .Where(c => c.Id == user.Id).ToList();
+                if (_dbContext.Promotion.Count() > 0)
+                {
+                    allUserPromotions = _dbContext.Promotion
+                        .Where(c => c.Id == user.Id).ToList();
+                }
+
+                if (_dbContext.PromotionStats.Count() > 0)
+                {
+                    promotionStats = _dbContext.PromotionStats
+                        .Where(c => c.Id == user.Id).ToList();
+                }
             }
 
-            Dashboard dashboardModel = _dashboardBuilder.CreateDashboardModel();
+            Dashboard dashboardModel = _dashboardBuilder.CreateDashboardModel(user, allUserPromotions, promotionStats);
 
             return JsonConvert.SerializeObject(dashboardModel);
         }

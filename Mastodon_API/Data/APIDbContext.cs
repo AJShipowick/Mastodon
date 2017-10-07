@@ -1,5 +1,5 @@
-﻿using Mastodon.Slider.Models;
-using Mastodon.Slider.Models.DBModels;
+﻿using Mastodon.Promo.Models;
+using Mastodon.Promo.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mastodon_API.Data
