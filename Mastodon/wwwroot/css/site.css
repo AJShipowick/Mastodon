@@ -3,10 +3,6 @@
     background-color: #000000;
 }
 
-
-/*Color for Lime Green: 1FD301 
-*/
-
 [v-cloak] {
     display: none;
 }
@@ -37,6 +33,9 @@ label > input { /* HIDE RADIO */
         border: 3px solid #00FF55;
     }
 
+.helpText {
+    cursor: pointer;
+}
 
 /*Keep div centered in middle of screen:
 http://stackoverflow.com/questions/5012111/how-to-position-a-div-in-the-middle-of-the-screen-when-the-page-is-bigger-than-t

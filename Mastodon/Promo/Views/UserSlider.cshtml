@@ -1,20 +1,29 @@
-﻿<div id="sliderContainer">
+﻿<!--https://codepad.co/snippet/0UwSSypY-->
+
+<!--image in middle of coupon box.....-->
+<!--https://stackoverflow.com/questions/18516317/vertically-align-an-image-inside-a-div-with-responsive-height-->
+
+<div hidden id="sliderContainer">
     <img id="slickImage" onclick="slickSliderClicked()" />
     <div id='slickContactForm' class='slickFont'>
-        <h2>{{ClientsWebsite.FormName}}</h2>
-        <p>{{ClientsWebsite.CallToActionMessage}}</p>
+        <h2>{{Promotion.Title}}</h2>
+        <h3>{{Promotion.Discount}}</h3>
+        <p>ends: {{Promotion.EndDate}}</p>
+        <dl>
+            <dt>{{Promotion.Details1}}</dt>
+            <dt>{{Promotion.Details2}}</dt>
+            <dt>{{Promotion.Details3}}</dt>
+        </dl>
+        <p><small>{{Promotion.FinePrint}}</small></p>
         <div class='slickInputBox'>
             <input required id='sliderName' type='text' placeholder='Name'>
         </div>
         <div class='slickInputBox'>
             <input required id='sliderEmail' type='text' placeholder='Email'>
         </div>
-        <div>
-            <textarea required id='sliderComment' class='userInputTextArea' placeholder='Message'></textarea>
-        </div>
         <p id='sliderResponseMessage'></p>
-        <div>
-            <button class='button' onclick='submitSlider()'>Send Message</button>
+        <div style="text-align:center">
+            <button class='button' onclick='submitSlider()'>Claim Promotion</button>
         </div>
     </div>
 </div>

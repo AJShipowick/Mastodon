@@ -8,6 +8,7 @@ namespace Mastodon.Promo.Models.DBModels
     {
         [Key]
         public string Id { get; set; }
+        public virtual Promotion PromotionId { get; set; }
         public int TimesViewed { get; set; }
         public int TimesClaimed { get; set; }
     }

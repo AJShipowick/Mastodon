@@ -118,7 +118,8 @@ namespace Mastodon.Controllers
                     LastName = model.LastName,
                     PhoneNumber = model.PhoneNumber,
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
-                    UserPromoScript = "<script> todo, set custom script here </script>"
+                    UserPromoScript = "<script> todo, set custom script here </script>",
+                    NewUser = true
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

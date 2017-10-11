@@ -3,35 +3,47 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Mastodon</title>
+    <title>@ViewData["Title"] - PromoPal</title>
+
+    <!--jQuery-->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"
+            asp-append-version="true"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!--HTTP library for AJAX Request (https://github.com/mzabriskie/axios)-->
+    <script src="https://unpkg.com/axios@0.16.2/dist/axios.min.js" asp-append-version="true"></script>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+    <!--Font Awesome CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--Global site CSS-->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!--Stylesheet for object animations (https://github.com/daneden/animate.css)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!--Bootstrap DatePicker-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
 
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="~/lib/vue/vue.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <!--Font Awesome-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-              asp-fallback-href="~/lib/fontAwesome/font-awesome.min.css" />
         <!--Vue library here so on RenderBody() there is not a Vue null reference.
              Reference here instead of in footer because of null reference of Vue in a View-->
         <script src="https://unpkg.com/vue@2.4.4/dist/vue.min.js" asp-append-version="true"
                 asp-fallback-src="~/lib/vue/vue/min.js">
         </script>
     </environment>
-
-    <!--Stylesheet for object animations (https://github.com/daneden/animate.css)-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <!--HTTP library for AJAX Request (https://github.com/mzabriskie/axios)-->
-    <script src="https://unpkg.com/axios@0.16.2/dist/axios.min.js" asp-append-version="true"></script>
-
 </head>
+
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -46,6 +58,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a></li>
+                    <li><a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">Create Promotion</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
@@ -54,33 +68,28 @@
         </div>
     </nav>
     <div class="container body-content">
-        <div style="padding-top: 75px;">
+        <div style="padding-top: 50px;">
             @RenderBody()
         </div>
         <hr />
         <footer>
-            <p>&copy; 2017 - Mastodon</p>
+            <p>&copy; @DateTime.Now.Year - PromoPal</p>
         </footer>
     </div>
 
+    <!--Bootstrap DatePicker-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
     <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

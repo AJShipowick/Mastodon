@@ -3,10 +3,7 @@
 }
 
 <!--Vue container-->
-<div id="sliderApp">
-
-    <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
-    @*@{ Html.RenderPartial("UserSlider.cshtml"); }*@
+<div id="dashboardApp">
 
     <div class="row">
         <a asp-controller="Promo" asp-action="Index">
@@ -16,7 +13,7 @@
     </div>
 
     <div class="row">
-        <a class="btn btn-lg btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
+        <a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo" class="btn btn-lg btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
         <br />
     </div>
 
@@ -27,7 +24,7 @@
 
     <div class="row">
         <div v-cloak v-if="Dashboard.ActivePromo === null">
-            <h3><i class="fa fa-warning" aria-hidden="true"></i> No active promotion currently</h3>
+            <h3><i class="fa fa-warning" aria-hidden="true"></i> No active promotions currently</h3>
         </div>
         <div hidden id="activePromoData">
             <div v-if="Dashboard.ActivePromo !== null" class="col-sm-6">
@@ -150,123 +147,30 @@
             </div>
         </div>
     </div>
-
-    <!--
-    <div v-if="axajLoading" style="text-align:center; color:red">
-        <div class="animated infinite pulse">
-            <h3>Loading...</h3>
-            <img src="~/images/slider2.svg" width="50" height="50" />
-        </div>
-    </div>
-
-    <div style="display:none" id="vueData">
-        <div class="row">
-            <div class="col-md-2">
-                <p>Custom Site Script: </p>
-            </div>
-            <div class="col-md-6">
-                <text type="text" class="form-control" {{ClientsWebsite.CustomSiteScript}} />
-                <p>THISSSSS ISSSSS YOURRRRR SCRIPTTTTT!!!!! </p>
-            </div>
-        </div>
-        <div class="row col-md-offset-2">
-            <div class="col-md-6">
-                <p>
-                    *This unique script must be inserted into the source of your website.
-                    Please view the help documentation for instructions on how to accomplish this.
-                </p>
-            </div>
-        </div>
-
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                <p>Website Name: </p>
-            </div>
-            <div class="col-md-6">
-                <input type="text" class="form-control" v-model="ClientsWebsite.WebsiteName" />
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                <p>Form Contact Email: </p>
-            </div>
-            <div class="col-md-6">
-                <input type="text" class="form-control" v-model="ClientsWebsite.ContactEmail" />
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                <p>Form Name: </p>
-            </div>
-            <div class="col-md-6">
-                <input type="text" class="form-control" v-model="ClientsWebsite.FormName" />
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                <p>Call To Action: </p>
-            </div>
-            <div class="col-md-6">
-                <input type="text" class="form-control" v-model="ClientsWebsite.CallToActionMessage" />
-            </div>
-        </div>
-        <br />
-
-        <div class="row">
-            <div class="col-md-2">
-                <p>Slider Image: </p>
-            </div>
-            <div class="col-md-6" onclick="showCustomSliderImage()">
-                <label>
-                    <input type="radio" class="form-control" value="ContactUs1" v-model="ClientsWebsite.SliderImageName" />
-                    <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
-                </label>
-                <label>
-                    <input type="radio" class="form-control" value="ContactUs2" v-model="ClientsWebsite.SliderImageName" />
-                    <img id="ContactUs2" src="~/images/Slider/ContactUs2.png">
-                </label>
-                <label>
-                    <input type="radio" class="form-control" value="ContactUs3" v-model="ClientsWebsite.SliderImageName" />
-                    <img id="ContactUs3" src="~/images/Slider/ContactUs3.png">
-                </label>
-                <label>
-                    <input type="radio" class="form-control" value="ContactUs4" v-model="ClientsWebsite.SliderImageName" />
-                    <img id="ContactUs4" src="~/images/Slider/ContactUs4.png">
-                </label>
-            </div>
-        </div>
-        <br />
-
-    <div class="row">
-        <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings()">Save</button>
-        <p style="display:none; color:green" id="saveSuccessMsg" class="col-md-3">Save Successful</p>
-    </div>
-        </div>
-        -->
 </div>
 
-@*<div id="submitModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Hello there</h2>
-                </div>
-                <div class="modal-body">
-                    <p>This is just a sample of what your custom slider will look like on your website.</p>
-                    <p>On your live site, the submit button will submit the user's message to the email address you sepcify.  You will then be notifyed of that message.</p>
-                    <p>Have a swell day.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+@*@{ if ((bool)ViewData["NewUser"] == true)
+    {
+        <script>$("#newUserModal").modal('show');</script>
+    }}*@
+
+@*<div id="newUserModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Hello there</h2>
+            </div>
+            <div class="modal-body">
+                <p>This is just a sample of what your custom slider will look like on your website.</p>
+                <p>On your live site, the submit button will submit the user's message to the email address you sepcify.  You will then be notifyed of that message.</p>
+                <p>Have a swell day.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-    </div>*@
+    </div>
+</div>*@
 
-<link rel="stylesheet" href="~/css/slider.css" />
-<script src="~/js/Slider/clientSlider.js"></script>
+<script src="~/js/Promo/dashboard.js"></script>

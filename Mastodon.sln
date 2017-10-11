@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicSite1", "BasicSite1", 
 		TestWebsites\BasicSite1\BasicSite1.js = TestWebsites\BasicSite1\BasicSite1.js
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastodon_API_Tests", "Mastodon_API_Tests\Mastodon_API_Tests.csproj", "{2B9B359A-E369-4B71-A6C8-502F3B48CD94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mastodon_API_Tests", "Mastodon_API_Tests\Mastodon_API_Tests.csproj", "{2B9B359A-E369-4B71-A6C8-502F3B48CD94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

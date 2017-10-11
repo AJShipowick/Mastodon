@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Mastodon.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mastodon.Promo.Models.DBModels
@@ -9,13 +9,15 @@ namespace Mastodon.Promo.Models.DBModels
     {
         [Key]
         public string Id { get; set; }
-        public virtual PromotionStats PromotionStats { get; set; }
-        public virtual ICollection<PromotionEntries> PromotionEntries { get; set; }
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public virtual ApplicationUser ApplicationUserId { get; set; }
         public bool ActivePromotion { get; set; }
-        public string PromotionDetails { get; set; }
+        public string Title { get; set; }
+        public string Code { get; set; }
+        public string EndDate { get; set; }
+        public string Discount { get; set; }
         public string ImageName { get; set; }
+        public string Details1 { get; set; }
+        public string Details2 { get; set; }
+        public string FinePrint { get; set; }
     }
 }

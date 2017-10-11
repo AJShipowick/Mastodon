@@ -40,15 +40,15 @@ namespace Mastodon.Promo.Models
 
         private void SetActivePromoDetails(Dashboard model, Promotion activePromo, List<PromotionStats> promotionStats)
         {
-            model.ActivePromo = activePromo.Name;
-            model.ActivePromoStartDate = activePromo.StartDate.ToShortDateString();
-            model.ActivePromoEndDate = activePromo.EndDate.ToShortDateString();
+            //model.ActivePromo = activePromo.PromoTitle;
+            //model.ActivePromoStartDate = activePromo.StartDate;
+            //model.ActivePromoEndDate = activePromo.EndDate;
 
-            PromotionStats promoStats = (from x in promotionStats
-                                         where x.Id == activePromo.Id
-                                         select x).First();
+            //PromotionStats promoStats = (from x in promotionStats
+            //                             where x.Id == activePromo.Id
+            //                             select x).First();
 
-            model.ActivePromoClaimedEntries = promoStats.TimesClaimed;
+            //model.ActivePromoClaimedEntries = promoStats.TimesClaimed;
         }
 
         private void SetInactivePromoDetails(Dashboard model, List<Promotion> inactivePromos)
@@ -58,8 +58,8 @@ namespace Mastodon.Promo.Models
             {
                 //todo limit number of old promos to show?????
                 //page them???
-                var inactiveItem = new InactivePromos { PromoName = item.Name, PromoDescription = item.PromotionDetails };
-                model.InactivePromos.Add(inactiveItem);
+                //var inactiveItem = new InactivePromos { PromoName = item.PromoTitle, PromoDescription = item.PromotionDetails };
+                //model.InactivePromos.Add(inactiveItem);
             }
         }
     }

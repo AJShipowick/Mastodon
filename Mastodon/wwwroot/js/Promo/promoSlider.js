@@ -1,49 +1,12 @@
-var sliderApp = new Vue({
-    el: '#sliderApp',
-    data: {
-        Dashboard: []
-    },
-    created: function () {
-        getUserSettings()
-    }
-})
+﻿"use strict";
 
-function getUserSettings() {
-    axios.get('/Promo/Promo/GetUserSettings')
-        .then(function (response) {
-            sliderApp.Dashboard = response.data;
-            $("#activePromoData").show();
-            $("#pastPromoData").show();
-            $('#ajaxLoading').hide();
-        })
-        .catch(function (error) {
-            //todo Handle errors
-        });
-}
-
-function saveCustomSettings() {
-    $("#saveSuccessMsg").hide();
-    $("#saveSuccessMsg").removeClass('animated fadeInDown');
-
-    axios.post('/Slider/Slider/SaveCustomSettings',
-        sliderApp.ClientsWebsite
-    )
-        .then(function (response) {
-            $("#saveSuccessMsg").show();
-            $("#saveSuccessMsg").addClass('animated fadeInDown');
-        })
-        .catch(function (error) {
-            //todo handle errors
-        });
-}
-
-//todo seperate out below stuff....
 var currentImage = false;
 function showCustomSliderImage() {
+    $("#sliderContainer").show()
     var currentImage = document.getElementById("slickImage");
 
-    if (sliderApp.ClientsWebsite.SliderImageName) {
-        var image = document.getElementById(sliderApp.ClientsWebsite.SliderImageName);
+    if (newPromoApp.Promotion.ImageName) {
+        var image = document.getElementById(newPromoApp.Promotion.ImageName);
         currentImage.src = image.src;
 
         $(image).addClass('animated bounceIn');  //Animation only fires 1 time for each image...
@@ -52,7 +15,7 @@ function showCustomSliderImage() {
 
 var slickSliderOpen;
 function slickSliderClicked() {
-    if (!this.slickSliderOpen) {
+    if (!slickSliderOpen) {
         document.documentElement.style.overflowX = 'hidden';
         document.getElementById('slickContactForm').style.visibility = 'visible';
         document.getElementById('sliderContainer').style.right = '-200px';
@@ -63,7 +26,7 @@ function slickSliderClicked() {
     else {
         closeSlickSlider();
     }
-    this.slickSliderOpen = !this.slickSliderOpen;
+    slickSliderOpen = !slickSliderOpen;
 }
 function closeSlickSlider() {
     document.getElementById('slickContactForm').style.visibility = 'hidden';
@@ -77,6 +40,6 @@ function showSlickSlider() {
         setTimeout(showSlickSlider, 1);
     }
 }
-function submitSlider() {
+function submitPromo() {
     $("#submitModal").modal('show');
 }

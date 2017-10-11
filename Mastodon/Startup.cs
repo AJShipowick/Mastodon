@@ -10,6 +10,7 @@ using Mastodon.Models;
 using Mastodon.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity;
+using Mastodon.Shared;
 
 namespace Mastodon
 {
@@ -60,6 +61,7 @@ namespace Mastodon
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<ICommon, Common>();
             services.AddTransient<Promo.Models.IBuilder, Promo.Models.Builder>();
 
             // Define custom routing areas
@@ -94,8 +96,11 @@ namespace Mastodon
 
             app.UseMvc(routes =>
         {
-            routes.MapRoute(name: "areaRoute",
-                template: "{area:exists}/{controller=Promo}/{action=Index}/{id?}");
+            routes.MapRoute(name: "Dashboard",
+                template: "{area:exists}/{controller=Dashboard}/{action=Dashboard}/{id?}");
+
+            routes.MapRoute(name: "CreatePromo",
+                template: "{area:exists}/{controller=CreatePromo}/{action=CreateNewPromo}/{id?}");
 
             routes.MapRoute(
                 name: "default",
