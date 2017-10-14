@@ -10,6 +10,24 @@ namespace Mastodon.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AccountActivity",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ApplicationUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MonthlyPlanPayment = table.Column<bool>(type: "bit", nullable: false),
+                    PaymentAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpecialPurchase = table.Column<bool>(type: "bit", nullable: false),
+                    SpecialPurchaseItem = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccountActivity", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -75,30 +93,6 @@ namespace Mastodon.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AccountActivity",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ApplicationUserIdId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    MonthlyPlanPayment = table.Column<bool>(type: "bit", nullable: false),
-                    PaymentAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SpecialPurchase = table.Column<bool>(type: "bit", nullable: false),
-                    SpecialPurchaseItem = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountActivity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AccountActivity_AspNetUsers_ApplicationUserIdId",
-                        column: x => x.ApplicationUserIdId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,19 +186,22 @@ namespace Mastodon.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ActivePromotion = table.Column<bool>(type: "bit", nullable: false),
-                    ApplicationUserIdId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Details1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Details2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EndDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FinePrint = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PromotionDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StartDate = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Promotion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Promotion_AspNetUsers_ApplicationUserIdId",
-                        column: x => x.ApplicationUserIdId,
+                        name: "FK_Promotion_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -218,14 +215,14 @@ namespace Mastodon.Migrations
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PromotionIdId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    PromotionId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PromotionEntries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PromotionEntries_Promotion_PromotionIdId",
-                        column: x => x.PromotionIdId,
+                        name: "FK_PromotionEntries_Promotion_PromotionId",
+                        column: x => x.PromotionId,
                         principalTable: "Promotion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -236,7 +233,7 @@ namespace Mastodon.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PromotionIdId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PromotionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     TimesClaimed = table.Column<int>(type: "int", nullable: false),
                     TimesViewed = table.Column<int>(type: "int", nullable: false)
                 },
@@ -244,17 +241,12 @@ namespace Mastodon.Migrations
                 {
                     table.PrimaryKey("PK_PromotionStats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PromotionStats_Promotion_PromotionIdId",
-                        column: x => x.PromotionIdId,
+                        name: "FK_PromotionStats_Promotion_PromotionId",
+                        column: x => x.PromotionId,
                         principalTable: "Promotion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AccountActivity_ApplicationUserIdId",
-                table: "AccountActivity",
-                column: "ApplicationUserIdId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -296,19 +288,19 @@ namespace Mastodon.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Promotion_ApplicationUserIdId",
+                name: "IX_Promotion_ApplicationUserId",
                 table: "Promotion",
-                column: "ApplicationUserIdId");
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PromotionEntries_PromotionIdId",
+                name: "IX_PromotionEntries_PromotionId",
                 table: "PromotionEntries",
-                column: "PromotionIdId");
+                column: "PromotionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PromotionStats_PromotionIdId",
+                name: "IX_PromotionStats_PromotionId",
                 table: "PromotionStats",
-                column: "PromotionIdId");
+                column: "PromotionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

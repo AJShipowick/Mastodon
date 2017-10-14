@@ -13,7 +13,12 @@
     </div>
 
     <div class="row">
-        <a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo" class="btn btn-lg btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
+        <div class="col-md-3">
+            <a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo" class="btn btn-lg btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
+        </div>
+        <div v-if="Dashboard.ActivePromo" class="col-md-3 col-md-offset-6">
+            <a v-on:click="confirmStopActivePromo()" class="btn btn-lg btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
+        </div>
         <br />
     </div>
 
@@ -33,21 +38,22 @@
                         <h3>Active Promotion:</h3>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title">{{Dashboard.ActivePromo}}</h3>
+                                <div style="color:white" class="panel-title">
+                                    <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"></i> {{Dashboard.ActivePromo}}
+                                    <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId)" style="float:right" class="fa fa-address-card-o helpText" title="View promotion entries" aria-hidden="true"></i>
+                                </div>
                             </div>
                             <div class="panel-body">
                                 <p>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</p>
-                                <p>Start Date: {{Dashboard.ActivePromoStartDate}}</p>
                                 <p>End Date: {{Dashboard.ActivePromoEndDate}}</p>
                             </div>
                         </div>
-                        <a class="btn btn-lg btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
+
+
+
                         <h3> <i class="fa fa-code" aria-hidden="true"></i> Active Promo Script </h3>
                         {{Dashboard.ActivePromoScript}}
+
                     </div>
                 </div>
             </div>
@@ -84,93 +90,64 @@
         </div>
     </div>
 
-    <div hidden id="pasPromoData" v-if="Dashboard.ActivePromo !== null" class="row">
-
+    <div hidden id="inactivePromoData" v-if="Dashboard.InactivePromos !== null" class="row">
         <div class="row">
             <div class="col-sm-6">
                 <h3><i class="fa fa-star-half-full" aria-hidden="true"></i> Inactive Promotions:</h3>
             </div>
         </div>
-
-        <div class="col-sm-4">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title1</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title2</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title3</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title4</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title3</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title4</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
+        <div v-for="promo in Dashboard.InactivePromos">
+            <div class="col-sm-3">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <i v-on:click="editOldPromo(promo.PromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"></i> {{promo.PromoName}}
+                            <i v-on:click="viewPromoEntries(promo.PromoId)"  style="float:right" class="fa fa-address-card-o helpText" title="View promotion entries" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        {{promo.PromoDiscount}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div style="color:white" class="panel-title">
+        <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"></i> {{Dashboard.ActivePromo}}
+        <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId)" style="float:right" class="fa fa-address-card-o helpText" title="View promotion entries" aria-hidden="true"></i>
+    </div>
+
+
+
+
+    <div id="stopPromoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Stop Active Promotion: {{Dashboard.ActivePromo}}</h2>
+                </div>
+                <div class="modal-body">
+                    <h3>Want to stop your promotion now?</h3>
+                    <p>This action will take effect immediately on your website.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" v-on:click="stopPromoNow(Dashboard.ActivePromoId)"><i class="fa fa-warning" aria-hidden="true"></i> STOP NOW</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 
 @*@{ if ((bool)ViewData["NewUser"] == true)
     {
         <script>$("#newUserModal").modal('show');</script>
     }}*@
-
-@*<div id="newUserModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Hello there</h2>
-            </div>
-            <div class="modal-body">
-                <p>This is just a sample of what your custom slider will look like on your website.</p>
-                <p>On your live site, the submit button will submit the user's message to the email address you sepcify.  You will then be notifyed of that message.</p>
-                <p>Have a swell day.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>*@
+@*<script>$("#newUserModal").modal('show');</script>*@
 
 <script src="~/js/Promo/dashboard.js"></script>

@@ -37,6 +37,7 @@ namespace Mastodon.Promo.Controllers
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
+            //todo, if new user then show something to them????Like how to use the app???
             //ViewData["NewUser"] = user.NewUser;
             //if (user.NewUser != false)
             //{
@@ -47,7 +48,7 @@ namespace Mastodon.Promo.Controllers
             //        _dbContext.SaveChanges();
             //    }
             //}
-                        
+
             return View();
         }
 
@@ -59,24 +60,37 @@ namespace Mastodon.Promo.Controllers
             List<Promotion> allUserPromotions = null;
             List<PromotionStats> promotionStats = null;
 
-            //using (_dbContext)
-            //{
-            //    if (_dbContext.Promotion.Count() > 0)
-            //    {
-            //        allUserPromotions = _dbContext.Promotion
-            //            .Where(c => c.Id == user.Id).ToList();
-            //    }
+            using (_dbContext)
+            {
+                if (_dbContext.Promotion.Count() > 0)
+                {
+                    allUserPromotions = _dbContext.Promotion
+                        .Where(c => c.ApplicationUser == user).ToList();
+                }
 
-            //    if (_dbContext.PromotionStats.Count() > 0)
-            //    {
-            //        promotionStats = _dbContext.PromotionStats
-            //            .Where(c => c.Id == user.Id).ToList();
-            //    }
-            //}
+                //todo, show promotion charts/graphs stuff....
+                //if (_dbContext.PromotionStats.Count() > 0)
+                //{
+                //    promotionStats = _dbContext.PromotionStats
+                //        .Where(c => c.PromotionId == allUserPromotions.).ToList();
+                //}
+            }
 
             Dashboard dashboardModel = _dashboardBuilder.CreateDashboardModel(user, allUserPromotions, promotionStats);
 
             return JsonConvert.SerializeObject(dashboardModel);
+        }
+
+        [HttpGet]
+        public void StopActivePromotion(string promoId)
+        {
+            using (_dbContext)
+            {
+                var activePromo = (from x in _dbContext.Promotion where x.Id == promoId select x).First();
+                activePromo.ActivePromotion = false;
+
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

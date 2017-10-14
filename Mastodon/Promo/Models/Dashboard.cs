@@ -6,7 +6,10 @@ namespace Mastodon.Promo.Models
     [Serializable]
     public class Dashboard
     {
+        //Account
+        public string CurrentSubscription { get; set; }
         //Entries
+        public string ActivePromoId { get; set; }
         public string ActivePromo { get; set; }
         public string ActivePromoScript { get; set; }
         public int ActivePromoClaimedEntries { get; set; }
@@ -14,19 +17,13 @@ namespace Mastodon.Promo.Models
         public string ActivePromoEndDate { get; set; }
         public Dictionary<DateTime, int> EntriesOverTime { get; set; }
         public List<InactivePromos> InactivePromos { get; set; }
-        //Account
-        public string CurrentSubscription { get; set; }
-
-        //Paid for images???
-
-
-
     }
 
     public class InactivePromos
     {
+        public string PromoId;
         public string PromoName;
-        public string PromoDescription;
+        public string PromoDiscount;
     }
 
 }

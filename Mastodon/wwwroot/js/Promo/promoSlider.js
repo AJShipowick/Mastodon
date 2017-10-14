@@ -40,6 +40,3 @@ function showSlickSlider() {
         setTimeout(showSlickSlider, 1);
     }
 }
-function submitPromo() {
-    $("#submitModal").modal('show');
-}

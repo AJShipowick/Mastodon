@@ -6,7 +6,7 @@ namespace Mastodon.Promo.Models.DBModels
     {
         [Key]
         public string Id { get; set; }
-        public virtual Promotion PromotionId {get;set;}
+        public virtual Promotion Promotion {get;set;}
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }

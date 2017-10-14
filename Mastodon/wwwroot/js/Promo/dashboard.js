@@ -1,3 +1,5 @@
+"use strict";
+
 var dashboardApp = new Vue({
     el: '#dashboardApp',
     data: {
@@ -6,6 +8,31 @@ var dashboardApp = new Vue({
     created: function () {
         //get settings onLoad
         getUserSettings()
+    },
+    methods: {
+        editOldPromo: function (promoId) {
+            window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId;
+        },
+        confirmStopActivePromo: function () {
+            $("#stopPromoModal").modal('show');
+        },
+        stopPromoNow: function (promoId) {
+            $("#activePromoData").hide();
+            $("#inactivePromoData").hide();
+            $('#ajaxLoading').show();
+            $("#stopPromoModal").modal('hide');
+
+            axios.get('/Dashboard/Dashboard/StopActivePromotion?promoId=' + promoId)
+                .then(function (response) {
+                    getUserSettings();
+                })
+                .catch(function (error) {
+                    //todo Handle errors
+                });
+        },
+        viewPromoEntries: function () {
+            alert('entries...');
+        }
     }
 })
 
@@ -14,7 +41,7 @@ function getUserSettings() {
         .then(function (response) {
             dashboardApp.Dashboard = response.data;
             $("#activePromoData").show();
-            $("#pastPromoData").show();
+            $("#inactivePromoData").show();
             $('#ajaxLoading').hide();
         })
         .catch(function (error) {

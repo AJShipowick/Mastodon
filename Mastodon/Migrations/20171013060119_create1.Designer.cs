@@ -11,7 +11,7 @@ using System;
 namespace Mastodon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171011013724_create1")]
+    [Migration("20171013060119_create1")]
     partial class create1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,7 @@ namespace Mastodon.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserIdId");
+                    b.Property<string>("ApplicationUser");
 
                     b.Property<bool>("MonthlyPlanPayment");
 
@@ -109,8 +109,6 @@ namespace Mastodon.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserIdId");
-
                     b.ToTable("AccountActivity");
                 });
 
@@ -121,21 +119,27 @@ namespace Mastodon.Migrations
 
                     b.Property<bool>("ActivePromotion");
 
-                    b.Property<string>("ApplicationUserIdId");
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Details1");
+
+                    b.Property<string>("Details2");
+
+                    b.Property<string>("Discount");
 
                     b.Property<string>("EndDate");
 
+                    b.Property<string>("FinePrint");
+
                     b.Property<string>("ImageName");
 
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PromotionDetails");
-
-                    b.Property<string>("StartDate");
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserIdId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Promotion");
                 });
@@ -151,11 +155,11 @@ namespace Mastodon.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PromotionIdId");
+                    b.Property<string>("PromotionId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PromotionIdId");
+                    b.HasIndex("PromotionId");
 
                     b.ToTable("PromotionEntries");
                 });
@@ -165,7 +169,7 @@ namespace Mastodon.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("PromotionIdId");
+                    b.Property<string>("PromotionId");
 
                     b.Property<int>("TimesClaimed");
 
@@ -173,7 +177,7 @@ namespace Mastodon.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PromotionIdId");
+                    b.HasIndex("PromotionId");
 
                     b.ToTable("PromotionStats");
                 });
@@ -286,32 +290,25 @@ namespace Mastodon.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Mastodon.Promo.Models.DBModels.AccountActivity", b =>
-                {
-                    b.HasOne("Mastodon.Models.ApplicationUser", "ApplicationUserId")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserIdId");
-                });
-
             modelBuilder.Entity("Mastodon.Promo.Models.DBModels.Promotion", b =>
                 {
-                    b.HasOne("Mastodon.Models.ApplicationUser", "ApplicationUserId")
+                    b.HasOne("Mastodon.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserIdId");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Mastodon.Promo.Models.DBModels.PromotionEntries", b =>
                 {
-                    b.HasOne("Mastodon.Promo.Models.DBModels.Promotion", "PromotionId")
+                    b.HasOne("Mastodon.Promo.Models.DBModels.Promotion", "Promotion")
                         .WithMany()
-                        .HasForeignKey("PromotionIdId");
+                        .HasForeignKey("PromotionId");
                 });
 
             modelBuilder.Entity("Mastodon.Promo.Models.DBModels.PromotionStats", b =>
                 {
-                    b.HasOne("Mastodon.Promo.Models.DBModels.Promotion", "PromotionId")
+                    b.HasOne("Mastodon.Promo.Models.DBModels.Promotion", "Promotion")
                         .WithMany()
-                        .HasForeignKey("PromotionIdId");
+                        .HasForeignKey("PromotionId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

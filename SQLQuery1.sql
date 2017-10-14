@@ -1,1 +1,1 @@
-﻿delete from dbo.Promotion;
+﻿select * from dbo.Promotion where ApplicationUserIdId = '2e6e134a-c935-40c3-b5b9-e64ede2a8c88';

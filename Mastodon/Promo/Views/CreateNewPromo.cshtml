@@ -17,7 +17,7 @@
                 <p>Title:</p>
             </div>
             <div class="col-md-5">
-                <input placeholder="Enter your title here, eg 'Save Today!'" type="text" class="form-control" v-model="Promotion.Title" />
+                <input required placeholder="Enter your title here, eg 'Save Today!'" type="text" class="form-control" v-model="Promotion.Title" />
             </div>
             <div class="col-md-1">
                 <p>End Date: </p>
@@ -94,11 +94,13 @@
         <br />
 
         <div class="row">
-            <button class="col-md-1 btn btn-primary" onclick="saveCustomSettings(false); submitPromo()"> <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
+            <button class="col-md-1 btn btn-primary" onclick="saveCustomSettings(false, 'saveSuccessMsg')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
+            <p hidden id="saveSuccessMsg" style="color:green" class="col-md-2">Save Successful</p>
         </div>
         <br />
         <div class="row">
-            <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings(true)"> <i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
+            <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings(true, 'activateSuccessMsg')"><i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
+            <p hidden id="activateSuccessMsg" style="color:green" class="col-md-3">Promotion Saved & Active!</p>
         </div>
     </div>
 </div>

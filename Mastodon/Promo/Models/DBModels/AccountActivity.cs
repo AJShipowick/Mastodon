@@ -8,7 +8,7 @@ namespace Mastodon.Promo.Models.DBModels
     {
         [Key]
         public string Id { get; set; }
-        public virtual ApplicationUser ApplicationUserId { get; set; }
+        public virtual string ApplicationUser { get; set; }
         public DateTime PaymentDate { get; set; }
         public decimal PaymentAmount { get; set; }
         public bool MonthlyPlanPayment { get; set; }

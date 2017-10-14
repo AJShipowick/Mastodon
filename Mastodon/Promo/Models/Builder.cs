@@ -21,13 +21,19 @@ namespace Mastodon.Promo.Models
             {
                 Promotion activePromo = (from x in allUserPromotions
                                          where x.ActivePromotion == true
-                                         select x).First();
-                SetActivePromoDetails(model, activePromo, promotionStats);
+                                         select x).SingleOrDefault();
+                if (activePromo != null)
+                {
+                    SetActivePromoDetails(model, activePromo, promotionStats);
+                }
 
                 List<Promotion> inactivePromos = (from x in allUserPromotions
                                                   where x.ActivePromotion != true
                                                   select x).ToList();
-                SetInactivePromoDetails(model, inactivePromos);
+                if (inactivePromos != null)
+                {
+                    SetInactivePromoDetails(model, inactivePromos);
+                }
             }
 
             model.ActivePromoScript = user.UserPromoScript;
@@ -40,15 +46,19 @@ namespace Mastodon.Promo.Models
 
         private void SetActivePromoDetails(Dashboard model, Promotion activePromo, List<PromotionStats> promotionStats)
         {
-            //model.ActivePromo = activePromo.PromoTitle;
-            //model.ActivePromoStartDate = activePromo.StartDate;
-            //model.ActivePromoEndDate = activePromo.EndDate;
+            model.ActivePromo = activePromo.Title;
+            model.ActivePromoEndDate = activePromo.EndDate;
+            model.ActivePromoId = activePromo.Id;
 
-            //PromotionStats promoStats = (from x in promotionStats
-            //                             where x.Id == activePromo.Id
-            //                             select x).First();
+            PromotionStats stats = null;
+            if (promotionStats != null)
+            {
+                stats = (from x in promotionStats
+                              where x.Promotion == activePromo
+                              select x).FirstOrDefault();
+            }
 
-            //model.ActivePromoClaimedEntries = promoStats.TimesClaimed;
+            model.ActivePromoClaimedEntries = stats != null ? stats.TimesClaimed : 0;
         }
 
         private void SetInactivePromoDetails(Dashboard model, List<Promotion> inactivePromos)
@@ -58,8 +68,8 @@ namespace Mastodon.Promo.Models
             {
                 //todo limit number of old promos to show?????
                 //page them???
-                //var inactiveItem = new InactivePromos { PromoName = item.PromoTitle, PromoDescription = item.PromotionDetails };
-                //model.InactivePromos.Add(inactiveItem);
+                var inactiveItem = new InactivePromos { PromoId = item.Id, PromoName = item.Title, PromoDiscount = item.Discount };
+                model.InactivePromos.Add(inactiveItem);
             }
         }
     }

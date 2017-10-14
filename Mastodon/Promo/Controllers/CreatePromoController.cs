@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Mastodon.Promo.Controllers
 {
@@ -22,7 +24,7 @@ namespace Mastodon.Promo.Controllers
             _common = common;
         }
 
-        public async Task<IActionResult> CreateNewPromo()
+        public async Task<IActionResult> CreateNewPromo(string promoId)
         {
             var user = await _common.GetCurrentUserAsync(HttpContext);
             if (user == null)
@@ -30,35 +32,79 @@ namespace Mastodon.Promo.Controllers
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
+            HttpContext.Session.SetString("promoId", String.IsNullOrEmpty(promoId) ? "" : promoId);
+
             return View();
         }
 
         [HttpGet]
-        public string GetNewPromoModel()
+        public async Task<string> GetPromoModel()
         {
-            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(7).ToString("MM/dd/yyyy");         
-            var newPromo = new Promotion { EndDate = endDate };
+            var promo = new Promotion();
+            var promoId = HttpContext.Session.GetString("promoId");
 
-            return JsonConvert.SerializeObject(newPromo);
+            if (String.IsNullOrEmpty(promoId))
+            {
+                var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(7).ToString("MM/dd/yyyy");
+                promo.EndDate = endDate;
+            }
+            else
+            {
+                promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
+            }
+
+            return JsonConvert.SerializeObject(promo);
         }
 
         [HttpPost]
         public async Task<string> SaveNewPromo([FromBody]Promotion vm)
         {
-            if (ModelState.IsValid)
+            try
             {
-                using (_dbContext)
+                if (ModelState.IsValid)
                 {
-                    ApplicationUser appUserId = await _common.GetCurrentUserAsync(HttpContext);
-                    vm.ApplicationUserId = appUserId;
-                    _dbContext.Promotion.Add(vm);
+                    using (_dbContext)
+                    {
+                        if (!string.IsNullOrEmpty(vm.Id))
+                        {
+                            _dbContext.Entry(_dbContext.Promotion.Find(vm.Id)).CurrentValues.SetValues(vm);
+                        }
+                        else
+                        {
+                            ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
+                            vm.ApplicationUser = appUser;
+                            _dbContext.Promotion.Add(vm);
+                        }
 
-                    await _dbContext.SaveChangesAsync();
+                        _dbContext.SaveChanges();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                //todo handle exception
             }
 
             return "Success";
         }
 
+        [HttpGet]
+        public void ActivatePromo(string promoId)
+        {
+            using (_dbContext)
+            {
+                //Set all promos to inactive
+                foreach (Promotion promo in _dbContext.Promotion)
+                {
+                    promo.ActivePromotion = false;
+                }
+
+                //Activate selected promo
+                var promoToActivate = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
+                promoToActivate.ActivePromotion = true;
+
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ var newPromoApp = new Vue({
     },
     created: function () {
         //get settings onLoad
-        getNewPromotionModel()
+        getPromotionModel()
     }
 })
 
@@ -23,29 +23,48 @@ $(function () {
     });
 });
 
-function getNewPromotionModel() {
-    axios.get('/Promotion/CreatePromo/GetNewPromoModel')
+function getPromotionModel() {
+    axios.get('/Promotion/CreatePromo/GetPromoModel')
         .then(function (response) {
             newPromoApp.Promotion = response.data;
+            if (newPromoApp.Promotion.Id) {
+                showCustomSliderImage();
+            }
         })
         .catch(function (error) {
             //todo handle errors
         });
 }
 
-function saveCustomSettings(activatePromo) {
-    $("#saveSuccessMsg").hide();
-    $("#saveSuccessMsg").removeClass('animated fadeInDown');
+function saveCustomSettings(activatePromo, responseMessageId) {
+    $("#" + responseMessageId).hide();
+    $("#" + responseMessageId).removeClass('animated fadeInDown');
 
     axios.post('/Promotion/CreatePromo/SaveNewPromo',
         newPromoApp.Promotion
     )
         .then(function (response) {
-            $("#saveSuccessMsg").show();
-            $("#saveSuccessMsg").addClass('animated fadeInDown');
+            if (!activatePromo) {
+                $("#" + responseMessageId).show();
+                $("#" + responseMessageId).addClass('animated fadeInDown');
+            } else {
+                activatePromoNow(newPromoApp.Promotion.Id);
+            }
+
         })
         .catch(function (error) {
             //todo handle errors
+        });
+}
+
+function activatePromoNow(promoId) {
+    axios.get('/Promotion/CreatePromo/ActivatePromo?promoId=' + promoId)
+        .then(function (response) {
+            $("#activateSuccessMsg").show();
+            $("#activateSuccessMsg").addClass('animated fadeInDown');
+        })
+        .catch(function (error) {
+            //todo Handle errors
         });
 }
 
@@ -58,6 +77,6 @@ function showHelpStep2() {
     $("#promoHelpModalStep1").modal('hide');
 }
 
-function closeHelpStep2() {    
+function closeHelpStep2() {
     $("#promoHelpModalStep2").modal('hide');
 }

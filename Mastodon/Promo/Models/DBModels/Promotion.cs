@@ -9,7 +9,7 @@ namespace Mastodon.Promo.Models.DBModels
     {
         [Key]
         public string Id { get; set; }
-        public virtual ApplicationUser ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         public bool ActivePromotion { get; set; }
         public string Title { get; set; }
         public string Code { get; set; }
