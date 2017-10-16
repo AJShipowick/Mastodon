@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Website Promomotion Stats";
+}
+
+<div class="col-sm-6" style="left:50%" id="ajaxLoading">
+    <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+</div>
+
+<!--Vue container-->
+<div hidden id="promoDetailsApp">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1>{{PromoDetails.PromoName}} </h1>
+        </div>
+        <div class="panel-body">
+            <h3><i class="fa fa-eye" aria-hidden="true"></i> Times viewed: {{PromoDetails.TimesViewed}} </h3>
+            <h3><i class="fa fa-check" aria-hidden="true"></i> Times claimed: {{PromoDetails.TimesClaimed}} </h3>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length == 0">
+        <h3><i class="fa fa-ban" aria-hidden="true"></i> No promo users captured yet</h3>
+    </div>
+
+    <div v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length > 0">
+        <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg"><i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries</div>
+        <br /><br />
+
+        <table class="table well">
+            <thead>
+                <tr>
+                    <th><h3>Name</h3></th>
+                    <th><h3>Email</h3></th>
+                </tr>
+            </thead>
+            <tbody v-for="promo in PromoDetails.PromoEntries">
+                <tr>
+                    <td>{{promo.Name}}</td>
+                    <td>{{promo.EmailAddress}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/js/Promo/promoStats.js"></script>

@@ -9,7 +9,7 @@ var newPromoApp = new Vue({
         //get settings onLoad
         getPromotionModel()
     }
-})
+});
 
 $(function () {
     $('#promoDate .input-group.date').datepicker({

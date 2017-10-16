@@ -102,6 +102,9 @@ namespace Mastodon
             routes.MapRoute(name: "CreatePromo",
                 template: "{area:exists}/{controller=CreatePromo}/{action=CreateNewPromo}/{id?}");
 
+            routes.MapRoute(name: "Details",
+                template: "{area:exists}/{controller=PromoDetails}/{action=PromoDetails}/{id?}");
+
             routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");

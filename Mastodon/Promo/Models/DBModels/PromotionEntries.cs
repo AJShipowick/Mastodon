@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mastodon.Promo.Models.DBModels
 {
@@ -6,9 +8,8 @@ namespace Mastodon.Promo.Models.DBModels
     {
         [Key]
         public string Id { get; set; }
-        public virtual Promotion Promotion {get;set;}
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public virtual Promotion Promotion { get; set; }
+        public string Name { get; set; }
         public string EmailAddress { get; set; }
     }
 }

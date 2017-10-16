@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using Mastodon.Promo.Models.DBModels;
 using System.Linq;
 using Mastodon.Models;
+using Mastodon.Data;
 
 namespace Mastodon.Promo.Models
 {
     public interface IBuilder
     {
-        Dashboard CreateDashboardModel(ApplicationUser user, List<Promotion> promotions, List<PromotionStats> promotionStats);
+        Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> promotions);
     }
 
     public class Builder : IBuilder
     {
-        public Dashboard CreateDashboardModel(ApplicationUser user, List<Promotion> allUserPromotions, List<PromotionStats> promotionStats)
+
+        public Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> allUserPromotions)
         {
             Dashboard model = new Dashboard();
 
@@ -24,7 +26,7 @@ namespace Mastodon.Promo.Models
                                          select x).SingleOrDefault();
                 if (activePromo != null)
                 {
-                    SetActivePromoDetails(model, activePromo, promotionStats);
+                    SetActivePromoDetails(dbContext, model, activePromo);
                 }
 
                 List<Promotion> inactivePromos = (from x in allUserPromotions
@@ -44,19 +46,13 @@ namespace Mastodon.Promo.Models
             return model;
         }
 
-        private void SetActivePromoDetails(Dashboard model, Promotion activePromo, List<PromotionStats> promotionStats)
+        private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
         {
             model.ActivePromo = activePromo.Title;
             model.ActivePromoEndDate = activePromo.EndDate;
             model.ActivePromoId = activePromo.Id;
 
-            PromotionStats stats = null;
-            if (promotionStats != null)
-            {
-                stats = (from x in promotionStats
-                              where x.Promotion == activePromo
-                              select x).FirstOrDefault();
-            }
+            PromotionStats stats = (from x in dbContext.PromotionStats where x.Promotion.Id == activePromo.Id select x).FirstOrDefault();
 
             model.ActivePromoClaimedEntries = stats != null ? stats.TimesClaimed : 0;
         }

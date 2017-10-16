@@ -30,11 +30,11 @@ var dashboardApp = new Vue({
                     //todo Handle errors
                 });
         },
-        viewPromoEntries: function () {
-            alert('entries...');
+        viewPromoEntries: function (promoId, promoName) {
+            window.location.href = '/Details/PromoDetails/PromoDetails?promoId=' + promoId + "&promoName=" + promoName;
         }
     }
-})
+});
 
 function getUserSettings() {
     axios.get('/Dashboard/Dashboard/GetUserSettings')

@@ -40,7 +40,7 @@
                             <div class="panel-heading">
                                 <div style="color:white" class="panel-title">
                                     <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"></i> {{Dashboard.ActivePromo}}
-                                    <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId)" style="float:right" class="fa fa-address-card-o helpText" title="View promotion entries" aria-hidden="true"></i>
+                                    <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromo)" style="float:right" class="fa fa-info-circle helpText" title="View promotion entries" aria-hidden="true"></i>
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -48,43 +48,15 @@
                                 <p>End Date: {{Dashboard.ActivePromoEndDate}}</p>
                             </div>
                         </div>
-
-
-
                         <h3> <i class="fa fa-code" aria-hidden="true"></i> Active Promo Script </h3>
                         {{Dashboard.ActivePromoScript}}
-
                     </div>
                 </div>
             </div>
             <div v-if="Dashboard.ActivePromo !== null" class="col-sm-6">
                 <h3><i class="fa fa-line-chart" aria-hidden="true"></i> Promo Stats</h3>
                 <div class="well">
-                    1
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    1
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    1
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    1
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-
+                    Comming soon...
                 </div>
             </div>
         </div>
@@ -102,7 +74,7 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             <i v-on:click="editOldPromo(promo.PromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"></i> {{promo.PromoName}}
-                            <i v-on:click="viewPromoEntries(promo.PromoId)"  style="float:right" class="fa fa-address-card-o helpText" title="View promotion entries" aria-hidden="true"></i>
+                            <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)" style="float:right" class="fa fa-info-circle helpText" title="View promotion entries" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -112,14 +84,6 @@
             </div>
         </div>
     </div>
-
-    <div style="color:white" class="panel-title">
-        <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"></i> {{Dashboard.ActivePromo}}
-        <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId)" style="float:right" class="fa fa-address-card-o helpText" title="View promotion entries" aria-hidden="true"></i>
-    </div>
-
-
-
 
     <div id="stopPromoModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -141,13 +105,5 @@
     </div>
 
 </div>
-
-
-
-@*@{ if ((bool)ViewData["NewUser"] == true)
-    {
-        <script>$("#newUserModal").modal('show');</script>
-    }}*@
-@*<script>$("#newUserModal").modal('show');</script>*@
 
 <script src="~/js/Promo/dashboard.js"></script>

@@ -6,6 +6,7 @@ using Mastodon.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,25 +59,26 @@ namespace Mastodon.Promo.Controllers
             var user = await _common.GetCurrentUserAsync(HttpContext);
 
             List<Promotion> allUserPromotions = null;
-            List<PromotionStats> promotionStats = null;
+            Dashboard dashboardModel = null;
 
-            using (_dbContext)
+            try
             {
-                if (_dbContext.Promotion.Count() > 0)
+                using (_dbContext)
                 {
-                    allUserPromotions = _dbContext.Promotion
-                        .Where(c => c.ApplicationUser == user).ToList();
+                    if (_dbContext.Promotion.Count() > 0)
+                    {
+                        allUserPromotions = _dbContext.Promotion
+                            .Where(c => c.ApplicationUser == user).ToList();
+                    }
+
+                    //todo, show promotion charts/graphs stuff....
+                    dashboardModel = _dashboardBuilder.CreateDashboardModel(_dbContext, user, allUserPromotions);
                 }
-
-                //todo, show promotion charts/graphs stuff....
-                //if (_dbContext.PromotionStats.Count() > 0)
-                //{
-                //    promotionStats = _dbContext.PromotionStats
-                //        .Where(c => c.PromotionId == allUserPromotions.).ToList();
-                //}
             }
-
-            Dashboard dashboardModel = _dashboardBuilder.CreateDashboardModel(user, allUserPromotions, promotionStats);
+            catch (Exception ex)
+            {
+                //todo handle exception
+            }
 
             return JsonConvert.SerializeObject(dashboardModel);
         }

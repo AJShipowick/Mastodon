@@ -38,7 +38,7 @@ namespace Mastodon.Promo.Controllers
         }
 
         [HttpGet]
-        public async Task<string> GetPromoModel()
+        public string GetPromoModel()
         {
             var promo = new Promotion();
             var promoId = HttpContext.Session.GetString("promoId");
