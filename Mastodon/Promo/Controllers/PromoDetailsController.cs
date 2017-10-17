@@ -75,7 +75,7 @@ namespace Mastodon.Promo.Controllers
                 myExport["Email"] = entry.EmailAddress;
             }
 
-            return File(myExport.ExportToBytes(), "text/csv", "results.csv");
+            return File(myExport.ExportToBytes(), "text/csv", "PromoStats.csv");
         }
     }
 }

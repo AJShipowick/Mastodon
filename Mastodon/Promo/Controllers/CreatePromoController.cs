@@ -106,5 +106,15 @@ namespace Mastodon.Promo.Controllers
                 _dbContext.SaveChanges();
             }
         }
+
+        public void DeletePromo(string promoId)
+        {
+            using (_dbContext)
+            {
+                var promoToDelete = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
+                _dbContext.Remove(promoToDelete);
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }

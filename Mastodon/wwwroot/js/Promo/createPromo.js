@@ -7,7 +7,7 @@ var newPromoApp = new Vue({
     },
     created: function () {
         //get settings onLoad
-        getPromotionModel()
+        getPromotionModel();
     }
 });
 
@@ -27,9 +27,15 @@ function getPromotionModel() {
     axios.get('/Promotion/CreatePromo/GetPromoModel')
         .then(function (response) {
             newPromoApp.Promotion = response.data;
+            
             if (newPromoApp.Promotion.Id) {
-                showCustomSliderImage();
+                $("#deletePromoBtn").show();
+            } else {
+                //New promo, no slider selected, select 1st image for user
+                newPromoApp.Promotion.ImageName = "ContactUs1";
             }
+
+            showCustomSliderImage();
         })
         .catch(function (error) {
             //todo handle errors
@@ -37,8 +43,13 @@ function getPromotionModel() {
 }
 
 function saveCustomSettings(activatePromo, responseMessageId) {
-    $("#" + responseMessageId).hide();
-    $("#" + responseMessageId).removeClass('animated fadeInDown');
+
+    $("#saveSuccessMsg").hide();
+    $("#saveSuccessMsg").removeClass('animated fadeInDown');
+    $("#activateSuccessMsg").hide();
+    $("#activateSuccessMsg").removeClass('animated fadeInDown');
+
+    if (!validForm()) { return; }
 
     axios.post('/Promotion/CreatePromo/SaveNewPromo',
         newPromoApp.Promotion
@@ -50,11 +61,45 @@ function saveCustomSettings(activatePromo, responseMessageId) {
             } else {
                 activatePromoNow(newPromoApp.Promotion.Id);
             }
-
         })
         .catch(function (error) {
             //todo handle errors
         });
+}
+
+function validForm() {
+
+    hideErrors();
+    let validForm = true;
+
+    if (!newPromoApp.Promotion.Title) {
+        $("#titleMissing").show()
+        validForm = false;
+    }
+
+    if (!newPromoApp.Promotion.EndDate) {
+        $("#dateMissing").show()
+        validForm = false;
+    }
+
+    if (!newPromoApp.Promotion.Code) {
+        $("#codeMissing").show()
+        validForm = false;
+    }
+
+    if (!newPromoApp.Promotion.Discount) {
+        $("#discountMissing").show()
+        validForm = false;
+    }
+
+    return validForm;
+}
+
+function hideErrors() {
+    $("#titleMissing").hide()
+    $("#dateMissing").hide()
+    $("#codeMissing").hide()
+    $("#discountMissing").hide()
 }
 
 function activatePromoNow(promoId) {
@@ -62,6 +107,20 @@ function activatePromoNow(promoId) {
         .then(function (response) {
             $("#activateSuccessMsg").show();
             $("#activateSuccessMsg").addClass('animated fadeInDown');
+        })
+        .catch(function (error) {
+            //todo Handle errors
+        });
+}
+
+function deletePromo() {
+    $("#deletePromoModal").modal('show');
+}
+
+function confirmDeletePromo() {
+    axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + newPromoApp.Promotion.Id)
+        .then(function (response) {
+            window.location.href = '/Dashboard';
         })
         .catch(function (error) {
             //todo Handle errors

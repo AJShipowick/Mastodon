@@ -2,8 +2,11 @@
     ViewData["Title"] = "Website Promomotion Stats";
 }
 
-<div class="col-sm-6" style="left:50%" id="ajaxLoading">
-    <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+<div id="ajaxLoading" class="row">
+    <br /><br />
+    <div class="col-md-6" style="left:50%">
+        <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+    </div>
 </div>
 
 <!--Vue container-->
@@ -24,23 +27,27 @@
     </div>
 
     <div v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length > 0">
-        <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg"><i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries</div>
+        <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg col-md-offset-1"><i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries</div>
         <br /><br />
 
-        <table class="table well">
-            <thead>
-                <tr>
-                    <th><h3>Name</h3></th>
-                    <th><h3>Email</h3></th>
-                </tr>
-            </thead>
-            <tbody v-for="promo in PromoDetails.PromoEntries">
-                <tr>
-                    <td>{{promo.Name}}</td>
-                    <td>{{promo.EmailAddress}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <table class="table well">
+                    <thead>
+                        <tr>
+                            <th><h3>Name</h3></th>
+                            <th><h3>Email</h3></th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="promo in PromoDetails.PromoEntries">
+                        <tr>
+                            <td>{{promo.Name}}</td>
+                            <td>{{promo.EmailAddress}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

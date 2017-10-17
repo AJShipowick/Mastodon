@@ -1,19 +1,19 @@
 ﻿"use strict";
 
-var currentImage = false;
+let currentImage = false;
 function showCustomSliderImage() {
     $("#sliderContainer").show()
-    var currentImage = document.getElementById("slickImage");
+    let currentImage = document.getElementById("slickImage");
 
     if (newPromoApp.Promotion.ImageName) {
-        var image = document.getElementById(newPromoApp.Promotion.ImageName);
+        let image = document.getElementById(newPromoApp.Promotion.ImageName);
         currentImage.src = image.src;
 
         $(image).addClass('animated bounceIn');  //Animation only fires 1 time for each image...
     }
 }
 
-var slickSliderOpen;
+let slickSliderOpen;
 function slickSliderClicked() {
     if (!slickSliderOpen) {
         document.documentElement.style.overflowX = 'hidden';
@@ -32,9 +32,10 @@ function closeSlickSlider() {
     document.getElementById('slickContactForm').style.visibility = 'hidden';
     document.getElementById('slickImage').style.cssFloat = 'right';
 }
+
 function showSlickSlider() {
-    var slidingDiv = document.getElementById('sliderContainer');
-    var stopPosition = 0;
+    let slidingDiv = document.getElementById('sliderContainer');
+    let stopPosition = 0;
     if (parseInt(slidingDiv.style.right) < stopPosition) {
         slidingDiv.style.right = parseInt(slidingDiv.style.right) + 3 + 'px';
         setTimeout(showSlickSlider, 1);

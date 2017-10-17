@@ -2,7 +2,10 @@
     ViewData["Title"] = "Create custom site promotion";
 }
 
-<h1><i class="fa fa-question-circle-o helpText" aria-hidden="true" onclick="showHelpStep1()"></i> Create a website promotion</h1><br />
+<div class="row">
+    <h2 class="col-md-6"><i class="fa fa-question-circle-o helpText" aria-hidden="true" onclick="showHelpStep1()"></i> Create a website promotion</h2>
+</div>
+<br />
 
 <!--Vue container-->
 <div id="newPromoApp">
@@ -11,96 +14,114 @@
     @{ Html.RenderPartial("UserSlider.cshtml"); }
     @{ Html.RenderPartial("PromoHelpModal.cshtml"); }
 
-    <div id="vueData">
-        <div class="row">
-            <div class="col-md-1">
-                <p>Title:</p>
-            </div>
-            <div class="col-md-5">
-                <input required placeholder="Enter your title here, eg 'Save Today!'" type="text" class="form-control" v-model="Promotion.Title" />
-            </div>
-            <div class="col-md-1">
-                <p>End Date: </p>
-            </div>
-            <div class="col-md-3" id="promoDate">
-                <div class="input-group date">
-                    <input type="text" class="form-control" v-model="Promotion.EndDate"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-md-1">
+            <p>Title:</p>
         </div>
-        <br />
+        <div class="col-md-5">
+            <input placeholder="Enter your title here, eg 'Save Today!'" type="text" class="form-control" v-model="Promotion.Title" />
+            <small hidden id="titleMissing" style="color:red">Title is required</small>
+        </div>
+        <div class="col-md-1">
+            <p>End Date: </p>
+        </div>
+        <div class="col-md-3" id="promoDate">
+            <div class="input-group date">
+                <input type="text" class="form-control" v-model="Promotion.EndDate"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            </div>
+            <small hidden id="dateMissing" style="color:red">Date is required</small>
+        </div>
+    </div>
+    <br />
 
-        <div class="row">
-            <div class="col-md-1">
-                <p>Code:</p>
-            </div>
-            <div class="col-md-5">
-                <input placeholder="Enter a unique code here" type="text" class="form-control" v-model="Promotion.Code" />
-            </div>
-            <div class="col-md-1">
-                <p>Discount: </p>
-            </div>
-            <div class="col-md-5">
-                <input type="text" class="form-control" placeholder="eg: 50% off everything!" v-model="Promotion.Discount" />
-            </div>
+    <div class="row">
+        <div class="col-md-1">
+            <p>Code:</p>
         </div>
-        <br />
+        <div class="col-md-5">
+            <input placeholder="Enter a unique code here" type="text" class="form-control" v-model="Promotion.Code" />
+            <small hidden id="codeMissing" style="color:red">Code is required</small>
+        </div>
+        <div class="col-md-1">
+            <p>Discount: </p>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="eg: 50% off everything!" v-model="Promotion.Discount" />
+            <small hidden id="discountMissing" style="color:red">Discount is required</small>
+        </div>
+    </div>
+    <br />
 
-        <div class="row">
-            <div class="col-md-1">
-                <p>Details 1: </p>
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" v-model="Promotion.Details1" />
-            </div>
-            <div class="col-md-1">
-                <p>Details 2: </p>
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" v-model="Promotion.Details2" />
-            </div>
-            <div class="col-md-1">
-                <p>Fine Print: </p>
-            </div>
-            <div class="col-md-5">
-                <input type="text" class="form-control" v-model="Promotion.FinePrint" />
-            </div>
+    <div class="row">
+        <div class="col-md-1">
+            <p>Details 1: </p>
         </div>
-        <br />
+        <div class="col-md-2">
+            <input type="text" class="form-control" v-model="Promotion.Details1" />
+        </div>
+        <div class="col-md-1">
+            <p>Details 2: </p>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" v-model="Promotion.Details2" />
+        </div>
+        <div class="col-md-1">
+            <p>Fine Print: </p>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" v-model="Promotion.FinePrint" />
+        </div>
+    </div>
+    <br />
 
-        <div class="row">
-            <div class="col-md-1">
-                <p>Image: </p>
-            </div>
-            <div class="col-md-6" onclick="showCustomSliderImage()">
-                <label>
-                    <input type="radio" name="promoImage" class="form-control" value="ContactUs1" v-model="Promotion.ImageName" />
-                    <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
-                </label>
-                <label>
-                    <input type="radio" name="promoImage" class="form-control" value="ContactUs2" v-model="Promotion.ImageName" />
-                    <img id="ContactUs2" src="~/images/Slider/ContactUs2.png">
-                </label>
-                <label>
-                    <input type="radio" name="promoImage" class="form-control" value="ContactUs3" v-model="Promotion.ImageName" />
-                    <img id="ContactUs3" src="~/images/Slider/ContactUs3.png">
-                </label>
-                <label>
-                    <input type="radio" name="promoImage" class="form-control" value="ContactUs4" v-model="Promotion.ImageName" />
-                    <img id="ContactUs4" src="~/images/Slider/ContactUs4.png">
-                </label>
-            </div>
+    <div class="row">
+        <div class="col-md-1">
+            <p>Image: </p>
         </div>
-        <br />
+        <div class="col-md-6" onclick="showCustomSliderImage()">
+            <label>
+                <input type="radio" name="promoImage" class="form-control" value="ContactUs1" v-model="Promotion.ImageName" />
+                <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
+            </label>
+            <label>
+                <input type="radio" name="promoImage" class="form-control" value="ContactUs2" v-model="Promotion.ImageName" />
+                <img id="ContactUs2" src="~/images/Slider/ContactUs2.png">
+            </label>
+            <label>
+                <input type="radio" name="promoImage" class="form-control" value="ContactUs3" v-model="Promotion.ImageName" />
+                <img id="ContactUs3" src="~/images/Slider/ContactUs3.png">
+            </label>
+            <label>
+                <input type="radio" name="promoImage" class="form-control" value="ContactUs4" v-model="Promotion.ImageName" />
+                <img id="ContactUs4" src="~/images/Slider/ContactUs4.png">
+            </label>
+        </div>
+    </div>
+    <br />
 
-        <div class="row">
-            <button class="col-md-1 btn btn-primary" onclick="saveCustomSettings(false, 'saveSuccessMsg')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
-            <p hidden id="saveSuccessMsg" style="color:green" class="col-md-2">Save Successful</p>
-        </div>
-        <br />
-        <div class="row">
-            <button class="col-md-2 btn btn-primary" onclick="saveCustomSettings(true, 'activateSuccessMsg')"><i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
-            <p hidden id="activateSuccessMsg" style="color:green" class="col-md-3">Promotion Saved & Active!</p>
+    <div class="row">
+        <button type="submit" class="btn btn-primary" onclick="saveCustomSettings(false, 'saveSuccessMsg')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
+        <button class="btn btn-primary" onclick="saveCustomSettings(true, 'activateSuccessMsg')"><i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
+        <button style="display:none" id="deletePromoBtn" class="btn btn-danger" onclick="deletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
+    </div>
+    <div class="row">
+        <h3 hidden id="saveSuccessMsg" style="color:green">Save Successful</h3>
+        <h3 hidden id="activateSuccessMsg" style="color:green">Promotion Saved & Active!</h3>
+    </div>
+</div>
+
+
+<div id="deletePromoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Delete this promotion?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="confirmDeletePromo()">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
