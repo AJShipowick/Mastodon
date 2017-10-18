@@ -37,6 +37,15 @@ label > input { /* HIDE RADIO */
     cursor: pointer;
 }
 
+input[type=checkbox] {
+    /* 1.5-sized Checkboxes */
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    padding: 10px;
+}
+
 /*Keep div centered in middle of screen:
 http://stackoverflow.com/questions/5012111/how-to-position-a-div-in-the-middle-of-the-screen-when-the-page-is-bigger-than-t
 

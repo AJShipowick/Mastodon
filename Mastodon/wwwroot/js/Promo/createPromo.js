@@ -27,12 +27,16 @@ function getPromotionModel() {
     axios.get('/Promotion/CreatePromo/GetPromoModel')
         .then(function (response) {
             newPromoApp.Promotion = response.data;
-            
+
             if (newPromoApp.Promotion.Id) {
                 $("#deletePromoBtn").show();
+                $("#slickContactForm").css({ "background-color": newPromoApp.Promotion.BackgroundColor });
+                $("#sliderButton").css({ "background-color": newPromoApp.Promotion.ButtonColor });
             } else {
                 //New promo, no slider selected, select 1st image for user
                 newPromoApp.Promotion.ImageName = "ContactUs1";
+                newPromoApp.Promotion.BackgroundColor = "#ffffff";
+                newPromoApp.Promotion.ButtonColor = "#4CAF50";
             }
 
             showCustomSliderImage();
@@ -42,8 +46,29 @@ function getPromotionModel() {
         });
 }
 
-function saveCustomSettings(activatePromo, responseMessageId) {
+function showCouponBorder() {
+    if (!newPromoApp.Promotion.ShowCouponBorder) {
+        $("#slickContactForm").css({ "border": "3px dashed #ccc" });
+    } else {
+        $("#slickContactForm").css({ "border": "1px solid #d8d8d8" });
+    }
+}
 
+function setFormBackgroundColor() {
+    let selectedColor = $("#backgroundColor").val();
+    $("#slickContactForm").css({ "background-color": selectedColor });
+}
+
+function setFormButtonColor() {
+    let selectedColor = $("#buttonColor").val();
+    $("#sliderButton").css({ "background-color": selectedColor });
+}
+
+function submitSlider() {
+    $("#submitSliderClick").modal('show');
+}
+
+function saveCustomSettings(activatePromo, responseMessageId) {
     $("#saveSuccessMsg").hide();
     $("#saveSuccessMsg").removeClass('animated fadeInDown');
     $("#activateSuccessMsg").hide();

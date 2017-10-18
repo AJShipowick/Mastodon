@@ -75,6 +75,28 @@
     <br />
 
     <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <label for="showCouponBorder">Show a coupon border </label>
+            <input type="checkbox" name="showCouponBorder" value="showCouponBorder" class="helpText" v-model="Promotion.ShowCouponBorder" onclick="showCouponBorder()">
+        </div>
+    </div>
+    <div class="row">
+        <p class="col-md-1">Colors:</p>
+        <div class="col-md-3">
+            <label for="backgroundColor">Promo background color</label>
+            <input type="color" id="backgroundColor" name="backgroundColor" v-model="Promotion.BackgroundColor" onchange="setFormBackgroundColor()" />
+        </div>
+        <div class="col-md-3">
+            <label for="buttonColor">Promo button color</label>
+            <input type="color" id="buttonColor" name="buttonColor" v-model="Promotion.ButtonColor" onchange="setFormButtonColor()" />
+        </div>
+        <div class="col-md-3">
+            <a href="http://www.color-hex.com/color-palettes/popular.php" target="_blank"><i class="fa fa-paint-brush" aria-hidden="true"></i> Discover beautiful colors</a>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
         <div class="col-md-1">
             <p>Image: </p>
         </div>
@@ -119,8 +141,37 @@
                 <h2 class="modal-title">Delete this promotion?</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="confirmDeletePromo()">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="submitSliderClick" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Hi there</h2>
+            </div>
+            <div class="modal-body">
+                <h3>
+                    Once a user visiting your website claims your promotion a few things will happen
+                </h3>
+                <ul>
+                    <li>
+                        We will send the user an email with your promo code in it.<br />
+                        -<small>You should honor this code (that you setup here) online and in person.</small>
+                    </li>
+                    <li>
+                        The user's name and Email will be saved for you to use in the future.<br />
+                        -<small>You can find and export user information on your dashboard.</small>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
