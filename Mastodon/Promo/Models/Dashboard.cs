@@ -11,6 +11,7 @@ namespace Mastodon.Promo.Models
         //Entries
         public string ActivePromoId { get; set; }
         public string ActivePromo { get; set; }
+        public string ActivePromoDiscount { get; set; }
         public string ActivePromoScript { get; set; }
         public int ActivePromoClaimedEntries { get; set; }
         public string ActivePromoStartDate { get; set; }

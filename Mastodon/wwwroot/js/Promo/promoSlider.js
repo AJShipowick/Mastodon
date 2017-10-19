@@ -37,7 +37,7 @@ function showSlickSlider() {
     let slidingDiv = document.getElementById('sliderContainer');
     let stopPosition = 0;
     if (parseInt(slidingDiv.style.right) < stopPosition) {
-        slidingDiv.style.right = parseInt(slidingDiv.style.right) + 3 + 'px';
-        setTimeout(showSlickSlider, 3);
+        slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
+        setTimeout(showSlickSlider, 1);
     }
 }

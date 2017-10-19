@@ -77,6 +77,7 @@ namespace Mastodon.Promo.Controllers
                         }
 
                         _dbContext.SaveChanges();
+                        HttpContext.Session.SetString("savedPromoId", vm.Id);
                     }
                 }
             }
@@ -97,6 +98,11 @@ namespace Mastodon.Promo.Controllers
                 foreach (Promotion promo in _dbContext.Promotion)
                 {
                     promo.ActivePromotion = false;
+                }
+
+                if (String.IsNullOrEmpty(promoId) && !String.IsNullOrEmpty(HttpContext.Session.GetString("savedPromoId"))){
+                    //This case handles a NEW promo that is saved and activated at the same time
+                    promoId = HttpContext.Session.GetString("savedPromoId");
                 }
 
                 //Activate selected promo

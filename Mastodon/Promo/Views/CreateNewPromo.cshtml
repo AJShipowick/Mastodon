@@ -3,7 +3,8 @@
 }
 
 <div class="row">
-    <h2 class="col-md-6"><i class="fa fa-question-circle-o helpText" aria-hidden="true" onclick="showHelpStep1()"></i> Create a website promotion</h2>
+    
+    <h2><i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" onclick="showHelpStep1()"></i> Create a Promotion</h2>
 </div>
 <br />
 
@@ -76,18 +77,18 @@
 
     <div class="row">
         <div class="col-md-3 col-md-offset-1">
-            <label for="showCouponBorder">Show a coupon border </label>
+            <label style="padding-right:5px" for="showCouponBorder">Show a coupon border </label>
             <input type="checkbox" name="showCouponBorder" value="showCouponBorder" class="helpText" v-model="Promotion.ShowCouponBorder" onclick="showCouponBorder()">
         </div>
     </div>
     <div class="row">
         <p class="col-md-1">Colors:</p>
         <div class="col-md-3">
-            <label for="backgroundColor">Promo background color</label>
+            <label for="backgroundColor" style="padding-right:5px">Promo background color</label>
             <input type="color" id="backgroundColor" name="backgroundColor" v-model="Promotion.BackgroundColor" onchange="setFormBackgroundColor()" />
         </div>
         <div class="col-md-3">
-            <label for="buttonColor">Promo button color</label>
+            <label for="buttonColor" style="padding-right:5px">Promo button color</label>
             <input type="color" id="buttonColor" name="buttonColor" v-model="Promotion.ButtonColor" onchange="setFormButtonColor()" />
         </div>
         <div class="col-md-3">
@@ -162,7 +163,7 @@
                 <ul>
                     <li>
                         We will send the user an email with your promo code in it.<br />
-                        -<small>You should honor this code (that you setup here) online and in person.</small>
+                        -<small>You should honor the promo/coupon code you establish here online and in person.</small>
                     </li>
                     <li>
                         The user's name and Email will be saved for you to use in the future.<br />

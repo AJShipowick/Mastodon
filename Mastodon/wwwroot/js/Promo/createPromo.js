@@ -32,8 +32,9 @@ function getPromotionModel() {
                 $("#deletePromoBtn").show();
                 $("#slickContactForm").css({ "background-color": newPromoApp.Promotion.BackgroundColor });
                 $("#sliderButton").css({ "background-color": newPromoApp.Promotion.ButtonColor });
+                if (newPromoApp.Promotion.ShowCouponBorder) { $("#slickContactForm").css({ "border": "4px dashed #ccc" });}
             } else {
-                //New promo, no slider selected, select 1st image for user
+                //New promo, no slider selected, select 1st image for user and colors
                 newPromoApp.Promotion.ImageName = "ContactUs1";
                 newPromoApp.Promotion.BackgroundColor = "#ffffff";
                 newPromoApp.Promotion.ButtonColor = "#4CAF50";
@@ -48,7 +49,7 @@ function getPromotionModel() {
 
 function showCouponBorder() {
     if (!newPromoApp.Promotion.ShowCouponBorder) {
-        $("#slickContactForm").css({ "border": "3px dashed #ccc" });
+        $("#slickContactForm").css({ "border": "4px dashed #ccc" });
     } else {
         $("#slickContactForm").css({ "border": "1px solid #d8d8d8" });
     }
@@ -84,7 +85,7 @@ function saveCustomSettings(activatePromo, responseMessageId) {
                 $("#" + responseMessageId).show();
                 $("#" + responseMessageId).addClass('animated fadeInDown');
             } else {
-                activatePromoNow(newPromoApp.Promotion.Id);
+                activatePromoNow("");
             }
         })
         .catch(function (error) {

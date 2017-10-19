@@ -49,6 +49,7 @@ namespace Mastodon.Promo.Models
         private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
         {
             model.ActivePromo = activePromo.Title;
+            model.ActivePromoDiscount = activePromo.Discount;
             model.ActivePromoEndDate = activePromo.EndDate;
             model.ActivePromoId = activePromo.Id;
 
