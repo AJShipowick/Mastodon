@@ -35,7 +35,7 @@ function getPromotionModel() {
                 if (newPromoApp.Promotion.ShowCouponBorder) { $("#slickContactForm").css({ "border": "4px dashed #ccc" });}
             } else {
                 //New promo, no slider selected, select 1st image for user and colors
-                newPromoApp.Promotion.ImageName = "ContactUs1";
+                newPromoApp.Promotion.ImageName = "promo1";
                 newPromoApp.Promotion.BackgroundColor = "#ffffff";
                 newPromoApp.Promotion.ButtonColor = "#4CAF50";
             }

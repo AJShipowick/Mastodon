@@ -30,5 +30,11 @@ namespace Mastodon.Controllers
         {
             return View();
         }
+
+        public IActionResult BusinessAnalyser()
+        {
+            return View();
+        }
+
     }
 }

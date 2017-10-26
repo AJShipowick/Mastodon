@@ -3,7 +3,7 @@
 }
 
 <div class="row">
-    
+
     <h2><i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" onclick="showHelpStep1()"></i> Create a Promotion</h2>
 </div>
 <br />
@@ -101,24 +101,20 @@
         <div class="col-md-1">
             <p>Image: </p>
         </div>
-        <div class="col-md-6" onclick="showCustomSliderImage()">
-            <label>
-                <input type="radio" name="promoImage" class="form-control" value="ContactUs1" v-model="Promotion.ImageName" />
-                <img id="ContactUs1" src="~/images/Slider/ContactUs1.png">
-            </label>
-            <label>
-                <input type="radio" name="promoImage" class="form-control" value="ContactUs2" v-model="Promotion.ImageName" />
-                <img id="ContactUs2" src="~/images/Slider/ContactUs2.png">
-            </label>
-            <label>
-                <input type="radio" name="promoImage" class="form-control" value="ContactUs3" v-model="Promotion.ImageName" />
-                <img id="ContactUs3" src="~/images/Slider/ContactUs3.png">
-            </label>
-            <label>
-                <input type="radio" name="promoImage" class="form-control" value="ContactUs4" v-model="Promotion.ImageName" />
-                <img id="ContactUs4" src="~/images/Slider/ContactUs4.png">
-            </label>
-        </div>
+
+        <!--CAN THIS BE DONE????? IF SO, then do it!!!!-->
+        @*<div class="col-md-6" onclick="showCustomSliderImage()">
+            <div v-for="index in totalImages">
+                <label>
+                    <input type="radio" name="promoImage[index]" class="form-control" value="promo[index]" v-model="Promotion.ImageName" />
+                    <img id="promo[index]">
+                </label>
+            </div>
+        </div>*@
+
+       @{ Html.RenderPartial("SliderImageHolder.cshtml"); }
+
+
     </div>
     <br />
 

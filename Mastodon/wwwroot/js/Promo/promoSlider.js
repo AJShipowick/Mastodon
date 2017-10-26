@@ -22,6 +22,7 @@ function slickSliderClicked() {
         document.getElementById('slickImage').style.cssFloat = 'left';
         showSlickSlider();
         document.documentElement.style.overflowX = 'inherit';
+        document.getElementById('sliderContainer').style.zIndex = "10";
     }
     else {
         closeSlickSlider();
@@ -31,6 +32,8 @@ function slickSliderClicked() {
 function closeSlickSlider() {
     document.getElementById('slickContactForm').style.visibility = 'hidden';
     document.getElementById('slickImage').style.cssFloat = 'right';
+    document.getElementById('sliderContainer').style.zIndex = "0";
+
 }
 
 function showSlickSlider() {

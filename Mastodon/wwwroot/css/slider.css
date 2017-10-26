@@ -4,15 +4,15 @@
 
 #sliderContainer {
     position: fixed;
-    z-index: 10;
+    /*z-index: 10;*/
     right: 0px;
     top: 30%;
 }
 
 #slickImage {
     position: relative;
-    box-shadow: 0 0 8px gray;
-    margin-top: 80px;
+    /*box-shadow: 0 0 8px gray;*/
+    margin-top: 35%;
     cursor: pointer;
     float: right;
 }
