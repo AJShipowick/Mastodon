@@ -3,12 +3,61 @@
 }
 
 <h1>Business Analyser</h1>
+<br />
 
 <div id="analyser">
 
-    <button class="btn btn-primary" v-on:click="placeTest()">Test API</button>
 
+    <div class="row">
+        <div class="col-md-3">
+            <label for="city">Enter a city:</label>
+            <input class="form-control" type="text" id="city" placeholder="Fargo" />
+            <small hidden id="cityError" style="color:red">City is required</small>
+        </div>
+        <div class="col-md-3">
+            <label for="state">Enter a state:</label>
+            <input class="form-control" type="text" id="state" placeholder="ND" />
+            <small hidden id="stateError" style="color:red">State is required</small>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="businessType">Business type:</label>
+            <input class="form-control" type="text" id="businessType" placeholder="Universities" />
+            <small hidden id="businessTypeError" style="color:red">Business type is required</small>
+        </div>
+    </div>
+    <br />
 
+    <h3 hidden id="googleError" style="color:red">{{GoogleError}} Try again tomorrow.</h3>
+    <button class="btn btn-primary" style="margin-top:10px" v-on:click="lookupBusinesses()">Look up businesses</button>
+    <br />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-2">Address</th>
+                <th class="col-md-2">Phone Number</th>
+                <th class="col-md-3">Website</th>
+                <th class="col-md-1">Rating</th>
+            </tr>
+        </thead>
+        <tbody v-if="PlacesResults !== null">
+            <tr v-for="business in PlacesResults">
+                <td class="col-md-3">{{business.Name}}</td>
+                <td class="col-md-3">
+                    <a target="_blank" v-bind:href="business.MapLocation">{{business.Address}}</a>
+                </td>
+                <td class="col-md-2">{{business.PhoneNumber}}</td>
+                <td class="col=md-3">
+                    <a target="_blank" v-bind:href="business.Website">{{business.Website}}</a>
+                </td>
+                <td class="col-md-1">{{business.Rating}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <script src="~/js/Home/analyser.js"></script>

@@ -1,23 +1,68 @@
 ﻿"use strict";
 
-//Places search
+//Google API
+//https://console.developers.google.com/apis/dashboard
+//Places search example
 //https://developers.google.com/places/web-service/search
-//Place ID search
+//Place ID search example
 //https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=YOUR_API_KEY
-//https://maps.googleapis.com/maps/api/place/details/json?placeid=7686d1dc3c6989ea8e668123bd5021389c86c6ca&key=AIzaSyCj6LKEvnpOkMWIAPY5orojw4umlx247-Q
 
+//Yelp API
+//https://www.yelp.com/developers/documentation/v3
+//Places example:
+//https://api.yelp.com/v3/businesses/search?term=restaurant&location=boulder
+//Header Name =     Authorization
+//Value =           Bearer _TDZWcVlmco13_E6CKyo6agZp9_uT82FB45Y4L0_O-v98pAAMgqfa59LtXp1ySZgQKdUaEuona4E4-9mHDGsxFdMX9OeyVRBQXsurST3QPQ2GpAoPocap_NKFp7yWXYx
 
 var analyser = new Vue({
     el: '#analyser',
     data: {
         BusinessSearchResults: [],
         PlacesIDs: [],
-        PlacesResults: []
+        PlacesResults: [],
+        GoogleError: ""
     },
     methods: {
-        placeTest: function () {
-            axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=plumber+Lincoln+NE&key=AIzaSyCj6LKEvnpOkMWIAPY5orojw4umlx247-Q')
+
+        inputsValid: function () {
+            let valid = true;
+            $("#cityError").hide();
+            $("#stateError").hide();
+            $("#businessTypeError").hide();
+
+            if ($("#city").val().length === 0) {
+                valid = false;
+                $("#cityError").show();
+            }
+            if ($("#state").val().length === 0) {
+                valid = false;
+                $("#stateError").show();
+            }
+            if ($("#businessType").val().length === 0) {
+                valid = false;
+                $("#businessTypeError").show();
+            }
+
+            return valid;
+        },
+
+        lookupBusinesses: function () {
+
+            if (!analyser.inputsValid()) { return;}
+
+            let city = $("#city").val();
+            let state = $("#state").val();
+            let businessType = $("#businessType").val();
+
+            axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + businessType + '+' + city + '+' + state +'&key=AIzaSyCj6LKEvnpOkMWIAPY5orojw4umlx247-Q')
                 .then(function (response) {
+
+                    analyser.GoogleError = "";
+                    if (response.data.error_message) {
+                        analyser.GoogleError = response.data.error_message;
+                        $("#googleError").show();
+                    }
+
                     analyser.BusinessSearchResults = [];
                     analyser.PlacesIDs = [];
 
@@ -33,18 +78,22 @@ var analyser = new Vue({
                     //todo Handle errors
                 });
         },
-        getPlaceDetails: function () {           
+
+        getPlaceDetails: function () {
+
+            analyser.PlacesResults = [];
 
             $.each(analyser.PlacesIDs, function (i, item) {
                 axios.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + item + '&key=AIzaSyCj6LKEvnpOkMWIAPY5orojw4umlx247-Q')
                     .then(function (response) {
 
                         let placeObject = [];
-                        placeObject.BusinessName = response.data.result.name;
+                        placeObject.Name = response.data.result.name;
                         placeObject.Address = response.data.result.formatted_address;
                         placeObject.PhoneNumber = response.data.result.formatted_phone_number;
-                        placeObject.Rating = response.data.result.rating;
                         placeObject.Website = response.data.result.website;
+                        placeObject.Rating = response.data.result.rating;
+                        placeObject.MapLocation = response.data.result.url;
 
                         analyser.PlacesResults.push(placeObject);
                     })
