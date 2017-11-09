@@ -48,13 +48,13 @@ var analyser = new Vue({
 
         lookupBusinesses: function () {
 
-            if (!analyser.inputsValid()) { return;}
+            if (!analyser.inputsValid()) { return; }
 
             let city = $("#city").val();
             let state = $("#state").val();
             let businessType = $("#businessType").val();
 
-            axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + businessType + '+' + city + '+' + state +'&key=AIzaSyCj6LKEvnpOkMWIAPY5orojw4umlx247-Q')
+            axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + businessType + '+' + city + '+' + state + '&key=AIzaSyCj6LKEvnpOkMWIAPY5orojw4umlx247-Q')
                 .then(function (response) {
 
                     analyser.GoogleError = "";
@@ -101,8 +101,11 @@ var analyser = new Vue({
                         //todo Handle errors
                     });
             });
+        },
 
-            var x = "awesome!";
+        exportBusinesses: function () {
+
+            
 
         }
     }

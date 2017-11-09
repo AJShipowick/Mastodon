@@ -1,7 +1,54 @@
-﻿.jumbotron {
-    background-size: cover;
-    background-color: #000000;
+﻿/*Colors
+    Grey (top header background): #f7f7f7
+    Hover blue #005eff
+
+    Facebook colors: http://www.color-hex.com/color-palette/185
+    Blue colors: http://www.color-hex.com/color-palette/7308
+*/
+
+body {
+    background: #dfe3ee !important;
 }
+
+/*.btn {
+    background-color: #009fff;
+}
+
+    .btn:hover {
+        background-color: #00f9ff;
+    }*/
+
+/*To override the nav header on the website*/
+.brand, .nav > li > a:hover {
+    color: #005eff;
+}
+
+.navbar-nav > li > a {
+    color: black;
+    font-size: large;
+}
+
+.navbar-toggle {
+    background-color: #dfe3ee;
+}
+
+.small-nav::before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+
+.header-shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+
+
+
 
 [v-cloak] {
     display: none;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mastodon.Shared;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mastodon.Controllers
 {
@@ -34,6 +35,20 @@ namespace Mastodon.Controllers
         public IActionResult BusinessAnalyser()
         {
             return View();
+        }
+
+        public IActionResult ExportBusinesses()
+        {
+            var myExport = new CsvExport(",", false);
+
+            //foreach (PromotionEntries entry in promoEntries)
+            //{
+            //    myExport.AddRow();
+            //    myExport["Name"] = entry.Name;
+            //    myExport["Email"] = entry.EmailAddress;
+            //}
+
+            return File(myExport.ExportToBytes(), "text/csv", "PromoStats.csv");
         }
 
     }

@@ -1,9 +1,14 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
     <title>@ViewData["Title"] - PromoPal</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/images/Slider/promo1.png">
 
     <!--jQuery-->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"
@@ -20,11 +25,11 @@
           asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 
-    <!--Font Awesome CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!--Global site CSS-->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!--Font Awesome CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--Stylesheet for object animations (https://github.com/daneden/animate.css)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -45,10 +50,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top box-shadow header-shadow" style="background-color:#fff">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle small-nav fa-align-justify" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -58,17 +63,36 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a></li>
-                    <li><a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">Create Promotion</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a></li>
+                        <li><a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">Create Promotion</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    <li><a>Home</a></li>
+                    <li><a>Features</a></li>
+                    <li><a>Pricing</a></li>
+                    <li><a>Support</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Blog</a></li>
+                    <li style="padding-top:10px"><div class="btn btn-success">Try For Free</div></li>
                 </ul>
+
                 @await Html.PartialAsync("_LoginPartial")
+
             </div>
         </div>
     </nav>
+
+
+
+    <div style="width:1920px; height:200px; background-color:#009fff; padding-top: 55px">
+        <h1 style="color:#000">Something</h1>
+        <p>Something else</p>
+    </div>
+
+
     <div class="container body-content">
-        <div style="padding-top: 50px;">
+        <div style="padding-top: 50px">
             @RenderBody()
         </div>
         <hr />
