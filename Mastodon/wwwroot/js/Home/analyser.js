@@ -22,6 +22,15 @@ var analyser = new Vue({
         PlacesResults: [],
         GoogleError: ""
     },
+    created: function () {
+        //get settings onLoad
+        for (let item in localStorage) {
+            let place = JSON.parse(localStorage.getItem(item));
+
+            let placesItem = { "Name": place.Name, "Address": place.Address, "PhoneNumber": place.PhoneNumber, "Website": place.Website, "Rating": place.Rating};
+            this.PlacesResults.push(placesItem)
+        }        
+    },
     methods: {
 
         inputsValid: function () {
@@ -105,8 +114,43 @@ var analyser = new Vue({
 
         exportBusinesses: function () {
 
-            
+            let csvContent = "data:text/csv;charset=utf-8,";
 
+            csvContent += "Name, ";
+            csvContent += "Address, ";
+            csvContent += "Phone Number, ";
+            csvContent += "Website, ";
+            csvContent += "Rating, ";
+            csvContent += "Map Location \n";
+
+            $.each(analyser.PlacesResults, function (i, item) {
+                csvContent += item.Name + ", ";
+                csvContent += item.Address + ", ";
+                csvContent += item.PhoneNumber + ", ";
+                csvContent += item.Website + ", ";
+                csvContent += item.Rating + ", ";
+                csvContent += item.MapLocation + "\n";
+
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            window.open(encodedUri);
+
+        },
+
+        saveProgress: function () {
+            //save business data to local file
+
+            localStorage.clear();
+
+            let i = 0;
+            $.each(analyser.PlacesResults, function (i, item) {
+                let storageItem = { "Name": item.Name, "Address": item.Address, "PhoneNumber": item.PhoneNumber, "Website": item.Website, "Rating": item.Rating };
+
+                localStorage.setItem(i, JSON.stringify(storageItem));
+                i++;
+            });           
         }
+
     }
 });

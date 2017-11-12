@@ -37,7 +37,7 @@ namespace Mastodon.Controllers
             return View();
         }
 
-        public IActionResult ExportBusinesses()
+        public IActionResult SaveProgress(object results)
         {
             var myExport = new CsvExport(",", false);
 

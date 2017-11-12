@@ -31,8 +31,12 @@
     <br />
 
     <h3 hidden id="googleError" style="color:red">{{GoogleError}} Try again tomorrow.</h3>
-    <button class="btn btn-primary" style="margin-top:10px; float:left" v-on:click="lookupBusinesses()">Look up businesses</button>
-    <button class="btn btn-primary" style="margin-top:10px; float:right" v-on:click="exportBusinesses()">Export Businesses</button>
+    <div class="row">
+        <button class="btn btn-primary" style="margin-top:10px; float:left" v-on:click="lookupBusinesses()">Look up businesses</button>
+        <button class="btn btn-primary" style="margin-top:10px; float:right" v-on:click="exportBusinesses()">Export Businesses</button>
+        <p class="col-md-1" style="float:right"></p>
+        <button class="btn btn-success" style="margin-top:10px; float:right" v-on:click="saveProgress()">Save Session</button>
+    </div>
     <br />
 
     <table class="table table-striped">

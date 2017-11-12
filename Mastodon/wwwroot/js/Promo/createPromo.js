@@ -5,7 +5,7 @@ var newPromoApp = new Vue({
     data: {
         Promotion: []
     },
-    created: function () {
+    mounted: function () {
         //get settings onLoad
         getPromotionModel();
     }
