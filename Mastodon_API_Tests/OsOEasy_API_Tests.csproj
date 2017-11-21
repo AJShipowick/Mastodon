@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mastodon_API\Mastodon_API.csproj" />
+    <ProjectReference Include="..\Mastodon_API\OsOEasy_API.csproj" />
   </ItemGroup>
 
 </Project>

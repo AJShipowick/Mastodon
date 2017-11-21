@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Mastodon.Migrations
+namespace OsOEasy.Migrations
 {
     public partial class create1 : Migration
     {

@@ -1,8 +1,8 @@
-﻿using Mastodon.Models;
+﻿using OsOEasy.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mastodon.Promo.Models.DBModels
+namespace OsOEasy.Promo.Models.DBModels
 {
     [Serializable]
     public class Promotion

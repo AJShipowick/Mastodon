@@ -1,8 +1,8 @@
-﻿using Mastodon.Promo.Models.DBModels;
+﻿using OsOEasy.Promo.Models.DBModels;
 using System;
 using System.Collections.Generic;
 
-namespace Mastodon.Promo.Models
+namespace OsOEasy.Promo.Models
 {
     [Serializable]
     public class PromoDetails

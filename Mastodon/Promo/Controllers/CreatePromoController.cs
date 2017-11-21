@@ -1,7 +1,7 @@
-﻿using Mastodon.Data;
-using Mastodon.Models;
-using Mastodon.Promo.Models.DBModels;
-using Mastodon.Shared;
+﻿using OsOEasy.Data;
+using OsOEasy.Models;
+using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace Mastodon.Promo.Controllers
+namespace OsOEasy.Promo.Controllers
 {
     [Area("Promotion")]
     public class CreatePromoController : Controller

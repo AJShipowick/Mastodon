@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mastodon.Promo.Models.DBModels;
+using OsOEasy.Promo.Models.DBModels;
 using System.Linq;
-using Mastodon.Models;
-using Mastodon.Data;
+using OsOEasy.Models;
+using OsOEasy.Data;
 
-namespace Mastodon.Promo.Models
+namespace OsOEasy.Promo.Models
 {
     public interface IBuilder
     {

@@ -1,7 +1,7 @@
-using Mastodon_API;
+using OsOEasy_API;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Mastodon_API_Tests
+namespace OsOEasy_API_Tests
 {
     [TestClass]
     public class MainJS
@@ -9,7 +9,7 @@ namespace Mastodon_API_Tests
         [TestMethod]
         public void MainJS_NoQuestionMarks()
         {
-            var api = new Mastodon_API.Responses.MainJS();
+            var api = new OsOEasy_API.Responses.MainJS();
             var userID = "123456-789456-123456-789456";
 
             var actual = api.GetMainJS(userID);

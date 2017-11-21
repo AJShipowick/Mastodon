@@ -1,6 +1,6 @@
-﻿using Mastodon.Promo.Models.DBModels;
+﻿using OsOEasy.Promo.Models.DBModels;
 
-namespace Mastodon_API.Responses.JS
+namespace OsOEasy_API.Responses.JS
 {
 
     public interface IBasicJS

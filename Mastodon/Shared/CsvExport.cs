@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Mastodon.Shared
+namespace OsOEasy.Shared
 {
 	/// <summary>
 	/// Simple CSV export

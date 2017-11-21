@@ -1,14 +1,14 @@
-﻿using Mastodon.Promo.Models;
-using Mastodon_API.Data;
-using Mastodon_API.Responses;
-using Mastodon_API.Responses.CSS;
-using Mastodon_API.Responses.HTML;
-using Mastodon_API.Responses.JS;
+﻿using OsOEasy.Promo.Models;
+using OsOEasy_API.Data;
+using OsOEasy_API.Responses;
+using OsOEasy_API.Responses.CSS;
+using OsOEasy_API.Responses.HTML;
+using OsOEasy_API.Responses.JS;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 
-namespace Mastodon_API.Controllers
+namespace OsOEasy_API.Controllers
 {
     [Route("api/[controller]")]
     public class SliderController : Controller

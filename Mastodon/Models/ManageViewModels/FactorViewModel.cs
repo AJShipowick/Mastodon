@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mastodon.Models.ManageViewModels
+namespace OsOEasy.Models.ManageViewModels
 {
     public class FactorViewModel
     {

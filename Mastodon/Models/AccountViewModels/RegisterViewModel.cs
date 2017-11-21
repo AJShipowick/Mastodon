@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mastodon.Models.AccountViewModels
+namespace OsOEasy.Models.AccountViewModels
 {
     public class RegisterViewModel
     {

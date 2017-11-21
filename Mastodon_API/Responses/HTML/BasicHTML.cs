@@ -1,6 +1,6 @@
-﻿using Mastodon.Promo.Models.DBModels;
+﻿using OsOEasy.Promo.Models.DBModels;
 
-namespace Mastodon_API.Responses.HTML
+namespace OsOEasy_API.Responses.HTML
 {
 
     public interface IBasicHTML

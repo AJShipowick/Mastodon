@@ -1,15 +1,15 @@
-﻿using Mastodon_API.Data;
-using Mastodon_API.Responses;
-using Mastodon_API.Responses.CSS;
-using Mastodon_API.Responses.HTML;
-using Mastodon_API.Responses.JS;
+﻿using OsOEasy_API.Data;
+using OsOEasy_API.Responses;
+using OsOEasy_API.Responses.CSS;
+using OsOEasy_API.Responses.HTML;
+using OsOEasy_API.Responses.JS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mastodon_API
+namespace OsOEasy_API
 {
     public class Startup
     {

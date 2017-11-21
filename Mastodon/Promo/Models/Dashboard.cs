@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mastodon.Promo.Models
+namespace OsOEasy.Promo.Models
 {
     [Serializable]
     public class Dashboard

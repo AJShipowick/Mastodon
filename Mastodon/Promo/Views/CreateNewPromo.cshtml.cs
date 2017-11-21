@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Mastodon.Promo.Views
+namespace OsOEasy.Promo.Views
 {
     public class CreateNewPromoModel : PageModel
     {

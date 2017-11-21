@@ -1,4 +1,4 @@
-﻿namespace Mastodon_API.Responses
+﻿namespace OsOEasy_API.Responses
 {
     public interface IMainJS
     {

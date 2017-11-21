@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Mastodon_API": {
+    "OsOEasy_API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

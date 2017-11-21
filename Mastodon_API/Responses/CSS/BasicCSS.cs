@@ -1,6 +1,6 @@
-﻿using Mastodon.Promo.Models.DBModels;
+﻿using OsOEasy.Promo.Models.DBModels;
 
-namespace Mastodon_API.Responses.CSS
+namespace OsOEasy_API.Responses.CSS
 {
 
     public interface IBasicCSS

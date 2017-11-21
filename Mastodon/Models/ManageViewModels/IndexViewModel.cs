@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace Mastodon.Models.ManageViewModels
+namespace OsOEasy.Models.ManageViewModels
 {
     public class IndexViewModel
     {

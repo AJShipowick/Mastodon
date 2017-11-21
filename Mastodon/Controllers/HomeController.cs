@@ -1,7 +1,7 @@
-﻿using Mastodon.Shared;
+﻿using OsOEasy.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mastodon.Controllers
+namespace OsOEasy.Controllers
 {
 
     //Main controller for landing page

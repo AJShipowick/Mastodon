@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Mastodon.Models;
-using Mastodon.Models.ManageViewModels;
-using Mastodon.Services;
+using OsOEasy.Models;
+using OsOEasy.Models.ManageViewModels;
+using OsOEasy.Services;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Mastodon.Controllers
+namespace OsOEasy.Controllers
 {
     [Authorize]
     public class ManageController : Controller

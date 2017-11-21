@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Mastodon.Models;
-using Mastodon.Models.AccountViewModels;
-using Mastodon.Services;
+using OsOEasy.Models;
+using OsOEasy.Models.AccountViewModels;
+using OsOEasy.Services;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Mastodon.Controllers
+namespace OsOEasy.Controllers
 {
     [Authorize]
     public class AccountController : Controller

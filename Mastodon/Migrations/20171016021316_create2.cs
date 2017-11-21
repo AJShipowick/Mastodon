@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mastodon.Migrations
+namespace OsOEasy.Migrations
 {
     public partial class create2 : Migration
     {

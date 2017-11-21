@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Mastodon.Views.Home
+namespace OsOEasy.Views.Home
 {
     public class BusinessAnalyserModel : PageModel
     {

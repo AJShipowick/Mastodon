@@ -1,8 +1,8 @@
-using Mastodon.Data;
-using Mastodon.Models;
-using Mastodon.Promo.Models;
-using Mastodon.Promo.Models.DBModels;
-using Mastodon.Shared;
+using OsOEasy.Data;
+using OsOEasy.Models;
+using OsOEasy.Promo.Models;
+using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mastodon.Promo.Controllers
+namespace OsOEasy.Promo.Controllers
 {
     [Area("Dashboard")]
     public class DashboardController : Controller

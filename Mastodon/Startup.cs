@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mastodon.Data;
-using Mastodon.Models;
-using Mastodon.Services;
+using OsOEasy.Data;
+using OsOEasy.Models;
+using OsOEasy.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity;
-using Mastodon.Shared;
+using OsOEasy.Shared;
 
-namespace Mastodon
+namespace OsOEasy
 {
     public class Startup
     {

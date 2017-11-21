@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Mastodon.Models.ManageViewModels
+namespace OsOEasy.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {
