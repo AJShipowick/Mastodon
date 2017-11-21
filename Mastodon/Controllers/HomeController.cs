@@ -5,7 +5,6 @@ namespace Mastodon.Controllers
 {
 
     //Main controller for landing page
-
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -36,20 +35,5 @@ namespace Mastodon.Controllers
         {
             return View();
         }
-
-        public IActionResult SaveProgress(object results)
-        {
-            var myExport = new CsvExport(",", false);
-
-            //foreach (PromotionEntries entry in promoEntries)
-            //{
-            //    myExport.AddRow();
-            //    myExport["Name"] = entry.Name;
-            //    myExport["Email"] = entry.EmailAddress;
-            //}
-
-            return File(myExport.ExportToBytes(), "text/csv", "PromoStats.csv");
-        }
-
     }
 }

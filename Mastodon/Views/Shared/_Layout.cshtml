@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>@ViewData["Title"] - PromoPal</title>
+    <title>@ViewData["Title"]</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="~/images/Slider/promo1.png">
+    <link rel="shortcut icon" href="~/images/oso_easy_promo_icon.png">
 
     <!--jQuery-->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"
@@ -27,6 +27,10 @@
 
     <!--Global site CSS-->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!--Google Fonts-->
+    <!--https://fonts.google.com/-->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Spectral+SC" rel="stylesheet">
 
     <!--Font Awesome CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,7 +63,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/slider2.svg" width="50" height="50" /> </a>
+                <!--https://icons8.com/icon/18829/panda-->
+                <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/oso_easy_promo_icon.png" width="50" height="50" /> </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -68,13 +73,13 @@
                         <li><a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">Create Promotion</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                    <li><a>Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a>Features</a></li>
                     <li><a>Pricing</a></li>
-                    <li><a>Support</a></li>
-                    <li><a>About</a></li>
-                    <li><a>Blog</a></li>
-                    <li style="padding-top:10px"><div class="btn btn-success">Try For Free</div></li>
+                    @*<li><a>Support</a></li>
+                        <li><a>About</a></li>
+                        <li><a>Blog</a></li>*@
+                    <li style="padding:10px"><div class="btn btn-primary">Try For Free</div></li>
                 </ul>
 
                 @await Html.PartialAsync("_LoginPartial")
@@ -83,22 +88,14 @@
         </div>
     </nav>
 
-
-
-    @*<div style="width:1920px; height:200px; background-color:#009fff; padding-top: 55px">
-        <h1 style="color:#000">Something</h1>
-        <p>Something else</p>
-    </div>*@
-
-
-    <div class="container body-content">
+    <div id="contentContainer" class="container body-content">
         <div style="padding-top: 50px">
             @RenderBody()
         </div>
         <hr />
         <footer>
             <br /><br />
-            <p>&copy; @DateTime.Now.Year - PromoPal</p>
+            <p>&copy; @DateTime.Now.Year - OsO Easy Promo</p>
         </footer>
     </div>
 
