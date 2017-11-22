@@ -1,5 +1,5 @@
 ﻿using OsOEasy.Models;
-using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Models.DBModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

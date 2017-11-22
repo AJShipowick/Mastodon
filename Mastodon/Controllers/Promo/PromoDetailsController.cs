@@ -1,7 +1,6 @@
 ﻿using OsOEasy.Data;
 using OsOEasy.Models;
-using OsOEasy.Promo.Models;
-using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Models.DBModels;
 using OsOEasy.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,8 +9,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OsOEasy.Models.PromoModels;
 
-namespace OsOEasy.Promo.Controllers
+namespace OsOEasy.Controllers.Promo
 {
     [Area("Details")]
     public class PromoDetailsController : Controller

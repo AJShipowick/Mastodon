@@ -1,5 +1,5 @@
 ﻿using OsOEasy.Promo.Models;
-using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace OsOEasy_API.Data

@@ -1,6 +1,6 @@
 ﻿using OsOEasy.Data;
 using OsOEasy.Models;
-using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Models.DBModels;
 using OsOEasy.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace OsOEasy.Promo.Controllers
+namespace OsOEasy.Controllers.Promo
 {
     [Area("Promotion")]
     public class CreatePromoController : Controller

@@ -13,7 +13,7 @@ using OsOEasy.Services;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OsOEasy.Controllers
+namespace OsOEasy.Controllers.Account
 {
     [Authorize]
     public class ManageController : Controller

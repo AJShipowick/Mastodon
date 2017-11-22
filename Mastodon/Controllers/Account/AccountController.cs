@@ -13,8 +13,9 @@ using OsOEasy.Models;
 using OsOEasy.Models.AccountViewModels;
 using OsOEasy.Services;
 using Microsoft.AspNetCore.Authentication;
+using OsOEasy.Controllers.Home;
 
-namespace OsOEasy.Controllers
+namespace OsOEasy.Controllers.Account
 {
     [Authorize]
     public class AccountController : Controller

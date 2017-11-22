@@ -34,9 +34,10 @@
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
 
-.btn {
+.btn, .feature-img {
     box-shadow: 5px 5px 5px #888888;
 }
+
 
 .btn-primary {
     background-color: #005eff;

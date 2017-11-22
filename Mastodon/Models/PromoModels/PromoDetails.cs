@@ -1,8 +1,8 @@
-﻿using OsOEasy.Promo.Models.DBModels;
+﻿using OsOEasy.Models.DBModels;
 using System;
 using System.Collections.Generic;
 
-namespace OsOEasy.Promo.Models
+namespace OsOEasy.Models.PromoModels
 {
     [Serializable]
     public class PromoDetails

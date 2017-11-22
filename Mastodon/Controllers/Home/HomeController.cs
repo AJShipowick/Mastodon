@@ -1,7 +1,6 @@
-﻿using OsOEasy.Shared;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace OsOEasy.Controllers
+namespace OsOEasy.Controllers.Home
 {
 
     //Main controller for landing page
@@ -12,19 +11,29 @@ namespace OsOEasy.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Features()
         {
-            ViewData["Message"] = "About us";
-
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Pricing()
         {
-            ViewData["Message"] = "Contact us";
-
             return View();
         }
+
+        //public IActionResult About()
+        //{
+        //    ViewData["Message"] = "About us";
+
+        //    return View();
+        //}
+
+        //public IActionResult Contact()
+        //{
+        //    ViewData["Message"] = "Contact us";
+
+        //    return View();
+        //}
 
         public IActionResult Error()
         {

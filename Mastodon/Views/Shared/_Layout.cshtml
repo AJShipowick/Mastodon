@@ -8,7 +8,7 @@
     <title>@ViewData["Title"]</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="~/images/oso_easy_promo_icon.png">
+    <link rel="shortcut icon" href="~/images/oso_easy_promo_icon_small.png">
 
     <!--jQuery-->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"
@@ -64,18 +64,13 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!--https://icons8.com/icon/18829/panda-->
-                <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/oso_easy_promo_icon.png" width="50" height="50" /> </a>
+                <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/oso_easy_promo_icon_medium.png" /> </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a></li>
-                        <li><a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">Create Promotion</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a>Features</a></li>
-                    <li><a>Pricing</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
                     @*<li><a>Support</a></li>
                         <li><a>About</a></li>
                         <li><a>Blog</a></li>*@
@@ -94,7 +89,7 @@
         </div>
     </div>
     <footer>
-        <p>&copy; @DateTime.Now.Year - OsO Easy Promo</p>
+        <p>&copy; @DateTime.Now.Year - OsO Easy Promo - Support@OsOEasyPromo.com</p>
     </footer>
 
     <!--Bootstrap DatePicker-->

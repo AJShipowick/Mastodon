@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Models.DBModels;
 using System.Linq;
 using OsOEasy.Models;
 using OsOEasy.Data;
+using OsOEasy.Models.PromoModels;
 
 namespace OsOEasy.Promo.Models
 {

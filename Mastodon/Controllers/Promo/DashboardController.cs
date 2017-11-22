@@ -1,7 +1,6 @@
 using OsOEasy.Data;
 using OsOEasy.Models;
-using OsOEasy.Promo.Models;
-using OsOEasy.Promo.Models.DBModels;
+using OsOEasy.Models.DBModels;
 using OsOEasy.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OsOEasy.Promo.Models;
+using OsOEasy.Models.PromoModels;
 
-namespace OsOEasy.Promo.Controllers
+namespace OsOEasy.Controllers.Promo
 {
     [Area("Dashboard")]
     public class DashboardController : Controller

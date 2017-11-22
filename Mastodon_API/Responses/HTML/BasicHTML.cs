@@ -1,4 +1,4 @@
-﻿using OsOEasy.Promo.Models.DBModels;
+﻿using OsOEasy.Models.DBModels;
 
 namespace OsOEasy_API.Responses.HTML
 {

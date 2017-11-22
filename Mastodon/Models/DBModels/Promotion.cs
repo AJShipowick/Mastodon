@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OsOEasy.Promo.Models.DBModels
+namespace OsOEasy.Models.DBModels
 {
     [Serializable]
     public class Promotion
