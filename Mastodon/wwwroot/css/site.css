@@ -63,6 +63,51 @@
     font-size: 25px;
 }
 
+.btn-pricing {
+    display: block;
+    margin: 15px;
+}
+
+.btn-pricing-silver {
+    background-color: #dcdcdc;
+    border-color: #dcdcdc;
+    color: black;
+}
+
+    .btn-pricing-silver:hover {
+        background-color: #cbcbcb;
+        border-color: #cbcbcb;
+        color: black;
+    }
+
+.btn-pricing-bronze {
+    background-color: #CD7F32;
+    border-color: #CD7F32;
+    color: black;
+}
+
+    .btn-pricing-bronze:hover {
+        background-color: #A75B10;
+        border-color: #A75B10;
+        color: black;
+    }
+
+.btn-pricing-gold {
+    background-color: #ffbf00;
+    border-color: #ffbf00;
+    color: black;
+}
+
+    .btn-pricing-gold:hover {
+        background-color: #b29600;
+        border-color: #b29600;
+        color: black;
+    }
+
+    .btn-pricing-gold:checked {
+        background-color: #ffbf00;
+    }
+
 .home-card-content {
     color: black;
 }
