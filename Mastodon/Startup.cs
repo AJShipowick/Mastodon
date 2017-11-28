@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using OsOEasy.Data;
 using OsOEasy.Models;
 using OsOEasy.Services;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity;
 using OsOEasy.Shared;
 
@@ -63,17 +62,6 @@ namespace OsOEasy
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<ICommon, Common>();
             services.AddTransient<Promo.Models.IBuilder, Promo.Models.Builder>();
-
-            // Define custom routing areas
-            //services.Configure<RazorViewEngineOptions>(options =>
-            //{
-            //    options.AreaViewLocationFormats.Clear();
-            //    options.AreaViewLocationFormats.Add("/Views/Account/{0}.cshtml");
-            //    options.AreaViewLocationFormats.Add("/Views/Home/{0}.cshtml");
-            //    options.AreaViewLocationFormats.Add("/Views/Manage/{0}.cshtml");
-            //    options.AreaViewLocationFormats.Add("/Views/Promo/{0}.cshtml");
-            //    options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
-            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,18 +87,6 @@ namespace OsOEasy
 
             app.UseMvc(routes =>
         {
-            //routes.MapRoute(name: "Features",
-            //    template: "{area:exists}/{controller=Features}/{action=Index}/{id?}");
-
-            //routes.MapRoute(name: "Dashboard",
-            //    template: "{area:exists}/{controller=Dashboard}/{action=Dashboard}/{id?}");
-
-            //routes.MapRoute(name: "CreatePromo",
-            //    template: "{area:exists}/{controller=CreatePromo}/{action=CreateNewPromo}/{id?}");
-
-            //routes.MapRoute(name: "Details",
-            //    template: "{area:exists}/{controller=PromoDetails}/{action=PromoDetails}/{id?}");
-
             routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");

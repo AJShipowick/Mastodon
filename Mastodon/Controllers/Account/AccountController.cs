@@ -91,7 +91,6 @@ namespace OsOEasy.Controllers.Account
             return View(model);
         }
 
-        //
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
@@ -101,44 +100,37 @@ namespace OsOEasy.Controllers.Account
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            String returnURL = "/Dashboard";
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    Website = model.Website,
                     FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
+                    LastName = model.LastName,                    
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
-                    UserPromoScript = "<script> todo, set custom script here </script>",
-                    NewUser = true
+                    UserPromoScript = "<script> set script, uniqueID = userID?? or first 10 of UserID?? </script>",
+                    IsNewUser = true
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
 
-                    //Save new Client Model here as well....
-
-
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnURL);
                 }
                 AddErrors(result);
             }

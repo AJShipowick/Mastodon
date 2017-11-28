@@ -45,8 +45,7 @@
         <script src="~/lib/vue/vue.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <!--Vue library here so on RenderBody() there is not a Vue null reference.
-             Reference here instead of in footer because of null reference of Vue in a View-->
+        <!--Reference here instead of in footer because of null reference of Vue in a View-->
         <script src="https://unpkg.com/vue@2.4.4/dist/vue.min.js" asp-append-version="true"
                 asp-fallback-src="~/lib/vue/vue/min.js">
         </script>
@@ -74,7 +73,9 @@
                     @*<li><a>Support</a></li>
                         <li><a>About</a></li>
                         <li><a>Blog</a></li>*@
-                    <li style="padding:10px"><div class="btn btn-primary">Try For Free</div></li>
+                    <li style="padding:10px">
+                        <div onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-primary">Try For Free</div>
+                    </li>
                 </ul>
 
                 @await Html.PartialAsync("_LoginPartial")
