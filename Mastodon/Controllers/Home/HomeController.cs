@@ -21,20 +21,6 @@ namespace OsOEasy.Controllers.Home
             return View();
         }
 
-        //public IActionResult About()
-        //{
-        //    ViewData["Message"] = "About us";
-
-        //    return View();
-        //}
-
-        //public IActionResult Contact()
-        //{
-        //    ViewData["Message"] = "Contact us";
-
-        //    return View();
-        //}
-
         public IActionResult Error()
         {
             return View();
