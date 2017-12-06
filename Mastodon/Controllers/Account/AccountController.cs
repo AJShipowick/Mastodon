@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using OsOEasy.Controllers.Home;
 using OsOEasy.Models;
 using OsOEasy.Models.AccountViewModels;
+using OsOEasy.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -16,18 +17,18 @@ namespace OsOEasy.Controllers.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //private readonly IEmailSender _emailSender;
+        private readonly IMailGunEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            //IEmailSender emailSender,
+            IMailGunEmailSender emailSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            //_emailSender = emailSender;
+            _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -49,9 +50,10 @@ namespace OsOEasy.Controllers.Account
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            String returnURL = "/Dashboard";
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -60,7 +62,7 @@ namespace OsOEasy.Controllers.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnURL);
                 }
                 if (result.IsLockedOut)
                 {
@@ -115,6 +117,10 @@ namespace OsOEasy.Controllers.Account
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    //Send welcome email
+                    await _emailSender.SendMailGunEmailAsync(EmailType.NewUserSignup, user.Email, user.FirstName, "");
+
                     _logger.LogInformation(3, "User created a new account with password.");
 
                     return RedirectToLocal(returnURL);
@@ -180,23 +186,12 @@ namespace OsOEasy.Controllers.Account
                     // Just show them a confirmation screen....muhhuuhhahahah
                     return View("ForgotPasswordConfirmation");
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
 
+                await _emailSender.SendMailGunEmailAsync(EmailType.ResetPassword, user.Email, user.FirstName, callbackUrl);
 
-
-
-                //Setup MailGun as emailSender to send password reset email!!!!
-
-                //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 return View("ForgotPasswordConfirmation");
-
-
-
             }
 
             // If we got this far, something failed, redisplay form

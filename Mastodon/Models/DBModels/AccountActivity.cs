@@ -1,5 +1,4 @@
-﻿using OsOEasy.Models;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OsOEasy.Models.DBModels

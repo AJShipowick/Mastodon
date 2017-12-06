@@ -1,13 +1,17 @@
 ﻿@model IndexViewModel
 @{
-    ViewData["Title"] = "Manage your account";
+    ViewData["Title"] = "OsO Easy Promo - Manage Your Account";
 }
 
-<h2>@ViewData["Title"].</h2>
+<div class="home-header-container">
+    <h1 class="home-header">OsO Easy Promo</h1>
+    <h2 style="font-family: 'Indie Flower', serif">Manage your account</h2>
+    <img src="~/images/oso_easy_promo_icon_large.png" />
+</div>
+
 <p class="text-success">@ViewData["StatusMessage"]</p>
 
 <div>
-    <h4>Change your account settings</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>Password:</dt>

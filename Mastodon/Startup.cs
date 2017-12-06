@@ -59,7 +59,7 @@ namespace OsOEasy
             });
 
             // Add application services.
-            //services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<IMailGunEmailSender, MailGunEmailSender>();
             services.AddTransient<ICommon, Common>();
             services.AddTransient<Promo.Models.IBuilder, Promo.Models.Builder>();
 
