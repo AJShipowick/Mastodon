@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OsOEasy.Controllers.Home;
+using OsOEasy.Data;
 using OsOEasy.Models;
 using OsOEasy.Models.AccountViewModels;
 using OsOEasy.Services;
@@ -17,17 +18,20 @@ namespace OsOEasy.Controllers.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _dbContext;
         private readonly IMailGunEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext dbContext,
             IMailGunEmailSender emailSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
@@ -52,8 +56,6 @@ namespace OsOEasy.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            String returnURL = "/Dashboard";
-
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -61,8 +63,15 @@ namespace OsOEasy.Controllers.Account
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    user.LastLoginDate = DateTime.Today;
+                    user.TimesLoggedIn += 1;
+                    user.IsNewUser = false;
+
+                    using (_dbContext) { _dbContext.SaveChanges(); }
+
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnURL);
+                    return RedirectToLocal("/Dashboard");
                 }
                 if (result.IsLockedOut)
                 {
@@ -108,14 +117,14 @@ namespace OsOEasy.Controllers.Account
                     LastName = model.LastName,
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
                     UserPromoScript = "<script> set script, uniqueID = userID?? or first 10 of UserID?? </script>",
-                    IsNewUser = true
+                    IsNewUser = true,
+                    AccountCreationDate = DateTime.Today,
+                    TimesLoggedIn = 1
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     //Send welcome email

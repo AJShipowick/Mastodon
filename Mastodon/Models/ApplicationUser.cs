@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace OsOEasy.Models
 {
@@ -10,8 +11,12 @@ namespace OsOEasy.Models
         public string Website { get; set; }
         public string SubscriptionPlan { get; set; }
         public string UserPromoScript { get; set; }
-        public string ClientNotes { get; set; }
+
         public bool IsNewUser { get; set; }
+        public DateTime AccountCreationDate { get; set; }
+        public int TimesLoggedIn { get; set; }
+        public DateTime LastLoginDate { get; set; }
+
         public bool IsAdmin { get; set; }  //todo use this in future to manager/view users accounts without having to directly query DB to find out about their stuff.....
     }
 

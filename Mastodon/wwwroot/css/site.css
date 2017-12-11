@@ -127,6 +127,11 @@ body {
     }*/
 
 /*To override the nav header on the website*/
+
+.navClicked {
+    background-color: #eee;
+}
+
 .brand, .nav > li > a:hover {
     color: #005eff;
 }

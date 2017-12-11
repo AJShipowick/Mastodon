@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OsOEasy.Models.DBModels
 { 
-    public class AccountActivity
+    public class PaymentActivity
     {
         [Key]
         public string Id { get; set; }

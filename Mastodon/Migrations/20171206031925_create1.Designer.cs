@@ -11,9 +11,10 @@ using System;
 namespace OsOEasy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171206031925_create1")]
+    partial class create1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +136,7 @@ namespace OsOEasy.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("AccountCreationDate");
+                    b.Property<string>("ClientNotes");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -150,8 +151,6 @@ namespace OsOEasy.Migrations
                     b.Property<bool>("IsAdmin");
 
                     b.Property<bool>("IsNewUser");
-
-                    b.Property<DateTime>("LastLoginDate");
 
                     b.Property<string>("LastName");
 

@@ -31,9 +31,9 @@ namespace OsOEasy.Services
         private static string Message_NewUser = "Hi {0},\r\n\r\n" +
                                                     "We're so glad you decided to try OsOEasyPromo.com for free!\r\n\r\n" +
                                                     "Make sure to setup your website script so you can start running unlimited custom promotions on your website ASAP.\r\n\r\n" +
-                                                    "We would love to help you out and answer any quesitons you may have about OsO Easy Promo.\r\n" +
-                                                    "You can reply directly to this email with any questions you may have.\r\n\r\n" +
-                                                    "Happy OsO Easy Promotions!\r\n\r\n" +
+                                                    "We would love to help you answer any quesitons you may have about our promotion platform.\r\n" +
+                                                    "You can reply directly to this email if you would like.\r\n\r\n" +
+                                                    "Happy Promotions!\r\n\r\n" +
                                                     "The OsOEasy Team";
         #endregion
 
@@ -86,7 +86,7 @@ namespace OsOEasy.Services
                 Authenticator = new HttpBasicAuthenticator("api", "key-7dc1f62ef27b4b6d12965cc80ae78b17")
             };
             RestRequest request = new RestRequest();
-            request.AddParameter("domain", "sandbox93b02124731a40588b0e9d6bcb9e08c4.mailgun.org", ParameterType.UrlSegment);
+            request.AddParameter("domain", "support.osoeasypromo.com", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", from);
             request.AddParameter("to", to);

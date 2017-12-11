@@ -11,8 +11,8 @@ using System;
 namespace OsOEasy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171128025741_Create1")]
-    partial class Create1
+    [Migration("20171206033907_create2")]
+    partial class create2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,7 +136,7 @@ namespace OsOEasy.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("ClientNotes");
+                    b.Property<DateTime>("AccountCreationDate");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -151,6 +151,8 @@ namespace OsOEasy.Migrations
                     b.Property<bool>("IsAdmin");
 
                     b.Property<bool>("IsNewUser");
+
+                    b.Property<DateTime>("LastLoginDate");
 
                     b.Property<string>("LastName");
 
@@ -174,6 +176,8 @@ namespace OsOEasy.Migrations
 
                     b.Property<string>("SubscriptionPlan");
 
+                    b.Property<int>("TimesLoggedIn");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -196,7 +200,7 @@ namespace OsOEasy.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("OsOEasy.Models.DBModels.AccountActivity", b =>
+            modelBuilder.Entity("OsOEasy.Models.DBModels.PaymentActivity", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -217,7 +221,7 @@ namespace OsOEasy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AccountActivity");
+                    b.ToTable("PaymentActivity");
                 });
 
             modelBuilder.Entity("OsOEasy.Models.DBModels.Promotion", b =>

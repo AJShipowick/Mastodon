@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -65,18 +67,26 @@
                 <!--https://icons8.com/icon/18829/panda-->
                 <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/oso_easy_promo_icon_medium.png" /> </a>
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
-                    <li><a asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a></li>
-                    @*<li><a>Support</a></li>
-                        <li><a>About</a></li>
-                        <li><a>Blog</a></li>*@
-                    <li style="padding:10px">
-                        <div onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-primary">Try For Free</div>
-                    </li>
+
+                    <li><a id="home" onclick="clickNavigation('home');" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a id="features" onclick="clickNavigation('features');" asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
+                    <li><a id="pricing" onclick="clickNavigation('pricing');" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li style="padding:10px">|</li>
+                        <li><a id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Promo Dashboard</a></li>                        
+                        <li><a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo"><i class="fa fa-rocket fa-lg" style="color:red" aria-hidden="true"></i> Create New Promo</a></li>
+                    }
+                    else
+                    {
+                        <li style="padding:10px">
+                            <div onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-primary">Try For Free</div>
+                        </li>
+                    }
                 </ul>
 
                 @await Html.PartialAsync("_LoginPartial")
@@ -110,6 +120,7 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    <script src="~/js/Shared/navigation.js"></script>
 
 </body>
 </html>

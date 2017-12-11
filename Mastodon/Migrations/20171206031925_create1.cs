@@ -5,28 +5,10 @@ using System.Collections.Generic;
 
 namespace OsOEasy.Migrations
 {
-    public partial class Create1 : Migration
+    public partial class create1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "AccountActivity",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ApplicationUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MonthlyPlanPayment = table.Column<bool>(type: "bit", nullable: false),
-                    PaymentAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SpecialPurchase = table.Column<bool>(type: "bit", nullable: false),
-                    SpecialPurchaseItem = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountActivity", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -64,6 +46,7 @@ namespace OsOEasy.Migrations
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubscriptionPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimesLoggedIn = table.Column<int>(type: "int", nullable: false),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     UserPromoScript = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -72,6 +55,24 @@ namespace OsOEasy.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentActivity",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ApplicationUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MonthlyPlanPayment = table.Column<bool>(type: "bit", nullable: false),
+                    PaymentAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpecialPurchase = table.Column<bool>(type: "bit", nullable: false),
+                    SpecialPurchaseItem = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentActivity", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -308,9 +309,6 @@ namespace OsOEasy.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AccountActivity");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -324,6 +322,9 @@ namespace OsOEasy.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "PaymentActivity");
 
             migrationBuilder.DropTable(
                 name: "PromotionEntries");

@@ -29,7 +29,7 @@ namespace OsOEasy.Data
         public DbSet<Promotion> Promotion { get; set; }
         public DbSet<PromotionStats> PromotionStats { get; set; }
         public DbSet<PromotionEntries> PromotionEntries { get; set; }
-        public DbSet<AccountActivity> AccountActivity { get; set; }
+        public DbSet<PaymentActivity> PaymentActivity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
