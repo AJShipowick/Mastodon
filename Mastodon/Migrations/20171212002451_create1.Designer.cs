@@ -11,8 +11,8 @@ using System;
 namespace OsOEasy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171206033907_create2")]
-    partial class create2
+    [Migration("20171212002451_create1")]
+    partial class create1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
