@@ -6,21 +6,41 @@
 <div id="dashboardApp">
 
     <div class="row">
-        <a asp-controller="Promo" asp-action="Index">
-            <h3 v-cloak><i class="fa fa-question-circle-o" aria-hidden="true"></i> Current Subscription: {{Dashboard.CurrentSubscription}}</h3>
-            <br />
-        </a>
+        <div class="col-md-6">
+            <div class="alert alert-info" role="alert">
+                <p style="text-align:center">Welcome, you have {{Dashboard.FreeTrialDaysLeft}} days left in your free trial</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div v-if="Dashboard.ScriptInstalled === true">
+                <div class="alert alert-success" role="alert">
+                    <p style="text-align:center"><i class="fa fa-code" aria-hidden="true"></i> Promo Script Installed</p>
+                    @* show script in modal.....
+                        {{Dashboard.ActivePromoScript}}*@
+                </div>
+            </div>
+            <div v-if="Dashboard.ScriptInstalled !== true">
+                <div class="alert alert-danger" role="alert">
+                    <p style="text-align:center"><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> Promo Script NOT Detected</p>
+                    <!--Show script and how to install?? in modal....-->
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!--If 3 or less days show this alert
+    <div class="alert alert-danger" role="alert">
+        <p>Welcome, you have {{Dashboard.FreeTrialDaysLeft}} left in your free trial.</p>
+    </div>-->
+
     <div class="row">
-        <div class="col-md-3">
-            <a asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo" class="btn btn-primary "><i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion</a>
+        <div class="col-md-6">
+            <a asp-controller="Promo" asp-action="Index">
+                <h3 v-cloak><i class="fa fa-credit-card" aria-hidden="true"></i> Current Subscription: {{Dashboard.CurrentSubscription}}</h3>
+            </a>
         </div>
-        <div v-if="Dashboard.ActivePromo" class="col-md-3 col-md-offset-6">
-            <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
-        </div>
-        <br />
     </div>
+    <br />
 
     <div class="col-md-6" style="left:50%" id="ajaxLoading">
         <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
@@ -29,44 +49,53 @@
 
     <div class="row">
         <div v-cloak v-if="Dashboard.ActivePromo === null">
-            <h3><i class="fa fa-warning" aria-hidden="true"></i> No active promotions currently</h3>
+            <div class="col-md-6">
+                <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotions currently</h3>
+            </div>
         </div>
         <div hidden id="activePromoData">
             <div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
+                <h2><i class="fa fa-flash" style="color:red" aria-hidden="true"></i> Active Promotion</h2>
                 <div class="row">
-                    <div class="col-md-6">
-                        <h3>Active Promotion:</h3>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div style="color:white" class="panel-title">
-                                    <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"> {{Dashboard.ActivePromo}}</i>                                     
-                                    <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromo)" style="float:right" class="fa fa-info-circle helpText" title="View promotion entries" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div>{{Dashboard.ActivePromoDiscount}}</div>
-                                <div>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</div>
-                                <div>End Date: {{Dashboard.ActivePromoEndDate}}</div>
-                            </div>
+                    <div v-if="Dashboard.ActivePromo" class="col-md-2">
+                        <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
+                    </div>
+                </div>
+                <br />
+                <div class="panel panel-primary" style="width:60%">
+                    <div class="panel-heading">
+                        <div style="color:white" class="panel-title">
+                            <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o fa-lg helpText" title="View or edit this promotion" aria-hidden="true"> {{Dashboard.ActivePromo}}</i>
+                            <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromo)" style="float:right" class="fa fa-info-circle fa-lg helpText" title="View promotion entries" aria-hidden="true"></i>
                         </div>
-                        <h3> <i class="fa fa-code" aria-hidden="true"></i> Active Promo Script </h3>
-                        {{Dashboard.ActivePromoScript}}
+                    </div>
+                    <div class="panel-body">
+                        <div>{{Dashboard.ActivePromoDiscount}}</div>
+                        <div>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</div>
+                        <div>End Date: {{Dashboard.ActivePromoEndDate}}</div>
                     </div>
                 </div>
             </div>
             <div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
-                <h3><i class="fa fa-line-chart" aria-hidden="true"></i> Promo Stats</h3>
+                <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
                 <div class="well">
-                    Comming soon...
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
+                    <h3>Comming soon...</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <div hidden id="inactivePromoData" v-if="Dashboard.InactivePromos !== null" class="row">
+    <div hidden id="inactivePromoData" v-if="Dashboard.InactivePromos !== null">
         <div class="row">
             <div class="col-md-6">
-                <h3><i class="fa fa-star-half-full" aria-hidden="true"></i> Inactive Promotions:</h3>
+                <h3><i class="fa fa-star-half-full" style="color:red" aria-hidden="true"></i> Inactive Promotions</h3>
             </div>
         </div>
         <div v-for="promo in Dashboard.InactivePromos">
@@ -74,7 +103,7 @@
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <i v-on:click="editOldPromo(promo.PromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"> {{promo.PromoName}}</i> 
+                            <i v-on:click="editOldPromo(promo.PromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"> {{promo.PromoName}}</i>
                             <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)" style="float:right" class="fa fa-info-circle helpText" title="View promotion entries" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -91,7 +120,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Stop Active Promotion: {{Dashboard.ActivePromo}}</h2>
+                    <h2 class="modal-title">Stop Active Promotion {{Dashboard.ActivePromo}}</h2>
                 </div>
                 <div class="modal-body">
                     <h3>Want to stop your promotion now?</h3>

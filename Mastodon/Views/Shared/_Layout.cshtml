@@ -78,7 +78,7 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li style="padding:10px">|</li>
-                        <li><a id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Promo Dashboard</a></li>                        
+                        <li><a id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Promo Dashboard</a></li>
                         <li><a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo"><i class="fa fa-rocket fa-lg" style="color:red" aria-hidden="true"></i> Create New Promo</a></li>
                     }
                     else
@@ -96,9 +96,7 @@
     </nav>
 
     <div id="contentContainer" class="container body-content">
-        <div style="padding-top: 50px">
-            @RenderBody()
-        </div>
+        @RenderBody()
     </div>
     <footer>
         <p>&copy; @DateTime.Now.Year - OsO Easy Promo</p>
@@ -107,17 +105,12 @@
     <!--Bootstrap DatePicker-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 
-    <environment names="Development">
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-    </environment>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+    </script>
 
     @RenderSection("Scripts", required: false)
     <script src="~/js/Shared/navigation.js"></script>

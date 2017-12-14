@@ -8,6 +8,8 @@ namespace OsOEasy.Models.PromoModels
     {
         //Account
         public string CurrentSubscription { get; set; }
+        public string FreeTrialDaysLeft { get; set; }
+
         //Entries
         public string ActivePromoId { get; set; }
         public string ActivePromo { get; set; }
