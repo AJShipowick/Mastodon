@@ -7,7 +7,7 @@ var dashboardApp = new Vue({
     },
     created: function () {
         //get settings onLoad
-        getUserSettings()
+        this.getUserSettings();
     },
     methods: {
         editOldPromo: function (promoId) {
@@ -24,7 +24,7 @@ var dashboardApp = new Vue({
 
             axios.get('/Dashboard/Dashboard/StopActivePromotion?promoId=' + promoId)
                 .then(function (response) {
-                    getUserSettings();
+                    dashboardApp.getUserSettings();
                 })
                 .catch(function (error) {
                     //todo Handle errors
@@ -32,19 +32,23 @@ var dashboardApp = new Vue({
         },
         viewPromoEntries: function (promoId, promoName) {
             window.location.href = '/Details/PromoDetails/PromoDetails?promoId=' + promoId + "&promoName=" + promoName;
+        },
+
+        getUserSettings: function () {
+            axios.get('/Dashboard/Dashboard/GetUserSettings')
+                .then(function (response) {
+                    dashboardApp.Dashboard = response.data;
+                    $("#activePromoData").show();
+                    $("#inactivePromoData").show();
+                    $('#ajaxLoading').hide();
+                })
+                .catch(function (error) {
+                    //todo Handle errors
+                });
+        },
+
+        showUserScriptInfo: function (userScript) {
+            $("#userScriptModal").modal('show');
         }
     }
 });
-
-function getUserSettings() {
-    axios.get('/Dashboard/Dashboard/GetUserSettings')
-        .then(function (response) {
-            dashboardApp.Dashboard = response.data;
-            $("#activePromoData").show();
-            $("#inactivePromoData").show();
-            $('#ajaxLoading').hide();
-        })
-        .catch(function (error) {
-            //todo Handle errors
-        });
-}

@@ -16,6 +16,8 @@ namespace OsOEasy.Promo.Models
     public class Builder : IBuilder
     {
 
+        public static int _DaysForFreeTrial = 15;
+
         public Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> allUserPromotions)
         {
             Dashboard model = new Dashboard();
@@ -42,9 +44,32 @@ namespace OsOEasy.Promo.Models
             model.ActivePromoScript = user.UserPromoScript;
             model.CurrentSubscription = user.SubscriptionPlan;
 
+            //todo, make this check MUCH more robust!!!!
+            model.ScriptInstalled = model.ActivePromoClaimedEntries > 0;
+
+            model.FreeTrialMessage = CalculateFreeTrialDaysLeft(user.AccountCreationDate);
             //todo calculate entries over time for a chart...googlechart?
 
             return model;
+        }
+
+        private string CalculateFreeTrialDaysLeft(DateTime accountCreationDate)
+        {
+            int daysSinceSignup = DateTime.Today.Subtract(accountCreationDate).Days;
+
+            if (daysSinceSignup <= _DaysForFreeTrial)
+            {
+                if (daysSinceSignup == _DaysForFreeTrial)
+                {
+                    return "This is the last fay of your free trial!";
+                }
+                else
+                {
+                    return String.Format("You have {0} days left in your free trial",  (_DaysForFreeTrial - daysSinceSignup).ToString());
+                }
+            }
+
+            return "trial_over";
         }
 
         private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)

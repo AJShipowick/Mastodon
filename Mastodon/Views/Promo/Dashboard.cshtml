@@ -5,55 +5,39 @@
 <!--Vue container-->
 <div id="dashboardApp">
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="alert alert-info" role="alert">
-                <p style="text-align:center">Welcome, you have {{Dashboard.FreeTrialDaysLeft}} days left in your free trial</p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div v-if="Dashboard.ScriptInstalled === true">
-                <div class="alert alert-success" role="alert">
-                    <p style="text-align:center"><i class="fa fa-code" aria-hidden="true"></i> Promo Script Installed</p>
-                    @* show script in modal.....
-                        {{Dashboard.ActivePromoScript}}*@
-                </div>
-            </div>
-            <div v-if="Dashboard.ScriptInstalled !== true">
-                <div class="alert alert-danger" role="alert">
-                    <p style="text-align:center"><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> Promo Script NOT Detected</p>
-                    <!--Show script and how to install?? in modal....-->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--If 3 or less days show this alert
-    <div class="alert alert-danger" role="alert">
-        <p>Welcome, you have {{Dashboard.FreeTrialDaysLeft}} left in your free trial.</p>
-    </div>-->
-
-    <div class="row">
-        <div class="col-md-6">
-            <a asp-controller="Promo" asp-action="Index">
-                <h3 v-cloak><i class="fa fa-credit-card" aria-hidden="true"></i> Current Subscription: {{Dashboard.CurrentSubscription}}</h3>
-            </a>
-        </div>
-    </div>
-    <br />
-
     <div class="col-md-6" style="left:50%" id="ajaxLoading">
+        <br /><br /><br />
         <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
         <!--todo, add help doc or video on how/why to create promotions when there is not one active yet.....-->
     </div>
 
-    <div class="row">
-        <div v-cloak v-if="Dashboard.ActivePromo === null">
+    <div hidden id="activePromoData">
+        <div class="row">
             <div class="col-md-6">
-                <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotions currently</h3>
+                <div class="alert alert-info" role="alert">
+                    <p style="text-align:center">{{Dashboard.FreeTrialMessage}}  -  <strong>({{Dashboard.CurrentSubscription}})</strong></p>
+                </div>
+            </div>
+
+            <div v-if="Dashboard.ScriptInstalled === true">
+                <div class="col-md-6 alert alert-success helpText" role="alert" v-on:click="showUserScriptInfo()">
+                    <p style="text-align:center"><i class="fa fa-code" aria-hidden="true"></i> Promo Script Installed</p>
+                </div>
+            </div>
+            <div v-if="Dashboard.ScriptInstalled !== true">
+                <div class="col-md-6 alert alert-danger helpText" role="alert" v-on:click="showUserScriptInfo()">
+                    <p style="text-align:center"><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> Promo Script NOT Detected</p>
+                </div>
             </div>
         </div>
-        <div hidden id="activePromoData">
+        <br />
+
+        <div class="row">
+            <div v-cloak v-if="Dashboard.ActivePromo === null">
+                <div class="col-md-6">
+                    <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotions currently</h3>
+                </div>
+            </div>
             <div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
                 <h2><i class="fa fa-flash" style="color:red" aria-hidden="true"></i> Active Promotion</h2>
                 <div class="row">
@@ -129,6 +113,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" v-on:click="stopPromoNow(Dashboard.ActivePromoId)"><i class="fa fa-warning" aria-hidden="true"></i> STOP NOW</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="userScriptModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> You custom website script</h2>
+                </div>
+                <div class="modal-body">
+                    <h2>Insert this custom script into your website source code on every page you want your promotion to display</h2>
+                    <h3 style="background-color:#eee">{{Dashboard.ActivePromoScript}}</h3><br />
+                    <h4>Here are some resources to help you out with this process</h4>
+                    <p>Something1</p>
+                    <p>Something2</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
