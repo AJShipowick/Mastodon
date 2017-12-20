@@ -13,21 +13,16 @@
 
     <div hidden id="activePromoData">
         <div class="row">
-            <div class="col-md-6">
-                <div class="alert alert-info" role="alert">
-                    <p style="text-align:center">{{Dashboard.FreeTrialMessage}}  -  <strong>({{Dashboard.CurrentSubscription}})</strong></p>
+            <div class="col-md-6" role="alert">
+                <div class="alert alert-success helpText" v-on:click="showUserScriptInfo()">
+                    <p style="text-align:center"><i class="fa fa-info-circle" aria-hidden="true"></i> Site Script Info</p>
                 </div>
             </div>
-
-            <div v-if="Dashboard.ScriptInstalled === true">
-                <div class="col-md-6 alert alert-success helpText" role="alert" v-on:click="showUserScriptInfo()">
-                    <p style="text-align:center"><i class="fa fa-code" aria-hidden="true"></i> Promo Script Installed</p>
-                </div>
-            </div>
-            <div v-if="Dashboard.ScriptInstalled !== true">
-                <div class="col-md-6 alert alert-danger helpText" role="alert" v-on:click="showUserScriptInfo()">
-                    <p style="text-align:center"><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> Promo Script NOT Detected</p>
-                </div>
+            <div class="col-md-6" style="padding-top:15px">
+                <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    {{Dashboard.FreeTrialMessage}}  -  <strong>({{Dashboard.CurrentSubscription}})</strong>
+                </a>
             </div>
         </div>
         <br />
@@ -36,13 +31,25 @@
             <div v-cloak v-if="Dashboard.ActivePromo === null">
                 <div class="col-md-6">
                     <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotions currently</h3>
+                    <h3>
+                        <a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">
+                            <i class="fa fa-rocket" style="color:red" aria-hidden="true"></i> Create New Promotion
+                        </a>
+                    </h3>
                 </div>
             </div>
             <div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
                 <h2><i class="fa fa-flash" style="color:red" aria-hidden="true"></i> Active Promotion</h2>
                 <div class="row">
-                    <div v-if="Dashboard.ActivePromo" class="col-md-2">
-                        <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
+                    <div v-if="Dashboard.ActivePromo">
+                        <div class="col-md-4">
+                            <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
+                        </div>
+                        <div class="col-md-8">
+                            <a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">
+                                <i class="fa fa-rocket" style="color:red" aria-hidden="true"></i> Create New Promotion
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <br />
@@ -60,19 +67,19 @@
                     </div>
                 </div>
             </div>
-            <div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
-                <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
-                <div class="well">
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                    <h3>Comming soon...</h3>
-                </div>
-            </div>
+            @*<div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
+                    <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
+                    <div class="well">
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                        <h3>Comming soon...</h3>
+                    </div>
+                </div>*@
         </div>
     </div>
 
@@ -123,14 +130,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> You custom website script</h2>
+                    <h1 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> You custom website script</h1>
                 </div>
                 <div class="modal-body">
-                    <h2>Insert this custom script into your website source code on every page you want your promotion to display</h2>
+                    <h3>Insert this custom script into your website source code on every page you want your promotion to display.</h3>
                     <h3 style="background-color:#eee">{{Dashboard.ActivePromoScript}}</h3><br />
-                    <h4>Here are some resources to help you out with this process</h4>
-                    <p>Something1</p>
-                    <p>Something2</p>
+                    <p>
+                        Adding our script to your website is very similar to installing a Google Analytics or Hotjar script.
+                    </p>
+                    <p>
+                        It is recommended to put the script in a global or common footer location of your website.
+                    </p>
+                    <p>
+                        This will allow your promotion to display on every page of your website.  You can also decide
+                        to put this script only on specific pages.  However this will limit the effectiveness of our service.
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

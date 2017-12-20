@@ -44,9 +44,6 @@ namespace OsOEasy.Promo.Models
             model.ActivePromoScript = user.UserPromoScript;
             model.CurrentSubscription = user.SubscriptionPlan;
 
-            //todo, make this check MUCH more robust!!!!
-            model.ScriptInstalled = model.ActivePromoClaimedEntries > 0;
-
             model.FreeTrialMessage = CalculateFreeTrialDaysLeft(user.AccountCreationDate);
             //todo calculate entries over time for a chart...googlechart?
 
@@ -61,7 +58,7 @@ namespace OsOEasy.Promo.Models
             {
                 if (daysSinceSignup == _DaysForFreeTrial)
                 {
-                    return "This is the last fay of your free trial!";
+                    return "This is the last day of your free trial!";
                 }
                 else
                 {
@@ -69,7 +66,7 @@ namespace OsOEasy.Promo.Models
                 }
             }
 
-            return "trial_over";
+            return "Manage your account";
         }
 
         private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
