@@ -38,10 +38,7 @@ namespace OsOEasy.Controllers.Account
             ViewData["StatusMessage"] =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
             var user = await GetCurrentUserAsync();
@@ -52,6 +49,11 @@ namespace OsOEasy.Controllers.Account
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Website = user.Website,
+                SubscriptionPlan = user.SubscriptionPlan,
+                AccountCreationDate = user.AccountCreationDate,
             };
             return View(model);
         }
