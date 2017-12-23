@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OsOEasy.Data;
 using OsOEasy.Models;
 using OsOEasy.Models.ManageViewModels;
 using OsOEasy.Services;
@@ -15,17 +16,20 @@ namespace OsOEasy.Controllers.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _dbContext;
         private readonly IMailGunEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
+          ApplicationDbContext dbContext,
           IMailGunEmailSender emailSender,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
@@ -38,6 +42,7 @@ namespace OsOEasy.Controllers.Account
             ViewData["StatusMessage"] =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageMessageId.AccountUpdateSuccess ? "Account updated!"
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
@@ -56,13 +61,6 @@ namespace OsOEasy.Controllers.Account
                 AccountCreationDate = user.AccountCreationDate,
             };
             return View(model);
-        }
-
-        //
-        // GET: /Manage/AddPhoneNumber
-        public IActionResult AddPhoneNumber()
-        {
-            return View();
         }
 
         //
@@ -133,6 +131,36 @@ namespace OsOEasy.Controllers.Account
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateUserAccount(IndexViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+            }
+
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+
+                using (_dbContext)
+                {
+                    var dbUser = _dbContext.Users.Find(user.Id);
+                    dbUser.FirstName = model.FirstName;
+                    dbUser.LastName = model.LastName;
+                    dbUser.Website = model.Website;
+                    dbUser.SubscriptionPlan = model.SubscriptionPlan;
+
+                    _dbContext.SaveChanges();
+                }
+
+                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.AccountUpdateSuccess });
+            }
+
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
@@ -145,13 +173,9 @@ namespace OsOEasy.Controllers.Account
 
         public enum ManageMessageId
         {
-            AddPhoneSuccess,
-            AddLoginSuccess,
+            AccountUpdateSuccess,
             ChangePasswordSuccess,
-            SetTwoFactorSuccess,
             SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
             Error
         }
 
