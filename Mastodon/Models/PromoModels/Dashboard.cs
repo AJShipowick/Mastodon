@@ -8,7 +8,7 @@ namespace OsOEasy.Models.PromoModels
     {
         //Account
         public string CurrentSubscription { get; set; }
-        public string FreeTrialMessage { get; set; }
+        public string DashboardMessage { get; set; }
 
         //Entries
         public string ActivePromoId { get; set; }

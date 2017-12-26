@@ -43,6 +43,7 @@ namespace OsOEasy.Controllers.Account
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.AccountUpdateSuccess ? "Account updated!"
+                : message == ManageMessageId.RequiredFieldMissing ? "All fields are required."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
@@ -137,7 +138,7 @@ namespace OsOEasy.Controllers.Account
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+                return RedirectToAction(nameof(Index), new { Message = ManageMessageId.RequiredFieldMissing });
             }
 
             var user = await GetCurrentUserAsync();
@@ -155,7 +156,7 @@ namespace OsOEasy.Controllers.Account
                     _dbContext.SaveChanges();
                 }
 
-                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.AccountUpdateSuccess });
+                return RedirectToAction(nameof(Index), new { Message = ManageMessageId.AccountUpdateSuccess });
             }
 
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
@@ -176,6 +177,7 @@ namespace OsOEasy.Controllers.Account
             AccountUpdateSuccess,
             ChangePasswordSuccess,
             SetPasswordSuccess,
+            RequiredFieldMissing,
             Error
         }
 

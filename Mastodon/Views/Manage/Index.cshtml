@@ -11,6 +11,7 @@
 
 <div class="row">
     <h3 class="text-success col-md-4 col-md-offset-2">@ViewData["StatusMessage"]</h3>
+    <div asp-validation-summary="All" class="text-info col-md-6 col-md-offset-1"></div>
 </div>
 
 <div class="row">
@@ -34,11 +35,11 @@
 
 <form asp-controller="Manage" asp-action="UpdateUserAccount" method="post">
 
-
     <div class="row">
         <div class="form-group col-md-4 col-md-offset-2">
             <label asp-for="FirstName">First Name:</label>
             <input asp-for="FirstName" type="text" class="form-control" value="@Model.FirstName">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
         <div class="form-group col-md-4 col-md-offset-1">
             <label asp-for="SubscriptionPlan">Subscription Plan:</label>
@@ -56,7 +57,7 @@
             <input asp-for="LastName" type="text" class="form-control" value="@Model.LastName">
         </div>
         <div class="col-md-4 col-md-offset-1">
-            <p>Make payment....</p>
+            <p>Setup a payment option</p>
         </div>
     </div>
     <div class="row">

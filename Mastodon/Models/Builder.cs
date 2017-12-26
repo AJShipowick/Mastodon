@@ -44,29 +44,45 @@ namespace OsOEasy.Promo.Models
             model.ActivePromoScript = user.UserPromoScript;
             model.CurrentSubscription = user.SubscriptionPlan;
 
-            model.FreeTrialMessage = CalculateFreeTrialDaysLeft(user.AccountCreationDate);
+            model.DashboardMessage = GetDashboardMessage(user.AccountCreationDate);
             //todo calculate entries over time for a chart...googlechart?
 
             return model;
         }
 
-        private string CalculateFreeTrialDaysLeft(DateTime accountCreationDate)
+        private String GetDashboardMessage(DateTime accountCreationDate)
         {
             int daysSinceSignup = DateTime.Today.Subtract(accountCreationDate).Days;
+            bool freeTrailActive = daysSinceSignup <= _DaysForFreeTrial;
 
-            if (daysSinceSignup <= _DaysForFreeTrial)
+            if (freeTrailActive)
             {
-                if (daysSinceSignup == _DaysForFreeTrial)
-                {
-                    return "This is the last day of your free trial!";
-                }
-                else
-                {
-                    return String.Format("You have {0} days left in your free trial",  (_DaysForFreeTrial - daysSinceSignup).ToString());
-                }
+                return GetFreeTrialMessage(daysSinceSignup);
             }
+            else
+            {
+                return GetUserDashboardMessage();
+            }
+        }
 
-            return "Manage your account";
+        private string GetUserDashboardMessage()
+        {
+            //todo break this out to be updated through a resource text file
+            //  ... where app does not have to be re-compiled to show new messages...maybe?? 
+            // .....Also, move this UI messaging logic
+            return "Thanks for being awesome!";
+        }
+
+        private string GetFreeTrialMessage(int daysSinceSignup)
+        {
+            if (daysSinceSignup == _DaysForFreeTrial)
+            {
+                return "This is the last day of your free trial!";
+            }
+            else
+            {
+                return String.Format("You have {0} days left in your free trial", (_DaysForFreeTrial - daysSinceSignup).ToString());
+            }
         }
 
         private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
