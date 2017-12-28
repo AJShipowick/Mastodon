@@ -187,12 +187,6 @@ body {
     width: 300px;
 }
 
-#analyserImage {
-    background-image: url('../images/analyser2.svg');
-    height: 300px;
-    width: 300px;
-}
-
 label > input { /* HIDE RADIO */
     visibility: hidden; /* Makes input not-clickable */
     position: absolute; /* Remove input from document flow */

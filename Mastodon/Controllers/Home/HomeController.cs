@@ -25,10 +25,5 @@ namespace OsOEasy.Controllers.Home
         {
             return View();
         }
-
-        public IActionResult BusinessAnalyser()
-        {
-            return View();
-        }
     }
 }
