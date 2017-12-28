@@ -8,14 +8,41 @@ var dashboardApp = new Vue({
     mounted: function () {
         //get settings onLoad
         this.getUserSettings();
+
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(this.drawChart);
     },
     methods: {
         editOldPromo: function (promoId) {
             window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId;
         },
+
+        drawChart: function () {
+            // Define the chart to be drawn.
+            let data = new google.visualization.DataTable();
+            data.addColumn('string', 'Element');
+            data.addColumn('number', 'Percentage');
+            data.addRows([
+                ['Nitrogen', 0.78],
+                ['Oxygen', 0.21],
+                ['Other', 0.01]
+            ]);
+
+            let options = {
+                'title': 'How Much Pizza I Ate Last Night',
+                'height': 350,
+                'width': 500
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+            chart.draw(data, options);
+        },
+
         confirmStopActivePromo: function () {
             $("#stopPromoModal").modal('show');
         },
+
         stopPromoNow: function (promoId) {
             $("#activePromoData").hide();
             $("#inactivePromoData").hide();
@@ -30,6 +57,7 @@ var dashboardApp = new Vue({
                     //todo Handle errors
                 });
         },
+
         viewPromoEntries: function (promoId, promoName) {
             window.location.href = '/Details/PromoDetails/PromoDetails?promoId=' + promoId + "&promoName=" + promoName;
         },
@@ -52,3 +80,30 @@ var dashboardApp = new Vue({
         }
     }
 });
+
+//$(function () {
+//    google.charts.load('current', { packages: ['corechart'] });
+//    google.charts.setOnLoadCallback(drawChart);
+//});
+
+//function drawChart() {
+//    // Define the chart to be drawn.
+//    let data = new google.visualization.DataTable();
+//    data.addColumn('string', 'Element');
+//    data.addColumn('number', 'Percentage');
+//    data.addRows([
+//        ['Nitrogen', 0.78],
+//        ['Oxygen', 0.21],
+//        ['Other', 0.01]
+//    ]);
+
+//    let options = {
+//        'title': 'How Much Pizza I Ate Last Night',
+//        'height': 350,
+//        'width': 500
+//    };
+
+//    // Instantiate and draw the chart.
+//    var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+//    chart.draw(data, options);
+//}
