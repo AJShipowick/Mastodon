@@ -70,7 +70,7 @@ namespace OsOEasy.Promo.Models
             //todo break this out to be updated through a resource text file
             //  ... where app does not have to be re-compiled to show new messages...maybe?? 
             // .....Also, move this UI messaging logic
-            return "Thanks for being awesome!";
+            return "You're awesome, view account details here";
         }
 
         private string GetFreeTrialMessage(int daysSinceSignup)

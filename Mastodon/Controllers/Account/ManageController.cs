@@ -43,7 +43,7 @@ namespace OsOEasy.Controllers.Account
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.AccountUpdateSuccess ? "Account updated!"
-                : message == ManageMessageId.RequiredFieldMissing ? "All fields are required."
+                : message == ManageMessageId.RequiredFieldMissing ? "Verify all fields are filled in to update values."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
@@ -59,7 +59,7 @@ namespace OsOEasy.Controllers.Account
                 LastName = user.LastName,
                 Website = user.Website,
                 SubscriptionPlan = user.SubscriptionPlan,
-                AccountCreationDate = user.AccountCreationDate,
+                AccountCreationDate = user.AccountCreationDate
             };
             return View(model);
         }
