@@ -5,7 +5,7 @@ var dashboardApp = new Vue({
     data: {
         Dashboard: []
     },
-    created: function () {
+    mounted: function () {
         //get settings onLoad
         this.getUserSettings();
     },
