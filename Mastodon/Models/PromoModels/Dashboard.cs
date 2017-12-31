@@ -16,9 +16,8 @@ namespace OsOEasy.Models.PromoModels
         public string ActivePromoDiscount { get; set; }
         public string ActivePromoScript { get; set; }
         public int ActivePromoClaimedEntries { get; set; }
-        public string ActivePromoStartDate { get; set; }
+        public int ActivePromoViews { get; set; }
         public string ActivePromoEndDate { get; set; }
-        public Dictionary<DateTime, int> EntriesOverTime { get; set; }
         public List<InactivePromos> InactivePromos { get; set; }
     }
 
@@ -28,5 +27,4 @@ namespace OsOEasy.Models.PromoModels
         public string PromoName;
         public string PromoDiscount;
     }
-
 }

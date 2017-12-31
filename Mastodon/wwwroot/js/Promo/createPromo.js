@@ -74,7 +74,7 @@ var newPromoApp = new Vue({
             $("#activateSuccessMsg").hide();
             $("#activateSuccessMsg").removeClass('animated fadeInDown');
 
-            if (!validForm()) { return; }
+            //if (!newPromoApp.validForm()) { return; }
 
             axios.post('/Promotion/CreatePromo/SaveNewPromo',
                 newPromoApp.Promotion

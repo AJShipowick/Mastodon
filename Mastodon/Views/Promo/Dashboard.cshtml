@@ -53,24 +53,32 @@
                     </div>
                 </div>
                 <br />
-                <div class="panel panel-primary" style="width:60%">
-                    <div class="panel-heading">
-                        <div style="color:white" class="panel-title">
-                            <i v-on:click="editOldPromo(Dashboard.ActivePromoId)" class="fa fa-pencil-square-o fa-lg helpText" title="View or edit this promotion" aria-hidden="true"> {{Dashboard.ActivePromo}}</i>
-                            <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromo)" style="float:right" class="fa fa-info-circle fa-lg helpText" title="View promotion entries" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div>{{Dashboard.ActivePromoDiscount}}</div>
-                        <div>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</div>
-                        <div>End Date: {{Dashboard.ActivePromoEndDate}}</div>
-                    </div>
+                <div class="card" style="width:60%">
+
+                    <i v-on:click="editOldPromo(Dashboard.ActivePromoId)"
+                       class="fa fa-pencil-square-o fa-lg helpText"
+                       title="View or edit this promotion"
+                       aria-hidden="true">{{Dashboard.ActivePromo}}</i>
+                    <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromo)"
+                       style="float:right" class="fa fa-info-circle fa-lg helpText"
+                       title="View promotion entries"
+                       aria-hidden="true"></i>
+                    <br /><br />
+                    <div>{{Dashboard.ActivePromoDiscount}}</div>
+                    <div>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</div>
+                    <div>End Date: {{Dashboard.ActivePromoEndDate}}</div>
+
                 </div>
             </div>
 
             <div v-if="Dashboard.ActivePromo !== null" class="col-md-6">
-                <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
-                <div id="myPieChart"></div>
+                <div v-if="Dashboard.ActivePromoViews > 0">
+                    <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
+                    <div id="pieChartStats"></div>
+                </div>
+                <div v-if="Dashboard.ActivePromoViews == 0">
+                    <p style="color:red">Your active promotion '{{Dashboard.ActivePromo}}' has not been viewed yet.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -83,16 +91,20 @@
         </div>
         <div v-for="promo in Dashboard.InactivePromos">
             <div class="col-md-3">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            <i v-on:click="editOldPromo(promo.PromoId)" class="fa fa-pencil-square-o helpText" title="View or edit this promotion" aria-hidden="true"> {{promo.PromoName}}</i>
-                            <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)" style="float:right" class="fa fa-info-circle helpText" title="View promotion entries" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        {{promo.PromoDiscount}}
-                    </div>
+                <div class="card">
+                    <i v-on:click="editOldPromo(promo.PromoId)" 
+                       class="fa fa-pencil-square-o helpText" 
+                       title="View or edit this promotion" 
+                       aria-hidden="true"> {{promo.PromoName}}
+                    </i>
+                    <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)" 
+                       style="float:right" 
+                       class="fa fa-info-circle helpText" 
+                       title="View promotion entries" 
+                       aria-hidden="true">
+                    </i>
+                    <br /><br />
+                    {{promo.PromoDiscount}}
                 </div>
             </div>
         </div>

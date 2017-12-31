@@ -4,7 +4,7 @@
 
 <div class="row">
 
-    <h2><i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" onclick="showHelpStep1()"></i> Create a Promotion</h2>
+    <h2><i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" v-on:click="showHelpStep1()"></i> Create a Promotion</h2>
 </div>
 <br />
 
@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-md-3 col-md-offset-1">
             <label style="padding-right:5px" for="showCouponBorder">Show a coupon border </label>
-            <input type="checkbox" name="showCouponBorder" value="showCouponBorder" class="helpText" v-model="Promotion.ShowCouponBorder" onclick="showCouponBorder()">
+            <input type="checkbox" name="showCouponBorder" value="showCouponBorder" class="helpText" v-model="Promotion.ShowCouponBorder" v-on:click="showCouponBorder()">
         </div>
     </div>
     <div class="row">
@@ -119,9 +119,9 @@
     <br />
 
     <div class="row">
-        <button type="submit" class="btn btn-primary" onclick="saveCustomSettings(false, 'saveSuccessMsg')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
-        <button class="btn btn-primary" onclick="saveCustomSettings(true, 'activateSuccessMsg')"><i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
-        <button style="display:none" id="deletePromoBtn" class="btn btn-danger" onclick="deletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
+        <button type="submit" class="btn btn-primary" v-on:click="saveCustomSettings(false, 'saveSuccessMsg')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
+        <button class="btn btn-primary" v-on:click="saveCustomSettings(true, 'activateSuccessMsg')"><i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
+        <button style="display:none" id="deletePromoBtn" class="btn btn-danger" v-on:click="deletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
     </div>
     <div class="row">
         <h3 hidden id="saveSuccessMsg" style="color:green">Save Successful</h3>
@@ -138,7 +138,7 @@
                 <h2 class="modal-title">Delete this promotion?</h2>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
+                <button type="button" class="btn btn-danger" v-on:click="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

@@ -8,34 +8,35 @@ var dashboardApp = new Vue({
     mounted: function () {
         //get settings onLoad
         this.getUserSettings();
-
-        google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(this.drawChart);
     },
     methods: {
         editOldPromo: function (promoId) {
             window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId;
         },
 
-        drawChart: function () {
+        drawDashboardPieChart: function () {
+
+            if (dashboardApp.Dashboard.ActivePromoViews === 0) { return;}
+
             // Define the chart to be drawn.
             let data = new google.visualization.DataTable();
             data.addColumn('string', 'Element');
             data.addColumn('number', 'Percentage');
             data.addRows([
-                ['Nitrogen', 0.78],
-                ['Oxygen', 0.21],
-                ['Other', 0.01]
+                ['Claimed Entries', dashboardApp.Dashboard.ActivePromoClaimedEntries],
+                ['Total Views', dashboardApp.Dashboard.ActivePromoViews]
             ]);
 
             let options = {
-                'title': 'How Much Pizza I Ate Last Night',
-                'height': 350,
-                'width': 500
+                height: 350,
+                width: 500,
+                is3D: true,
+                backgroundColor: '#f7f8fa',
+                fontSize: 15
             };
 
             // Instantiate and draw the chart.
-            var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+            var chart = new google.visualization.PieChart(document.getElementById('pieChartStats'));
             chart.draw(data, options);
         },
 
@@ -69,6 +70,9 @@ var dashboardApp = new Vue({
                     $("#activePromoData").show();
                     $("#inactivePromoData").show();
                     $('#ajaxLoading').hide();
+
+                    google.charts.load('current', { packages: ['corechart'] });
+                    google.charts.setOnLoadCallback(dashboardApp.drawDashboardPieChart);
                 })
                 .catch(function (error) {
                     //todo Handle errors
@@ -80,30 +84,3 @@ var dashboardApp = new Vue({
         }
     }
 });
-
-//$(function () {
-//    google.charts.load('current', { packages: ['corechart'] });
-//    google.charts.setOnLoadCallback(drawChart);
-//});
-
-//function drawChart() {
-//    // Define the chart to be drawn.
-//    let data = new google.visualization.DataTable();
-//    data.addColumn('string', 'Element');
-//    data.addColumn('number', 'Percentage');
-//    data.addRows([
-//        ['Nitrogen', 0.78],
-//        ['Oxygen', 0.21],
-//        ['Other', 0.01]
-//    ]);
-
-//    let options = {
-//        'title': 'How Much Pizza I Ate Last Night',
-//        'height': 350,
-//        'width': 500
-//    };
-
-//    // Instantiate and draw the chart.
-//    var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
-//    chart.draw(data, options);
-//}

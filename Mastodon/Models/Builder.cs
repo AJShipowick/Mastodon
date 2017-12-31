@@ -95,6 +95,7 @@ namespace OsOEasy.Promo.Models
             PromotionStats stats = (from x in dbContext.PromotionStats where x.Promotion.Id == activePromo.Id select x).FirstOrDefault();
 
             model.ActivePromoClaimedEntries = stats != null ? stats.TimesClaimed : 0;
+            model.ActivePromoViews = stats != null ? stats.TimesViewed : 0;
         }
 
         private void SetInactivePromoDetails(Dashboard model, List<Promotion> inactivePromos)
