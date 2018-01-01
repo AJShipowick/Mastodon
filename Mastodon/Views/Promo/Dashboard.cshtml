@@ -19,7 +19,9 @@
                 </div>
             </div>
             <div class="col-md-6" style="padding-top:15px">
-                <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage Account">
+                <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index"
+                   title="Manage Account"
+                   style="color:#005eff">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     {{Dashboard.DashboardMessage}}
                 </a>
@@ -32,8 +34,12 @@
                 <div class="col-md-6">
                     <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotions currently</h3>
                     <h3>
-                        <a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">
-                            <i class="fa fa-rocket" style="color:red" aria-hidden="true"></i> Create New Promotion
+                        <a id="createPromo"
+                           asp-area="Promotion"
+                           asp-controller="CreatePromo"
+                           asp-action="CreateNewPromo"
+                           style="color:#005eff">
+                            <i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion
                         </a>
                     </h3>
                 </div>
@@ -46,28 +52,34 @@
                             <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
                         </div>
                         <div class="col-md-8">
-                            <a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo">
-                                <i class="fa fa-rocket" style="color:red" aria-hidden="true"></i> Create New Promotion
+                            <a id="createPromo"
+                               asp-area="Promotion"
+                               asp-controller="CreatePromo"
+                               asp-action="CreateNewPromo"
+                               style="color:#005eff">
+                                <i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion
                             </a>
                         </div>
                     </div>
                 </div>
                 <br />
-                <div class="card" style="width:60%">
-
+                <div class="card" style="width:70%">
                     <i v-on:click="editOldPromo(Dashboard.ActivePromoId)"
                        class="fa fa-pencil-square-o fa-lg helpText"
+                       style="float:left; color:#005eff"
                        title="View or edit this promotion"
-                       aria-hidden="true">{{Dashboard.ActivePromo}}</i>
+                       aria-hidden="true"></i>
                     <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromo)"
-                       style="float:right" class="fa fa-info-circle fa-lg helpText"
+                       class="fa fa-info-circle fa-lg helpText"
+                       style="float:right; color:#005eff"
                        title="View promotion entries"
                        aria-hidden="true"></i>
-                    <br /><br />
-                    <div>{{Dashboard.ActivePromoDiscount}}</div>
-                    <div>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</div>
-                    <div>End Date: {{Dashboard.ActivePromoEndDate}}</div>
-
+                    <h2 style="text-align:center">
+                        {{Dashboard.ActivePromo}}
+                    </h2>
+                    <h3>{{Dashboard.ActivePromoDiscount}}</h3>
+                    <h4>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</h4>
+                    <h4>End Date: {{Dashboard.ActivePromoEndDate}}</h4>
                 </div>
             </div>
 
@@ -77,7 +89,8 @@
                     <div id="pieChartStats"></div>
                 </div>
                 <div v-if="Dashboard.ActivePromoViews == 0">
-                    <p style="color:red">Your active promotion '{{Dashboard.ActivePromo}}' has not been viewed yet.</p>
+                    <p style="color:red">Your active promotion '{{Dashboard.ActivePromo}}' has not been viewed yet.  
+                        Once there are views we will display more promotion stats.</p>
                 </div>
             </div>
         </div>
@@ -90,21 +103,24 @@
             </div>
         </div>
         <div v-for="promo in Dashboard.InactivePromos">
-            <div class="col-md-3">
+            <div class="col-md-3" style="padding:5px">
                 <div class="card">
-                    <i v-on:click="editOldPromo(promo.PromoId)" 
-                       class="fa fa-pencil-square-o helpText" 
-                       title="View or edit this promotion" 
-                       aria-hidden="true"> {{promo.PromoName}}
-                    </i>
-                    <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)" 
-                       style="float:right" 
-                       class="fa fa-info-circle helpText" 
-                       title="View promotion entries" 
+                    <i v-on:click="editOldPromo(promo.PromoId)"
+                       class="fa fa-pencil-square-o helpText"
+                       style="color:#005eff"
+                       title="View or edit this promotion"
                        aria-hidden="true">
                     </i>
-                    <br /><br />
-                    {{promo.PromoDiscount}}
+                    <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
+                       style="float:right; color:#005eff"
+                       class="fa fa-info-circle helpText"
+                       title="View promotion entries"
+                       aria-hidden="true">
+                    </i>
+                    <p style="text-align:center">
+                        {{promo.PromoName}}
+                    </p>
+                    <p>{{promo.PromoDiscount}}</p>
                 </div>
             </div>
         </div>

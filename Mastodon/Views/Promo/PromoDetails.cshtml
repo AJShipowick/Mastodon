@@ -11,14 +11,16 @@
 
 <!--Vue container-->
 <div hidden id="promoDetailsApp">
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h1>{{PromoDetails.PromoName}} </h1>
-        </div>
-        <div class="panel-body">
-            <h3><i class="fa fa-eye" aria-hidden="true"></i> Times viewed: {{PromoDetails.TimesViewed}} </h3>
-            <h3><i class="fa fa-check" aria-hidden="true"></i> Times claimed: {{PromoDetails.TimesClaimed}} </h3>
+ 
+    <div class="row">
+        <div class="panel panel-primary col-md-9 col-md-offset-1">
+            <div class="panel-heading">
+                <h1>{{PromoDetails.PromoName}} </h1>
+            </div>
+            <div class="panel-body">
+                <h3><i class="fa fa-eye" aria-hidden="true"></i> Times viewed: {{PromoDetails.TimesViewed}} </h3>
+                <h3><i class="fa fa-check" aria-hidden="true"></i> Times claimed: {{PromoDetails.TimesClaimed}} </h3>
+            </div>
         </div>
     </div>
 
@@ -27,7 +29,11 @@
     </div>
 
     <div v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length > 0">
-        <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg col-md-offset-1"><i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries</div>
+        <div class="row">
+            <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg col-md-offset-1">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries
+            </div>
+        </div>
         <br /><br />
 
         <div class="row">
