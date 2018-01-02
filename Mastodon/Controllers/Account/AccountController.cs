@@ -8,6 +8,7 @@ using OsOEasy.Data;
 using OsOEasy.Models;
 using OsOEasy.Models.AccountViewModels;
 using OsOEasy.Services;
+using OsOEasy.Shared;
 using System;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace OsOEasy.Controllers.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _dbContext;
         private readonly IMailGunEmailSender _emailSender;
+        private readonly ICommon _common;
         private readonly ILogger _logger;
 
         public AccountController(
@@ -27,12 +29,14 @@ namespace OsOEasy.Controllers.Account
             SignInManager<ApplicationUser> signInManager,
             ApplicationDbContext dbContext,
             IMailGunEmailSender emailSender,
+            ICommon common,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _dbContext = dbContext;
             _emailSender = emailSender;
+            _common = common;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -92,8 +96,15 @@ namespace OsOEasy.Controllers.Account
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public async Task<IActionResult> Register(string returnUrl = null)
         {
+
+            var user = await _common.GetCurrentUserAsync(HttpContext);
+            if (user != null)
+            {
+                return RedirectToAction("Dashboard", "Dashboard", new { area = "Dashboard" });
+            }
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
