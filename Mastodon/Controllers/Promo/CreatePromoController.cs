@@ -32,32 +32,34 @@ namespace OsOEasy.Controllers.Promo
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
-            HttpContext.Session.SetString("promoId", String.IsNullOrEmpty(promoId) ? "" : promoId);
+            Promotion promoModel = GetPromoModel(promoId);
 
-            return View();
+            return View(promoModel);
         }
 
-        [HttpGet]
-        public string GetPromoModel()
+        public Promotion GetPromoModel(string promoId)
         {
             var promo = new Promotion();
-            var promoId = HttpContext.Session.GetString("promoId");
 
             if (String.IsNullOrEmpty(promoId))
             {
-                var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(7).ToString("MM/dd/yyyy");
+                //New promotion
+                var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddMonths(1);
                 promo.EndDate = endDate;
             }
             else
             {
+                //Edit existing promtion
                 promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
+                HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(promo.ActivePromotion));
             }
 
-            return JsonConvert.SerializeObject(promo);
+            return promo;
         }
 
         [HttpPost]
-        public async Task<string> SaveNewPromo([FromBody]Promotion vm)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveNewPromo(Promotion promoItem)
         {
             try
             {
@@ -65,20 +67,27 @@ namespace OsOEasy.Controllers.Promo
                 {
                     using (_dbContext)
                     {
-                        if (!string.IsNullOrEmpty(vm.Id))
+                        promoItem.CreationDate = DateTime.Now;
+                        if (!string.IsNullOrEmpty(promoItem.Id))
                         {
-                            _dbContext.Entry(_dbContext.Promotion.Find(vm.Id)).CurrentValues.SetValues(vm);
+                            //Update existing promtion
+                            promoItem.ActivePromotion = Convert.ToBoolean(HttpContext.Session.GetInt32("activePromo"));
+                            _dbContext.Entry(_dbContext.Promotion.Find(promoItem.Id)).CurrentValues.SetValues(promoItem);
                         }
                         else
                         {
+                            //Creat new promotion
                             ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
-                            vm.ApplicationUser = appUser;
-                            _dbContext.Promotion.Add(vm);
+                            promoItem.ApplicationUser = appUser;
+                            _dbContext.Promotion.Add(promoItem);
                         }
 
                         _dbContext.SaveChanges();
-                        HttpContext.Session.SetString("savedPromoId", vm.Id);
                     }
+                }
+                else
+                {
+                    //todo log that user is trying to bypass UI JS validation
                 }
             }
             catch (Exception ex)
@@ -86,33 +95,10 @@ namespace OsOEasy.Controllers.Promo
                 //todo handle exception
             }
 
-            return "Success";
+            return RedirectToAction("Dashboard", "Dashboard", new { area = "Dashboard" });
         }
 
         [HttpGet]
-        public void ActivatePromo(string promoId)
-        {
-            using (_dbContext)
-            {
-                //Set all promos to inactive
-                foreach (Promotion promo in _dbContext.Promotion)
-                {
-                    promo.ActivePromotion = false;
-                }
-
-                if (String.IsNullOrEmpty(promoId) && !String.IsNullOrEmpty(HttpContext.Session.GetString("savedPromoId"))){
-                    //This case handles a NEW promo that is saved and activated at the same time
-                    promoId = HttpContext.Session.GetString("savedPromoId");
-                }
-
-                //Activate selected promo
-                var promoToActivate = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
-                promoToActivate.ActivePromotion = true;
-
-                _dbContext.SaveChanges();
-            }
-        }
-
         public void DeletePromo(string promoId)
         {
             using (_dbContext)

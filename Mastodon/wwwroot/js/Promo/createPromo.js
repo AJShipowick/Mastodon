@@ -1,17 +1,5 @@
 ﻿"use strict";
 
-$(function () {
-    $('#promoDate .input-group.date').datepicker({
-        format: 'mm/dd/yyyy',
-        maxViewMode: 2,
-        autoclose: true,
-        todayHighlight: true
-    }).on('changeDate', function (ev) {
-        //Have to force Vue to update date after datepicker changes date value in text input
-        newPromoApp.Promotion.EndDate = ev.date.toLocaleDateString();
-    });
-});
-
 var newPromoApp = new Vue({
     el: '#newPromoApp',
     data: {
@@ -19,33 +7,11 @@ var newPromoApp = new Vue({
     },
     mounted: function () {
         //get settings onLoad
-        this.getPromotionModel();
+        if ($("#promoId").val()) {
+            $("#deletePromoBtn").show();
+        }
     },
     methods: {
-        getPromotionModel: function () {
-            axios.get('/Promotion/CreatePromo/GetPromoModel')
-                .then(function (response) {
-                    newPromoApp.Promotion = response.data;
-
-                    if (newPromoApp.Promotion.Id) {
-                        $("#deletePromoBtn").show();
-                        $("#slickContactForm").css({ "background-color": newPromoApp.Promotion.BackgroundColor });
-                        $("#sliderButton").css({ "background-color": newPromoApp.Promotion.ButtonColor });
-                        if (newPromoApp.Promotion.ShowCouponBorder) { $("#slickContactForm").css({ "border": "4px dashed #ccc" }); }
-                    } else {
-                        //New promo, no slider selected, select 1st image for user and colors
-                        newPromoApp.Promotion.ImageName = "promo1";
-                        newPromoApp.Promotion.BackgroundColor = "#ffffff";
-                        newPromoApp.Promotion.ButtonColor = "#4CAF50";
-                    }
-
-                    showCustomSliderImage();
-                })
-                .catch(function (error) {
-                    //todo handle errors
-                });
-        },
-
         showCouponBorder: function () {
             if (!newPromoApp.Promotion.ShowCouponBorder) {
                 $("#slickContactForm").css({ "border": "4px dashed #ccc" });
@@ -68,53 +34,31 @@ var newPromoApp = new Vue({
             $("#submitSliderClick").modal('show');
         },
 
-        saveCustomSettings: function (activatePromo, responseMessageId) {
-            $("#saveSuccessMsg").hide();
-            $("#saveSuccessMsg").removeClass('animated fadeInDown');
-            $("#activateSuccessMsg").hide();
-            $("#activateSuccessMsg").removeClass('animated fadeInDown');
-
-            //if (!newPromoApp.validForm()) { return; }
-
-            axios.post('/Promotion/CreatePromo/SaveNewPromo',
-                newPromoApp.Promotion
-            )
-                .then(function (response) {
-                    if (!activatePromo) {
-                        $("#" + responseMessageId).show();
-                        $("#" + responseMessageId).addClass('animated fadeInDown');
-                    } else {
-                        newPromoApp.activatePromoNow("");
-                    }
-                })
-                .catch(function (error) {
-                    //todo handle errors
-                });
-        },
-
-        validForm: function () {
+        validForm: function (e) {
             newPromoApp.hideErrors();
             let validForm = true;
 
-            if (!newPromoApp.Promotion.Title) {
+            if (!$("#title").val()) {
                 $("#titleMissing").show()
                 validForm = false;
             }
 
-            if (!newPromoApp.Promotion.EndDate) {
+            if (!$("#endDate").val()) {
                 $("#dateMissing").show()
                 validForm = false;
             }
 
-            if (!newPromoApp.Promotion.Code) {
+            if (!$("#code").val()) {
                 $("#codeMissing").show()
                 validForm = false;
             }
 
-            if (!newPromoApp.Promotion.Discount) {
+            if (!$("#discount").val()) {
                 $("#discountMissing").show()
                 validForm = false;
             }
+
+            if (!validForm) { e.preventDefault(); }  //Prevent form submission if form not valid
 
             return validForm;
         },
@@ -126,23 +70,12 @@ var newPromoApp = new Vue({
             $("#discountMissing").hide()
         },
 
-        activatePromoNow: function (promoId) {
-            axios.get('/Promotion/CreatePromo/ActivatePromo?promoId=' + promoId)
-                .then(function (response) {
-                    $("#activateSuccessMsg").show();
-                    $("#activateSuccessMsg").addClass('animated fadeInDown');
-                })
-                .catch(function (error) {
-                    //todo Handle errors
-                });
-        },
-
         deletePromo: function () {
             $("#deletePromoModal").modal('show');
         },
 
         confirmDeletePromo: function () {
-            axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + newPromoApp.Promotion.Id)
+            axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + $("#promoId").val())
                 .then(function (response) {
                     window.location.href = '/Dashboard';
                 })

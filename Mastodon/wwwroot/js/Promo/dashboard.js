@@ -10,7 +10,7 @@ var dashboardApp = new Vue({
         this.getUserSettings();
     },
     methods: {
-        editOldPromo: function (promoId) {
+        editOldPromo: function (promoId, isActivePromo) {
             window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId;
         },
 
@@ -38,6 +38,20 @@ var dashboardApp = new Vue({
             // Instantiate and draw the chart.
             var chart = new google.visualization.PieChart(document.getElementById('pieChartStats'));
             chart.draw(data, options);
+        },
+
+        activatePromoNow: function (promoId) {
+            $("#activePromoData").hide();
+            $("#inactivePromoData").hide();
+            $('#ajaxLoading').show();
+
+            axios.get('/Dashboard/Dashboard/ActivatePromo?promoId=' + promoId)
+                .then(function (response) {
+                    dashboardApp.getUserSettings();
+                })
+                .catch(function (error) {
+                    //todo Handle errors
+                });
         },
 
         confirmStopActivePromo: function () {

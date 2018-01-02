@@ -238,13 +238,15 @@ namespace OsOEasy.Migrations
 
                     b.Property<string>("Code");
 
+                    b.Property<DateTime>("CreationDate");
+
                     b.Property<string>("Details1");
 
                     b.Property<string>("Details2");
 
                     b.Property<string>("Discount");
 
-                    b.Property<string>("EndDate");
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<string>("FinePrint");
 

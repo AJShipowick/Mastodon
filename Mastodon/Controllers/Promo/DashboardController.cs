@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OsOEasy.Promo.Models;
 using OsOEasy.Models.PromoModels;
+using Microsoft.AspNetCore.Http;
 
 namespace OsOEasy.Controllers.Promo
 {
@@ -80,8 +81,34 @@ namespace OsOEasy.Controllers.Promo
             {
                 //todo handle exception
             }
-
+           
+            //HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(dashboardModel.IsActivePromo));
             return JsonConvert.SerializeObject(dashboardModel);
+        }
+
+        [HttpGet]
+        public void ActivatePromo(string promoId)
+        {
+            using (_dbContext)
+            {
+                //Set all promos to inactive
+                foreach (Promotion promo in _dbContext.Promotion)
+                {
+                    promo.ActivePromotion = false;
+                }
+
+                if (String.IsNullOrEmpty(promoId) && !String.IsNullOrEmpty(HttpContext.Session.GetString("savedPromoId")))
+                {
+                    //This case handles a NEW promo that is saved and activated at the same time
+                    promoId = HttpContext.Session.GetString("savedPromoId");
+                }
+
+                //Activate selected promo
+                var promoToActivate = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
+                promoToActivate.ActivePromotion = true;
+
+                _dbContext.SaveChanges();
+            }
         }
 
         [HttpGet]

@@ -12,7 +12,8 @@ namespace OsOEasy.Models.PromoModels
 
         //Entries
         public string ActivePromoId { get; set; }
-        public string ActivePromo { get; set; }
+        public string ActivePromoName { get; set; }
+        public bool IsActivePromo { get; set; }
         public string ActivePromoDiscount { get; set; }
         public string ActivePromoScript { get; set; }
         public int ActivePromoClaimedEntries { get; set; }

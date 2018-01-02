@@ -1,145 +1,114 @@
-﻿@{
+﻿@model OsOEasy.Models.DBModels.Promotion
+
+@{
     ViewData["Title"] = "OsO Easy Promo - Create Custom Website Promotion";
 }
 
-<div class="row">
-
-    <h2><i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" v-on:click="showHelpStep1()"></i> Create a Promotion</h2>
-</div>
-<br />
-
 <!--Vue container-->
 <div id="newPromoApp">
+
+    <div class="row">
+        <h2>
+            <i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" v-on:click="showHelpStep1()">
+            </i> Create a Promotion
+        </h2>
+    </div>
+    <br />
 
     <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
     @{ Html.RenderPartial("UserSlider.cshtml"); }
     @{ Html.RenderPartial("PromoHelpModal.cshtml"); }
 
-    <div class="row">
-        <div class="col-md-1">
-            <p>Title:</p>
-        </div>
-        <div class="col-md-5">
-            <input placeholder="Enter your title here, eg 'Save Today!'" type="text" class="form-control" v-model="Promotion.Title" />
-            <small hidden id="titleMissing" style="color:red">Title is required</small>
-        </div>
-        <div class="col-md-1">
-            <p>End Date: </p>
-        </div>
-        <div class="col-md-3" id="promoDate">
-            <div class="input-group date">
-                <input type="text" class="form-control" v-model="Promotion.EndDate"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    <form asp-controller="CreatePromo" asp-action="SaveNewPromo" id="promoForm" method="post">
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label asp-for="Title">Title:</label>
+                <input asp-for="Title" id="title" type="text" class="form-control">
+                <small hidden id="titleMissing" style="color:red">Title is required</small>
             </div>
-            <small hidden id="dateMissing" style="color:red">Date is required</small>
+            <div class="col-md-4">
+                <label asp-for="Code">Promotion Code:</label>
+                <input asp-for="Code" id="code" type="text" class="form-control">
+                <small hidden id="codeMissing" style="color:red">Code is required</small>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="EndDate">End Date:</label>
+                <input asp-for="EndDate" id="endDate" type="date" class="form-control">
+                <small hidden id="dateMissing" style="color:red">Date is required</small>
+            </div>
         </div>
-    </div>
-    <br />
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label asp-for="Discount">Discount:</label>
+                <input asp-for="Discount" id="discount" type="text" class="form-control" placeholder="eg: 50% off everything!">
+                <small hidden id="discountMissing" style="color:red">Discount is required</small>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Details1">Detils 1:</label>
+                <input asp-for="Details1" type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Details2">Details 2:</label>
+                <input asp-for="Details2" type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label asp-for="FinePrint">Fine Print:</label>
+                <input asp-for="FinePrint" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label asp-for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
+                <input asp-for="ShowCouponBorder" type="checkbox" class="helpText" v-on:click="showCouponBorder()">
+            </div>
+            <div class="col-md-3">
+                <label asp-for="BackgroundColor" style="padding-right:5px">Promo Background Color: </label>
+                <input asp-for="BackgroundColor" type="color" onchange="setFormBackgroundColor()">
+            </div>
+            <div class="col-md-3">
+                <label asp-for="ButtonColor" style="padding-right:5px">Promo Button Color: </label>
+                <input asp-for="ButtonColor" type="color" onchange="setFormButtonColor()">
+            </div>
+        </div>
+
+        <input id="promoId" asp-for="Id" type="hidden" />
+
+        <button type="submit"
+                v-on:click="validForm($event)"
+                id="savePromo"
+                class="btn btn-primary">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
+        </button>
+        <button style="display:none"
+                id="deletePromoBtn"
+                type="button"
+                v-on:click="deletePromo()"
+                class="btn btn-danger">
+            <i class="fa fa-remove" aria-hidden="true"></i> Delete
+        </button>
+        <br /><br />
+    </form>
 
     <div class="row">
-        <div class="col-md-1">
-            <p>Code:</p>
-        </div>
-        <div class="col-md-5">
-            <input placeholder="Enter a unique code here" type="text" class="form-control" v-model="Promotion.Code" />
-            <small hidden id="codeMissing" style="color:red">Code is required</small>
-        </div>
-        <div class="col-md-1">
-            <p>Discount: </p>
-        </div>
-        <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="eg: 50% off everything!" v-model="Promotion.Discount" />
-            <small hidden id="discountMissing" style="color:red">Discount is required</small>
-        </div>
-    </div>
-    <br />
-
-    <div class="row">
-        <div class="col-md-1">
-            <p>Details 1: </p>
-        </div>
         <div class="col-md-2">
-            <input type="text" class="form-control" v-model="Promotion.Details1" />
-        </div>
-        <div class="col-md-1">
-            <p>Details 2: </p>
-        </div>
-        <div class="col-md-2">
-            <input type="text" class="form-control" v-model="Promotion.Details2" />
-        </div>
-        <div class="col-md-1">
-            <p>Fine Print: </p>
-        </div>
-        <div class="col-md-5">
-            <input type="text" class="form-control" v-model="Promotion.FinePrint" />
-        </div>
-    </div>
-    <br />
-
-    <div class="row">
-        <div class="col-md-3 col-md-offset-1">
-            <label style="padding-right:5px" for="showCouponBorder">Show a coupon border </label>
-            <input type="checkbox" name="showCouponBorder" value="showCouponBorder" class="helpText" v-model="Promotion.ShowCouponBorder" v-on:click="showCouponBorder()">
-        </div>
-    </div>
-    <div class="row">
-        <p class="col-md-1">Colors:</p>
-        <div class="col-md-3">
-            <label for="backgroundColor" style="padding-right:5px">Promo background color</label>
-            <input type="color" id="backgroundColor" name="backgroundColor" v-model="Promotion.BackgroundColor" onchange="setFormBackgroundColor()" />
-        </div>
-        <div class="col-md-3">
-            <label for="buttonColor" style="padding-right:5px">Promo button color</label>
-            <input type="color" id="buttonColor" name="buttonColor" v-model="Promotion.ButtonColor" onchange="setFormButtonColor()" />
-        </div>
-        <div class="col-md-3">
-            <a href="http://www.color-hex.com/color-palettes/popular.php" target="_blank"><i class="fa fa-paint-brush" aria-hidden="true"></i> Discover beautiful colors</a>
-        </div>
-    </div>
-    <br />
-
-    <div class="row">
-        <div class="col-md-1">
-            <p>Image: </p>
+            <p>Promotion Image: </p>
         </div>
 
-        <!--CAN THIS BE DONE????? IF SO, then do it!!!!-->
-        @*<div class="col-md-6" onclick="showCustomSliderImage()">
-            <div v-for="index in totalImages">
-                <label>
-                    <input type="radio" name="promoImage[index]" class="form-control" value="promo[index]" v-model="Promotion.ImageName" />
-                    <img id="promo[index]">
-                </label>
-            </div>
-        </div>*@
-
-       @{ Html.RenderPartial("SliderImageHolder.cshtml"); }
-
+        <!--load images from DB-->
 
     </div>
-    <br />
 
-    <div class="row">
-        <button type="submit" class="btn btn-primary" v-on:click="saveCustomSettings(false, 'saveSuccessMsg')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Save</button>
-        <button class="btn btn-primary" v-on:click="saveCustomSettings(true, 'activateSuccessMsg')"><i class="fa fa-rocket" aria-hidden="true"></i> Save & Start Promotion</button>
-        <button style="display:none" id="deletePromoBtn" class="btn btn-danger" v-on:click="deletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
-    </div>
-    <div class="row">
-        <h3 hidden id="saveSuccessMsg" style="color:green">Save Successful</h3>
-        <h3 hidden id="activateSuccessMsg" style="color:green">Promotion Saved & Active!</h3>
-    </div>
-</div>
-
-
-<div id="deletePromoModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Delete this promotion?</h2>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" v-on:click="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <div id="deletePromoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Delete this promotion?</h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" v-on:click="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

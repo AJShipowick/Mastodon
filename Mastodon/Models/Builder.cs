@@ -5,6 +5,7 @@ using System.Linq;
 using OsOEasy.Models;
 using OsOEasy.Data;
 using OsOEasy.Models.PromoModels;
+using Microsoft.AspNetCore.Http;
 
 namespace OsOEasy.Promo.Models
 {
@@ -34,6 +35,7 @@ namespace OsOEasy.Promo.Models
 
                 List<Promotion> inactivePromos = (from x in allUserPromotions
                                                   where x.ActivePromotion != true
+                                                  orderby x.CreationDate descending
                                                   select x).ToList();
                 if (inactivePromos != null)
                 {
@@ -87,10 +89,11 @@ namespace OsOEasy.Promo.Models
 
         private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
         {
-            model.ActivePromo = activePromo.Title;
+            model.ActivePromoName = activePromo.Title;
             model.ActivePromoDiscount = activePromo.Discount;
-            model.ActivePromoEndDate = activePromo.EndDate;
+            model.ActivePromoEndDate = activePromo.EndDate.ToString("MM/dd/yyyy");
             model.ActivePromoId = activePromo.Id;
+            //model.IsActivePromo = activePromo.ActivePromotion;
 
             PromotionStats stats = (from x in dbContext.PromotionStats where x.Promotion.Id == activePromo.Id select x).FirstOrDefault();
 

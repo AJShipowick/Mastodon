@@ -118,7 +118,7 @@ namespace OsOEasy.Controllers.Account
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
                     UserPromoScript = "<script> set script, uniqueID = userID?? or first 10 of UserID?? </script>",
                     IsNewUser = true,
-                    AccountCreationDate = DateTime.Today,
+                    AccountCreationDate = DateTime.Now,
                     TimesLoggedIn = 1
                 };
 
