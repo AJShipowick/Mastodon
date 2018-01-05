@@ -16,7 +16,7 @@
     <br />
 
     <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
-    @{ Html.RenderPartial("UserSlider.cshtml"); }
+    @*@{ Html.RenderPartial("UserSlider.cshtml"); }*@
     @{ Html.RenderPartial("PromoHelpModal.cshtml"); }
 
     <form asp-controller="CreatePromo" asp-action="SaveNewPromo" id="promoForm" method="post">
@@ -74,7 +74,7 @@
         <input id="promoId" asp-for="Id" type="hidden" />
 
         <button type="submit"
-                v-on:click="validForm($event)"
+                v-on:click="updateFormImageValue(); validForm($event)"
                 id="savePromo"
                 class="btn btn-primary">
             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
@@ -87,17 +87,46 @@
             <i class="fa fa-remove" aria-hidden="true"></i> Delete
         </button>
         <br /><br />
-    </form>
 
-    <div class="row">
-        <div class="col-md-2">
-            <p>Promotion Image: </p>
+        <h2>
+            Choose an image:
+            <button type="button"
+                    class="btn btn-primary"
+                    v-on:click="getPromoImages('coupon')"
+                    style="box-shadow:0px 0px 0px">
+                Coupon/Sale
+            </button>
+            <button type="button"
+                    class="btn btn-success"
+                    v-on:click="getPromoImages('money')"
+                    style="box-shadow:0px 0px 0px">
+                Money
+            </button>
+            <button type="button"
+                    class="btn btn-info"
+                    v-on:click="getPromoImages('fun')"
+                    style="box-shadow:0px 0px 0px">
+                Fun
+            </button>
+        </h2>
+
+        <div class="col-md-6" style="left:50%" id="ajaxLoading" hidden>
+            <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
         </div>
 
-        <!--load images from DB-->
+        <label v-for="name in PromotionImages" v-on:click="showCustomSliderImage()">
+            <input asp-for="ImageName"
+                   type="radio"
+                   name="ImageName"
+                   value=""
+                   v-on:click="updatedSelectedImageValue(name)" />
+            <img :src="getImagePath(name)" style="width:100px" />
+        </label>
 
-    </div>
+    </form>
 
+
+    <!--Modals-->
     <div id="deletePromoModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -3,7 +3,9 @@
 var newPromoApp = new Vue({
     el: '#newPromoApp',
     data: {
-        Promotion: []
+        PromotionImages: [],
+        imageType: '',
+        selectedImage: ''
     },
     mounted: function () {
         //get settings onLoad
@@ -12,12 +14,44 @@ var newPromoApp = new Vue({
         }
     },
     methods: {
+        getPromoImages: function (imageType) {
+            newPromoApp.PromotionImages = [];
+            $("#ajaxLoading").show();
+
+            axios.get('/Promotion/CreatePromo/GetPromoImages' + '?imageType=' + imageType)
+                .then(function (response) {                 
+                    newPromoApp.imageType = imageType;
+                    newPromoApp.PromotionImages = response.data;
+                    $("#ajaxLoading").hide();
+                })
+                .catch(function (error) {
+                    //todo Handle errors
+                });
+        },
+
+        getImagePath: function (name) {
+            return window.location.origin + "/images/Slider/" + newPromoApp.imageType + "/" + name;
+        },
+
+        updateFormImageValue: function () {
+            $('input[name=ImageName]:checked').val(newPromoApp.selectedImage)
+        },
+
+        updatedSelectedImageValue: function (selectedImage) {
+            newPromoApp.selectedImage = selectedImage;
+        },
+
+        showCustomSliderImage: function () {
+
+        },
+
+        //fix this...
         showCouponBorder: function () {
-            if (!newPromoApp.Promotion.ShowCouponBorder) {
-                $("#slickContactForm").css({ "border": "4px dashed #ccc" });
-            } else {
-                $("#slickContactForm").css({ "border": "1px solid #d8d8d8" });
-            }
+            //if (!newPromoApp.Promotion.ShowCouponBorder) {
+            //    $("#slickContactForm").css({ "border": "4px dashed #ccc" });
+            //} else {
+            //    $("#slickContactForm").css({ "border": "1px solid #d8d8d8" });
+            // }
         },
 
         setFormBackgroundColor: function () {

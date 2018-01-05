@@ -3,11 +3,13 @@ using OsOEasy.Models;
 using OsOEasy.Models.DBModels;
 using OsOEasy.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using System.Collections.Generic;
 
 namespace OsOEasy.Controllers.Promo
 {
@@ -35,6 +37,21 @@ namespace OsOEasy.Controllers.Promo
             Promotion promoModel = GetPromoModel(promoId);
 
             return View(promoModel);
+        }
+
+        [HttpGet]
+        public JsonResult GetPromoImages(string imageType)
+        {
+            IFileProvider provider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+            IDirectoryContents contents = provider.GetDirectoryContents("wwwroot/images/Slider/" + imageType);
+
+            List<string> imageItems = new List<string>();
+            foreach (IFileInfo item in contents)
+            {
+                imageItems.Add(item.Name);
+            }
+
+            return Json(imageItems);
         }
 
         public Promotion GetPromoModel(string promoId)
