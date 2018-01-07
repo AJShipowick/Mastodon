@@ -1,6 +1,4 @@
-﻿@model OsOEasy.Models.DBModels.Promotion
-
-@{
+﻿@{
     ViewData["Title"] = "OsO Easy Promo - Create Custom Website Promotion";
 }
 
@@ -16,65 +14,65 @@
     <br />
 
     <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
-    @*@{ Html.RenderPartial("UserSlider.cshtml"); }*@
+    @{ Html.RenderPartial("PromoSlider.cshtml"); }
     @{ Html.RenderPartial("PromoHelpModal.cshtml"); }
 
-    <form asp-controller="CreatePromo" asp-action="SaveNewPromo" id="promoForm" method="post">
+    <form id="promoForm">
         <div class="row form-group">
             <div class="col-md-4">
-                <label asp-for="Title">Title:</label>
-                <input asp-for="Title" id="title" type="text" class="form-control">
+                <label for="Title">Title:</label>
+                <input for="Title" id="Title" type="text" v-model="PromoModel.title" class="form-control">
                 <small hidden id="titleMissing" style="color:red">Title is required</small>
             </div>
             <div class="col-md-4">
-                <label asp-for="Code">Promotion Code:</label>
-                <input asp-for="Code" id="code" type="text" class="form-control">
+                <label for="Code">Promotion Code:</label>
+                <input for="Code" id="code" type="text" v-model="PromoModel.code" class="form-control">
                 <small hidden id="codeMissing" style="color:red">Code is required</small>
             </div>
             <div class="col-md-4">
-                <label asp-for="EndDate">End Date:</label>
-                <input asp-for="EndDate" id="endDate" type="date" class="form-control">
+                <label for="EndDate">End Date:</label>
+                <input for="EndDate" id="endDate" type="date" v-model="PromoModel.endDate" class="form-control">
                 <small hidden id="dateMissing" style="color:red">Date is required</small>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-3">
-                <label asp-for="Discount">Discount:</label>
-                <input asp-for="Discount" id="discount" type="text" class="form-control" placeholder="eg: 50% off everything!">
+                <label for="Discount">Discount:</label>
+                <input for="Discount" id="discount" type="text" v-model="PromoModel.discount" class="form-control"
+                       placeholder="eg: 50% off everything!">
                 <small hidden id="discountMissing" style="color:red">Discount is required</small>
             </div>
             <div class="col-md-3">
-                <label asp-for="Details1">Detils 1:</label>
-                <input asp-for="Details1" type="text" class="form-control">
+                <label for="Details1">Detils 1:</label>
+                <input for="Details1" type="text" v-model="PromoModel.details1" class="form-control">
             </div>
             <div class="col-md-3">
-                <label asp-for="Details2">Details 2:</label>
-                <input asp-for="Details2" type="text" class="form-control">
+                <label for="Details2">Details 2:</label>
+                <input for="Details2" type="text" v-model="PromoModel.details2" class="form-control">
             </div>
             <div class="col-md-3">
-                <label asp-for="FinePrint">Fine Print:</label>
-                <input asp-for="FinePrint" type="text" class="form-control">
+                <label for="FinePrint">Fine Print:</label>
+                <input for="FinePrint" type="text" v-model="PromoModel.finePrint" class="form-control">
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-3">
-                <label asp-for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
-                <input asp-for="ShowCouponBorder" type="checkbox" class="helpText" v-on:click="showCouponBorder()">
+                <label for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
+                <input for="ShowCouponBorder" type="checkbox" class="helpText" v-model="PromoModel.showCouponBorder"
+                       v-on:click="showCouponBorder()">
             </div>
             <div class="col-md-3">
-                <label asp-for="BackgroundColor" style="padding-right:5px">Promo Background Color: </label>
-                <input asp-for="BackgroundColor" type="color" onchange="setFormBackgroundColor()">
+                <label for="BackgroundColor" style="padding-right:5px">Promo Background Color: </label>
+                <input for="BackgroundColor" id="backgroundColor" type="color" v-model="PromoModel.backgroundColor" v-on:change="setFormBackgroundColor()">
             </div>
             <div class="col-md-3">
-                <label asp-for="ButtonColor" style="padding-right:5px">Promo Button Color: </label>
-                <input asp-for="ButtonColor" type="color" onchange="setFormButtonColor()">
+                <label for="ButtonColor" style="padding-right:5px">Promo Button Color: </label>
+                <input for="ButtonColor" id="buttonColor" type="color" v-model="PromoModel.buttonColor" v-on:change="setFormButtonColor()">
             </div>
         </div>
 
-        <input id="promoId" asp-for="Id" type="hidden" />
-
-        <button type="submit"
-                v-on:click="updateFormImageValue(); validForm($event)"
+        <button type="button"
+                v-on:click="saveCustomPromo()"
                 id="savePromo"
                 class="btn btn-primary">
             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
@@ -86,7 +84,7 @@
                 class="btn btn-danger">
             <i class="fa fa-remove" aria-hidden="true"></i> Delete
         </button>
-        <br /><br />
+        <br />
 
         <h2>
             Choose an image:
@@ -114,17 +112,16 @@
             <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
         </div>
 
-        <label v-for="name in PromotionImages" v-on:click="showCustomSliderImage()">
-            <input asp-for="ImageName"
-                   type="radio"
-                   name="ImageName"
-                   value=""
-                   v-on:click="updatedSelectedImageValue(name)" />
-            <img :src="getImagePath(name)" style="width:100px" />
-        </label>
-
+        <div class="col-md-8 col-md-offset-2">
+            <label v-for="(name, index) in PromoImages">
+                <img :src="getImagePath(name)"
+                     class="helpText"
+                     v-bind:id="'image_' + index"
+                     v-on:click="setPromoImage(name, 'image_' + index)"
+                     style="width:80px" />
+            </label>
+        </div>
     </form>
-
 
     <!--Modals-->
     <div id="deletePromoModal" class="modal fade" role="dialog">

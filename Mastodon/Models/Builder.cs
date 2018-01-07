@@ -91,7 +91,7 @@ namespace OsOEasy.Promo.Models
         {
             model.ActivePromoName = activePromo.Title;
             model.ActivePromoDiscount = activePromo.Discount;
-            model.ActivePromoEndDate = activePromo.EndDate.ToString("MM/dd/yyyy");
+            model.ActivePromoEndDate = activePromo.EndDate;
             model.ActivePromoId = activePromo.Id;
             //model.IsActivePromo = activePromo.ActivePromotion;
 

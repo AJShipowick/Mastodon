@@ -34,9 +34,30 @@ namespace OsOEasy.Controllers.Promo
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
-            Promotion promoModel = GetPromoModel(promoId);
+            HttpContext.Session.SetString("promoId", (String.IsNullOrEmpty(promoId) ? "" : promoId));
 
-            return View(promoModel);
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetPromoData()
+        {
+            Promotion promoModel = GetPromoModel(HttpContext.Session.GetString("promoId"));
+            return Json(promoModel);
+        }
+
+        public Promotion GetPromoModel(string promoId)
+        {
+            var promo = new Promotion();
+
+            if (!String.IsNullOrEmpty(promoId))
+            {
+                //Edit existing promtion
+                promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
+                HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(promo.ActivePromotion));
+            }
+
+            return promo;
         }
 
         [HttpGet]
@@ -54,29 +75,9 @@ namespace OsOEasy.Controllers.Promo
             return Json(imageItems);
         }
 
-        public Promotion GetPromoModel(string promoId)
-        {
-            var promo = new Promotion();
-
-            if (String.IsNullOrEmpty(promoId))
-            {
-                //New promotion
-                var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddMonths(1);
-                promo.EndDate = endDate;
-            }
-            else
-            {
-                //Edit existing promtion
-                promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
-                HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(promo.ActivePromotion));
-            }
-
-            return promo;
-        }
-
+        //todo [ValidateAntiForgeryToken]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveNewPromo(Promotion promoItem)
+        public async Task<IActionResult> SaveNewPromo([FromBody]Promotion promoItem)
         {
             try
             {

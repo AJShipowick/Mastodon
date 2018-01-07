@@ -14,10 +14,11 @@ namespace OsOEasy.Models.DBModels
         public bool ActivePromotion { get; set; }
         public string Title { get; set; }
         public string Code { get; set; }
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
         public string Discount { get; set; }
         public bool ShowCouponBorder { get; set; }
         public string ImageName { get; set; }
+        public string ImageType { get; set; }
         public string BackgroundColor { get; set; }
         public string ButtonColor { get; set; }
         public string Details1 { get; set; }

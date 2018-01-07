@@ -4,17 +4,16 @@
 <!--https://stackoverflow.com/questions/18516317/vertically-align-an-image-inside-a-div-with-responsive-height-->
 
 <div hidden id="sliderContainer">
-    <img id="slickImage" onclick="slickSliderClicked()" />
+    <img id="slickImage" style="width:80px" onclick="slickSliderClicked()" />
     <div id='slickContactForm' class='slickFont'>
-        <h2>{{Promotion.Title}}</h2>
-        <h3>{{Promotion.Discount}}</h3>
-        <p>Ends: {{Promotion.EndDate}}</p>
+        <h2>{{PromoModel.title}}</h2>
+        <h3>{{PromoModel.discount}}</h3>
+        <p>Ends: {{PromoModel.endDate}}</p>
         <dl>
-            <dt>{{Promotion.Details1}}</dt>
-            <dt>{{Promotion.Details2}}</dt>
-            <dt>{{Promotion.Details3}}</dt>
+            <dt>{{PromoModel.details1}}</dt>
+            <dt>{{PromoModel.details2}}</dt>
         </dl>
-        <p><small>{{Promotion.FinePrint}}</small></p>
+        <p><small>{{PromoModel.finePrint}}</small></p>
         <div class='slickInputBox'>
             <input required id='sliderName' type='text' placeholder='Name'>
         </div>

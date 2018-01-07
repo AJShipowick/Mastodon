@@ -11,7 +11,7 @@ using System;
 namespace OsOEasy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180102032944_create1")]
+    [Migration("20180107015015_create1")]
     partial class create1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,7 +247,7 @@ namespace OsOEasy.Migrations
 
                     b.Property<string>("Discount");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<string>("EndDate");
 
                     b.Property<string>("FinePrint");
 

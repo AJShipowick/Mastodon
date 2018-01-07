@@ -196,7 +196,7 @@ namespace OsOEasy.Migrations
                     Details1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Details2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FinePrint = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShowCouponBorder = table.Column<bool>(type: "bit", nullable: false),

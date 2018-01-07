@@ -171,7 +171,11 @@ body {
     background-color: #005eff;
 }
 
-
+.promo-border {
+    border-color: #C1E0FF;
+    border-width: 5px;
+    border-style: solid;
+}
 
 
 

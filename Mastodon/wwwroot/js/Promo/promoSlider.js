@@ -2,18 +2,11 @@
 
 let currentImage = false;
 function showCustomSliderImage() {
-    $("#sliderContainer").show()
+    $("#sliderContainer").show();
     let currentImage = document.getElementById("slickImage");
-
-    if (newPromoApp.Promotion.ImageName) {
-        let image = document.getElementById(newPromoApp.Promotion.ImageName);
-        currentImage.src = image.src;
-
-        $(image).addClass('animated bounceIn');  //Animation only fires 1 time for each image...
-    }
 }
 
-let slickSliderOpen;
+let slickSliderOpen = false;
 function slickSliderClicked() {
     if (!slickSliderOpen) {
         document.documentElement.style.overflowX = 'hidden';
@@ -33,7 +26,6 @@ function closeSlickSlider() {
     document.getElementById('slickContactForm').style.visibility = 'hidden';
     document.getElementById('slickImage').style.cssFloat = 'right';
     document.getElementById('sliderContainer').style.zIndex = "0";
-
 }
 
 function showSlickSlider() {
