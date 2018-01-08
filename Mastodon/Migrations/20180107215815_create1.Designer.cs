@@ -11,7 +11,7 @@ using System;
 namespace OsOEasy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180107015015_create1")]
+    [Migration("20180107215815_create1")]
     partial class create1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,6 +252,8 @@ namespace OsOEasy.Migrations
                     b.Property<string>("FinePrint");
 
                     b.Property<string>("ImageName");
+
+                    b.Property<string>("ImageType");
 
                     b.Property<bool>("ShowCouponBorder");
 

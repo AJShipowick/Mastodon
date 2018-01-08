@@ -199,6 +199,7 @@ namespace OsOEasy.Migrations
                     EndDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FinePrint = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShowCouponBorder = table.Column<bool>(type: "bit", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

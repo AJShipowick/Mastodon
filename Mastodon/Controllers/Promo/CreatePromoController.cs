@@ -54,7 +54,7 @@ namespace OsOEasy.Controllers.Promo
             {
                 //Edit existing promtion
                 promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
-                HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(promo.ActivePromotion));
+                //HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(promo.ActivePromotion));
             }
 
             return promo;
@@ -89,7 +89,7 @@ namespace OsOEasy.Controllers.Promo
                         if (!string.IsNullOrEmpty(promoItem.Id))
                         {
                             //Update existing promtion
-                            promoItem.ActivePromotion = Convert.ToBoolean(HttpContext.Session.GetInt32("activePromo"));
+                            //promoItem.ActivePromotion = Convert.ToBoolean(HttpContext.Session.GetInt32("activePromo"));
                             _dbContext.Entry(_dbContext.Promotion.Find(promoItem.Id)).CurrentValues.SetValues(promoItem);
                         }
                         else

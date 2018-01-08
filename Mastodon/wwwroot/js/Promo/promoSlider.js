@@ -1,12 +1,13 @@
 ﻿"use strict";
 
 let currentImage = false;
+let slickSliderOpen = false;
+
 function showCustomSliderImage() {
     $("#sliderContainer").show();
     let currentImage = document.getElementById("slickImage");
 }
 
-let slickSliderOpen = false;
 function slickSliderClicked() {
     if (!slickSliderOpen) {
         document.documentElement.style.overflowX = 'hidden';
@@ -35,4 +36,9 @@ function showSlickSlider() {
         slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
         setTimeout(showSlickSlider, 1);
     }
+}
+
+function submitSlider() {
+    //call API to send email to user with promo code
+    alert('hi');
 }

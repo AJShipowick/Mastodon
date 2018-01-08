@@ -29,9 +29,12 @@ var newPromoApp = new Vue({
                         $("#slickImage").attr("src", newPromoApp.getImagePath(newPromoApp.PromoModel.imageName));
                     } else {
                         //New promo, no slider selected, select 1st image for user and colors
-                        newPromoApp.PromoModel.imageName = "promo1";
+                        newPromoApp.imageType = "coupon";
+                        newPromoApp.PromoModel.imageName = "coupon_1.svg";
                         newPromoApp.PromoModel.backgroundColor = "#ffffff";
                         newPromoApp.PromoModel.buttonColor = "#4CAF50";
+
+                        $("#slickImage").attr("src", newPromoApp.getImagePath(newPromoApp.PromoModel.imageName));
                     }
 
                     showCustomSliderImage();
@@ -42,11 +45,13 @@ var newPromoApp = new Vue({
                     //todo Handle errors
                 });
         },
+
         saveCustomPromo: function () {
             if (this.validForm()) {
                 this.savePromo();
             }
         },
+
         savePromo: function () {
             axios.post('/Promotion/CreatePromo/SaveNewPromo', newPromoApp.PromoModel)
                 .then(function (response) {
@@ -56,6 +61,7 @@ var newPromoApp = new Vue({
                     //todo Handle errors
                 });
         },
+
         getPromoImages: function (imageType) {
             newPromoApp.PromoImages = [];
             $("#ajaxLoading").show();
@@ -70,6 +76,7 @@ var newPromoApp = new Vue({
                     //todo Handle errors
                 });
         },
+
         getImagePath: function (name) {
             return window.location.origin + "/images/Slider/" + newPromoApp.imageType + "/" + name;
         },
@@ -97,17 +104,21 @@ var newPromoApp = new Vue({
                 $("#slickContactForm").css({ "border": "1px solid #d8d8d8" });
             }
         },
+
         setFormBackgroundColor: function () {
             let selectedColor = $("#backgroundColor").val();
             $("#slickContactForm").css({ "background-color": selectedColor });
         },
+
         setFormButtonColor: function () {
             let selectedColor = $("#buttonColor").val();
             $("#sliderButton").css({ "background-color": selectedColor });
         },
+
         submitSlider: function () {
             $("#submitSliderClick").modal('show');
         },
+
         validForm: function (e) {
 
             newPromoApp.hideErrors();
@@ -135,15 +146,18 @@ var newPromoApp = new Vue({
 
             return validForm;
         },
+
         hideErrors: function () {
             $("#titleMissing").hide();
             $("#dateMissing").hide();
             $("#codeMissing").hide();
             $("#discountMissing").hide();
         },
+
         deletePromo: function () {
             $("#deletePromoModal").modal('show');
         },
+
         confirmDeletePromo: function () {
             axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + newPromoApp.PromoModel.id)
                 .then(function (response) {
@@ -153,13 +167,16 @@ var newPromoApp = new Vue({
                     //todo Handle errors
                 });
         },
+
         showHelpStep1: function () {
             $("#promoHelpModalStep1").modal('show');
         },
+
         showHelpStep2: function () {
             $("#promoHelpModalStep2").modal('show');
             $("#promoHelpModalStep1").modal('hide');
         },
+
         closeHelpStep2: function () {
             $("#promoHelpModalStep2").modal('hide');
         }
