@@ -17,6 +17,7 @@ namespace OsOEasy.Models.DBModels
         public string EndDate { get; set; }
         public string Discount { get; set; }
         public bool ShowCouponBorder { get; set; }
+        public string ThankYouMessage { get; set; }
         public string ImageName { get; set; }
         public string ImageType { get; set; }
         public string BackgroundColor { get; set; }

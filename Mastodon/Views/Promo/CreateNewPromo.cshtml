@@ -71,6 +71,24 @@
             </div>
         </div>
 
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="thankYouMsg">
+                    <i class="fa fa-question-circle-o helpText"
+                       style="color:#337ab7"
+                       aria-hidden="true"
+                       v-on:click="showFormSubmitHelp()">
+                    </i> Form Submit Thank You Message:
+                </label>
+                <input for="thankYouMsg"
+                       type="text"
+                       v-model="PromoModel.thankYouMessage"
+                       class="form-control"
+                       placeholder="eg: Check your email for you coupon code!">
+                <small hidden id="thankYouMissing" style="color:red">Thank you message is required</small>
+            </div>
+        </div>
+
         <button type="button"
                 v-on:click="saveCustomPromo()"
                 id="savePromo"
@@ -112,7 +130,7 @@
             <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
         </div>
 
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10">
             <label v-for="(name, index) in PromoImages">
                 <img :src="getImagePath(name)"
                      class="helpText"
@@ -133,11 +151,27 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" v-on:click="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <div id="formSubmitHelpModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Promotion submission</h2>
+                    <p>This field is for a custom message to your users once they submit their email and name for your promotion.</p>
+                    <p>Make sure to let your users know their promotion code will be emailed to them.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script src="~/js/Promo/createPromo.js"></script>

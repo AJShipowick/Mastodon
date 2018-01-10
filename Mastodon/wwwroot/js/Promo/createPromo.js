@@ -30,6 +30,7 @@ var newPromoApp = new Vue({
                     } else {
                         //New promo, no slider selected, select 1st image for user and colors
                         newPromoApp.imageType = "coupon";
+                        newPromoApp.PromoModel.imageType = "coupon";
                         newPromoApp.PromoModel.imageName = "coupon_1.svg";
                         newPromoApp.PromoModel.backgroundColor = "#ffffff";
                         newPromoApp.PromoModel.buttonColor = "#4CAF50";
@@ -144,6 +145,11 @@ var newPromoApp = new Vue({
                 validForm = false;
             }
 
+            if (!newPromoApp.PromoModel.thankYouMessage) {
+                $('#thankYouMissing').show();
+                validForm = false;
+            }
+
             return validForm;
         },
 
@@ -179,6 +185,10 @@ var newPromoApp = new Vue({
 
         closeHelpStep2: function () {
             $("#promoHelpModalStep2").modal('hide');
+        },
+
+        showFormSubmitHelp: function () {
+            $("#formSubmitHelpModal").modal('show');
         }
     }
 });

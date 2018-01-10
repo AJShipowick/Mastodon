@@ -5,11 +5,27 @@ var dashboardApp = new Vue({
     data: {
         Dashboard: []
     },
-    mounted: function () {
+    created: function () {
         //get settings onLoad
         this.getUserSettings();
     },
     methods: {
+        getUserSettings: function () {
+            axios.get('/Dashboard/Dashboard/GetUserSettings')
+                .then(function (response) {
+                    dashboardApp.Dashboard = response.data;
+                    $("#activePromoData").show();
+                    $("#inactivePromoData").show();
+                    $('#ajaxLoading').hide();
+
+                    google.charts.load('current', { packages: ['corechart'] });
+                    google.charts.setOnLoadCallback(dashboardApp.drawDashboardPieChart);
+                })
+                .catch(function (error) {
+                    //todo Handle errors
+                });
+        },
+
         editOldPromo: function (promoId, isActivePromo) {
             window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId;
         },
@@ -75,22 +91,6 @@ var dashboardApp = new Vue({
 
         viewPromoEntries: function (promoId, promoName) {
             window.location.href = '/Details/PromoDetails/PromoDetails?promoId=' + promoId + "&promoName=" + promoName;
-        },
-
-        getUserSettings: function () {
-            axios.get('/Dashboard/Dashboard/GetUserSettings')
-                .then(function (response) {
-                    dashboardApp.Dashboard = response.data;
-                    $("#activePromoData").show();
-                    $("#inactivePromoData").show();
-                    $('#ajaxLoading').hide();
-
-                    google.charts.load('current', { packages: ['corechart'] });
-                    google.charts.setOnLoadCallback(dashboardApp.drawDashboardPieChart);
-                })
-                .catch(function (error) {
-                    //todo Handle errors
-                });
         },
 
         showUserScriptInfo: function (userScript) {

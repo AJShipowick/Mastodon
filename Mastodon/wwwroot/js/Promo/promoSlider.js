@@ -4,7 +4,7 @@ let currentImage = false;
 let slickSliderOpen = false;
 
 function showCustomSliderImage() {
-    $("#sliderContainer").show();
+    document.getElementById('sliderContainer').style.display = 'block';
     let currentImage = document.getElementById("slickImage");
 }
 
@@ -39,6 +39,6 @@ function showSlickSlider() {
 }
 
 function submitSlider() {
-    //call API to send email to user with promo code
-    alert('hi');
+    document.getElementById('thankYou').style.display = 'block';
+    document.getElementById('osoFormInput').style.display = 'none';
 }
