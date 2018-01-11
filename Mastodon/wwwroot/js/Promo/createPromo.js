@@ -158,6 +158,7 @@ var newPromoApp = new Vue({
             $("#dateMissing").hide();
             $("#codeMissing").hide();
             $("#discountMissing").hide();
+            $('#thankYouMissing').hide();
         },
 
         deletePromo: function () {
