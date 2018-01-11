@@ -1,23 +1,24 @@
-﻿.slickFont {
+﻿.osoFont {
     font-family: Helvetica;
 }
 
-#sliderContainer {
+#osoContainer {
     position: fixed;
-    z-index: 99 !important;
-    right: 0px;
+    right: -300px;
     top: 30%;
 }
 
-#slickImage {
-    position: relative;
+#osoImage {
+    position: fixed;
+    z-index: 99 !important;
     /*box-shadow: 0 0 8px gray;*/
-    margin-top: 35%;
+    right: 0px;
+    top: 50%;
     cursor: pointer;
-    float: left;
+    width: 80px;
 }
 
-#slickContactForm {
+#osoContactForm {
     position: relative;
     width: 300px;
     border: 1px solid #d8d8d8;
@@ -28,7 +29,7 @@
     float: right;
 }
 
-.slickInputBox input[type='text'] {
+.osoInputBox input[type='text'] {
     padding: 10px;
     border: solid 1px #dcdcdc;
     transition: box-shadow 0.3s, border 0.3s;
@@ -36,7 +37,7 @@
     margin-bottom: 5px;
 }
 
-    .slickInputBox input[type='text'].focus {
+    .osoInputBox input[type='text'].focus {
         border: solid 1px #707070;
         box-shadow: 0 0 5px 1px #969696;
     }

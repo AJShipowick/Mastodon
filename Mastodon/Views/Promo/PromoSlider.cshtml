@@ -2,9 +2,9 @@
 <!--image in middle of coupon box.....-->
 <!--https://stackoverflow.com/questions/18516317/vertically-align-an-image-inside-a-div-with-responsive-height-->
 
-<div hidden id="sliderContainer">
-    <img id="slickImage" style="width:80px" onclick="slickSliderClicked()" />
-    <div id='slickContactForm' class='slickFont'>
+<img id="osoImage" style="right:0px" onclick="osoSliderClicked()" />
+<div hidden id="osoContainer">
+    <div id='osoContactForm' class='osoFont'>
         <h2>{{PromoModel.title}}</h2>
         <h3>{{PromoModel.discount}}</h3>
         <p>Ends: {{PromoModel.endDate}}</p>
@@ -14,20 +14,22 @@
         </dl>
         <p><small>{{PromoModel.finePrint}}</small></p>
         <div id="osoFormInput">
-            <div class='slickInputBox'>
+            <div class='osoInputBox'>
                 <input required id='sliderName' type='text' placeholder='Name'>
             </div>
-            <div class='slickInputBox'>
+            <div class='osoInputBox'>
                 <input required id='sliderEmail' type='text' placeholder='Email'>
             </div>
             <p id='sliderResponseMessage'></p>
             <div style="text-align:center">
-                <button id="sliderButton" class='button' onclick='submitSlider()'>Claim Promotion</button>
+                <button id="osoButton" class='button' onclick='submitOSOEasyPromotion()'>Claim Promotion</button>
             </div>
         </div>
         <div id="thankYou" hidden>
             <h2>{{PromoModel.thankYouMessage}}</h2>
         </div>
-        <a href="https://www.OsOEasyPromo.com" style="font-size:60%; text-align:center">Made with OsOEasyPromo</a>
+        <div style="text-align:center">
+            <a href="https://www.OsOEasyPromo.com" style="font-size:60%; color:black">Made with OsOEasyPromo</a>
+        </div>
     </div>
 </div>

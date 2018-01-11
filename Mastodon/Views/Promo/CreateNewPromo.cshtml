@@ -13,7 +13,7 @@
     </div>
     <br />
 
-    <!--This partial view will be updated to show the user what their custom slider will look and act like....-->
+    <!--This partial view will be updated to show the user what their custom promotion will look and act like....-->
     @{ Html.RenderPartial("PromoSlider.cshtml"); }
     @{ Html.RenderPartial("PromoHelpModal.cshtml"); }
 
@@ -62,11 +62,11 @@
                        v-on:click="showCouponBorder()">
             </div>
             <div class="col-md-3">
-                <label for="BackgroundColor" style="padding-right:5px">Promo Background Color: </label>
+                <label for="BackgroundColor" style="padding-right:5px">Background Color: </label>
                 <input for="BackgroundColor" id="backgroundColor" type="color" v-model="PromoModel.backgroundColor" v-on:change="setFormBackgroundColor()">
             </div>
             <div class="col-md-3">
-                <label for="ButtonColor" style="padding-right:5px">Promo Button Color: </label>
+                <label for="ButtonColor" style="padding-right:5px">Button Color: </label>
                 <input for="ButtonColor" id="buttonColor" type="color" v-model="PromoModel.buttonColor" v-on:change="setFormButtonColor()">
             </div>
         </div>
@@ -176,4 +176,4 @@
 
 <script src="~/js/Promo/createPromo.js"></script>
 <script src="~/js/Promo/promoSlider.js"></script>
-<link rel="stylesheet" href="~/css/slider.css" />
+<link rel="stylesheet" href="~/css/promo.css" />

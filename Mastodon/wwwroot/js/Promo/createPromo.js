@@ -20,26 +20,26 @@ var newPromoApp = new Vue({
 
                     if (newPromoApp.PromoModel.id) {
                         $("#deletePromoBtn").show();
-                        $("#slickContactForm").css({ "background-color": newPromoApp.PromoModel.backgroundColor });
-                        $("#sliderButton").css({ "background-color": newPromoApp.PromoModel.buttonColor });
-                        if (newPromoApp.PromoModel.showCouponBorder) { $("#slickContactForm").css({ "border": "4px dashed #ccc" }); }
+                        $("#osoContactForm").css({ "background-color": newPromoApp.PromoModel.backgroundColor });
+                        $("#osoButton").css({ "background-color": newPromoApp.PromoModel.buttonColor });
+                        if (newPromoApp.PromoModel.showCouponBorder) { $("#osoContactForm").css({ "border": "4px dashed #ccc" }); }
 
-                        //get slider image, then set it....
+                        //get promo image, then set it....
                         newPromoApp.imageType = newPromoApp.PromoModel.imageType;
-                        $("#slickImage").attr("src", newPromoApp.getImagePath(newPromoApp.PromoModel.imageName));
+                        $("#osoImage").attr("src", newPromoApp.getImagePath(newPromoApp.PromoModel.imageName));
                     } else {
-                        //New promo, no slider selected, select 1st image for user and colors
+                        //New promo, no promo selected, select 1st image for user and colors
                         newPromoApp.imageType = "coupon";
                         newPromoApp.PromoModel.imageType = "coupon";
                         newPromoApp.PromoModel.imageName = "coupon_1.svg";
                         newPromoApp.PromoModel.backgroundColor = "#ffffff";
                         newPromoApp.PromoModel.buttonColor = "#4CAF50";
 
-                        $("#slickImage").attr("src", newPromoApp.getImagePath(newPromoApp.PromoModel.imageName));
+                        $("#osoImage").attr("src", newPromoApp.getImagePath(newPromoApp.PromoModel.imageName));
                     }
 
-                    showCustomSliderImage();
-                    closeSlickSlider();
+                    showCustomPromoImage();
+                    closePromotion();
 
                 })
                 .catch(function (error) {
@@ -79,7 +79,7 @@ var newPromoApp = new Vue({
         },
 
         getImagePath: function (name) {
-            return window.location.origin + "/images/Slider/" + newPromoApp.imageType + "/" + name;
+            return window.location.origin + "/images/Promo/" + newPromoApp.imageType + "/" + name;
         },
 
         setPromoImage: function (name, id) {
@@ -95,25 +95,25 @@ var newPromoApp = new Vue({
             newPromoApp.PromoModel.imageName = name;
             newPromoApp.PromoModel.imageType = newPromoApp.imageType;
 
-            $("#slickImage").attr("src", newPromoApp.getImagePath(name));
+            $("#osoImage").attr("src", newPromoApp.getImagePath(name));
         },
 
         showCouponBorder: function () {
             if (newPromoApp.PromoModel.showCouponBorder) {
-                $("#slickContactForm").css({ "border": "4px dashed #ccc" });
+                $("#osoContactForm").css({ "border": "4px dashed #ccc" });
             } else {
-                $("#slickContactForm").css({ "border": "1px solid #d8d8d8" });
+                $("#osoContactForm").css({ "border": "1px solid #d8d8d8" });
             }
         },
 
         setFormBackgroundColor: function () {
             let selectedColor = $("#backgroundColor").val();
-            $("#slickContactForm").css({ "background-color": selectedColor });
+            $("#osoContactForm").css({ "background-color": selectedColor });
         },
 
         setFormButtonColor: function () {
             let selectedColor = $("#buttonColor").val();
-            $("#sliderButton").css({ "background-color": selectedColor });
+            $("#osoButton").css({ "background-color": selectedColor });
         },
 
         submitSlider: function () {

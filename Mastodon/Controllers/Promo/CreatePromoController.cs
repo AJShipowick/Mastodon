@@ -64,7 +64,7 @@ namespace OsOEasy.Controllers.Promo
         public JsonResult GetPromoImages(string imageType)
         {
             IFileProvider provider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
-            IDirectoryContents contents = provider.GetDirectoryContents("wwwroot/images/Slider/" + imageType);
+            IDirectoryContents contents = provider.GetDirectoryContents("wwwroot/images/Promo/" + imageType);
 
             List<string> imageItems = new List<string>();
             foreach (IFileInfo item in contents)
