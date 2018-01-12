@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OsOEasy_API.Services;
 
 namespace OsOEasy_API
 {
@@ -33,6 +34,7 @@ namespace OsOEasy_API
             services.AddTransient<IBasicHTML, BasicHTML>();
             services.AddTransient<IBasicCSS, BasicCSS>();
             services.AddTransient<IBasicJS, BasicJS>();
+            services.AddTransient<IPromoService, PromoService>();
 
             services.AddMvc();
         }

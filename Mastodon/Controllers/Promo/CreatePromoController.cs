@@ -89,7 +89,6 @@ namespace OsOEasy.Controllers.Promo
                         if (!string.IsNullOrEmpty(promoItem.Id))
                         {
                             //Update existing promtion
-                            //promoItem.ActivePromotion = Convert.ToBoolean(HttpContext.Session.GetInt32("activePromo"));
                             _dbContext.Entry(_dbContext.Promotion.Find(promoItem.Id)).CurrentValues.SetValues(promoItem);
                         }
                         else

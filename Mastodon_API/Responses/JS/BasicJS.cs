@@ -5,16 +5,15 @@ namespace OsOEasy_API.Responses.JS
 
     public interface IBasicJS
     {
-        string GetSliderJS(Promotion clientWebsiteData);
+        string GetSliderJS();
     }
 
     public class BasicJS : IBasicJS
     {
-        public string GetSliderJS(Promotion clientWebsiteData)
+        public string GetSliderJS()
         {
-            //user clientWebsiteData.stuff....
             //build form SliderJS.js
-            return "var slickSliderOpen;function slickSliderClicked(){if(!this.slickSliderOpen){document.documentElement.style.overflowX='hidden';document.getElementById('slickContactForm').style.visibility='visible';document.getElementById('sliderContainer').style.right='-200px';document.getElementById('slickImage').style.cssFloat='left';showSlickSlider();document.documentElement.style.overflowX='inherit'}else{closeSlickSlider()}this.slickSliderOpen=!this.slickSliderOpen}function closeSlickSlider(){document.getElementById('slickContactForm').style.visibility='hidden';document.getElementById('slickImage').style.cssFloat='right'}function showSlickSlider(){var slidingDiv=document.getElementById('sliderContainer');var stopPosition=0;if(parseInt(slidingDiv.style.right)<stopPosition){slidingDiv.style.right=parseInt(slidingDiv.style.right)+3+'px';setTimeout(showSlickSlider,1)}}";
+            return "let currentImage=false;let promoOpen=false;function showCustomPromoImage(){document.getElementById('osoContainer').style.display='block';let currentImage=document.getElementById('osoImage')}function osoSliderClicked(){if(!promoOpen){document.documentElement.style.overflowX='hidden';document.getElementById('osoContactForm').style.visibility='visible';document.getElementById('osoContainer').style.zIndex='999';slidePromo();slidePromoImage()}else{closePromotion()}promoOpen=!promoOpen}function closePromotion(){document.getElementById('osoContainer').style.right='-300px';document.getElementById('osoImage').style.right='0px';document.getElementById('osoContactForm').style.visibility='hidden';document.getElementById('osoContainer').style.zIndex='0'}function slidePromo(){let slidingDiv=document.getElementById('osoContainer');let stopPosition=0;if(parseInt(slidingDiv.style.right)<stopPosition){slidingDiv.style.right=parseInt(slidingDiv.style.right)+5+'px';setTimeout(slidePromo,1)}}function slidePromoImage(){let slidingDiv=document.getElementById('osoImage');let stopPosition=0;if(parseInt(slidingDiv.style.right)<300){slidingDiv.style.right=parseInt(slidingDiv.style.right)+5+'px';setTimeout(slidePromoImage,1)}}function submitOSOEasyPromotion(){document.getElementById('thankYou').style.display='block';document.getElementById('osoFormInput').style.display='none'}";
         }
     }
 }

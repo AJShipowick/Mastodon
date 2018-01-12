@@ -1,35 +1,35 @@
-﻿.slickFont {
+﻿.osoFont {
     font-family: Helvetica;
 }
 
-#sliderContainer {
+#osoContainer {
     position: fixed;
-    z-index: 10;
+    right: -300px;
+    top: 30%;
+}
+
+#osoImage {
+    position: fixed;
+    z-index: 99 !important;
+    /*box-shadow: 0 0 8px gray;*/
     right: 0px;
-    top: 10%;
-}
-
-#slickImage {
-    position: relative;
-    box-shadow: 0 0 8px gray;
-    margin-top: 15%;
+    top: 50%;
     cursor: pointer;
-    float: right;
+    width: 80px;
 }
 
-#slickContactForm {
+#osoContactForm {
     position: relative;
-    width: 250px;
+    width: 300px;
     border: 1px solid #d8d8d8;
     padding: 10px 20px;
     /*border-radius: 5px;  ...for rounded edges...*/ /*todo Adjust this for user*/
     box-shadow: 5px 0 50px gray; /*todo Adjust this for user*/
-    visibility: hidden;
     background-color: white; /*todo Adjust this for user*/
     float: right;
 }
 
-.slickInputBox input[type='text'] {
+.osoInputBox input[type='text'] {
     padding: 10px;
     border: solid 1px #dcdcdc;
     transition: box-shadow 0.3s, border 0.3s;
@@ -37,7 +37,7 @@
     margin-bottom: 5px;
 }
 
-    .slickInputBox input[type='text'].focus {
+    .osoInputBox input[type='text'].focus {
         border: solid 1px #707070;
         box-shadow: 0 0 5px 1px #969696;
     }
@@ -63,4 +63,8 @@
     padding: 5% 5%;
     font-size: 100%;
     cursor: pointer;
+}
+
+.coupon {
+    border: 3px dashed #ccc;
 }

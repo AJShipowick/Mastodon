@@ -8,7 +8,7 @@
 (function () {
     //create parent element
     let sliderDiv = document.createElement('div');
-    sliderDiv.setAttribute('id', 'sliderContainer');
+    sliderDiv.setAttribute('id', 'osoContainer');
     document.body.appendChild(sliderDiv);
 
     loadSlickHTML();
@@ -24,16 +24,16 @@
 
 
     function loadSlickHTML() {
-        let htmlURL = 'http://localhost:51186/api/slider/html/?';
+        let htmlURL = 'http://localhost:51186/api/promo/html/?';
         getSlickResource(htmlURL, handleHTMLCallback);
     }
 
     function handleHTMLCallback(data) {
-        document.getElementById('sliderContainer').innerHTML = data;
+        document.getElementById('osoContainer').innerHTML = data;
     }
 
     function loadSlickCSS() {
-        let cssURL = 'http://localhost:51186/api/slider/css/?';
+        let cssURL = 'http://localhost:51186/api/promo/css/?';
         getSlickResource(cssURL, handleCSSCallback);
     }
 
@@ -45,7 +45,7 @@
     }
 
     function loadSlickJS() {
-        let jsURL = 'http://localhost:51186/api/slider/js/?';
+        let jsURL = 'http://localhost:51186/api/promo/js/?';
         getSlickResource(jsURL, handleJSCallback);
     }
 
@@ -57,7 +57,7 @@
 
     //https://stackoverflow.com/questions/35367830/load-an-image-from-a-xhr-request-and-then-pass-it-to-the-server
     function loadSlickImage() {
-        let imageURL = 'http://localhost:51186/api/slider/image/?';
+        let imageURL = 'http://localhost:51186/api/promo/image/?';
         getImageResource(imageURL, handleImageCallback);
     }
 
@@ -79,25 +79,24 @@
     function showSlickImageOnScreen(blobData) {
         let urlCreator = window.URL || window.webkitURL;
         let imageUrl = urlCreator.createObjectURL(blobData);
-        document.querySelector('#slickImage').src = imageUrl;
+        document.querySelector('#osoImage').src = imageUrl;
     }
 })();
 
 function submitSlider() {
-    let name = document.getElementById('sliderName').value;
-    let email = document.getElementById('sliderEmail').value;
-    let comment = document.getElementById('sliderComment').value;
+    let name = document.getElementById('osoUserName').value;
+    let email = document.getElementById('osoUserEmail').value;
 
     //todo perform some validation on these inputs......
 
-    if (!name || !email || !comment) {
-        let responseMsg = document.getElementById('sliderResponseMessage');
+    if (!name || !email) {
+        let responseMsg = document.getElementById('osoPromoResponseMessage');
         responseMsg.innerHTML = 'Please fill out all form fields.';
         responseMsg.style.color = 'red';
         return;
     }
 
-    let submitURL = 'http://localhost:51186/api/slider/submit/?/' + name + '/' + email + '/' + comment;
+    let submitURL = 'http://localhost:51186/api/promo/submit/?/' + name + '/' + email;
     getSlickResource(submitURL, handleSubmitCallback);
 }
 
@@ -108,7 +107,7 @@ function getSlickResource(resourceURL, callback) {
         if (xhr.readyState === 4) {  //Use 4 && 200 for a server request
             callback(xhr.response); //Outputs a DOMString by default
         } else {
-            //todo handle errors
+            console.log('error getting resource: ' + resourceURL);
         }
     }
 
@@ -117,16 +116,17 @@ function getSlickResource(resourceURL, callback) {
 }
 
 function handleSubmitCallback(data) {
-    let responseMsg = document.getElementById('sliderResponseMessage');
+    console.log(data);
+    //    let responseMsg = document.getElementById('osoPromoResponseMessage');
 
-    if (data === 'SUCCESS') {
-        responseMsg.innerHTML = 'You message has been sent!'
-        responseMsg.style.color = 'green';
-    } else {
+    //    if (data === 'SUCCESS') {
+    //        responseMsg.innerHTML = 'You message has been sent!'
+    //        responseMsg.style.color = 'green';
+    //    } else {
 
-        //todo show msg response from server....success/failure and some general reasons why??
+    //        //todo show msg response from server....success/failure and some general reasons why??
 
-        responseMsg.innerHTML = '???????????????'
-        responseMsg.style.color = 'red';
-    }
+    //        responseMsg.innerHTML = '???????????????'
+    //        responseMsg.style.color = 'red';
+    //    }
 }

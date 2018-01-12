@@ -5,7 +5,7 @@
         if (request.readyState === 4) {
             if (request.status === 200) {
                 document.body.className = 'ok';
-                console.log(request.responseText);
+                //console.log('OsO Easy Promo successfully loaded');
 
                 var script = document.createElement('script');
                 script.innerHTML = request.responseText;
@@ -16,6 +16,6 @@
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/slider/74198dc4-95a7-45a7-8512-84a900adf4f5", true);
+    request.open("GET", "http://localhost:51186/api/promo/eb11ffd7-a837-44dc-9102-0145baf92207", true);
     request.send(null);
 })();
