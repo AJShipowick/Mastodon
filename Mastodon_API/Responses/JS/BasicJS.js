@@ -44,7 +44,7 @@ function slidePromoImage() {
     }
 }
 
-function submitOSOEasyPromotion() {
-    document.getElementById('thankYou').style.display = 'block';
-    document.getElementById('osoFormInput').style.display = 'none';
-}
+//function submitOSOEasyPromotion() {
+//    document.getElementById('thankYou').style.display = 'block';
+//    document.getElementById('osoFormInput').style.display = 'none';
+//}

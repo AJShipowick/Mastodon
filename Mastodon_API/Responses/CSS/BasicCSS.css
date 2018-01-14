@@ -24,11 +24,11 @@
     width: 100%;
     width: -moz-available; /* WebKit-based browsers will ignore this. */
     width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    border: 1px solid #d8d8d8;
+    border: ?couponBorder?;
     padding: 10px 20px;
     /*border-radius: 5px;  ...for rounded edges...*/ /*todo Adjust this for user*/
     box-shadow: 5px 0 50px gray; /*todo Adjust this for user*/
-    background-color: white; /*todo Adjust this for user*/
+    background-color: ?backgroundColor?; /*todo Adjust this for user*/
     float: right;
 }
 
@@ -60,7 +60,7 @@
     }
 
 .button {
-    background-color: #4CAF50; /* Green */
+    background-color: ?buttonColor?;
     border: none;
     color: white;
     padding: 5% 5%;

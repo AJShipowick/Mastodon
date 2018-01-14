@@ -6,7 +6,10 @@
             if (request.status === 200) {
                 document.body.className = 'ok';
                 //console.log('OsO Easy Promo successfully loaded');
-
+                if (request.responseText === 'No active promotion found') {
+                    console.log('OsO Easy Promo: ' + request.responseText);
+                    return;
+                }
                 var script = document.createElement('script');
                 script.innerHTML = request.responseText;
                 document.getElementsByTagName('head')[0].appendChild(script);

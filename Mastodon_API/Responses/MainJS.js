@@ -49,7 +49,10 @@
     }
 })();
 
-function submitSlider() {
+function submitOSOEasyPromotion() {
+    document.getElementById('osoPromoResponseMessage').style.display = 'none'
+
+
     let name = document.getElementById('osoUserName').value;
     let email = document.getElementById('osoUserEmail').value;
 
@@ -59,8 +62,12 @@ function submitSlider() {
         let responseMsg = document.getElementById('osoPromoResponseMessage');
         responseMsg.innerHTML = 'Please fill out all form fields.';
         responseMsg.style.color = 'red';
+        document.getElementById('osoPromoResponseMessage').style.display = 'block'
         return;
     }
+
+    document.getElementById('thankYou').style.display = 'block';
+    document.getElementById('osoFormInput').style.display = 'none';
 
     let submitURL = 'http://localhost:51186/api/promo/submit/?/' + name + '/' + email;
     getSlickResource(submitURL, handleSubmitCallback);

@@ -134,30 +134,27 @@ namespace OsOEasy_API.Controllers
         [Route("submit/{promoId}/{name}/{email}")]
         public string SubmitForm(string promoId, string name, string email)
         {
-            //ClientsWebsite clientWebsites = null;
+            Promotion clientPromotion = null;
 
-            ////todo validate form fields here...and in JS as well....
+            try
+            {
+                using (_APIDbContext)
+                {
+                    clientPromotion = _APIDbContext.Promotion
+                        .Where(c => c.Id == promoId).FirstOrDefault();
 
-            //try
-            //{
-            //    using (_apiDbContext)
-            //    {
-            //        clientWebsites = _apiDbContext.ClientsWebsites
-            //            .Where(c => c.ClientID == clientID).FirstOrDefault();
-            //    }
+                    //send email async to owner of the slider and notify them of the contact....
+                    _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email);
+                    _PromoService.SendPromoEmail();
+                }
 
-            //    //send email async to owner of the slider and notify them of the contact....
-
-            //    return "SUCCESS";
-            //}
-            //catch (Exception ex)
-            //{
-            //    //todo log exception
-            //    return "ERROR";
-            //}
-
-            return "";
-
+                return "SUCCESS";
+            }
+            catch (Exception ex)
+            {
+                //todo log exception
+                return "ERROR";
+            }
         }
 
     }
