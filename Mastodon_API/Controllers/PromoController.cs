@@ -116,31 +116,6 @@ namespace OsOEasy_API.Controllers
         }
 
         [HttpGet]
-        [Route("image/{promoId}")]
-        public IActionResult GetImage(string promoId)
-        {
-            Promotion clientPromotion = null;
-
-            try
-            {
-                using (_APIDbContext)
-                {
-                    clientPromotion = _APIDbContext.Promotion
-                        .Where(c => c.Id == promoId).FirstOrDefault();
-                }
-
-                var image = System.IO.File.OpenRead(string.Format("wwwroot/images/promo/{0}/{1}",
-                    clientPromotion.ImageType, clientPromotion.ImageName));
-                return File(image, "image/svg");
-            }
-            catch (Exception ex)
-            {
-                //todo log exception
-                return null;
-            }
-        }
-
-        [HttpGet]
         [Route("js/{promoId}")]
         public string GetJS(string promoId)
         {

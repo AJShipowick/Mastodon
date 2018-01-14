@@ -15,14 +15,6 @@
     loadSlickCSS();
     loadSlickJS();
 
-    //todo, this timeout is not the best solution.
-    //But...the image will not assign to the HTML property unless there is a timelapse in this call......sometimes....
-    setTimeout(
-        function () {
-            loadSlickImage();
-        }, 500);
-
-
     function loadSlickHTML() {
         let htmlURL = 'http://localhost:51186/api/promo/html/?';
         getSlickResource(htmlURL, handleHTMLCallback);
@@ -54,33 +46,6 @@
         script.innerHTML = data;
         document.getElementsByTagName('head')[0].appendChild(script);
     }
-
-    //https://stackoverflow.com/questions/35367830/load-an-image-from-a-xhr-request-and-then-pass-it-to-the-server
-    function loadSlickImage() {
-        let imageURL = 'http://localhost:51186/api/promo/image/?';
-        getImageResource(imageURL, handleImageCallback);
-    }
-
-    function handleImageCallback(data) {
-        showSlickImageOnScreen(data);
-    }
-
-    function getImageResource(imageURL, callback) {
-        let oReq = new XMLHttpRequest();
-        oReq.open('GET', imageURL, true);
-        oReq.responseType = 'blob';
-
-        oReq.onload = function (oEvent) {
-            callback(oReq.response);
-        };
-        oReq.send();
-    }
-
-    function showSlickImageOnScreen(blobData) {
-        let urlCreator = window.URL || window.webkitURL;
-        let imageUrl = urlCreator.createObjectURL(blobData);
-        document.querySelector('#osoImage').src = imageUrl;
-    }
 })();
 
 function submitSlider() {
@@ -106,8 +71,6 @@ function getSlickResource(resourceURL, callback) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {  //Use 4 && 200 for a server request
             callback(xhr.response); //Outputs a DOMString by default
-        } else {
-            console.log('error getting resource: ' + resourceURL);
         }
     }
 
