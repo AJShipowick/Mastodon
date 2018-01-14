@@ -20,7 +20,7 @@ function osoSliderClicked() {
     promoOpen = !promoOpen;
 }
 function closePromotion() {
-    document.getElementById('osoContainer').style.right = '-300px';
+    document.getElementById('osoContainer').style.right = '-300px'
     document.getElementById('osoImage').style.right = '0px';
     document.getElementById('osoContactForm').style.visibility = 'hidden';
     document.getElementById('osoContainer').style.zIndex = '0';

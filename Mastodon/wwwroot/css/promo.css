@@ -4,6 +4,7 @@
 
 #osoContainer {
     position: fixed;
+    width: 300px;
     right: -300px;
     top: 30%;
 }
@@ -20,7 +21,9 @@
 
 #osoContactForm {
     position: relative;
-    width: 300px;
+    width: 100%;
+    width: -moz-available; /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
     border: 1px solid #d8d8d8;
     padding: 10px 20px;
     /*border-radius: 5px;  ...for rounded edges...*/ /*todo Adjust this for user*/

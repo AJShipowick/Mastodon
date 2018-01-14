@@ -10,6 +10,7 @@
     let sliderDiv = document.createElement('div');
     sliderDiv.setAttribute('id', 'osoContainer');
     document.body.appendChild(sliderDiv);
+    document.getElementById('osoContainer').style.right = '-300px'
 
     loadSlickHTML();
     loadSlickCSS();
