@@ -3,7 +3,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System.Threading.Tasks;
 
-namespace OsOEasy.Services
+namespace OsOEasy_API.Services
 {
     /// <summary>
     /// MailGun Sending Emails via API
@@ -12,13 +12,13 @@ namespace OsOEasy.Services
     /// </summary>
     public interface IMailGunEmailSender
     {
-        Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL);
+        Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String promoCode);
     }
 
     public enum EmailType
     {
-        NewUserSignup,
-        ResetPassword
+        ClaimPromotion,
+        PromotionLimitNotice
     }
 
     public class MailGunEmailSender : IMailGunEmailSender
@@ -26,41 +26,41 @@ namespace OsOEasy.Services
 
         private static string From_CEO = "Adam@OsOEasyPromo.com";
         private static string From_Support = "Support@OsOEasyPromo.com";
+
         private static string Email_Signature = "\r\n\r\n" +
-                                                    "Happy Promotions!\r\n\r\n" +
-                                                    "Adam Shipowick, CEO and Founder";
+                                                    "Made possible by OsOEasyPromo.com";
+        private static string Email_Signature_CEO = "\r\n\r\n" +
+                                            "Happy Promotions!\r\n\r\n" +
+                                            "Adam Shipowick, CEO and Founder";
 
-        #region New Users        
-        private static string Subject_NewUser = "{0}, Welcome to OsoEasyPromo";
-        private static string Message_NewUser = "Hi {0},\r\n\r\n" +
-                                                    "I'm so glad you decided to try OsOEasyPromo.com for free!\r\n\r\n" +
-                                                    "Make sure to setup your website script so you can start running unlimited custom promotions on your website right away.\r\n\r\n" +
-                                                    "I would love to help you answer any quesitons you may have about our unique service.\r\n" +
-                                                    "You can reply directly to this email if you would like.";
+        #region Claim Promotion    
+        private static string Subject_ClaimPromotion = "{0}, Claim your promotion";
+        private static string Message_ClaimPromotion = "Hi {0},\r\n\r\n" +
+                                                    "Claim your promotion with the promo code: \r\n {1}";
         #endregion
 
-        #region Reset Password        
-        private static string Subject_ResetPassword = "Password Reset for OsO Easy Promo";
-        private static string Message_ResetPassword = "Hi {0}, we heard you need to reset your password. \r\n\r\n";
-        private static string Action_ResetPassword = "Please reset your OsOEasyPromo.com password by clicking below:\r\n\r\n {0}";
+        #region Promotion Limit Notice      
+        private static string Subject_LimitNotice = "{0}, Action required, your OsO Easy Promo plan limit has been reached";
+        private static string Message_LimitNotice = "Hi {0}, it looks like you have exceeded your current plan limits for accepting promotion entries.  " +
+                                                        "No more entries will be accepted unless you upgrade your plan. \r\n" +
+                                                        "Please visit your OsOEasyPromo.com Dashboard and upgrade your current plan to continue accepting promotion entries.";
         #endregion
 
 
-        public async Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL)
+        public async Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String promoCode)
         {
 
             IRestResponse response = null;
 
             switch (emailType)
             {
-                case EmailType.NewUserSignup:
-                    response = await SendMailAsync(emailType, From_CEO, toAddress,
-                        String.Format(Subject_NewUser, userName), String.Format(Message_NewUser, userName) + Email_Signature);
-                    //send follow-up emails using 
+                case EmailType.ClaimPromotion:
+                    response = await SendMailAsync(emailType, From_Support, toAddress,
+                        String.Format(Subject_ClaimPromotion, userName), String.Format(Message_ClaimPromotion, userName, promoCode) + Email_Signature);
                     break;
-                case EmailType.ResetPassword:
-                    response = await SendMailAsync(emailType, From_Support, toAddress, Subject_ResetPassword,
-                        String.Format(Message_ResetPassword, userName) + String.Format(Action_ResetPassword, callbackURL) + Email_Signature);
+                case EmailType.PromotionLimitNotice:
+                    response = await SendMailAsync(emailType, From_CEO, toAddress, 
+                        String.Format(Subject_LimitNotice, userName), String.Format(Message_LimitNotice, userName) + Email_Signature_CEO);
                     break;
                 default:
                     break;
@@ -88,7 +88,7 @@ namespace OsOEasy.Services
                 Authenticator = new HttpBasicAuthenticator("api", Environment.GetEnvironmentVariable("MAILGUN", EnvironmentVariableTarget.Machine))
             };
             RestRequest request = new RestRequest();
-            request.AddParameter("domain", "support.osoeasypromo.com", ParameterType.UrlSegment);
+            request.AddParameter("domain", "coupon.osoeasypromo.com", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", from);
             request.AddParameter("to", to);

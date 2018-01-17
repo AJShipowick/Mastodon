@@ -35,6 +35,7 @@ namespace OsOEasy_API
             services.AddTransient<IBasicCSS, BasicCSS>();
             services.AddTransient<IBasicJS, BasicJS>();
             services.AddTransient<IPromoService, PromoService>();
+            services.AddTransient<IMailGunEmailSender, MailGunEmailSender>();
 
             services.AddMvc();
         }

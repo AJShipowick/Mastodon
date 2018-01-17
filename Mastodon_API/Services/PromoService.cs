@@ -9,11 +9,18 @@ namespace OsOEasy_API.Services
     {
         void UpdatePromotionStats(Promotion clientPromotion, APIDbContext apiDbContext);
         void HandleCLaimedPromotion(Promotion clientPromotion, APIDbContext apiDbContext, string name, string email);
-        void SendPromoEmail();
+        void SendPromoEmail(String toAddress, String userName, String promoCode);
     }
 
     public class PromoService : IPromoService
     {
+
+        public IMailGunEmailSender _EmailSender;
+
+        public PromoService(IMailGunEmailSender emailSender)
+        {
+            _EmailSender = emailSender;
+        }
 
         public void UpdatePromotionStats(Promotion clientPromotion, APIDbContext apiDbContext)
         {
@@ -45,11 +52,9 @@ namespace OsOEasy_API.Services
             apiDbContext.SaveChanges();
         }
 
-        public void SendPromoEmail()
+        public void SendPromoEmail(String toAddress, String userName, String promoCode)
         {
-            //Mailgun to send promtion email to user.
-
-
+            _EmailSender.SendMailGunEmailAsync(EmailType.ClaimPromotion, toAddress, userName, promoCode);
         }
     }
 }

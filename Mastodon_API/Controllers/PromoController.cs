@@ -132,7 +132,7 @@ namespace OsOEasy_API.Controllers
 
         [HttpGet]
         [Route("submit/{promoId}/{name}/{email}")]
-        public string SubmitForm(string promoId, string name, string email)
+        public string ClaimPromotion(string promoId, string name, string email)
         {
             Promotion clientPromotion = null;
 
@@ -143,9 +143,8 @@ namespace OsOEasy_API.Controllers
                     clientPromotion = _APIDbContext.Promotion
                         .Where(c => c.Id == promoId).FirstOrDefault();
 
-                    //send email async to owner of the slider and notify them of the contact....
                     _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email);
-                    _PromoService.SendPromoEmail();
+                    _PromoService.SendPromoEmail(email, name, clientPromotion.Code);
                 }
 
                 return "SUCCESS";
