@@ -1,15 +1,13 @@
-﻿using OsOEasy.Promo.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using OsOEasy.Models.DBModels;
 using OsOEasy_API.Data;
 using OsOEasy_API.Responses;
 using OsOEasy_API.Responses.CSS;
 using OsOEasy_API.Responses.HTML;
 using OsOEasy_API.Responses.JS;
-using Microsoft.AspNetCore.Mvc;
+using OsOEasy_API.Services;
 using System;
 using System.Linq;
-using OsOEasy.Models.DBModels;
-using OsOEasy_API.Services;
-using System.Threading.Tasks;
 
 namespace OsOEasy_API.Controllers
 {
@@ -54,18 +52,18 @@ namespace OsOEasy_API.Controllers
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
                         _PromoService.UpdatePromotionStats(clientPromotion, _APIDbContext);
                         return _MainJS.GetMainJS(clientPromotion.Id);
+                        //return "<script>alert('hi');</script>";
                     }
                     else
                     {
-                        return "No active promotion found";
+                        return "Error, no active promotion found";
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                //todo log exception
-                return "Error getting main slider.";
+                return "Error, unknown exception occured.";
             }
         }
 
@@ -155,6 +153,5 @@ namespace OsOEasy_API.Controllers
                 return "ERROR";
             }
         }
-
     }
 }

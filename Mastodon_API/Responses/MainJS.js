@@ -6,7 +6,6 @@
 //***********************************************************************************************
 
 (function () {
-    //create parent element
     let sliderDiv = document.createElement('div');
     sliderDiv.setAttribute('id', 'osoContainer');
     document.body.appendChild(sliderDiv);

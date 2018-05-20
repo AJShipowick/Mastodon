@@ -125,16 +125,7 @@ body {
     color: black;
 }
 
-/*.btn {
-    background-color: #009fff;
-}
-
-    .btn:hover {
-        background-color: #00f9ff;
-    }*/
-
 /*To override the nav header on the website*/
-
 .navClicked {
     background-color: #eee;
 }
@@ -176,10 +167,6 @@ body {
     border-width: 5px;
     border-style: solid;
 }
-
-
-
-
 
 [v-cloak] {
     display: none;
