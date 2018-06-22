@@ -6,8 +6,10 @@ using OsOEasy_API.Responses.CSS;
 using OsOEasy_API.Responses.HTML;
 using OsOEasy_API.Responses.JS;
 using OsOEasy_API.Services;
+using RestSharp;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OsOEasy_API.Controllers
 {
@@ -130,9 +132,10 @@ namespace OsOEasy_API.Controllers
 
         [HttpGet]
         [Route("submit/{promoId}/{name}/{email}")]
-        public string ClaimPromotion(string promoId, string name, string email)
+        public async Task<string> ClaimPromotionAsync(string promoId, string name, string email)
         {
             Promotion clientPromotion = null;
+            IRestResponse response = null;
 
             try
             {
@@ -142,10 +145,10 @@ namespace OsOEasy_API.Controllers
                         .Where(c => c.Id == promoId).FirstOrDefault();
 
                     _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email);
-                    _PromoService.SendPromoEmail(email, name, clientPromotion.Code);
+                    response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);
                 }
 
-                return "SUCCESS";
+                return response.StatusCode.ToString();
             }
             catch (Exception ex)
             {

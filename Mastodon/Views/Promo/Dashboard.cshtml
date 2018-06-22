@@ -157,12 +157,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h1 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> You custom website script</h1>
+                    <h1 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> Your custom website script</h1>
                 </div>
                 <div class="modal-body">
                     <h3>Insert this custom script into your website source code on every page you want your promotion to display.</h3>
-                    <h3 style="background-color:#eee">{{Dashboard.ActivePromoScript}}</h3><br />
+                    <br />
+                    <p id="userScript" class="userScriptDisplay">{{Dashboard.ActivePromoScript}}</p>
+                    <button type="button" class="btn btn-primary" v-on:click="copyToClipboard('#userScript')">Copy script</button>
+                    <p hidden id="copySuccess" style="color:blue">Script successfully copied to clipboard, use 'Control-V' to paste into your website!</p>
                     <p>
+                        <br />
                         Adding our script to your website is very similar to installing a Google Analytics or Hotjar script.
                     </p>
                     <p>

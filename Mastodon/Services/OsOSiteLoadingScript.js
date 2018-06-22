@@ -1,4 +1,3 @@
-//Basic Site 1 JavaScript
 (function () {
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -19,6 +18,6 @@
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/promo/ce97a3e9-b98f-42bc-84fd-1e7c3f0fb89d", true);
+    request.open("GET", "http://localhost:51186/api/promo/USERID", true);
     request.send(null);
 })();

@@ -59,7 +59,7 @@ namespace OsOEasy_API.Services
                         String.Format(Subject_ClaimPromotion, userName), String.Format(Message_ClaimPromotion, userName, promoCode) + Email_Signature);
                     break;
                 case EmailType.PromotionLimitNotice:
-                    response = await SendMailAsync(emailType, From_CEO, toAddress, 
+                    response = await SendMailAsync(emailType, From_CEO, toAddress,
                         String.Format(Subject_LimitNotice, userName), String.Format(Message_LimitNotice, userName) + Email_Signature_CEO);
                     break;
                 default:

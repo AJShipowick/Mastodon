@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <UserSecretsId>aspnet-Mastodon-90136DA7-5417-4E9A-8BCB-814AFDBC4D7E</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
@@ -12,6 +12,10 @@
     <Content Remove="wwwroot\images\banner2.svg" />
     <Content Remove="wwwroot\images\banner3.svg" />
     <Content Remove="wwwroot\images\banner4.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Services\OsOSiteLoadingScript.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -95,6 +95,17 @@ var dashboardApp = new Vue({
 
         showUserScriptInfo: function (userScript) {
             $("#userScriptModal").modal('show');
+            $('#copySuccess').hide();
+        },
+
+        copyToClipboard: function (element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            $('#copySuccess').show();
         }
     }
 });

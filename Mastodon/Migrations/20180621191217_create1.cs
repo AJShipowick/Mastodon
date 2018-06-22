@@ -201,6 +201,7 @@ namespace OsOEasy.Migrations
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShowCouponBorder = table.Column<bool>(type: "bit", nullable: false),
+                    ThankYouMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

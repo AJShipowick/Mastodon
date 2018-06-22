@@ -55,8 +55,6 @@ function submitOSOEasyPromotion() {
     let name = document.getElementById('osoUserName').value;
     let email = document.getElementById('osoUserEmail').value;
 
-    //todo perform some validation on these inputs......
-
     if (!name || !email) {
         let responseMsg = document.getElementById('osoPromoResponseMessage');
         responseMsg.innerHTML = 'Please fill out all form fields.';
@@ -64,9 +62,6 @@ function submitOSOEasyPromotion() {
         document.getElementById('osoPromoResponseMessage').style.display = 'block'
         return;
     }
-
-    document.getElementById('thankYou').style.display = 'block';
-    document.getElementById('osoFormInput').style.display = 'none';
 
     let submitURL = 'http://localhost:51186/api/promo/submit/?/' + name + '/' + email;
     getSlickResource(submitURL, handleSubmitCallback);
@@ -85,18 +80,13 @@ function getSlickResource(resourceURL, callback) {
     xhr.send();
 }
 
-function handleSubmitCallback(data) {
-    console.log(data);
-    //    let responseMsg = document.getElementById('osoPromoResponseMessage');
+function handleSubmitCallback(submitResponse) {
+    document.getElementById('osoFormInput').style.display = 'none';
 
-    //    if (data === 'SUCCESS') {
-    //        responseMsg.innerHTML = 'You message has been sent!'
-    //        responseMsg.style.color = 'green';
-    //    } else {
+    if (submitResponse !== 'SUCCESS') {
+        document.getElementById('thankYou').innerHTML = 'Error processing request, please try again later.';
+        console.log("Error submitting OsOEasyPromo for user: " + submitResponse);
+    }
 
-    //        //todo show msg response from server....success/failure and some general reasons why??
-
-    //        responseMsg.innerHTML = '???????????????'
-    //        responseMsg.style.color = 'red';
-    //    }
+    document.getElementById('thankYou').style.display = 'block';
 }

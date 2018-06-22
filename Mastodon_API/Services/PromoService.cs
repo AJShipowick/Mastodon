@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using OsOEasy.Models.DBModels;
 using OsOEasy_API.Data;
+using RestSharp;
 
 namespace OsOEasy_API.Services
 {
@@ -9,7 +11,7 @@ namespace OsOEasy_API.Services
     {
         void UpdatePromotionStats(Promotion clientPromotion, APIDbContext apiDbContext);
         void HandleCLaimedPromotion(Promotion clientPromotion, APIDbContext apiDbContext, string name, string email);
-        void SendPromoEmail(String toAddress, String userName, String promoCode);
+        Task<IRestResponse> SendPromoEmail(String toAddress, String userName, String promoCode);
     }
 
     public class PromoService : IPromoService
@@ -52,9 +54,9 @@ namespace OsOEasy_API.Services
             apiDbContext.SaveChanges();
         }
 
-        public void SendPromoEmail(String toAddress, String userName, String promoCode)
+        public Task<IRestResponse> SendPromoEmail(String toAddress, String userName, String promoCode)
         {
-            _EmailSender.SendMailGunEmailAsync(EmailType.ClaimPromotion, toAddress, userName, promoCode);
+            return _EmailSender.SendMailGunEmailAsync(EmailType.ClaimPromotion, toAddress, userName, promoCode);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace OsOEasy.Promo.Models
     public class Builder : IBuilder
     {
 
-        public static int _DaysForFreeTrial = 15;
+        public static int _DaysForFreeTrial = 10;
 
         public Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> allUserPromotions)
         {

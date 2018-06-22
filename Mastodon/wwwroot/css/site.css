@@ -205,6 +205,14 @@ input[type=checkbox] {
     padding: 10px;
 }
 
+.userScriptDisplay {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: red;
+    background-color:lightgray;
+}
+
 /*Keep div centered in middle of screen:
 http://stackoverflow.com/questions/5012111/how-to-position-a-div-in-the-middle-of-the-screen-when-the-page-is-bigger-than-t
 

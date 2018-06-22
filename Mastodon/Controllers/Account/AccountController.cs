@@ -127,7 +127,7 @@ namespace OsOEasy.Controllers.Account
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
-                    UserPromoScript = "<script> set script, uniqueID = userID?? or first 10 of UserID?? </script>",
+                    UserPromoScript = "Site script not set yet",
                     IsNewUser = true,
                     AccountCreationDate = DateTime.Now,
                     TimesLoggedIn = 1
@@ -142,6 +142,11 @@ namespace OsOEasy.Controllers.Account
                     await _emailSender.SendMailGunEmailAsync(EmailType.NewUserSignup, user.Email, user.FirstName, "");
 
                     _logger.LogInformation(3, "User created a new account with password.");
+
+                    //Update user site script after user creation
+                    OsOSiteLoadingScript siteScript = new OsOSiteLoadingScript();
+                    user.UserPromoScript = siteScript.BuildSiteLoadingScript(user.Id);
+                    await _userManager.UpdateAsync(user);
 
                     return RedirectToLocal(returnURL);
                 }

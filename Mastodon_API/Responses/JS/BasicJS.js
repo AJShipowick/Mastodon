@@ -43,8 +43,3 @@ function slidePromoImage() {
         setTimeout(slidePromoImage, 1);
     }
 }
-
-//function submitOSOEasyPromotion() {
-//    document.getElementById('thankYou').style.display = 'block';
-//    document.getElementById('osoFormInput').style.display = 'none';
-//}
