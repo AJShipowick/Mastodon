@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /TestQueries.sql
+/Mastodon/Migrations/20180622145635_create1.Designer.cs
+/Mastodon/Migrations/20180622145635_create1.cs

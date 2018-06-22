@@ -54,7 +54,6 @@ namespace OsOEasy_API.Controllers
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
                         _PromoService.UpdatePromotionStats(clientPromotion, _APIDbContext);
                         return _MainJS.GetMainJS(clientPromotion.Id);
-                        //return "<script>alert('hi');</script>";
                     }
                     else
                     {
@@ -143,12 +142,19 @@ namespace OsOEasy_API.Controllers
                 {
                     clientPromotion = _APIDbContext.Promotion
                         .Where(c => c.Id == promoId).FirstOrDefault();
-
-                    _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email);
                     response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);
+
+                    if (response.IsSuccessful)
+                    {
+                        _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email);
+                        return "SUCCESS";
+                    }
+                    else
+                    {
+                        return "ERROR";
+                    }
                 }
 
-                return response.StatusCode.ToString();
             }
             catch (Exception ex)
             {

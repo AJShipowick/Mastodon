@@ -84,9 +84,10 @@ function handleSubmitCallback(submitResponse) {
     document.getElementById('osoFormInput').style.display = 'none';
 
     if (submitResponse !== 'SUCCESS') {
-        document.getElementById('thankYou').innerHTML = 'Error processing request, please try again later.';
+        document.getElementById('thankYou').innerHTML = 'Error sending coupon code, please verify email is correct and try again later.';
         console.log("Error submitting OsOEasyPromo for user: " + submitResponse);
     }
 
     document.getElementById('thankYou').style.display = 'block';
+    console.log("Success sending OsOEasyPromo!")
 }
