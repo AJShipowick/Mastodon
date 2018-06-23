@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using OsOEasy.Models;
 using OsOEasy.Models.DBModels;
 using OsOEasy_API.Data;
 using OsOEasy_API.Responses;
@@ -18,33 +20,44 @@ namespace OsOEasy_API.Controllers
     {
 
         APIDbContext _APIDbContext;
+        private readonly UserManager<ApplicationUser> _UserManager;
         IPromoService _PromoService;
         IMainJS _MainJS;
         IBasicHTML _PromoHTML;
         IBasicCSS _PromoCSS;
         IBasicJS _PromoJS;
+        ISubscriptionService _SubscriptionService;
 
-        public PromoController(APIDbContext apiDbContext, IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
-            IBasicCSS sliderCSS, IBasicJS sliderJS)
+        public PromoController(APIDbContext apiDbContext, UserManager<ApplicationUser> userManager, IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
+            IBasicCSS sliderCSS, IBasicJS sliderJS, ISubscriptionService subscriptionService)
         {
             _APIDbContext = apiDbContext;
+            _UserManager = userManager;
             _PromoService = promoService;
             _MainJS = mainJS;
             _PromoHTML = sliderHTML;
             _PromoCSS = sliderCSS;
             _PromoJS = sliderJS;
+            _SubscriptionService = subscriptionService;
         }
 
         [HttpGet]
         [Route("{clientID}")]
-        public string Get(string clientID)
+        public async Task<string> GetAsync(string clientID)
         {
             Promotion clientPromotion = null;
+
 
             try
             {
                 using (_APIDbContext)
                 {
+                    ApplicationUser user = await _UserManager.FindByIdAsync(clientID);
+                    if (_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(user))
+                    {
+
+                    }
+
                     clientPromotion = _APIDbContext.Promotion
                         .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
 

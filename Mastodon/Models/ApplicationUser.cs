@@ -20,7 +20,7 @@ namespace OsOEasy.Models
         public bool IsAdmin { get; set; }  //todo use this in future to manager/view users accounts without having to directly query DB to find out about their stuff.....
     }
 
-    public class SubscriptionOptions
+    public static class SubscriptionOptions
     {
         public const string FreeAccount = "Free Account";
         public const string Bronze = "Bronze";
