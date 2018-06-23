@@ -1,8 +1,5 @@
 ﻿using OsOEasy.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OsOEasy_API.Services
 {
@@ -12,30 +9,30 @@ namespace OsOEasy_API.Services
         bool SubscriptionActiveAndWithinTrafficLimit(ApplicationUser user);
     }
 
-    public class SubscriptionService: ISubscriptionService
+    public class SubscriptionService : ISubscriptionService
     {
         public bool SubscriptionActiveAndWithinTrafficLimit(ApplicationUser user)
         {
-            string subPlan = user.SubscriptionPlan;
+
+            if (user.AccountSuspended) { return false; }
+
+            int promoClaimsThisMonth = user.ClaimsPerMonth[DateTime.Now];
             switch (user.SubscriptionPlan)
             {
                 case SubscriptionOptions.FreeAccount:
-
-                    break;
+                    //0-100 Claims a month
+                    return promoClaimsThisMonth <= SubscriptionOptions.MaxFreeAccountClaims;
                 case SubscriptionOptions.Bronze:
-
-                    break;
+                    //Up to 1,500 Claims a month
+                    return promoClaimsThisMonth <= SubscriptionOptions.MaxBronzeAccountClaims;
                 case SubscriptionOptions.Silver:
-
-                    break;
+                    //Up to 5,000 Claims a month
+                    return promoClaimsThisMonth <= SubscriptionOptions.MaxSilverAccountClaims;
                 case SubscriptionOptions.Gold:
-
-                    break;
+                    //Unlimited Claims a month
+                    return true;
             }
-
-
             return true;
         }
-
     }
 }

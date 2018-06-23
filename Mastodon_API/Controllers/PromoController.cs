@@ -47,15 +47,14 @@ namespace OsOEasy_API.Controllers
         {
             Promotion clientPromotion = null;
 
-
             try
             {
                 using (_APIDbContext)
                 {
                     ApplicationUser user = await _UserManager.FindByIdAsync(clientID);
-                    if (_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(user))
+                    if (!_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(user))
                     {
-
+                        return "Issue found with OsOEasyPromo account, please check account status at OsOEasyPromo.com!";
                     }
 
                     clientPromotion = _APIDbContext.Promotion
@@ -155,11 +154,11 @@ namespace OsOEasy_API.Controllers
                 {
                     clientPromotion = _APIDbContext.Promotion
                         .Where(c => c.Id == promoId).FirstOrDefault();
-                    response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);
+                    response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);                    
 
                     if (response.IsSuccessful)
                     {
-                        _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email);
+                        _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email, clientPromotion.ApplicationUser);
                         return "SUCCESS";
                     }
                     else

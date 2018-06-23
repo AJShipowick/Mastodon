@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace OsOEasy.Models
 {
@@ -10,7 +11,10 @@ namespace OsOEasy.Models
         public string LastName { get; set; }
         public string Website { get; set; }
         public string SubscriptionPlan { get; set; }
+        public bool AccountSuspended { get; set; }
         public string UserPromoScript { get; set; }
+        public DateTime DateOfLastPromoClaim { get; set; }
+        public int PromoClaimsForCurrentMonth { get; set; }
 
         public bool IsNewUser { get; set; }
         public DateTime AccountCreationDate { get; set; }
@@ -23,9 +27,16 @@ namespace OsOEasy.Models
     public static class SubscriptionOptions
     {
         public const string FreeAccount = "Free Account";
+        public const int MaxFreeAccountClaims = 100;
+
         public const string Bronze = "Bronze";
+        public const int MaxBronzeAccountClaims = 1500;
+
         public const string Silver = "Silver";
+        public const int MaxSilverAccountClaims = 5000;
+
         public const string Gold = "Gold";
+        //Unlimited claims per month        
     }
 
 }
