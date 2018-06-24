@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 
 namespace OsOEasy.Models
 {
@@ -38,5 +37,4 @@ namespace OsOEasy.Models
         public const string Gold = "Gold";
         //Unlimited claims per month        
     }
-
 }

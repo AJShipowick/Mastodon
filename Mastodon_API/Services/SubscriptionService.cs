@@ -16,7 +16,7 @@ namespace OsOEasy_API.Services
 
             if (user.AccountSuspended) { return false; }
 
-            int promoClaimsThisMonth = user.ClaimsPerMonth[DateTime.Now];
+            int promoClaimsThisMonth = FindClaimsForCurrentMonth(user);
             switch (user.SubscriptionPlan)
             {
                 case SubscriptionOptions.FreeAccount:
@@ -33,6 +33,18 @@ namespace OsOEasy_API.Services
                     return true;
             }
             return true;
+        }
+
+        private int FindClaimsForCurrentMonth(ApplicationUser user)
+        {
+            DateTime lastClaimDate = user.DateOfLastPromoClaim;
+            if (lastClaimDate.Month.CompareTo(DateTime.Today.Month) < 0)  
+            {
+                // Last claim date was earlier than current month (eg: previous month or earlier...)
+                return 0;
+            }
+
+            return user.PromoClaimsForCurrentMonth;
         }
     }
 }

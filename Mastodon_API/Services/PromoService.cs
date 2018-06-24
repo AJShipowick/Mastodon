@@ -59,21 +59,18 @@ namespace OsOEasy_API.Services
 
         private void UpdateClaimsPerMonthStat(ApplicationUser appUser)
         {
-
-            if (appUser.ClaimsPerMonth == null)
+            DateTime lastClaimDate = appUser.DateOfLastPromoClaim;
+            if (lastClaimDate.Month.CompareTo(DateTime.Today.Month) < 0)
             {
-                appUser.ClaimsPerMonth = new Dictionary<DateTime, int>();
-            }
-
-            if (appUser.ClaimsPerMonth.TryGetValue(DateTime.Now, out int val))
-            {
-                appUser.ClaimsPerMonth[DateTime.Now] = val + 1;
+                // 1st claim of a new month!
+                // Last claim date was earlier than current month (eg: previous month or earlier...)
+                appUser.DateOfLastPromoClaim = DateTime.Today;
+                appUser.PromoClaimsForCurrentMonth = 0;
             }
             else
             {
-                appUser.ClaimsPerMonth.Add(DateTime.Now, 1);
+                appUser.PromoClaimsForCurrentMonth++;
             }
-
         }
 
         public Task<IRestResponse> SendPromoEmail(String toAddress, String userName, String promoCode)
