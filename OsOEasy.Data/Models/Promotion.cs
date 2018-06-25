@@ -1,8 +1,7 @@
-﻿using OsOEasy.Models;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OsOEasy.Models.DBModels
+namespace OsOEasy.Data.Models
 {
     [Serializable]
     public class Promotion

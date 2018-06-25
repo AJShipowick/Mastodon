@@ -1,15 +1,14 @@
-﻿using OsOEasy.Data;
-using OsOEasy.Models;
-using OsOEasy.Models.DBModels;
-using OsOEasy.Shared;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
-using System.IO;
+using OsOEasy.Data;
+using OsOEasy.Data.Models;
+using OsOEasy.Shared;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OsOEasy.Controllers.Promo
 {

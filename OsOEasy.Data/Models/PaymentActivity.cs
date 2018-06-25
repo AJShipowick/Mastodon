@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OsOEasy.Models.DBModels
+namespace OsOEasy.Data.Models
 { 
     public class PaymentActivity
     {

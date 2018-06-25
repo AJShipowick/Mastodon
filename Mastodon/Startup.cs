@@ -1,16 +1,16 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OsOEasy.Data;
-using OsOEasy.Models;
+using OsOEasy.Data.Models;
 using OsOEasy.Services;
-using Microsoft.AspNetCore.Identity;
 using OsOEasy.Shared;
-using Microsoft.AspNetCore.Mvc.Razor;
+using System;
 
 namespace OsOEasy
 {

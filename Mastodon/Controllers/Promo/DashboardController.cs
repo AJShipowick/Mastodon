@@ -1,17 +1,16 @@
-using OsOEasy.Data;
-using OsOEasy.Models;
-using OsOEasy.Models.DBModels;
-using OsOEasy.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OsOEasy.Data;
+using OsOEasy.Data.Models;
+using OsOEasy.Models.PromoModels;
+using OsOEasy.Promo.Models;
+using OsOEasy.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OsOEasy.Promo.Models;
-using OsOEasy.Models.PromoModels;
-using Microsoft.AspNetCore.Http;
 
 namespace OsOEasy.Controllers.Promo
 {

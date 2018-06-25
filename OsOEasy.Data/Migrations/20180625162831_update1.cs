@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace OsOEasy.Migrations
+namespace OsOEasy.Data.Migrations
 {
-    public partial class initial1 : Migration
+    public partial class update1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +12,10 @@ namespace OsOEasy.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,34 +26,35 @@ namespace OsOEasy.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    AccountCreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AccountSuspended = table.Column<bool>(type: "bit", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfLastPromoClaim = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "bit", nullable: false),
-                    IsNewUser = table.Column<bool>(type: "bit", nullable: false),
-                    LastLoginDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PromoClaimsForCurrentMonth = table.Column<int>(type: "int", nullable: false),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubscriptionPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimesLoggedIn = table.Column<int>(type: "int", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    UserPromoScript = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Website = table.Column<string>(nullable: true),
+                    SubscriptionPlan = table.Column<string>(nullable: true),
+                    AccountSuspended = table.Column<bool>(nullable: false),
+                    MonthlyPromotionLimitReached = table.Column<bool>(nullable: false),
+                    UserPromoScript = table.Column<string>(nullable: true),
+                    DateOfLastPromoClaim = table.Column<DateTime>(nullable: false),
+                    PromoClaimsForCurrentMonth = table.Column<int>(nullable: false),
+                    IsNewUser = table.Column<bool>(nullable: false),
+                    AccountCreationDate = table.Column<DateTime>(nullable: false),
+                    TimesLoggedIn = table.Column<int>(nullable: false),
+                    LastLoginDate = table.Column<DateTime>(nullable: false),
+                    IsAdmin = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,14 +65,14 @@ namespace OsOEasy.Migrations
                 name: "PaymentActivity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ApplicationUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MonthlyPlanPayment = table.Column<bool>(type: "bit", nullable: false),
-                    PaymentAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SpecialPurchase = table.Column<bool>(type: "bit", nullable: false),
-                    SpecialPurchaseItem = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    ApplicationUser = table.Column<string>(nullable: true),
+                    PaymentDate = table.Column<DateTime>(nullable: false),
+                    PaymentAmount = table.Column<decimal>(nullable: false),
+                    MonthlyPlanPayment = table.Column<bool>(nullable: false),
+                    SpecialPurchase = table.Column<bool>(nullable: false),
+                    SpecialPurchaseItem = table.Column<string>(nullable: true),
+                    PaymentNotes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,11 +83,11 @@ namespace OsOEasy.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,11 +104,11 @@ namespace OsOEasy.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,10 +125,10 @@ namespace OsOEasy.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,8 +145,8 @@ namespace OsOEasy.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,10 +169,10 @@ namespace OsOEasy.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -189,23 +189,23 @@ namespace OsOEasy.Migrations
                 name: "Promotion",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ActivePromotion = table.Column<bool>(type: "bit", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    BackgroundColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ButtonColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Details1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Details2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EndDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FinePrint = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShowCouponBorder = table.Column<bool>(type: "bit", nullable: false),
-                    ThankYouMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    ActivePromotion = table.Column<bool>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    EndDate = table.Column<string>(nullable: true),
+                    Discount = table.Column<string>(nullable: true),
+                    ShowCouponBorder = table.Column<bool>(nullable: false),
+                    ThankYouMessage = table.Column<string>(nullable: true),
+                    ImageName = table.Column<string>(nullable: true),
+                    ImageType = table.Column<string>(nullable: true),
+                    BackgroundColor = table.Column<string>(nullable: true),
+                    ButtonColor = table.Column<string>(nullable: true),
+                    Details1 = table.Column<string>(nullable: true),
+                    Details2 = table.Column<string>(nullable: true),
+                    FinePrint = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -222,10 +222,10 @@ namespace OsOEasy.Migrations
                 name: "PromotionEntries",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PromotionId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    PromotionId = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    EmailAddress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -242,10 +242,10 @@ namespace OsOEasy.Migrations
                 name: "PromotionStats",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PromotionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    TimesClaimed = table.Column<int>(type: "int", nullable: false),
-                    TimesViewed = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<string>(nullable: false),
+                    PromotionId = table.Column<string>(nullable: true),
+                    TimesViewed = table.Column<int>(nullable: false),
+                    TimesClaimed = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

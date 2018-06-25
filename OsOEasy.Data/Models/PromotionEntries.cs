@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace OsOEasy.Models.DBModels
+namespace OsOEasy.Data.Models
 {
     public class PromotionEntries
     {

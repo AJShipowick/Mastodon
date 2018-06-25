@@ -1,7 +1,6 @@
-﻿using OsOEasy.Models;
-using OsOEasy.Models.DBModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using OsOEasy.Data.Models;
 
 namespace OsOEasy.Data
 {

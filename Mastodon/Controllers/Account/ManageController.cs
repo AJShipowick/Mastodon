@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OsOEasy.Data;
-using OsOEasy.Models;
+using OsOEasy.Data.Models;
 using OsOEasy.Models.ManageViewModels;
 using OsOEasy.Services;
 using System.Threading.Tasks;

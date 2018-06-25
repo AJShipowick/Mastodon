@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace OsOEasy.Models.DBModels
+namespace OsOEasy.Data.Models
 {
     [Serializable]
     public class PromotionStats

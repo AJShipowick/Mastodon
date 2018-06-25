@@ -1,6 +1,6 @@
-﻿using System;
-using RestSharp;
+﻿using RestSharp;
 using RestSharp.Authenticators;
+using System;
 using System.Threading.Tasks;
 
 namespace OsOEasy.API.Services

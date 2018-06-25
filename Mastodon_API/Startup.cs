@@ -1,14 +1,14 @@
-﻿using OsOEasy.API.Data;
-using OsOEasy.API.Responses;
-using OsOEasy.API.Responses.CSS;
-using OsOEasy.API.Responses.HTML;
-using OsOEasy.API.Responses.JS;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OsOEasy.API.Responses;
+using OsOEasy.API.Responses.CSS;
+using OsOEasy.API.Responses.HTML;
+using OsOEasy.API.Responses.JS;
 using OsOEasy.API.Services;
+using OsOEasy.Data;
 
 namespace OsOEasy.API
 {
@@ -26,7 +26,7 @@ namespace OsOEasy.API
         {
 
             // Add framework services.
-            services.AddDbContext<APIDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddLogging();

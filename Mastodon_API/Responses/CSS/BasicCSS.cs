@@ -1,4 +1,4 @@
-﻿using OsOEasy.Models.DBModels;
+﻿using OsOEasy.Data.Models;
 
 namespace OsOEasy.API.Responses.CSS
 {

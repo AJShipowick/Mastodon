@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OsOEasy.Data;
+using OsOEasy.Data.Models;
+using RestSharp;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using OsOEasy.Models;
-using OsOEasy.Models.DBModels;
-using OsOEasy.API.Data;
-using RestSharp;
 
 namespace OsOEasy.API.Services
 {
     public interface IPromoService
     {
-        void UpdatePromotionStats(Promotion clientPromotion, APIDbContext apiDbContext);
-        void HandleCLaimedPromotion(Promotion clientPromotion, APIDbContext apiDbContext, string name, string email, ApplicationUser appUser);
+        void UpdatePromotionStats(Promotion clientPromotion, ApplicationDbContext apiDbContext);
+        void HandleCLaimedPromotion(Promotion clientPromotion, ApplicationDbContext apiDbContext, string name, string email, ApplicationUser appUser);
         Task<IRestResponse> SendPromoEmail(String toAddress, String userName, String promoCode);
     }
 
@@ -26,7 +24,7 @@ namespace OsOEasy.API.Services
             _EmailSender = emailSender;
         }
 
-        public void UpdatePromotionStats(Promotion clientPromotion, APIDbContext apiDbContext)
+        public void UpdatePromotionStats(Promotion clientPromotion, ApplicationDbContext apiDbContext)
         {
             PromotionStats stats = apiDbContext.PromotionStats.Where(c => c.Promotion == clientPromotion).FirstOrDefault();
 
@@ -39,7 +37,7 @@ namespace OsOEasy.API.Services
             stats.TimesViewed++;
             apiDbContext.SaveChanges();
         }
-        public void HandleCLaimedPromotion(Promotion clientPromotion, APIDbContext apiDbContext, string name, string email, ApplicationUser appUser)
+        public void HandleCLaimedPromotion(Promotion clientPromotion, ApplicationDbContext apiDbContext, string name, string email, ApplicationUser appUser)
         {
             PromotionStats stats = apiDbContext.PromotionStats.Where(c => c.Promotion == clientPromotion).FirstOrDefault();
 

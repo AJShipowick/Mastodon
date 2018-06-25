@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using OsOEasy.Models.DBModels;
-using System.Linq;
-using OsOEasy.Models;
-using OsOEasy.Data;
+﻿using OsOEasy.Data;
+using OsOEasy.Data.Models;
 using OsOEasy.Models.PromoModels;
-using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OsOEasy.Promo.Models
 {

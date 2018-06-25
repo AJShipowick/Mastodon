@@ -1,6 +1,4 @@
-﻿using OsOEasy.Models.DBModels;
-
-namespace OsOEasy.API.Responses.JS
+﻿namespace OsOEasy.API.Responses.JS
 {
 
     public interface IBasicJS

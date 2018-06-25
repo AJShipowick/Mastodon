@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OsOEasy.Models;
-using OsOEasy.Models.DBModels;
-using OsOEasy.API.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using OsOEasy.API.Responses;
 using OsOEasy.API.Responses.CSS;
 using OsOEasy.API.Responses.HTML;
 using OsOEasy.API.Responses.JS;
 using OsOEasy.API.Services;
+using OsOEasy.Data;
+using OsOEasy.Data.Models;
 using RestSharp;
 using System;
 using System.Linq;
@@ -20,7 +17,7 @@ namespace OsOEasy.API.Controllers
     public class PromoController : Controller
     {
 
-        APIDbContext _APIDbContext;
+        ApplicationDbContext _DbContext;
         IPromoService _PromoService;
         IMainJS _MainJS;
         IBasicHTML _PromoHTML;
@@ -28,10 +25,10 @@ namespace OsOEasy.API.Controllers
         IBasicJS _PromoJS;
         ISubscriptionService _SubscriptionService;
 
-        public PromoController(APIDbContext apiDbContext,  IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
+        public PromoController(ApplicationDbContext DbContext,  IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
             IBasicCSS sliderCSS, IBasicJS sliderJS, ISubscriptionService subscriptionService)
         {
-            _APIDbContext = apiDbContext;
+            _DbContext = DbContext;
             _PromoService = promoService;
             _MainJS = mainJS;
             _PromoHTML = sliderHTML;
@@ -48,15 +45,15 @@ namespace OsOEasy.API.Controllers
 
             try
             {
-                using (_APIDbContext)
+                using (_DbContext)
                 {
 
-                    if (_APIDbContext.Promotion.Count() < 1) { return "WARNING, no active promotions found."; }
+                    if (_DbContext.Promotion.Count() < 1) { return "WARNING, no active promotions found."; }
 
-                    clientPromotion = _APIDbContext.Promotion
+                    clientPromotion = _DbContext.Promotion
                         .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
 
-                    ApplicationUser appUser = _APIDbContext.Users.Where(u => u.Id == clientID).First();
+                    ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientID).First();
                     if (!_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(appUser))
                     {
                         //Update account with error about status
@@ -68,7 +65,7 @@ namespace OsOEasy.API.Controllers
                     {
                         //Task the update to stats out?
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
-                        _PromoService.UpdatePromotionStats(clientPromotion, _APIDbContext);
+                        _PromoService.UpdatePromotionStats(clientPromotion, _DbContext);
                         return _MainJS.GetMainJS(clientID ,clientPromotion.Id);
                     }
                     else
@@ -92,9 +89,9 @@ namespace OsOEasy.API.Controllers
 
             try
             {
-                using (_APIDbContext)
+                using (_DbContext)
                 {
-                    clientPromotion = _APIDbContext.Promotion
+                    clientPromotion = _DbContext.Promotion
                         .Where(c => c.Id == promoId).FirstOrDefault();
                 }
 
@@ -115,9 +112,9 @@ namespace OsOEasy.API.Controllers
 
             try
             {
-                using (_APIDbContext)
+                using (_DbContext)
                 {
-                    clientPromotion = _APIDbContext.Promotion
+                    clientPromotion = _DbContext.Promotion
                         .Where(c => c.Id == promoId).FirstOrDefault();
                 }
 
@@ -154,16 +151,16 @@ namespace OsOEasy.API.Controllers
 
             try
             {
-                using (_APIDbContext)
+                using (_DbContext)
                 {
-                    clientPromotion = _APIDbContext.Promotion
+                    clientPromotion = _DbContext.Promotion
                         .Where(c => c.Id == promoId).First();
                     response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);                    
 
                     if (response.IsSuccessful)
                     {
-                        ApplicationUser appUser = _APIDbContext.Users.Where(u => u.Id == clientId).First();
-                        _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email, appUser);
+                        ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientId).First();
+                        _PromoService.HandleCLaimedPromotion(clientPromotion, _DbContext, name, email, appUser);
                         return "SUCCESS";
                     }
                     else

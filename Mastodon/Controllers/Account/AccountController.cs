@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OsOEasy.Controllers.Home;
 using OsOEasy.Data;
-using OsOEasy.Models;
+using OsOEasy.Data.Models;
 using OsOEasy.Models.AccountViewModels;
 using OsOEasy.Services;
 using OsOEasy.Shared;

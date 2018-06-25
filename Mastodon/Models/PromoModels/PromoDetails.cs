@@ -1,4 +1,4 @@
-﻿using OsOEasy.Models.DBModels;
+﻿using OsOEasy.Data.Models;
 using System;
 using System.Collections.Generic;
 

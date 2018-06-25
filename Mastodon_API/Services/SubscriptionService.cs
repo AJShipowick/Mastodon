@@ -1,4 +1,4 @@
-﻿using OsOEasy.Models;
+﻿using OsOEasy.Data.Models;
 using System;
 
 namespace OsOEasy.API.Services
