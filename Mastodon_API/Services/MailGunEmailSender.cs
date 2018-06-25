@@ -3,7 +3,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System.Threading.Tasks;
 
-namespace OsOEasy_API.Services
+namespace OsOEasy.API.Services
 {
     /// <summary>
     /// MailGun Sending Emails via API

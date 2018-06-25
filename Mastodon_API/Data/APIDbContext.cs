@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OsOEasy.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace OsOEasy_API.Data
+namespace OsOEasy.API.Data
 {
     public class APIDbContext : IdentityDbContext<ApplicationUser>
     {

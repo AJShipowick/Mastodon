@@ -1,4 +1,4 @@
-﻿namespace OsOEasy_API.Responses
+﻿namespace OsOEasy.API.Responses
 {
     public interface IMainJS
     {

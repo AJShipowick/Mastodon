@@ -1,6 +1,6 @@
 ﻿using OsOEasy.Models.DBModels;
 
-namespace OsOEasy_API.Responses.JS
+namespace OsOEasy.API.Responses.JS
 {
 
     public interface IBasicJS

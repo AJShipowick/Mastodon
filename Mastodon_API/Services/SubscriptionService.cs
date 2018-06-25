@@ -1,7 +1,7 @@
 ﻿using OsOEasy.Models;
 using System;
 
-namespace OsOEasy_API.Services
+namespace OsOEasy.API.Services
 {
 
     public interface ISubscriptionService

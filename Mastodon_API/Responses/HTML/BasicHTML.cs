@@ -1,6 +1,6 @@
 ﻿using OsOEasy.Models.DBModels;
 
-namespace OsOEasy_API.Responses.HTML
+namespace OsOEasy.API.Responses.HTML
 {
 
     public interface IBasicHTML

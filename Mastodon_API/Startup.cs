@@ -1,16 +1,16 @@
-﻿using OsOEasy_API.Data;
-using OsOEasy_API.Responses;
-using OsOEasy_API.Responses.CSS;
-using OsOEasy_API.Responses.HTML;
-using OsOEasy_API.Responses.JS;
+﻿using OsOEasy.API.Data;
+using OsOEasy.API.Responses;
+using OsOEasy.API.Responses.CSS;
+using OsOEasy.API.Responses.HTML;
+using OsOEasy.API.Responses.JS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OsOEasy_API.Services;
+using OsOEasy.API.Services;
 
-namespace OsOEasy_API
+namespace OsOEasy.API
 {
     public class Startup
     {

@@ -4,7 +4,7 @@
         if (request.readyState === 4) {
             if (request.status === 200) {
                 document.body.className = 'ok';
-                if (request.responseText.includes('ERROR')) {
+                if (request.responseText.includes('ERROR') || request.responseText.includes('WARNING')) {
                     console.log(request.responseText);
                     return;
                 }

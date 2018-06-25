@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using OsOEasy.Models;
 using OsOEasy.Models.DBModels;
-using OsOEasy_API.Data;
+using OsOEasy.API.Data;
 using RestSharp;
 
-namespace OsOEasy_API.Services
+namespace OsOEasy.API.Services
 {
     public interface IPromoService
     {

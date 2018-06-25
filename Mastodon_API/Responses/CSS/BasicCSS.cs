@@ -1,6 +1,6 @@
 ﻿using OsOEasy.Models.DBModels;
 
-namespace OsOEasy_API.Responses.CSS
+namespace OsOEasy.API.Responses.CSS
 {
 
     public interface IBasicCSS

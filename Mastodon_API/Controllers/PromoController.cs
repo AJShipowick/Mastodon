@@ -3,25 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OsOEasy.Models;
 using OsOEasy.Models.DBModels;
-using OsOEasy_API.Data;
-using OsOEasy_API.Responses;
-using OsOEasy_API.Responses.CSS;
-using OsOEasy_API.Responses.HTML;
-using OsOEasy_API.Responses.JS;
-using OsOEasy_API.Services;
+using OsOEasy.API.Data;
+using OsOEasy.API.Responses;
+using OsOEasy.API.Responses.CSS;
+using OsOEasy.API.Responses.HTML;
+using OsOEasy.API.Responses.JS;
+using OsOEasy.API.Services;
 using RestSharp;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OsOEasy_API.Controllers
+namespace OsOEasy.API.Controllers
 {
     [Route("api/[controller]")]
     public class PromoController : Controller
     {
 
         APIDbContext _APIDbContext;
-        //private readonly UserManager<ApplicationUser> _UserManager;
         IPromoService _PromoService;
         IMainJS _MainJS;
         IBasicHTML _PromoHTML;
@@ -33,7 +32,6 @@ namespace OsOEasy_API.Controllers
             IBasicCSS sliderCSS, IBasicJS sliderJS, ISubscriptionService subscriptionService)
         {
             _APIDbContext = apiDbContext;
-           // _UserManager = userManager;
             _PromoService = promoService;
             _MainJS = mainJS;
             _PromoHTML = sliderHTML;
@@ -52,6 +50,9 @@ namespace OsOEasy_API.Controllers
             {
                 using (_APIDbContext)
                 {
+
+                    if (_APIDbContext.Promotion.Count() < 1) { return "WARNING, no active promotions found."; }
+
                     clientPromotion = _APIDbContext.Promotion
                         .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
 
@@ -72,14 +73,14 @@ namespace OsOEasy_API.Controllers
                     }
                     else
                     {
-                        return "ERROR, no active promotion found";
+                        return "WARNING, no active promotion found";
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                return "ERROR, unknown exception occured.";
+                return "ERROR, unknown exception occured getting promotion.";
             }
         }
 
