@@ -1,9 +1,11 @@
 ﻿using OsOEasy.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
+using OsOEasy.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace OsOEasy_API.Data
 {
-    public class APIDbContext : DbContext
+    public class APIDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public APIDbContext(DbContextOptions<APIDbContext> options)

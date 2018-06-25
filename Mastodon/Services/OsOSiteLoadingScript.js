@@ -5,7 +5,7 @@
             if (request.status === 200) {
                 document.body.className = 'ok';
                 if (request.responseText.includes('ERROR')) {
-                    console.log('OsO Easy Promo Error: ' + request.responseText);
+                    console.log(request.responseText);
                     return;
                 }
 

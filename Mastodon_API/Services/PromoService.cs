@@ -65,7 +65,7 @@ namespace OsOEasy_API.Services
                 // 1st claim of a new month!
                 // Last claim date was earlier than current month (eg: previous month or earlier...)
                 appUser.DateOfLastPromoClaim = DateTime.Today;
-                appUser.PromoClaimsForCurrentMonth = 0;
+                appUser.PromoClaimsForCurrentMonth = 1;
             }
             else
             {

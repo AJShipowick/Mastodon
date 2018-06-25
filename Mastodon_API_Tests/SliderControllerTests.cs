@@ -12,7 +12,7 @@ namespace OsOEasy_API_Tests
             var api = new OsOEasy_API.Responses.MainJS();
             var userID = "123456-789456-123456-789456";
 
-            var actual = api.GetMainJS(userID);
+            var actual = api.GetMainJS(userID, "");
 
             //verify stuff.....
         }

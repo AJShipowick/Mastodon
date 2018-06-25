@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OsOEasy.Models;
 using OsOEasy.Models.DBModels;
 using OsOEasy_API.Data;
@@ -20,7 +21,7 @@ namespace OsOEasy_API.Controllers
     {
 
         APIDbContext _APIDbContext;
-        private readonly UserManager<ApplicationUser> _UserManager;
+        //private readonly UserManager<ApplicationUser> _UserManager;
         IPromoService _PromoService;
         IMainJS _MainJS;
         IBasicHTML _PromoHTML;
@@ -28,11 +29,11 @@ namespace OsOEasy_API.Controllers
         IBasicJS _PromoJS;
         ISubscriptionService _SubscriptionService;
 
-        public PromoController(APIDbContext apiDbContext, UserManager<ApplicationUser> userManager, IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
+        public PromoController(APIDbContext apiDbContext,  IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
             IBasicCSS sliderCSS, IBasicJS sliderJS, ISubscriptionService subscriptionService)
         {
             _APIDbContext = apiDbContext;
-            _UserManager = userManager;
+           // _UserManager = userManager;
             _PromoService = promoService;
             _MainJS = mainJS;
             _PromoHTML = sliderHTML;
@@ -43,7 +44,7 @@ namespace OsOEasy_API.Controllers
 
         [HttpGet]
         [Route("{clientID}")]
-        public async Task<string> GetAsync(string clientID)
+        public string GetAsync(string clientID)
         {
             Promotion clientPromotion = null;
 
@@ -51,32 +52,34 @@ namespace OsOEasy_API.Controllers
             {
                 using (_APIDbContext)
                 {
-                    ApplicationUser user = await _UserManager.FindByIdAsync(clientID);
-                    if (!_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(user))
-                    {
-                        return "Issue found with OsOEasyPromo account, please check account status at OsOEasyPromo.com!";
-                    }
-
                     clientPromotion = _APIDbContext.Promotion
                         .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
+
+                    ApplicationUser appUser = _APIDbContext.Users.Where(u => u.Id == clientID).First();
+                    if (!_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(appUser))
+                    {
+                        //Update account with error about status
+
+                        return "ERROR, issue found with OsOEasyPromo account, please check account status at OsOEasyPromo.com!";
+                    }
 
                     if (clientPromotion != null)
                     {
                         //Task the update to stats out?
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
                         _PromoService.UpdatePromotionStats(clientPromotion, _APIDbContext);
-                        return _MainJS.GetMainJS(clientPromotion.Id);
+                        return _MainJS.GetMainJS(clientID ,clientPromotion.Id);
                     }
                     else
                     {
-                        return "Error, no active promotion found";
+                        return "ERROR, no active promotion found";
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                return "Error, unknown exception occured.";
+                return "ERROR, unknown exception occured.";
             }
         }
 
@@ -142,8 +145,8 @@ namespace OsOEasy_API.Controllers
         }
 
         [HttpGet]
-        [Route("submit/{promoId}/{name}/{email}")]
-        public async Task<string> ClaimPromotionAsync(string promoId, string name, string email)
+        [Route("submit/{promoId}/{name}/{email}/{clientId}")]
+        public async Task<string> ClaimPromotionAsync(string promoId, string name, string email, string clientId)
         {
             Promotion clientPromotion = null;
             IRestResponse response = null;
@@ -153,12 +156,13 @@ namespace OsOEasy_API.Controllers
                 using (_APIDbContext)
                 {
                     clientPromotion = _APIDbContext.Promotion
-                        .Where(c => c.Id == promoId).FirstOrDefault();
+                        .Where(c => c.Id == promoId).First();
                     response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);                    
 
                     if (response.IsSuccessful)
                     {
-                        _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email, clientPromotion.ApplicationUser);
+                        ApplicationUser appUser = _APIDbContext.Users.Where(u => u.Id == clientId).First();
+                        _PromoService.HandleCLaimedPromotion(clientPromotion, _APIDbContext, name, email, appUser);
                         return "SUCCESS";
                     }
                     else

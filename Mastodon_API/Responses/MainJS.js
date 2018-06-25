@@ -63,7 +63,7 @@ function submitOSOEasyPromotion() {
         return;
     }
 
-    let submitURL = 'http://localhost:51186/api/promo/submit/?/' + name + '/' + email;
+    let submitURL = 'http://localhost:51186/api/promo/submit/?/' + name + '/' + email + '/CLIENTID';
     getSlickResource(submitURL, handleSubmitCallback);
 }
 
@@ -85,9 +85,8 @@ function handleSubmitCallback(submitResponse) {
 
     if (submitResponse !== 'SUCCESS') {
         document.getElementById('thankYou').innerHTML = 'Error sending coupon code, please verify email is correct and try again later.';
-        console.log("Error submitting OsOEasyPromo for user: " + submitResponse);
+        console.log('Error submitting OsOEasyPromo for user: ' + submitResponse);
     }
 
     document.getElementById('thankYou').style.display = 'block';
-    console.log("Success sending OsOEasyPromo!")
 }
