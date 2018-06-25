@@ -10,8 +10,8 @@ namespace OsOEasy.Data.Models
         public string LastName { get; set; }
         public string Website { get; set; }
         public string SubscriptionPlan { get; set; }
-        public bool AccountSuspended { get; set; }
-        public bool MonthlyPromotionLimitReached { get; set; }
+        public bool AccountSuspended { get; set; }  //Used for non-payment on account
+        public bool MonthlyPromotionLimitReached { get; set; }  //Used when claimed promotions exceeds account limit
         public string UserPromoScript { get; set; }
         public DateTime DateOfLastPromoClaim { get; set; }
         public int PromoClaimsForCurrentMonth { get; set; }

@@ -15,15 +15,14 @@
         <div class="row">
             <div class="col-md-6" role="alert">
                 <div class="alert alert-danger helpText" v-on:click="showUserScriptInfo()">
-                    <p style="text-align:center"><i class="fa fa-info-circle" aria-hidden="true" style="color:red"></i> Site Script Info (Action Required)</p>
+                    <p style="text-align:center"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> Site Script Info (Action Required)</p>
                 </div>
             </div>
             <div class="col-md-6" style="padding-top:15px">
                 <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index"
-                   title="Manage Account"
-                   style="color:#005eff">
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                    {{Dashboard.DashboardMessage}}
+                   title="Manage Account">                    
+                    <div v-if="Dashboard.AccountWarning == true"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> {{Dashboard.DashboardMessage}}</div>
+                    <div v-if="Dashboard.AccountWarning == false"><i class="fa fa-paper-plane" aria-hidden="true"></i> {{Dashboard.DashboardMessage}}</div>
                 </a>
             </div>
         </div>

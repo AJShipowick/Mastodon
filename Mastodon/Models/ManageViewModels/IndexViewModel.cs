@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace OsOEasy.Models.ManageViewModels
 {
@@ -17,7 +13,9 @@ namespace OsOEasy.Models.ManageViewModels
         [Required]
         public string Website { get; set; }
         [Required]
-        public string SubscriptionPlan { get; set; }
+        public string PhoneNumber { get; set; }
+        public string AccountMessage { get; set; }
         public DateTime AccountCreationDate { get; set; }
+        public PaymentViewModel PaymentViewModel { get; set; }
     }
 }

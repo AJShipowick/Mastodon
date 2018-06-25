@@ -44,33 +44,37 @@ namespace OsOEasy.Promo.Models
             model.ActivePromoScript = user.UserPromoScript;
             model.CurrentSubscription = user.SubscriptionPlan;
 
-            model.DashboardMessage = GetDashboardMessage(user.AccountCreationDate);
-            //todo calculate entries over time for a chart...googlechart?
+            model.DashboardMessage = GetDashboardMessage(user);
+            model.AccountWarning = user.AccountSuspended || user.MonthlyPromotionLimitReached;
 
             return model;
         }
 
-        private String GetDashboardMessage(DateTime accountCreationDate)
+        private String GetDashboardMessage(ApplicationUser user)
         {
-            int daysSinceSignup = DateTime.Today.Subtract(accountCreationDate).Days;
+            int daysSinceSignup = DateTime.Today.Subtract(user.AccountCreationDate).Days;
             bool freeTrailActive = daysSinceSignup <= _DaysForFreeTrial;
 
-            if (freeTrailActive)
+            if (freeTrailActive && !user.AccountSuspended && !user.MonthlyPromotionLimitReached)
             {
                 return GetFreeTrialMessage(daysSinceSignup);
             }
+
+            String dashboardMessage = String.Empty;
+            if (user.AccountSuspended)
+            {
+                dashboardMessage = "Account suppended, view account here";
+            }
+            else if (user.MonthlyPromotionLimitReached)
+            {
+                dashboardMessage = "Account promotion limit reached, view account here";
+            }
             else
             {
-                return GetUserDashboardMessage();
+                dashboardMessage = "You rock, view account here";
             }
-        }
 
-        private string GetUserDashboardMessage()
-        {
-            //todo break this out to be updated through a resource text file
-            //  ... where app does not have to be re-compiled to show new messages...maybe?? 
-            // .....Also, move this UI messaging logic
-            return "You're awesome, view account details here";
+            return dashboardMessage;
         }
 
         private string GetFreeTrialMessage(int daysSinceSignup)

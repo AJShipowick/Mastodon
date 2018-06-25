@@ -6,6 +6,7 @@ using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Models.ManageViewModels;
 using OsOEasy.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace OsOEasy.Controllers.Account
@@ -51,16 +52,36 @@ namespace OsOEasy.Controllers.Account
             {
                 return View("Error");
             }
+
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Website = user.Website,
-                SubscriptionPlan = user.SubscriptionPlan,
-                AccountCreationDate = user.AccountCreationDate
+                AccountCreationDate = user.AccountCreationDate,
+                PhoneNumber = user.PhoneNumber,
+                AccountMessage = GetAccountMessage(user),
+                PaymentViewModel = new PaymentViewModel { SubscriptionPlan = user.SubscriptionPlan }
             };
             return View(model);
+        }
+
+        private string GetAccountMessage(ApplicationUser user)
+        {
+            String message = string.Empty;
+
+            if (user.AccountSuspended)
+            {
+                return "Account suspended, please make a payment to activate your account!";
+            }
+            else if (user.MonthlyPromotionLimitReached)
+            {
+                return "Monthly promotion limit reached, you currently have " + user.PromoClaimsForCurrentMonth +
+                    " promotion claims this month.  Please upgrade your account to continue to send promotions out!";
+            }
+
+            return message;
         }
 
         //
@@ -94,6 +115,28 @@ namespace OsOEasy.Controllers.Account
                 AddErrors(result);
                 return View(model);
             }
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeAccountPlan(IndexViewModel model)
+        {
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+
+                using (_dbContext)
+                {
+                    var dbUser = _dbContext.Users.Find(user.Id);
+                    dbUser.SubscriptionPlan = model.PaymentViewModel.SubscriptionPlan;
+
+                    _dbContext.SaveChanges();
+                }
+
+                return RedirectToAction(nameof(Index), new { Message = ManageMessageId.AccountUpdateSuccess });
+            }
+
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
@@ -150,7 +193,7 @@ namespace OsOEasy.Controllers.Account
                     dbUser.FirstName = model.FirstName;
                     dbUser.LastName = model.LastName;
                     dbUser.Website = model.Website;
-                    dbUser.SubscriptionPlan = model.SubscriptionPlan;
+                    dbUser.PhoneNumber = model.PhoneNumber;
 
                     _dbContext.SaveChanges();
                 }

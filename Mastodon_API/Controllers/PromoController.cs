@@ -25,7 +25,7 @@ namespace OsOEasy.API.Controllers
         IBasicJS _PromoJS;
         ISubscriptionService _SubscriptionService;
 
-        public PromoController(ApplicationDbContext DbContext,  IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
+        public PromoController(ApplicationDbContext DbContext, IPromoService promoService, IMainJS mainJS, IBasicHTML sliderHTML,
             IBasicCSS sliderCSS, IBasicJS sliderJS, ISubscriptionService subscriptionService)
         {
             _DbContext = DbContext;
@@ -54,10 +54,8 @@ namespace OsOEasy.API.Controllers
                         .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
 
                     ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientID).First();
-                    if (!_SubscriptionService.SubscriptionActiveAndWithinTrafficLimit(appUser))
+                    if (!_SubscriptionService.SubscriptionWithinTrafficLimit(appUser, _DbContext) || appUser.AccountSuspended)
                     {
-                        //Update account with error about status
-
                         return "ERROR, issue found with OsOEasyPromo account, please check account status at OsOEasyPromo.com!";
                     }
 
@@ -66,7 +64,7 @@ namespace OsOEasy.API.Controllers
                         //Task the update to stats out?
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
                         _PromoService.UpdatePromotionStats(clientPromotion, _DbContext);
-                        return _MainJS.GetMainJS(clientID ,clientPromotion.Id);
+                        return _MainJS.GetMainJS(clientID, clientPromotion.Id);
                     }
                     else
                     {
@@ -155,7 +153,7 @@ namespace OsOEasy.API.Controllers
                 {
                     clientPromotion = _DbContext.Promotion
                         .Where(c => c.Id == promoId).First();
-                    response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);                    
+                    response = await _PromoService.SendPromoEmail(email, name, clientPromotion.Code);
 
                     if (response.IsSuccessful)
                     {
