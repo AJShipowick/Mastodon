@@ -10,7 +10,6 @@ namespace OsOEasy.Models.AccountViewModels
         public string Email { get; set; }
 
         [Required]
-        [Url]
         [Display(Name = "Website")]
         public string Website { get; set; }
 

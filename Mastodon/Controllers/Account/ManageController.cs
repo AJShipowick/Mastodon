@@ -125,10 +125,12 @@ namespace OsOEasy.Controllers.Account
             var user = await GetCurrentUserAsync();
             if (user != null)
             {
-
                 using (_dbContext)
                 {
                     var dbUser = _dbContext.Users.Find(user.Id);
+
+                    HandleChangeOfPlan(user);
+
                     dbUser.SubscriptionPlan = model.PaymentViewModel.SubscriptionPlan;
 
                     _dbContext.SaveChanges();
@@ -138,6 +140,15 @@ namespace OsOEasy.Controllers.Account
             }
 
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        private void HandleChangeOfPlan(ApplicationUser user)
+        {
+            //StripeService stripe = new StripeService();
+            //string results = stripe.SendTestCharge();
+
+
+
         }
 
         //
