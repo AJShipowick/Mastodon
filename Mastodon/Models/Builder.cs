@@ -55,19 +55,16 @@ namespace OsOEasy.Promo.Models
             int daysSinceSignup = DateTime.Today.Subtract(user.AccountCreationDate).Days;
             bool freeTrailActive = daysSinceSignup <= _DaysForFreeTrial;
 
-            if (freeTrailActive && !user.AccountSuspended && !user.MonthlyPromotionLimitReached)
-            {
-                return GetFreeTrialMessage(daysSinceSignup);
-            }
+            if (freeTrailActive) { return GetFreeTrialMessage(daysSinceSignup); }
 
             String dashboardMessage = String.Empty;
             if (user.AccountSuspended)
             {
-                dashboardMessage = "Account suppended, view account here";
+                dashboardMessage = "Account suppended, make a payment on your account here";
             }
             else if (user.MonthlyPromotionLimitReached)
             {
-                dashboardMessage = "Account promotion limit reached, view account here";
+                dashboardMessage = "Account promotion limit reached, upgrade account here";
             }
             else
             {
@@ -77,15 +74,16 @@ namespace OsOEasy.Promo.Models
             return dashboardMessage;
         }
 
+        //With free plan there are not traffic limitations
         private string GetFreeTrialMessage(int daysSinceSignup)
         {
             if (daysSinceSignup == _DaysForFreeTrial)
             {
-                return "This is the last day of your free trial!";
+                return "This is the last day of your free trial!  Pick a plan here";
             }
             else
             {
-                return String.Format("You have {0} days left in your free trial", (_DaysForFreeTrial - daysSinceSignup).ToString());
+                return String.Format("You have {0} days left in your free trial.  View account here", (_DaysForFreeTrial - daysSinceSignup).ToString());
             }
         }
 

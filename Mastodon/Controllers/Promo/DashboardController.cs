@@ -71,8 +71,7 @@ namespace OsOEasy.Controllers.Promo
                         allUserPromotions = _dbContext.Promotion
                             .Where(c => c.ApplicationUser == user).ToList();
                     }
-
-                    //todo, show promotion charts/graphs stuff....
+                    
                     dashboardModel = _dashboardBuilder.CreateDashboardModel(_dbContext, user, allUserPromotions);
                 }
             }
@@ -81,7 +80,6 @@ namespace OsOEasy.Controllers.Promo
                 //todo handle exception
             }
            
-            //HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(dashboardModel.IsActivePromo));
             return JsonConvert.SerializeObject(dashboardModel);
         }
 

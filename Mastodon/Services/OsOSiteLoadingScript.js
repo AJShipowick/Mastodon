@@ -1,15 +1,15 @@
 (function () {
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
             if (request.status === 200) {
                 document.body.className = 'ok';
-                if (request.responseText.includes('ERROR') || request.responseText.includes('WARNING')) {
+                if (!request.responseText || request.responseText.includes('ERROR') || request.responseText.includes('WARNING')) {
                     console.log(request.responseText);
                     return;
                 }
 
-                var script = document.createElement('script');
+                let script = document.createElement('script');
                 script.innerHTML = request.responseText;
                 document.getElementsByTagName('head')[0].appendChild(script);
 

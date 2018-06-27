@@ -114,15 +114,15 @@ namespace OsOEasy.Controllers.Promo
             return RedirectToAction("Dashboard", "Dashboard", new { area = "Dashboard" });
         }
 
-        [HttpGet]
-        public void DeletePromo(string promoId)
-        {
-            using (_dbContext)
-            {
-                var promoToDelete = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
-                _dbContext.Remove(promoToDelete);
-                _dbContext.SaveChanges();
-            }
-        }
+        //[HttpGet]
+        //public void DeletePromo(string promoId)
+        //{
+        //    using (_dbContext)
+        //    {
+        //        var promoToDelete = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
+        //        _dbContext.Remove(promoToDelete);
+        //        _dbContext.SaveChanges();
+        //    }
+        //}
     }
 }
