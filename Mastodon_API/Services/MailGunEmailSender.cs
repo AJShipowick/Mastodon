@@ -24,12 +24,12 @@ namespace OsOEasy.API.Services
     public class MailGunEmailSender : IMailGunEmailSender
     {
 
-        private static string From_CEO = "Adam@OsOEasyPromo.com";
-        private static string From_Support = "Support@OsOEasyPromo.com";
+        private static readonly string From_CEO = "Adam@OsOEasyPromo.com";
+        private static readonly string From_Support = "Support@OsOEasyPromo.com";
 
-        private static string Email_Signature = "\r\n\r\n" +
+        private static readonly string Email_Signature = "\r\n\r\n" +
                                                     "Made possible by OsOEasyPromo.com";
-        private static string Email_Signature_CEO = "\r\n\r\n" +
+        private static readonly string Email_Signature_CEO = "\r\n\r\n" +
                                             "Happy Promotions!\r\n\r\n" +
                                             "Adam Shipowick, CEO and Founder";
 

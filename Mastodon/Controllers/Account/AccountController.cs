@@ -141,10 +141,6 @@ namespace OsOEasy.Controllers.Account
                     //Send welcome email
                     await _emailSender.SendMailGunEmailAsync(EmailType.NewUserSignup, user.Email, user.FirstName, "");
 
-                    //Register user with Stripe
-                    var stripe = new StripeService();
-                    stripe.SubscribeNewUserToStripe(user.Id);
-
                     _logger.LogInformation(3, "User created a new account with password.");
 
                     //Update user site script after user creation

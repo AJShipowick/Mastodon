@@ -1,4 +1,5 @@
 ﻿using Stripe;
+using System;
 
 namespace OsOEasy.Services
 {
@@ -9,7 +10,7 @@ namespace OsOEasy.Services
         {
             // Set your secret key: remember to change this to your live secret key in production
             // See your keys here: https://dashboard.stripe.com/account/apikeys
-            StripeConfiguration.SetApiKey("sk_test_t1MXVZOUKGo8RGGtnkwNZjwL");
+            StripeConfiguration.SetApiKey(Environment.GetEnvironmentVariable("MAILGUN", EnvironmentVariableTarget.Machine));
 
             var planOptionList = new System.Collections.Generic.List<StripeSubscriptionItemOption>();
             var subscriptionOption = new StripeSubscriptionItemOption
