@@ -3,16 +3,81 @@
     ViewData["Title"] = "OsO Easy Promo - Manage Your Account";
 }
 
-<div class="home-header-container">
+<div class="home-header-container" style="padding-bottom:10px">
     <h1 class="home-header">OsO Easy Promo</h1>
-    <h2 style="font-family: 'Indie Flower', serif">Manage your account</h2>
+    <h2 style="font-family: 'Indie Flower', serif">Manage your account</h2> 
     <h4 style="font-family: 'Indie Flower', serif">Support@OsOEasyPromo.com</h4>
     <h3 class="text-success">@ViewData["StatusMessage"]</h3>
 </div>
 
-<div class="col-md-9 col-md-offset-2">
+<div class="col-md-offset-2">
     <h2 style="color:red">@Model.AccountMessage</h2>
     <br />
+</div>
+
+<h1 style="text-align:center">Billing Info (@Model.PaymentViewModel.SubscriptionPlan)</h1>
+<div class="row" style="text-align:center">
+    <a asp-area="" asp-controller="Home" asp-action="Pricing">
+        <i class="fa fa-lg fa-dollar" style="color:green" aria-hidden="true"></i> View pricing options
+    </a>
+</div>
+
+<form asp-controller="Manage" asp-action="ChangeAccountPlan" method="post">
+    <div class="row">
+        <div hidden id="currentSubscriptionPlan">@Model.PaymentViewModel.SubscriptionPlan</div>
+        <div class="form-group col-md-4 col-md-offset-2">
+            <label asp-for="PaymentViewModel.SubscriptionPlan">Subscription Plan:</label>
+            <select asp-for="PaymentViewModel.SubscriptionPlan" id="subscriptionPlans" class="form-control">
+                <option value="Free">Free - $0</option>
+                <option value="Bronze">Bronze - $99 / month</option>
+                <option value="Silver">Silver - $299 / month</option>
+                <option value="Gold">Gold - $1,499 / month</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-2">
+            <div id="payBronze" hidden>
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_wvDHLO1kYHcrJMcTsao9CqAM"
+                        data-amount="9900"
+                        data-name="OsO Easy Promo"
+                        data-description="Bronze Plan Monthly Subscription"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-zip-code="true"
+                        data-locale="auto">
+                </script>
+            </div>
+            <div id="paySilver" hidden>
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_wvDHLO1kYHcrJMcTsao9CqAM"
+                        data-amount="29900"
+                        data-name="OsO Easy Promo"
+                        data-description="Silver Plan Monthly Subscription"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-zip-code="true"
+                        data-locale="auto">
+                </script>
+            </div>
+            <div id="payGold" hidden>
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_wvDHLO1kYHcrJMcTsao9CqAM"
+                        data-amount="149900"
+                        data-name="OsO Easy Promo"
+                        data-description="Gold Plan Monthly Subscription"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-zip-code="true"
+                        data-locale="auto">
+                </script>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="form-group col-md-4 col-md-offset-2">
+        <p hidden id="upgradeText">Upgrade your plan!  The charges on your card will be prorated once they process through.</p>
+        <p hidden id="downgradeText">Downgrade your plan!  The charges on your card will be prorated once they process through.</p>
+    </div>
 </div>
 
 <h1 style="text-align:center">Account Info</h1>
@@ -66,33 +131,6 @@
     </div>
 </form>
 
-<h1 style="text-align:center">Billing Info</h1>
-<div class="row" style="text-align:center">
-    <a asp-area="" asp-controller="Home" asp-action="Pricing">
-        <i class="fa fa-lg fa-dollar" style="color:green" aria-hidden="true"></i> View pricing options
-    </a>
-</div>
-
-<form asp-controller="Manage" asp-action="ChangeAccountPlan" method="post">
-
-    <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
-            <label asp-for="PaymentViewModel.SubscriptionPlan">Subscription Plan:</label>
-            <select asp-for="PaymentViewModel.SubscriptionPlan" class="form-control">
-                <option>Free - $0</option>
-                <option>Silver - $99 / month</option>
-                <option>Bronze - $299 / month</option>
-                <option>Gold - $1,499 / month</option>
-            </select>
-        </div>
-    </div>
-
-    <br />
-    <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
-            <button type="submit" class="btn btn-lg btn-primary">Change Account Plan</button>
-        </div>
-    </div>
-</form>
-
 <br /><br />
+
+<script src="~/js/Account/manageAccount.js"></script>

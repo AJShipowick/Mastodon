@@ -1,9 +1,26 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using OsOEasy.Data.Models;
+using System.Reflection;
 
 namespace OsOEasy.Data
 {
+
+    //Not sure why this 1st class is needed, there was an issue with .net core EF Framework....
+    //https://stackoverflow.com/questions/49521315/cannot-add-migration-with-asp-net-core-2
+    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    {
+        public ApplicationDbContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            builder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=yourdatabase;User ID=user;Password=password;TrustServerCertificate=True;Trusted_Connection=False;Connection Timeout=30;Integrated Security=False;Persist Security Info=False;Encrypt=True;MultipleActiveResultSets=True;",
+                optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ApplicationDbContext).GetTypeInfo().Assembly.GetName().Name));
+
+            return new ApplicationDbContext(builder.Options);
+        }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 

@@ -60,6 +60,7 @@ namespace OsOEasy
 
             // Add application services.
             services.AddTransient<IMailGunEmailSender, MailGunEmailSender>();
+            services.AddTransient<IStripeService, StripeService>();
             services.AddTransient<ICommon, Common>();
             services.AddTransient<Promo.Models.IBuilder, Promo.Models.Builder>();
 

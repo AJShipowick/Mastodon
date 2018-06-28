@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -6,7 +7,9 @@ using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Models.ManageViewModels;
 using OsOEasy.Services;
+using Stripe;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OsOEasy.Controllers.Account
@@ -18,6 +21,7 @@ namespace OsOEasy.Controllers.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _dbContext;
         private readonly IMailGunEmailSender _emailSender;
+        private readonly IStripeService _stripeService;
         private readonly ILogger _logger;
 
         public ManageController(
@@ -25,12 +29,14 @@ namespace OsOEasy.Controllers.Account
           SignInManager<ApplicationUser> signInManager,
           ApplicationDbContext dbContext,
           IMailGunEmailSender emailSender,
+          IStripeService stripeService,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _dbContext = dbContext;
             _emailSender = emailSender;
+            _stripeService = stripeService;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
@@ -120,8 +126,10 @@ namespace OsOEasy.Controllers.Account
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangeAccountPlan(IndexViewModel model)
+        public async Task<IActionResult> ChangeAccountPlan(IndexViewModel model, IFormCollection collection)
         {
+            string newSubscriptonSelection = model.PaymentViewModel.SubscriptionPlan;
+
             var user = await GetCurrentUserAsync();
             if (user != null)
             {
@@ -129,9 +137,14 @@ namespace OsOEasy.Controllers.Account
                 {
                     var dbUser = _dbContext.Users.Find(user.Id);
 
+                    //Process subscription payment
+                    string stripeToken = collection["stripeToken"];
+                    StripeSubscription stripeSubscription = _stripeService.SubscribeToPlan(dbUser, stripeToken, newSubscriptonSelection);
+
                     HandleChangeOfPlan(user);
 
-                    dbUser.SubscriptionPlan = model.PaymentViewModel.SubscriptionPlan;
+                    dbUser.SubscriptionPlan = newSubscriptonSelection;
+                    dbUser.StripeCustomerId = stripeSubscription.CustomerId;
 
                     _dbContext.SaveChanges();
                 }

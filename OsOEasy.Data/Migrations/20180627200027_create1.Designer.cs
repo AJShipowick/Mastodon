@@ -10,8 +10,8 @@ using OsOEasy.Data;
 namespace OsOEasy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180625162831_update1")]
-    partial class update1
+    [Migration("20180627200027_create1")]
+    partial class create1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -185,6 +185,8 @@ namespace OsOEasy.Data.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("SubscriptionPlan");
+
+                    b.Property<string>("SubscriptionPlanId");
 
                     b.Property<int>("TimesLoggedIn");
 
