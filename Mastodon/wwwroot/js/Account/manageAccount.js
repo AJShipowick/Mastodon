@@ -11,11 +11,11 @@
     let payId = "pay" + $('#subscriptionPlans')[0].value;
     $("#" + payId).show();
 
-    showUpgradeDowngradeText(currentPlan, selectedPlan);
+    showChangePlanText(currentPlan, selectedPlan);
 
 });
 
-function showUpgradeDowngradeText(currentPlan, selectedPlan) {
+function showChangePlanText(currentPlan, selectedPlan) {
     if (currentPlan === "Free") {
         $("#upgradeText").show();
         return;

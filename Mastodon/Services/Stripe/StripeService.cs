@@ -1,4 +1,5 @@
 ﻿using OsOEasy.Data.Models;
+using OsOEasy.Services.MailGun;
 using Stripe;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,17 @@ namespace OsOEasy.Services.Stripe
     public interface IStripeService
     {
         StripeSubscription SubscribeToPlan(ApplicationUser dbUser, string stripeToken, string planToSubscribeTo);
-        void CancleCustomerSubscription(string stripeId);
+        void CancleCustomerSubscription(ApplicationUser dbUser);
     }
 
     public class StripeService : IStripeService
     {
-        public StripeService()
+
+        private readonly IMailGunEmailSender _emailSender;
+
+        public StripeService(IMailGunEmailSender emailSender)
         {
+            _emailSender = emailSender;
             StripeConfiguration.SetApiKey(Environment.GetEnvironmentVariable("STRIPE", EnvironmentVariableTarget.Machine));
         }
 
@@ -31,17 +36,17 @@ namespace OsOEasy.Services.Stripe
             StripeSubscription subscription = null;
             if (String.IsNullOrEmpty(currentSubscriptionId))
             {
-                subscription = AddNewUserSubscription(customer.Id, planToSubscribeTo, service);
+                subscription = AddNewUserSubscription(customer.Id, planToSubscribeTo, service, dbUser);
             }
             else
             {
-                subscription = UpdateUserSubscription(customer.Id, currentSubscriptionId, planToSubscribeTo, service);
+                subscription = UpdateUserSubscription(customer.Id, currentSubscriptionId, planToSubscribeTo, service, dbUser);
             }
 
             return subscription;
         }
 
-        private StripeSubscription AddNewUserSubscription(string id, string planToSubscribeTo, StripeSubscriptionService service)
+        private StripeSubscription AddNewUserSubscription(string id, string planToSubscribeTo, StripeSubscriptionService service, ApplicationUser dbUser)
         {
             var items = new List<StripeSubscriptionItemOption>
                 { new StripeSubscriptionItemOption {PlanId = GetPlanIdFromPlanName(planToSubscribeTo)} };
@@ -52,10 +57,12 @@ namespace OsOEasy.Services.Stripe
             };
             StripeSubscription subscription = service.Create(id, options);
 
+            _emailSender.SendMailGunEmailAsync(EmailType.NewSubscriber, dbUser.Email, dbUser.FirstName, "");
+
             return subscription;
         }
 
-        private StripeSubscription UpdateUserSubscription(string id, string currentSubscriptionId, string planToSubscribeTo, StripeSubscriptionService service)
+        private StripeSubscription UpdateUserSubscription(string id, string currentSubscriptionId, string planToSubscribeTo, StripeSubscriptionService service, ApplicationUser dbUser)
         {
             StripeSubscription subscription = service.Get(currentSubscriptionId);
 
@@ -72,21 +79,72 @@ namespace OsOEasy.Services.Stripe
             };
             subscription = service.Update(currentSubscriptionId, options);
 
+            _emailSender.SendMailGunEmailAsync(GetUpgradeOrDowngradeStatus(currentSubscriptionId, subscription.Id), dbUser.Email, dbUser.FirstName, "");
+
             return subscription;
         }
 
-        public void CancleCustomerSubscription(string stripeId)
+        private EmailType GetUpgradeOrDowngradeStatus(string oldSubscriptionId, string newSubscriptionId)
         {
-            StripeCustomer customer = GetStripeCustomer(stripeId);
+            string oldSubName = GetPlanNameFromId(oldSubscriptionId);
+            string newSubname = GetPlanNameFromId(newSubscriptionId);
+
+            if (newSubname == SubscriptionOptions.Gold)
+            {
+                return EmailType.UpgradeSubscription;
+            }
+            else if (oldSubName == SubscriptionOptions.Gold && newSubname != SubscriptionOptions.FreeAccount)
+            {
+                return EmailType.DowngradeSubscription_PaidToPaid;
+            }
+            else if (newSubname == SubscriptionOptions.FreeAccount)
+            {
+                return EmailType.DowngradeSubscription_PaidToFree;
+            }
+
+            if (newSubname == SubscriptionOptions.Silver)
+            {
+                if (oldSubName == SubscriptionOptions.Gold)
+                {
+                    return EmailType.DowngradeSubscription_PaidToPaid;
+                }
+                else
+                {
+                    return EmailType.UpgradeSubscription;
+                }
+            }
+
+            if (newSubname == SubscriptionOptions.Bronze)
+            {
+                if (oldSubName == SubscriptionOptions.Gold || oldSubName == SubscriptionOptions.Silver)
+                {
+                    return EmailType.DowngradeSubscription_PaidToPaid;
+                }
+                else
+                {
+                    return EmailType.UpgradeSubscription;
+                }
+            }
+
+            return EmailType.Unknown;
+
+        }
+
+        public void CancleCustomerSubscription(ApplicationUser dbUser)
+        {
+            StripeCustomer customer = GetStripeCustomer(dbUser.StripeCustomerId);
 
             if (customer != null && customer.Subscriptions != null && customer.Subscriptions.TotalCount > 0)
             {
                 var service = new StripeSubscriptionService();
                 StripeSubscription subscription = service.Cancel(customer.Subscriptions.Data[0].Id);
-            } else
+            }
+            else
             {
                 //todo log error, no user or subscription here....
             }
+
+            _emailSender.SendMailGunEmailAsync(EmailType.CancelSubscription, dbUser.Email, dbUser.FirstName, "");
 
         }
 
@@ -133,6 +191,21 @@ namespace OsOEasy.Services.Stripe
                     return SubscriptionOptions.SilverPlanID;
                 case SubscriptionOptions.Gold:
                     return SubscriptionOptions.GoldPlanID;
+                default:
+                    return "UnknownID";
+            }
+        }
+
+        private string GetPlanNameFromId(string planId)
+        {
+            switch (planId)
+            {
+                case SubscriptionOptions.BronzePlanID:
+                    return SubscriptionOptions.Bronze;
+                case SubscriptionOptions.SilverPlanID:
+                    return SubscriptionOptions.Silver;
+                case SubscriptionOptions.GoldPlanID:
+                    return SubscriptionOptions.Gold;
                 default:
                     return "UnknownID";
             }

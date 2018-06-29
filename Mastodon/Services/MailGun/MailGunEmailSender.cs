@@ -18,33 +18,17 @@ namespace OsOEasy.Services.MailGun
     public enum EmailType
     {
         NewUserSignup,
-        ResetPassword
+        ResetPassword,
+        NewSubscriber,
+        UpgradeSubscription,
+        DowngradeSubscription_PaidToPaid,
+        DowngradeSubscription_PaidToFree,
+        CancelSubscription,
+        Unknown
     }
 
     public class MailGunEmailSender : IMailGunEmailSender
     {
-
-        private static string From_CEO = "Adam@OsOEasyPromo.com";
-        private static string From_Support = "Support@OsOEasyPromo.com";
-        private static string Email_Signature = "\r\n\r\n" +
-                                                    "Happy Promotions!\r\n\r\n" +
-                                                    "Adam Shipowick, CEO and Founder";
-
-        #region New Users        
-        private static string Subject_NewUser = "{0}, Welcome to OsoEasyPromo";
-        private static string Message_NewUser = "Hi {0},\r\n\r\n" +
-                                                    "I'm so glad you decided to try OsOEasyPromo.com for free!\r\n\r\n" +
-                                                    "Make sure to setup your website script so you can start running unlimited custom promotions on your website right away.\r\n\r\n" +
-                                                    "I would love to help you answer any quesitons you may have about our unique service.\r\n" +
-                                                    "You can reply directly to this email if you would like.";
-        #endregion
-
-        #region Reset Password        
-        private static string Subject_ResetPassword = "Password Reset for OsO Easy Promo";
-        private static string Message_ResetPassword = "Hi {0}, we heard you need to reset your password. \r\n\r\n";
-        private static string Action_ResetPassword = "Please reset your OsOEasyPromo.com password by clicking below:\r\n\r\n {0}";
-        #endregion
-
 
         public async Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL)
         {
@@ -54,13 +38,36 @@ namespace OsOEasy.Services.MailGun
             switch (emailType)
             {
                 case EmailType.NewUserSignup:
-                    response = await SendMailAsync(emailType, From_CEO, toAddress,
-                        String.Format(Subject_NewUser, userName), String.Format(Message_NewUser, userName) + Email_Signature);
+                    response = await SendMailAsync(emailType, MailGunMessages.From_CEO, toAddress,
+                        String.Format(MailGunMessages.Subject_NewUser, userName), 
+                        String.Format(MailGunMessages.Message_NewUser, userName) + 
+                        MailGunMessages.Email_Signature);
                     //send follow-up emails using 
                     break;
                 case EmailType.ResetPassword:
-                    response = await SendMailAsync(emailType, From_Support, toAddress, Subject_ResetPassword,
-                        String.Format(Message_ResetPassword, userName) + String.Format(Action_ResetPassword, callbackURL) + Email_Signature);
+                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress, MailGunMessages.Subject_ResetPassword,
+                        String.Format(MailGunMessages.Message_ResetPassword, userName) + String.Format(MailGunMessages.Action_ResetPassword, callbackURL) +
+                        MailGunMessages.Email_Signature);
+                    break;
+                case EmailType.NewSubscriber:
+                    response = await SendMailAsync(emailType, MailGunMessages.From_CEO, toAddress,
+                        String.Format(MailGunMessages.Subject_Subscriber, userName), String.Format(MailGunMessages.Message_NewUser, userName) +
+                        MailGunMessages.Email_Signature);
+                    break;
+                case EmailType.UpgradeSubscription:
+
+                    break;
+                case EmailType.DowngradeSubscription_PaidToPaid:  //eg: gold to silver or silver to bronze
+
+                    break;
+                case EmailType.DowngradeSubscription_PaidToFree:  //eg: Any paid plan to the free plan
+
+                    break;
+                case EmailType.CancelSubscription:
+
+                    break;
+                case EmailType.Unknown:
+
                     break;
                 default:
                     break;

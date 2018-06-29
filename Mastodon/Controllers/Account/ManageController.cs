@@ -20,7 +20,6 @@ namespace OsOEasy.Controllers.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _dbContext;
-        private readonly IMailGunEmailSender _emailSender;
         private readonly IStripeService _stripeService;
         private readonly ILogger _logger;
 
@@ -28,14 +27,12 @@ namespace OsOEasy.Controllers.Account
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
           ApplicationDbContext dbContext,
-          IMailGunEmailSender emailSender,
           IStripeService stripeService,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _dbContext = dbContext;
-            _emailSender = emailSender;
             _stripeService = stripeService;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
@@ -161,7 +158,7 @@ namespace OsOEasy.Controllers.Account
                 using (_dbContext)
                 {
                     var dbUser = _dbContext.Users.Find(user.Id);
-                    _stripeService.CancleCustomerSubscription(dbUser.StripeCustomerId);
+                    _stripeService.CancleCustomerSubscription(dbUser);
 
                     dbUser.SubscriptionPlan = SubscriptionOptions.FreeAccount;
 
