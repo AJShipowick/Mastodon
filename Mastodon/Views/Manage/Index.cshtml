@@ -5,7 +5,7 @@
 
 <div class="home-header-container" style="padding-bottom:10px">
     <h1 class="home-header">OsO Easy Promo</h1>
-    <h2 style="font-family: 'Indie Flower', serif">Manage your account</h2> 
+    <h2 style="font-family: 'Indie Flower', serif">Manage your account</h2>
     <h4 style="font-family: 'Indie Flower', serif">Support@OsOEasyPromo.com</h4>
     <h3 class="text-success">@ViewData["StatusMessage"]</h3>
 </div>
@@ -26,7 +26,7 @@
     <div class="row">
         <div hidden id="currentSubscriptionPlan">@Model.PaymentViewModel.SubscriptionPlan</div>
         <div class="form-group col-md-4 col-md-offset-2">
-            <label asp-for="PaymentViewModel.SubscriptionPlan">Subscription Plan:</label>
+            <label asp-for="PaymentViewModel.SubscriptionPlan">Change Subscription Plan:</label>
             <select asp-for="PaymentViewModel.SubscriptionPlan" id="subscriptionPlans" class="form-control">
                 <option value="Free">Free - $0</option>
                 <option value="Bronze">Bronze - $99 / month</option>
@@ -43,8 +43,9 @@
                         data-amount="9900"
                         data-name="OsO Easy Promo"
                         data-description="Bronze Plan Monthly Subscription"
-                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-image="http://localhost:65213/images/osoeasypromo_panda_48.svg"
                         data-zip-code="true"
+                        data-label="Pay Bronze Plan"
                         data-locale="auto">
                 </script>
             </div>
@@ -56,6 +57,7 @@
                         data-description="Silver Plan Monthly Subscription"
                         data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                         data-zip-code="true"
+                        data-label="Pay Silver Plan"
                         data-locale="auto">
                 </script>
             </div>
@@ -67,6 +69,7 @@
                         data-description="Gold Plan Monthly Subscription"
                         data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                         data-zip-code="true"
+                        data-label="Pay Gold Plan"
                         data-locale="auto">
                 </script>
             </div>
@@ -77,6 +80,16 @@
     <div class="form-group col-md-4 col-md-offset-2">
         <p hidden id="upgradeText">Upgrade your plan!  The charges on your card will be prorated once they process through.</p>
         <p hidden id="downgradeText">Downgrade your plan!  The charges on your card will be prorated once they process through.</p>
+    </div>
+</div>
+
+<br /><br />
+<div class="row">
+    <div class="form-group col-md-4 col-md-offset-2">
+        <button onclick="cancelSubscription()"
+                class="btn btn-lg btn-danger">
+            Cancel Subscription Now
+        </button>
     </div>
 </div>
 
@@ -132,5 +145,25 @@
 </form>
 
 <br /><br />
+
+<div id="deleteAccountModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Stop current supscription</h2>
+            </div>
+            <div class="modal-body">
+                <h3>Want to stop your subscription now?</h3>
+                <p>This action will take effect immediately on your website.  Any current promotions will become inactive right away.</p>
+                <p>Your billing will stop and you will be moved to the 'Free' plan.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="confirmStopSubscription()"><i class="fa fa-warning" aria-hidden="true"></i> CANCEL NOW</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/js/Account/manageAccount.js"></script>

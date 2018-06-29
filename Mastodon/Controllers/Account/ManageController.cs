@@ -9,7 +9,6 @@ using OsOEasy.Models.ManageViewModels;
 using OsOEasy.Services;
 using Stripe;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OsOEasy.Controllers.Account
@@ -141,8 +140,6 @@ namespace OsOEasy.Controllers.Account
                     string stripeToken = collection["stripeToken"];
                     StripeSubscription stripeSubscription = _stripeService.SubscribeToPlan(dbUser, stripeToken, newSubscriptonSelection);
 
-                    HandleChangeOfPlan(user);
-
                     dbUser.SubscriptionPlan = newSubscriptonSelection;
                     dbUser.StripeCustomerId = stripeSubscription.CustomerId;
 
@@ -155,13 +152,24 @@ namespace OsOEasy.Controllers.Account
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
-        private void HandleChangeOfPlan(ApplicationUser user)
+        public async Task<string> CancelAccountPlan()
         {
-            //StripeService stripe = new StripeService();
-            //string results = stripe.SendTestCharge();
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                using (_dbContext)
+                {
+                    var dbUser = _dbContext.Users.Find(user.Id);
+                    //StripeSubscription stripeSubscription = _stripeService.SubscribeToPlan(dbUser, stripeToken, newSubscriptonSelection);
 
+                    //dbUser.SubscriptionPlan = newSubscriptonSelection;
+                    //dbUser.StripeCustomerId = stripeSubscription.CustomerId;
 
+                    _dbContext.SaveChanges();
+                }
+            }
 
+            return "Success";
         }
 
         //

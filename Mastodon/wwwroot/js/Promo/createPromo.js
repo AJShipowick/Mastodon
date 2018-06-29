@@ -84,7 +84,7 @@ var newPromoApp = new Vue({
 
         setPromoImage: function (name, id) {
 
-            if (newPromoApp.currentImageID == "") {
+            if (newPromoApp.currentImageID === "") {
                 newPromoApp.currentImageID = id;
             } else {
                 $("#" + newPromoApp.currentImageID).removeClass('promo-border');

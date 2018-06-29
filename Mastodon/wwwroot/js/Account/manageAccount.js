@@ -57,3 +57,19 @@ function hideUpgradeDowngradeText() {
     $("#upgradeText").hide();
     $("#downgradeText").hide();
 }
+
+function cancelSubscription() {
+    $("#deleteAccountModal").modal('show');
+}
+
+function confirmStopSubscription() {
+    axios.get('/Manage/CancelAccountPlan')
+        .then(function (response) {
+            if (response.data === "Success") {
+                window.location = "./Manage"
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
