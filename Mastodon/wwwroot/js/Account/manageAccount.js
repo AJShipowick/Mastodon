@@ -59,7 +59,7 @@ function hideUpgradeDowngradeText() {
 }
 
 function cancelSubscription() {
-    $("#deleteAccountModal").modal('show');
+    $("#cancelSubscriptionModal").modal('show');
 }
 
 function confirmStopSubscription() {

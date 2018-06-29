@@ -8,6 +8,8 @@ using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Models.AccountViewModels;
 using OsOEasy.Services;
+using OsOEasy.Services.MailGun;
+using OsOEasy.Services.Stripe;
 using OsOEasy.Shared;
 using System;
 using System.Threading.Tasks;
@@ -126,6 +128,7 @@ namespace OsOEasy.Controllers.Account
                     Website = model.Website,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
                     UserPromoScript = "Site script not set yet",
                     IsNewUser = true,

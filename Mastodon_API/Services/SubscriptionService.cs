@@ -1,5 +1,6 @@
 ﻿using OsOEasy.Data;
 using OsOEasy.Data.Models;
+using OsOEasy.Services.Stripe;
 using System;
 
 namespace OsOEasy.API.Services

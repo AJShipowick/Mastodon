@@ -8,7 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OsOEasy.Data;
 using OsOEasy.Data.Models;
-using OsOEasy.Services;
+using OsOEasy.Services.MailGun;
+using OsOEasy.Services.Stripe;
 using OsOEasy.Shared;
 using System;
 

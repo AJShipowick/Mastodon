@@ -24,19 +24,4 @@ namespace OsOEasy.Data.Models
 
         public bool IsAdmin { get; set; }  //todo use this in future to manager/view users accounts without having to directly query DB to find out about their stuff.....
     }
-
-    public static class SubscriptionOptions
-    {
-        public const string FreeAccount = "Free Account";
-        public const int MaxFreeAccountClaims = 100;
-
-        public const string Bronze = "Bronze";
-        public const int MaxBronzeAccountClaims = 1500;
-
-        public const string Silver = "Silver";
-        public const int MaxSilverAccountClaims = 5000;
-
-        public const string Gold = "Gold";
-        //Unlimited claims per month        
-    }
 }

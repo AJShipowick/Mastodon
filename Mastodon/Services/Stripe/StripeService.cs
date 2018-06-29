@@ -3,20 +3,16 @@ using Stripe;
 using System;
 using System.Collections.Generic;
 
-namespace OsOEasy.Services
+namespace OsOEasy.Services.Stripe
 {
     public interface IStripeService
     {
         StripeSubscription SubscribeToPlan(ApplicationUser dbUser, string stripeToken, string planToSubscribeTo);
+        void CancleCustomerSubscription(string stripeId);
     }
 
     public class StripeService : IStripeService
     {
-
-        private static readonly string BronzePlanID = "plan_D80DmkSonO4avA";
-        private static readonly string SilverPlanID = "plan_D7upPcd0GVyzgi";
-        private static readonly string GoldPlanID = "plan_D7uqUOIyi04VU7";
-
         public StripeService()
         {
             StripeConfiguration.SetApiKey(Environment.GetEnvironmentVariable("STRIPE", EnvironmentVariableTarget.Machine));
@@ -39,7 +35,6 @@ namespace OsOEasy.Services
             }
             else
             {
-
                 subscription = UpdateUserSubscription(customer.Id, currentSubscriptionId, planToSubscribeTo, service);
             }
 
@@ -80,6 +75,21 @@ namespace OsOEasy.Services
             return subscription;
         }
 
+        public void CancleCustomerSubscription(string stripeId)
+        {
+            StripeCustomer customer = GetStripeCustomer(stripeId);
+
+            if (customer != null && customer.Subscriptions != null && customer.Subscriptions.TotalCount > 0)
+            {
+                var service = new StripeSubscriptionService();
+                StripeSubscription subscription = service.Cancel(customer.Subscriptions.Data[0].Id);
+            } else
+            {
+                //todo log error, no user or subscription here....
+            }
+
+        }
+
         private StripeCustomer CreateStripeCustomer(ApplicationUser dbUser, string stripeToken)
         {
             StripeCustomer existingCustomer = GetStripeCustomer(dbUser.StripeCustomerId);
@@ -115,14 +125,14 @@ namespace OsOEasy.Services
 
         private string GetPlanIdFromPlanName(string planName)
         {
-            switch (planName.ToUpper())
+            switch (planName)
             {
-                case "BRONZE":
-                    return BronzePlanID;
-                case "SILVER":
-                    return SilverPlanID;
-                case "GOLD":
-                    return GoldPlanID;
+                case SubscriptionOptions.Bronze:
+                    return SubscriptionOptions.BronzePlanID;
+                case SubscriptionOptions.Silver:
+                    return SubscriptionOptions.SilverPlanID;
+                case SubscriptionOptions.Gold:
+                    return SubscriptionOptions.GoldPlanID;
                 default:
                     return "UnknownID";
             }

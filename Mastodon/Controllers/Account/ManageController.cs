@@ -6,7 +6,8 @@ using Microsoft.Extensions.Logging;
 using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Models.ManageViewModels;
-using OsOEasy.Services;
+using OsOEasy.Services.MailGun;
+using OsOEasy.Services.Stripe;
 using Stripe;
 using System;
 using System.Threading.Tasks;
@@ -160,10 +161,9 @@ namespace OsOEasy.Controllers.Account
                 using (_dbContext)
                 {
                     var dbUser = _dbContext.Users.Find(user.Id);
-                    //StripeSubscription stripeSubscription = _stripeService.SubscribeToPlan(dbUser, stripeToken, newSubscriptonSelection);
+                    _stripeService.CancleCustomerSubscription(dbUser.StripeCustomerId);
 
-                    //dbUser.SubscriptionPlan = newSubscriptonSelection;
-                    //dbUser.StripeCustomerId = stripeSubscription.CustomerId;
+                    dbUser.SubscriptionPlan = SubscriptionOptions.FreeAccount;
 
                     _dbContext.SaveChanges();
                 }

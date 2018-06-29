@@ -22,7 +22,6 @@ namespace OsOEasy.Models.AccountViewModels
         public string LastName { get; set; }
 
         [Required]
-        [Phone]
         [Display(Name ="Phone Number")]
         public string PhoneNumber { get; set; }
 

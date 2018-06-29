@@ -1,6 +1,7 @@
 ﻿using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Models.PromoModels;
+using OsOEasy.Services.Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace OsOEasy.Promo.Models
         private String GetDashboardMessage(ApplicationUser user)
         {
             int daysSinceSignup = DateTime.Today.Subtract(user.AccountCreationDate).Days;
-            bool freeTrailActive = daysSinceSignup <= _DaysForFreeTrial;
+            bool freeTrailActive = (user.SubscriptionPlan == SubscriptionOptions.FreeAccount && daysSinceSignup <= _DaysForFreeTrial);
 
             if (freeTrailActive) { return GetFreeTrialMessage(daysSinceSignup); }
 
