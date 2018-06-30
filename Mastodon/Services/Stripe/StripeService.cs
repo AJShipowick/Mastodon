@@ -38,9 +38,13 @@ namespace OsOEasy.Services.Stripe
             {
                 subscription = AddNewUserSubscription(customer.Id, planToSubscribeTo, service, dbUser);
             }
-            else
+            else if (!planToSubscribeTo.Contains("Free"))
             {
                 subscription = UpdateUserSubscription(customer.Id, currentSubscriptionId, planToSubscribeTo, service, dbUser);
+            }
+            else
+            {
+                CancleCustomerSubscription(dbUser);
             }
 
             return subscription;
@@ -143,7 +147,7 @@ namespace OsOEasy.Services.Stripe
             {
                 //todo log error, no user or subscription here....
             }
-            
+
             _emailSender.SendEmailAsync(EmailType.CancelSubscription, dbUser.Email, dbUser.FirstName);
 
         }

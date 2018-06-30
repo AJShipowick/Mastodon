@@ -8,42 +8,46 @@
         return;
     }
 
-    let payId = "pay" + $('#subscriptionPlans')[0].value;
-    $("#" + payId).show();
+    let downgradeSubscription = userDowngradingSubscription(currentPlan, selectedPlan);
 
-    showChangePlanText(currentPlan, selectedPlan);
-
+    if (downgradeSubscription) {
+        $("#DowngradeSubscription").show();
+    } else {
+        //Must pay to upgrade subscription
+        let payId = "pay" + $('#subscriptionPlans')[0].value;
+        $("#" + payId).show();
+    }
 });
 
-function showChangePlanText(currentPlan, selectedPlan) {
+function userDowngradingSubscription(currentPlan, selectedPlan) {
     if (currentPlan === "Free") {
         $("#upgradeText").show();
-        return;
+        return false;
     }
 
     if (currentPlan === "Bronze") {
         if (selectedPlan === "Free") {
             $("#downgradeText").show();
-            return;
+            return true;
         } else {
             $("#upgradeText").show();
-            return;
+            return false;
         }
     }
 
     if (currentPlan === "Silver") {
         if (selectedPlan === "Bronze" || selectedPlan === "Free") {
             $("#downgradeText").show();
-            return;
+            return true;
         } else {
             $("#upgradeText").show();
-            return;
+            return false;
         }
     }
 
     if (currentPlan === "Gold") {
         $("#downgradeText").show();
-        return;
+        return true;
     }
 }
 
@@ -51,11 +55,28 @@ function hideAllPaymentButtons() {
     $("#payBronze").hide();
     $("#paySilver").hide();
     $("#payGold").hide();
+    $("#DowngradeSubscription").hide();
 }
 
 function hideUpgradeDowngradeText() {
     $("#upgradeText").hide();
     $("#downgradeText").hide();
+}
+
+function downgradeSubscription() {
+    $("#downgradeSubscriptionModal").modal('show');
+}
+
+function confirmDowngradeSubscription() {
+    axios.get('/Manage/DowngradeSubscription' + '?newPlan=' + $('#subscriptionPlans')[0].value)
+        .then(function (response) {
+            if (response.data === "Success") {
+                window.location = "./Manage"
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 function cancelSubscription() {

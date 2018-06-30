@@ -43,7 +43,7 @@
                         data-amount="9900"
                         data-name="OsO Easy Promo"
                         data-description="Bronze Plan Monthly Subscription"
-                        data-image="http://localhost:65213/images/osoeasypromo_panda_48.svg"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                         data-zip-code="true"
                         data-label="Pay Bronze Plan"
                         data-locale="auto">
@@ -78,20 +78,33 @@
 </form>
 <div class="row">
     <div class="form-group col-md-4 col-md-offset-2">
+        <div id="DowngradeSubscription" hidden>
+            <button class="btn btn-primary"
+                    onclick="downgradeSubscription()">
+                Downgrage Subscription
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-4 col-md-offset-2">
         <p hidden id="upgradeText">Upgrade your plan!  The charges on your card will be prorated once they process through.</p>
         <p hidden id="downgradeText">Downgrade your plan!  The charges on your card will be prorated once they process through.</p>
     </div>
 </div>
 
 <br /><br />
-<div class="row">
-    <div class="form-group col-md-4 col-md-offset-2">
-        <button onclick="cancelSubscription()"
-                class="btn btn-lg btn-danger">
-            Cancel Subscription Now
-        </button>
+@if (Model.PaymentViewModel.SubscriptionPlan != "Free")
+{
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-2">
+            <button onclick="cancelSubscription()"
+                    class="btn btn-lg btn-danger">
+                Cancel Subscription Now
+            </button>
+        </div>
     </div>
-</div>
+}
 
 <h1 style="text-align:center">Account Info</h1>
 <div class="row">
@@ -160,6 +173,25 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" onclick="confirmStopSubscription()"><i class="fa fa-warning" aria-hidden="true"></i> CANCEL NOW</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="downgradeSubscriptionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Downgrade current supscription</h2>
+            </div>
+            <div class="modal-body">
+                <h3>Want to downgrade your subscription now?</h3>
+                <p>This action will take effect immediately on your website.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="confirmDowngradeSubscription()"><i class="fa fa-warning" aria-hidden="true"></i> DOWNGRADE NOW</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
             </div>
         </div>

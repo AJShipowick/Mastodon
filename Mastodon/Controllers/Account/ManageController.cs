@@ -150,6 +150,30 @@ namespace OsOEasy.Controllers.Account
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
+        [HttpGet]
+        public async Task<String> DowngradeSubscription(String newPlan)
+        {
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                using (_dbContext)
+                {
+                    var dbUser = _dbContext.Users.Find(user.Id);
+
+                    //Process subscription payment
+                    StripeSubscription stripeSubscription = _stripeService.SubscribeToPlan(dbUser, null, newPlan);
+
+                    dbUser.SubscriptionPlan = newPlan;
+                    dbUser.StripeCustomerId = stripeSubscription.CustomerId;
+
+                    _dbContext.SaveChanges();
+                }
+            }
+
+            return "Success";
+        }
+
+        [HttpGet]
         public async Task<string> CancelAccountPlan()
         {
             var user = await GetCurrentUserAsync();
