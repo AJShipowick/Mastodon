@@ -12,7 +12,8 @@ namespace OsOEasy.Services.MailGun
     /// </summary>
     public interface IMailGunEmailSender
     {
-        Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL);
+        Task<IRestResponse> SendEmailAsync(EmailType emailType, String toAddress, String userName);
+        Task<IRestResponse> SendResetPasswordEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL);
     }
 
     public enum EmailType
@@ -30,7 +31,7 @@ namespace OsOEasy.Services.MailGun
     public class MailGunEmailSender : IMailGunEmailSender
     {
 
-        public async Task<IRestResponse> SendMailGunEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL)
+        public async Task<IRestResponse> SendEmailAsync(EmailType emailType, String toAddress, String userName)
         {
 
             IRestResponse response = null;
@@ -39,35 +40,39 @@ namespace OsOEasy.Services.MailGun
             {
                 case EmailType.NewUserSignup:
                     response = await SendMailAsync(emailType, MailGunMessages.From_CEO, toAddress,
-                        String.Format(MailGunMessages.Subject_NewUser, userName), 
-                        String.Format(MailGunMessages.Message_NewUser, userName) + 
-                        MailGunMessages.Email_Signature);
-                    //send follow-up emails using 
-                    break;
-                case EmailType.ResetPassword:
-                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress, MailGunMessages.Subject_ResetPassword,
-                        String.Format(MailGunMessages.Message_ResetPassword, userName) + String.Format(MailGunMessages.Action_ResetPassword, callbackURL) +
-                        MailGunMessages.Email_Signature);
+                        String.Format(MailGunMessages.Subject_NewUser, userName),
+                        String.Format(MailGunMessages.Message_NewUser, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.NewSubscriber:
-                    response = await SendMailAsync(emailType, MailGunMessages.From_CEO, toAddress,
-                        String.Format(MailGunMessages.Subject_Subscriber, userName), String.Format(MailGunMessages.Message_NewUser, userName) +
-                        MailGunMessages.Email_Signature);
+                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
+                        String.Format(MailGunMessages.Subject_New_Subscriber, userName), 
+                        String.Format(MailGunMessages.Message_New_Subscriber, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.UpgradeSubscription:
-
+                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
+                        String.Format(MailGunMessages.Subject_Upgrade_Subscription, userName),
+                        String.Format(MailGunMessages.Message_Upgrade_Subscription, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.DowngradeSubscription_PaidToPaid:  //eg: gold to silver or silver to bronze
-
+                    //todo, send email to sales/support to try to get them to put user back on a higher paid plan.
+                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
+                        String.Format(MailGunMessages.Subject_Downgrade_Subscription, userName),
+                        String.Format(MailGunMessages.Message_Downgrade_Subscription, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.DowngradeSubscription_PaidToFree:  //eg: Any paid plan to the free plan
-
+                    //todo, send email to sales/support to try to get them to put user back on a paid plan.
+                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
+                        String.Format(MailGunMessages.Subject_Downgrade_Subscription, userName),
+                        String.Format(MailGunMessages.Message_Downgrade_Subscription, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.CancelSubscription:
-
+                    //todo, send email to sales/support to try to get them re-activate a users account.
+                    response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
+                        String.Format(MailGunMessages.Subject_Downgrade_Subscription, userName),
+                        String.Format(MailGunMessages.Message_Downgrade_Subscription, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.Unknown:
-
+                    //todo log error
                     break;
                 default:
                     break;
@@ -85,6 +90,17 @@ namespace OsOEasy.Services.MailGun
 
             return response;
 
+        }
+
+        public async Task<IRestResponse> SendResetPasswordEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL)
+        {
+            IRestResponse response = null;
+
+            response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress, MailGunMessages.Subject_ResetPassword,
+                        String.Format(MailGunMessages.Message_ResetPassword, userName) + String.Format(MailGunMessages.Action_ResetPassword, callbackURL) +
+                        MailGunMessages.Email_Signature);
+
+            return response;
         }
 
         private Task<IRestResponse> SendMailAsync(EmailType emailType, String from, String to, String subject, String message)

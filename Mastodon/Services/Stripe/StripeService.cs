@@ -57,7 +57,7 @@ namespace OsOEasy.Services.Stripe
             };
             StripeSubscription subscription = service.Create(id, options);
 
-            _emailSender.SendMailGunEmailAsync(EmailType.NewSubscriber, dbUser.Email, dbUser.FirstName, "");
+            _emailSender.SendEmailAsync(EmailType.NewSubscriber, dbUser.Email, dbUser.FirstName);
 
             return subscription;
         }
@@ -79,7 +79,7 @@ namespace OsOEasy.Services.Stripe
             };
             subscription = service.Update(currentSubscriptionId, options);
 
-            _emailSender.SendMailGunEmailAsync(GetUpgradeOrDowngradeStatus(currentSubscriptionId, subscription.Id), dbUser.Email, dbUser.FirstName, "");
+            _emailSender.SendEmailAsync(GetUpgradeOrDowngradeStatus(currentSubscriptionId, subscription.Id), dbUser.Email, dbUser.FirstName);
 
             return subscription;
         }
@@ -143,8 +143,8 @@ namespace OsOEasy.Services.Stripe
             {
                 //todo log error, no user or subscription here....
             }
-
-            _emailSender.SendMailGunEmailAsync(EmailType.CancelSubscription, dbUser.Email, dbUser.FirstName, "");
+            
+            _emailSender.SendEmailAsync(EmailType.CancelSubscription, dbUser.Email, dbUser.FirstName);
 
         }
 

@@ -142,7 +142,7 @@ namespace OsOEasy.Controllers.Account
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     //Send welcome email
-                    await _emailSender.SendMailGunEmailAsync(EmailType.NewUserSignup, user.Email, user.FirstName, "");
+                    await _emailSender.SendEmailAsync(EmailType.NewUserSignup, user.Email, user.FirstName);
 
                     _logger.LogInformation(3, "User created a new account with password.");
 
@@ -217,7 +217,7 @@ namespace OsOEasy.Controllers.Account
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
 
-                await _emailSender.SendMailGunEmailAsync(EmailType.ResetPassword, user.Email, user.FirstName, callbackUrl);
+                await _emailSender.SendResetPasswordEmailAsync(EmailType.ResetPassword, user.Email, user.FirstName, callbackUrl);
 
                 return View("ForgotPasswordConfirmation");
             }

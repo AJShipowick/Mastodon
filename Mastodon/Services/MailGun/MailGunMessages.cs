@@ -30,7 +30,22 @@ namespace OsOEasy.Services.MailGun
         #endregion
 
         #region Subscribers
-        public const string Subject_Subscriber = "{0}, Thanks for subscribing to OsOEasyPromo";
+        public const string Subject_New_Subscriber = "{0}, Thanks for subscribing to OsOEasyPromo";
+        public const string Message_New_Subscriber = "Hi {0}, \r\n\r\n" + 
+                                                            "We're so glad you decided to take the step to become a paying subscriber of OsOEasyPromo! \r\n\r\n" + 
+                                                            "Let us know any questions you may have and best of luck with your new promotions.";
+
+        public const string Subject_Upgrade_Subscription = "{0}, Thanks for upgrading your OsOEasyPromo subscription";
+        public const string Message_Upgrade_Subscription = "Hi {0}, great choice upgrading your subscription!  We really hope you enjoy our service. \r\n\r\n" +
+                                                                "Let us know if you have any questions or concerns.";
+
+        public const string Subject_Downgrade_Subscription = "OsoEasyPromo downgrade subscription confirmation";
+        public const string Message_Downgrade_Subscription = "Hi {0}, sorry to see you downgrade your subscription.\r\n" + 
+                                                                    "If we can help in any way, please let us know.";
+
+        public const string Subject_Cancel_Subscription = "OsOEasyPromo cancel subscription confirmation";
+        public const string Message_Cancel_Subscription = "Hi {0}, sorry to see you cancel your subscription.\r\n" +
+                                                                    "If we can help in any way, please let us know.";
 
         #endregion
 
