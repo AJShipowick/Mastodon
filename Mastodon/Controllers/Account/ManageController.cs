@@ -160,7 +160,6 @@ namespace OsOEasy.Controllers.Account
                 {
                     var dbUser = _dbContext.Users.Find(user.Id);
 
-                    //Process subscription payment
                     StripeSubscription stripeSubscription = _stripeService.SubscribeToPlan(dbUser, null, newPlan);
 
                     dbUser.SubscriptionPlan = newPlan;

@@ -68,8 +68,8 @@ namespace OsOEasy.Services.MailGun
                 case EmailType.CancelSubscription:
                     //todo, send email to sales/support to try to get them re-activate a users account.
                     response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
-                        String.Format(MailGunMessages.Subject_Downgrade_Subscription, userName),
-                        String.Format(MailGunMessages.Message_Downgrade_Subscription, userName) + MailGunMessages.Email_Signature);
+                        String.Format(MailGunMessages.Subject_Cancel_Subscription, userName),
+                        String.Format(MailGunMessages.Message_Cancel_Subscription, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.Unknown:
                     //todo log error
