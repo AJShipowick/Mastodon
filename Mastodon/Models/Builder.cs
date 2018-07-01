@@ -2,6 +2,7 @@
 using OsOEasy.Data.Models;
 using OsOEasy.Models.PromoModels;
 using OsOEasy.Services.Stripe;
+using OsOEasy.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,12 @@ namespace OsOEasy.Promo.Models
 
     public class Builder : IBuilder
     {
+        public readonly ICommon _Common;
 
-        public static int _DaysForFreeTrial = 10;
+        public Builder(ICommon common)
+        {
+            _Common = common;
+        }
 
         public Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> allUserPromotions)
         {
@@ -53,10 +58,10 @@ namespace OsOEasy.Promo.Models
 
         private String GetDashboardMessage(ApplicationUser user)
         {
-            int daysSinceSignup = DateTime.Today.Subtract(user.AccountCreationDate).Days;
-            bool freeTrailActive = (user.SubscriptionPlan == SubscriptionOptions.FreeAccount && daysSinceSignup <= _DaysForFreeTrial);
-
-            if (freeTrailActive) { return GetFreeTrialMessage(daysSinceSignup); }
+            if (_Common.FreeTrialActive(user))
+            {
+                return GetFreeTrialMessage(_Common.DaysSinceAccountSignup(user.AccountCreationDate));
+            }
 
             String dashboardMessage = String.Empty;
             if (user.AccountSuspended)
@@ -78,13 +83,13 @@ namespace OsOEasy.Promo.Models
         //With free plan there are not traffic limitations
         private string GetFreeTrialMessage(int daysSinceSignup)
         {
-            if (daysSinceSignup == _DaysForFreeTrial)
+            if (daysSinceSignup == Common._DaysForFreeTrial)
             {
                 return "This is the last day of your free trial!  Pick a plan here";
             }
             else
             {
-                return String.Format("You have {0} days left in your free trial.  View account here", (_DaysForFreeTrial - daysSinceSignup).ToString());
+                return String.Format("You have {0} days left in your free trial.  View account here", (Common._DaysForFreeTrial - daysSinceSignup).ToString());
             }
         }
 

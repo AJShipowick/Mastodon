@@ -1,6 +1,7 @@
 ﻿using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Services.Stripe;
+using OsOEasy.Shared;
 using System;
 
 namespace OsOEasy.API.Services
@@ -13,8 +14,19 @@ namespace OsOEasy.API.Services
 
     public class SubscriptionService : ISubscriptionService
     {
+
+        public readonly ICommon _Common;
+
+        public SubscriptionService(ICommon common)
+        {
+            _Common = common;
+        }
+
         public bool SubscriptionWithinTrafficLimit(ApplicationUser user, ApplicationDbContext DbContext)
         {
+
+            if (_Common.FreeTrialActive(user)) { return true; }
+
             bool subscriptionWithinTrafficLimit = true;
 
             int promoClaimsThisMonth = FindClaimsForCurrentMonth(user);
