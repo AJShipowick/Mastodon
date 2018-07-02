@@ -15,17 +15,10 @@ namespace OsOEasy.API.Services
     public class SubscriptionService : ISubscriptionService
     {
 
-        public readonly ICommon _Common;
-
-        public SubscriptionService(ICommon common)
-        {
-            _Common = common;
-        }
-
         public bool SubscriptionWithinTrafficLimit(ApplicationUser user, ApplicationDbContext DbContext)
         {
 
-            if (_Common.FreeTrialActive(user)) { return true; }
+            if (CommonAccount.FreeTrialActive(user)) { return true; }
 
             bool subscriptionWithinTrafficLimit = true;
 

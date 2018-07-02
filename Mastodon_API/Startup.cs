@@ -9,6 +9,7 @@ using OsOEasy.API.Responses.HTML;
 using OsOEasy.API.Responses.JS;
 using OsOEasy.API.Services;
 using OsOEasy.Data;
+using OsOEasy.Shared;
 
 namespace OsOEasy.API
 {
@@ -37,6 +38,7 @@ namespace OsOEasy.API
             services.AddTransient<IPromoService, PromoService>();
             services.AddTransient<IMailGunEmailSender, MailGunEmailSender>();
             services.AddTransient<ISubscriptionService, SubscriptionService>();
+            services.AddTransient<ICommon, Common>();
 
             services.AddMvc();
         }

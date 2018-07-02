@@ -123,7 +123,7 @@ namespace OsOEasy.Controllers.Account
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangeAccountPlan(IndexViewModel model, IFormCollection collection)
+        public async Task<IActionResult> UpgradeAccountPlan(IndexViewModel model, IFormCollection collection)
         {
             string newSubscriptonSelection = model.PaymentViewModel.SubscriptionPlan;
 
@@ -140,6 +140,7 @@ namespace OsOEasy.Controllers.Account
 
                     dbUser.SubscriptionPlan = newSubscriptonSelection;
                     dbUser.StripeCustomerId = stripeSubscription.CustomerId;
+                    dbUser.MonthlyPromotionLimitReached = false;
 
                     _dbContext.SaveChanges();
                 }

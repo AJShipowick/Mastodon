@@ -58,9 +58,9 @@ namespace OsOEasy.Promo.Models
 
         private String GetDashboardMessage(ApplicationUser user)
         {
-            if (_Common.FreeTrialActive(user))
+            if (CommonAccount.FreeTrialActive(user))
             {
-                return GetFreeTrialMessage(_Common.DaysSinceAccountSignup(user.AccountCreationDate));
+                return GetFreeTrialMessage(CommonAccount.DaysSinceAccountSignup(user.AccountCreationDate));
             }
 
             String dashboardMessage = String.Empty;
@@ -83,13 +83,13 @@ namespace OsOEasy.Promo.Models
         //With free plan there are not traffic limitations
         private string GetFreeTrialMessage(int daysSinceSignup)
         {
-            if (daysSinceSignup == Common._DaysForFreeTrial)
+            if (daysSinceSignup == CommonAccount._DaysForFreeTrial)
             {
                 return "This is the last day of your free trial!  Pick a plan here";
             }
             else
             {
-                return String.Format("You have {0} days left in your free trial.  View account here", (Common._DaysForFreeTrial - daysSinceSignup).ToString());
+                return String.Format("You have {0} days left in your free trial.  View account here", (CommonAccount._DaysForFreeTrial - daysSinceSignup).ToString());
             }
         }
 
