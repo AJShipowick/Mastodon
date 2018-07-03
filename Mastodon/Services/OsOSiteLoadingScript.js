@@ -18,6 +18,6 @@
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/promo/USERID", true);
+    request.open("GET", "http://osoeasyapi.azurewebsites.net/api/promo/USERID", true);
     request.send(null);
 })();

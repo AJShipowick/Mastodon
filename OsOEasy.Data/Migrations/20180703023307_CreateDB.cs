@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OsOEasy.Data.Migrations
 {
-    public partial class create1 : Migration
+    public partial class CreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,7 +45,7 @@ namespace OsOEasy.Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Website = table.Column<string>(nullable: true),
                     SubscriptionPlan = table.Column<string>(nullable: true),
-                    SubscriptionPlanId = table.Column<string>(nullable: true),
+                    StripeCustomerId = table.Column<string>(nullable: true),
                     AccountSuspended = table.Column<bool>(nullable: false),
                     MonthlyPromotionLimitReached = table.Column<bool>(nullable: false),
                     UserPromoScript = table.Column<string>(nullable: true),
