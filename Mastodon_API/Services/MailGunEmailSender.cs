@@ -85,7 +85,7 @@ namespace OsOEasy.API.Services
             RestClient client = new RestClient
             {
                 BaseUrl = new Uri("https://api.mailgun.net/v3"),
-                Authenticator = new HttpBasicAuthenticator("api", Environment.GetEnvironmentVariable("MAILGUN", EnvironmentVariableTarget.Machine))
+                Authenticator = new HttpBasicAuthenticator("api", Environment.GetEnvironmentVariable("MAILGUN"))
             };
             RestRequest request = new RestRequest();
             request.AddParameter("domain", "coupon.osoeasypromo.com", ParameterType.UrlSegment);

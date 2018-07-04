@@ -20,7 +20,7 @@ namespace OsOEasy.Services.Stripe
         public StripeService(IMailGunEmailSender emailSender)
         {
             _emailSender = emailSender;
-            StripeConfiguration.SetApiKey(Environment.GetEnvironmentVariable("STRIPE", EnvironmentVariableTarget.Machine));
+            StripeConfiguration.SetApiKey(Environment.GetEnvironmentVariable("STRIPE"));
         }
 
         public StripeSubscription SubscribeToPlan(ApplicationUser dbUser, string stripeToken, string planToSubscribeTo)
