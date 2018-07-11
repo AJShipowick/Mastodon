@@ -96,33 +96,52 @@
             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
         </button>
         @*<button style="display:none"
-                id="deletePromoBtn"
-                type="button"
-                v-on:click="deletePromo()"
-                class="btn btn-danger">
-            <i class="fa fa-remove" aria-hidden="true"></i> Delete
-        </button>*@
-        <br />
+                    id="deletePromoBtn"
+                    type="button"
+                    v-on:click="deletePromo()"
+                    class="btn btn-danger">
+                <i class="fa fa-remove" aria-hidden="true"></i> Delete
+            </button>*@
+        <br /><br />
 
+        <small>*New images being added all the time, check back often</small>
         <h2>
             Choose an image:
             <button type="button"
-                    class="btn btn-primary"
-                    v-on:click="getPromoImages('coupon')"
-                    style="box-shadow:0px 0px 0px">
-                Coupon/Sale
-            </button>
-            <button type="button"
                     class="btn btn-success"
-                    v-on:click="getPromoImages('money')"
+                    v-on:click="getPromoImages('animals')"
                     style="box-shadow:0px 0px 0px">
-                Money
+                Animals
             </button>
             <button type="button"
                     class="btn btn-info"
-                    v-on:click="getPromoImages('fun')"
+                    v-on:click="getPromoImages('style')"
                     style="box-shadow:0px 0px 0px">
-                Fun
+                Style
+            </button>
+            <button type="button"
+                    class="btn btn-default"
+                    v-on:click="getPromoImages('tech')"
+                    style="box-shadow:0px 0px 0px">
+                Tech
+            </button>
+            <button type="button"
+                    class="btn btn-pricing-gold"
+                    v-on:click="getPromoImages('coupon')"
+                    style="box-shadow:0px 0px 0px">
+                Coupon
+            </button>
+            <button type="button"
+                    class="btn btn-pricing-bronze"
+                    v-on:click="getPromoImages('misc')"
+                    style="box-shadow:0px 0px 0px">
+                Misc
+            </button>
+            <button type="button"
+                    class="btn btn-pricing-silver"
+                    v-on:click="getPromoImages('social')"
+                    style="box-shadow:0px 0px 0px">
+                Social
             </button>
         </h2>
 
@@ -136,8 +155,9 @@
                      class="helpText"
                      v-bind:id="'image_' + index"
                      v-on:click="setPromoImage(name, 'image_' + index)"
-                     style="width:80px" />
+                     style="width:64px; height:64px" />
             </label>
+            <br /><br /><br />
         </div>
     </form>
 
