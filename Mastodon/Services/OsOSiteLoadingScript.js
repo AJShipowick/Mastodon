@@ -18,6 +18,6 @@
             }
         }
     };
-    request.open("GET", "http://osoeasyapi.azurewebsites.net/api/promo/USERID", true);
+    request.open("GET", "https://api.osoeasypromo.com/api/promo/USERID", true);
     request.send(null);
 })();

@@ -16,7 +16,7 @@
     loadSlickJS();
 
     function loadSlickHTML() {
-        let htmlURL = 'http://osoeasyapi.azurewebsites.net/api/promo/html/?';
+        let htmlURL = 'https://api.osoeasypromo.com/api/promo/html/?';
         getSlickResource(htmlURL, handleHTMLCallback);
     }
 
@@ -25,7 +25,7 @@
     }
 
     function loadSlickCSS() {
-        let cssURL = 'http://osoeasyapi.azurewebsites.net/api/promo/css/?';
+        let cssURL = 'https://api.osoeasypromo.com/api/promo/css/?';
         getSlickResource(cssURL, handleCSSCallback);
     }
 
@@ -37,7 +37,7 @@
     }
 
     function loadSlickJS() {
-        let jsURL = 'http://osoeasyapi.azurewebsites.net/api/promo/js/?';
+        let jsURL = 'https://api.osoeasypromo.com/api/promo/js/?';
         getSlickResource(jsURL, handleJSCallback);
     }
 
@@ -63,7 +63,7 @@ function submitOSOEasyPromotion() {
         return;
     }
 
-    let submitURL = 'http://osoeasyapi.azurewebsites.net/api/promo/submit/?/' + name + '/' + email + '/CLIENTID';
+    let submitURL = 'https://api.osoeasypromo.com/api/promo/submit/?/' + name + '/' + email + '/CLIENTID';
     getSlickResource(submitURL, handleSubmitCallback);
 }
 
