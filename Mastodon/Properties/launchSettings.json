@@ -11,7 +11,9 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "MAILGUN": "key-7dc1f62ef27b4b6d12965cc80ae78b17",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "STRIPE": "sk_test_t1MXVZOUKGo8RGGtnkwNZjwL"
       }
     },
     "OsOEasy": {

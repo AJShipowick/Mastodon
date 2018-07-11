@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using OsOEasy.Data.Models;
+using System;
 using System.Reflection;
 
 namespace OsOEasy.Data
@@ -31,8 +32,11 @@ namespace OsOEasy.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            var connectionString = @"Data Source=tcp:osoeasywebdbserver.database.windows.net,1433;Initial Catalog=OsOEasyWeb_SQL_DB;User Id=osoappadmin@osoeasywebdbserver;Password=osoeasypromo11$";
-            builder.UseSqlServer(connectionString);
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToUpper() == "DEVELOPMENT")
+            {
+                var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=OsOEasy;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=true;";
+                builder.UseSqlServer(connectionString);
+            }
         }
 
         //To update the SQL Server DB scripts and structure run the following commands in Package Manager Console
