@@ -33,7 +33,6 @@ namespace OsOEasy.Services.MailGun
 
         public async Task<IRestResponse> SendEmailAsync(EmailType emailType, String toAddress, String userName)
         {
-
             IRestResponse response = null;
 
             switch (emailType)
@@ -45,7 +44,7 @@ namespace OsOEasy.Services.MailGun
                     break;
                 case EmailType.NewSubscriber:
                     response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress,
-                        String.Format(MailGunMessages.Subject_New_Subscriber, userName), 
+                        String.Format(MailGunMessages.Subject_New_Subscriber, userName),
                         String.Format(MailGunMessages.Message_New_Subscriber, userName) + MailGunMessages.Email_Signature);
                     break;
                 case EmailType.UpgradeSubscription:
@@ -115,6 +114,11 @@ namespace OsOEasy.Services.MailGun
             request.Resource = "{domain}/messages";
             request.AddParameter("from", from);
             request.AddParameter("to", to);
+
+            //todo, remove this after getting more users....
+            //This is so I can follow up with the first users and know when users sign up for plans.
+            request.AddParameter("bcc", "Adam@OsoEasyPromo.com");
+
             request.AddParameter("subject", subject);
             request.AddParameter("text", message);
             request.AddParameter("o:tag", emailType.ToString());

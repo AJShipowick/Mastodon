@@ -14,9 +14,6 @@ namespace OsOEasy.Data
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            //builder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=yourdatabase;User ID=user;Password=password;TrustServerCertificate=True;Trusted_Connection=False;Connection Timeout=30;Integrated Security=False;Persist Security Info=False;Encrypt=True;MultipleActiveResultSets=True;",
-            //    optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ApplicationDbContext).GetTypeInfo().Assembly.GetName().Name));
-
             return new ApplicationDbContext(builder.Options);
         }
     }
@@ -31,8 +28,7 @@ namespace OsOEasy.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            var connectionString = @"Data Source=tcp:osoeasywebdbserver.database.windows.net,1433;Initial Catalog=OsOEasyWeb_SQL_DB;User Id=osoappadmin@osoeasywebdbserver;Password=osoeasypromo11$";
-            builder.UseSqlServer(connectionString);
+            //Connection string set when deploying app to Azure
         }
 
         //To update the SQL Server DB scripts and structure run the following commands in Package Manager Console
