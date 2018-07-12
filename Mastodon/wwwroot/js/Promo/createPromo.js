@@ -31,7 +31,7 @@ var newPromoApp = new Vue({
                         //New promo, no promo selected, select 1st image for user and colors
                         newPromoApp.imageType = "coupon";
                         newPromoApp.PromoModel.imageType = "coupon";
-                        newPromoApp.PromoModel.imageName = "coupon_1.svg";
+                        newPromoApp.PromoModel.imageName = "osoeasypromo_coupon (16).svg";
                         newPromoApp.PromoModel.backgroundColor = "#ffffff";
                         newPromoApp.PromoModel.buttonColor = "#4CAF50";
 
