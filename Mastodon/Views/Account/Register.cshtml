@@ -10,7 +10,7 @@
     <img src="~/images/osoeasypromo_panda_96.svg" /><br />
 </div>
 
-    <div class="col-md-9 col-md-offset-3">
+    <div class="col-sm-9 col-sm-offset-3">
         <div id="google-signin"></div>
         <h3 hidden id="googleLoginStatus"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i>  Signing in with Google...</h3>
         <br />
@@ -19,29 +19,29 @@
 
 <form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal">
     <div class="form-group">
-        <label asp-for="Email" class="col-md-2 col-md-offset-1 control-label"></label>
-        <div class="col-md-6">
+        <label asp-for="Email" class="col-sm-2 col-sm-offset-1 control-label"></label>
+        <div class="col-sm-6">
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="Password" class="col-md-2 col-md-offset-1 control-label"></label>
-        <div class="col-md-6">
+        <label asp-for="Password" class="col-sm-2 col-sm-offset-1 control-label"></label>
+        <div class="col-sm-6">
             <input asp-for="Password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 col-md-offset-1 control-label"></label>
-        <div class="col-md-6">
+        <label asp-for="ConfirmPassword" class="col-sm-2 col-sm-offset-1 control-label"></label>
+        <div class="col-sm-6">
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-3 col-md-2">
+        <div class="col-sm-offset-3 col-sm-2">
             <button type="submit" class="btn btn-lg btn-primary">Register with email</button>
         </div>
     </div>
@@ -50,6 +50,6 @@
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script src="~/js/HomePage/homePage.js"></script>
-    <script src="~/js/Account/signIn.js"></script>
+    <script src="~/js/Account/signIn.min.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=showGoogleLogin" async defer></script>
 }

@@ -19,60 +19,60 @@
 
     <form id="promoForm">
         <div class="row form-group">
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <label for="Title">Title:</label>
                 <input for="Title" id="Title" type="text" v-model="PromoModel.title" class="form-control">
                 <small hidden id="titleMissing" style="color:red">Title is required</small>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <label for="Code">Promotion Code:</label>
                 <input for="Code" id="code" type="text" v-model="PromoModel.code" class="form-control">
                 <small hidden id="codeMissing" style="color:red">Code is required</small>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <label for="EndDate">End Date:</label>
                 <input for="EndDate" id="endDate" type="date" v-model="PromoModel.endDate" class="form-control">
                 <small hidden id="dateMissing" style="color:red">Date is required</small>
             </div>
         </div>
         <div class="row form-group">
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="Discount">Discount:</label>
                 <input for="Discount" id="discount" type="text" v-model="PromoModel.discount" class="form-control"
                        placeholder="eg: 50% off everything!">
                 <small hidden id="discountMissing" style="color:red">Discount is required</small>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="Details1">Detils 1:</label>
                 <input for="Details1" type="text" v-model="PromoModel.details1" class="form-control">
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="Details2">Details 2:</label>
                 <input for="Details2" type="text" v-model="PromoModel.details2" class="form-control">
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="FinePrint">Fine Print:</label>
                 <input for="FinePrint" type="text" v-model="PromoModel.finePrint" class="form-control">
             </div>
         </div>
         <div class="row form-group">
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
                 <input for="ShowCouponBorder" type="checkbox" class="helpText" v-model="PromoModel.showCouponBorder"
                        v-on:click="showCouponBorder()">
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="BackgroundColor" style="padding-right:5px">Background Color: </label>
                 <input for="BackgroundColor" id="backgroundColor" type="color" v-model="PromoModel.backgroundColor" v-on:change="setFormBackgroundColor()">
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <label for="ButtonColor" style="padding-right:5px">Button Color: </label>
                 <input for="ButtonColor" id="buttonColor" type="color" v-model="PromoModel.buttonColor" v-on:change="setFormButtonColor()">
             </div>
         </div>
 
         <div class="row form-group">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <label for="thankYouMsg">
                     <i class="fa fa-question-circle-o helpText"
                        style="color:#337ab7"
@@ -157,11 +157,11 @@
             </button>
         </h2>
 
-        <div class="col-md-6" style="left:50%" id="ajaxLoading" hidden>
+        <div class="col-sm-6" style="left:50%" id="ajaxLoading" hidden>
             <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
         </div>
 
-        <div class="col-md-10">
+        <div class="col-sm-10">
             <label v-for="(name, index) in PromoImages">
                 <img :src="getImagePath(name)"
                      class="helpText"
@@ -206,6 +206,6 @@
 
 </div>
 
-<script src="~/js/Promo/createPromo.js"></script>
-<script src="~/js/Promo/promoSlider.js"></script>
-<link rel="stylesheet" href="~/css/promo.css" />
+<script src="~/js/Promo/createPromo.min.js"></script>
+<script src="~/js/Promo/promoSlider.min.js"></script>
+<link rel="stylesheet" href="~/css/promo.min.css" />

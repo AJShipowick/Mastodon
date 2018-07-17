@@ -4,7 +4,7 @@
 
 <div id="ajaxLoading" class="row">
     <br /><br />
-    <div class="col-md-6" style="left:50%">
+    <div class="col-sm-6" style="left:50%">
         <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
     </div>
 </div>
@@ -13,7 +13,7 @@
 <div hidden id="promoDetailsApp">
  
     <div class="row">
-        <div class="panel panel-primary col-md-9 col-md-offset-1">
+        <div class="panel panel-primary col-sm-9 col-sm-offset-1">
             <div class="panel-heading">
                 <h1>{{PromoDetails.PromoName}} </h1>
             </div>
@@ -30,14 +30,14 @@
 
     <div v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length > 0">
         <div class="row">
-            <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg col-md-offset-1">
+            <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg col-sm-offset-1">
                 <i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries
             </div>
         </div>
         <br /><br />
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-1">
+            <div class="col-sm-8 col-sm-offset-1">
                 <table class="table well">
                     <thead>
                         <tr>
@@ -57,4 +57,4 @@
     </div>
 </div>
 
-<script src="~/js/Promo/promoDetails.js"></script>
+<script src="~/js/Promo/promoDetails.min.js"></script>

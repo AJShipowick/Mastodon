@@ -5,7 +5,7 @@
 <!--Vue container-->
 <div id="dashboardApp">
 
-    <div class="col-md-6" style="left:50%" id="ajaxLoading">
+    <div class="col-sm-6" style="left:50%" id="ajaxLoading">
         <br /><br /><br />
         <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
         <!--todo, add help doc or video on how/why to create promotions when there is not one active yet.....-->
@@ -13,12 +13,12 @@
 
     <div hidden id="activePromoData">
         <div class="row">
-            <div class="col-md-6" role="alert">
+            <div class="col-sm-6" role="alert">
                 <div class="alert alert-danger helpText" v-on:click="showUserScriptInfo()">
                     <p style="text-align:center"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> Site Script Info (Action Required)</p>
                 </div>
             </div>
-            <div class="col-md-6" style="padding-top:15px">
+            <div class="col-sm-6" style="padding-top:15px">
                 <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index"
                    title="Manage Account">                    
                     <div v-if="Dashboard.AccountWarning == true"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> {{Dashboard.DashboardMessage}}</div>
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div v-cloak v-if="Dashboard.ActivePromoName === null">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotion currently</h3>
                     <h3>
                         <a id="createPromo"
@@ -43,14 +43,14 @@
                     </h3>
                 </div>
             </div>
-            <div v-if="Dashboard.ActivePromoName !== null" class="col-md-6">
+            <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
                 <h2><i class="fa fa-flash" style="color:red" aria-hidden="true"></i> Active Promotion</h2>
                 <div class="row">
                     <div v-if="Dashboard.ActivePromoName">
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                             <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-sm-8">
                             <a id="createPromo"
                                asp-area="Promotion"
                                asp-controller="CreatePromo"
@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div v-if="Dashboard.ActivePromoName !== null" class="col-md-6">
+            <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
                 <div v-if="Dashboard.ActivePromoViews > 0">
                     <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
                     <div id="pieChartStats"></div>
@@ -99,12 +99,12 @@
 
     <div hidden id="inactivePromoData" v-if="Dashboard.InactivePromos !== null">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <h3><i class="fa fa-star-half-full" style="color:red" aria-hidden="true"></i> Inactive Promotions</h3>
             </div>
         </div>
         <div v-for="promo in Dashboard.InactivePromos">
-            <div class="col-md-3" style="padding:5px">
+            <div class="col-sm-3" style="padding:5px">
                 <div class="card">
                     <i v-on:click="editOldPromo(promo.PromoId, false)"
                        class="fa fa-pencil-square-o helpText"
@@ -184,5 +184,5 @@
     </div>
 </div>
 
-<script src="~/js/Promo/dashboard.js"></script>
+<script src="~/js/Promo/dashboard.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

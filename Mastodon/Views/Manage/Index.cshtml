@@ -10,7 +10,7 @@
     <h3 class="text-success">@ViewData["StatusMessage"]</h3>
 </div>
 
-<div class="col-md-offset-2">
+<div class="col-sm-offset-2">
     <h2 style="color:red">@Model.AccountMessage</h2>
     <br />
 </div>
@@ -25,7 +25,7 @@
 <form asp-controller="Manage" asp-action="UpgradeAccountPlan" method="post">
     <div class="row">
         <div hidden id="currentSubscriptionPlan">@Model.PaymentViewModel.SubscriptionPlan</div>
-        <div class="form-group col-md-4 col-md-offset-2">
+        <div class="form-group col-sm-4 col-sm-offset-2">
             <label asp-for="PaymentViewModel.SubscriptionPlan">Change Subscription Plan:</label>
             <select asp-for="PaymentViewModel.SubscriptionPlan" id="subscriptionPlans" class="form-control">
                 <option value="Free">Free - $0</option>
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
+        <div class="form-group col-sm-4 col-sm-offset-2">
             <div id="payBronze" hidden>
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_live_q6MpJLtoCDqXLRHA1ieOMuVl"
@@ -77,7 +77,7 @@
     </div>
 </form>
 <div class="row">
-    <div class="form-group col-md-4 col-md-offset-2">
+    <div class="form-group col-sm-4 col-sm-offset-2">
         <div id="DowngradeSubscription" hidden>
             <button class="btn btn-primary"
                     onclick="downgradeSubscription()">
@@ -87,7 +87,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-md-4 col-md-offset-2">
+    <div class="form-group col-sm-4 col-sm-offset-2">
         <p hidden id="upgradeText">Upgrade your plan!  The charges on your card will be prorated once they process through.</p>
         <p hidden id="downgradeText">Downgrade your plan!  The charges on your card will be prorated once they process through.</p>
     </div>
@@ -97,7 +97,7 @@
 @if (Model.PaymentViewModel.SubscriptionPlan != "Free")
 {
     <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
+        <div class="form-group col-sm-4 col-sm-offset-2">
             <button onclick="cancelSubscription()"
                     class="btn btn-lg btn-danger">
                 Cancel Subscription Now
@@ -108,7 +108,7 @@
 
 <h1 style="text-align:center">Account Info</h1>
 <div class="row">
-    <div class="col-md-4 col-md-offset-2">
+    <div class="col-sm-4 col-sm-offset-2">
         @if (Model.HasPassword)
         {
             <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change current password</a>
@@ -124,34 +124,34 @@
 <form asp-controller="Manage" asp-action="UpdateUserAccount" method="post">
 
     <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
+        <div class="form-group col-sm-4 col-sm-offset-2">
             <label asp-for="FirstName">First Name:</label>
             <input asp-for="FirstName" type="text" class="form-control" value="@Model.FirstName">
         </div>
-        <div class="form-group col-md-4 col-md-offset-1">
+        <div class="form-group col-sm-4 col-sm-offset-1">
             <label asp-for="LastName">Last Name:</label>
             <input asp-for="LastName" type="text" class="form-control" value="@Model.LastName">
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
+        <div class="form-group col-sm-4 col-sm-offset-2">
             <label asp-for="Website">Website:</label>
             <input asp-for="Website" type="text" class="form-control" value="@Model.Website">
         </div>
-        <div class="form-group col-md-4 col-md-offset-1">
+        <div class="form-group col-sm-4 col-sm-offset-1">
             <label asp-for="PhoneNumber">Phone Number:</label>
             <input asp-for="PhoneNumber" type="text" class="form-control" value="@Model.PhoneNumber">
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4 col-md-offset-2">
+        <div class="col-sm-4 col-sm-offset-2">
             <label for="acctCreation">Account Created On:</label>
             <label>@Model.AccountCreationDate</label>
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="form-group col-md-4 col-md-offset-2">
+        <div class="form-group col-sm-4 col-sm-offset-2">
             <button type="submit" class="btn btn-lg btn-primary">Update Account Information</button>
         </div>
     </div>
@@ -198,4 +198,4 @@
     </div>
 </div>
 
-<script src="~/js/Account/manageAccount.js"></script>
+<script src="~/js/Account/manageAccount.min.js"></script>

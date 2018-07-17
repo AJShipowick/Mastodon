@@ -1,24 +1,56 @@
-﻿// Configure bundling and minification for the project.
-// More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
     "outputFileName": "wwwroot/css/site.min.css",
-    // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/css/promo.min.css",
     "inputFiles": [
-      "wwwroot/js/site.js"
-    ],
-    // Optionally specify minification options
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    // Optionally generate .map file
-    "sourceMap": false
+      "wwwroot/css/promo.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Account/manageAccount.min.js",
+    "inputFiles": [
+      "wwwroot/js/Account/manageAccount.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Account/signIn.min.js",
+    "inputFiles": [
+      "wwwroot/js/Account/signIn.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Promo/createPromo.min.js",
+    "inputFiles": [
+      "wwwroot/js/Promo/createPromo.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Promo/dashboard.min.js",
+    "inputFiles": [
+      "wwwroot/js/Promo/dashboard.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Promo/promoDetails.min.js",
+    "inputFiles": [
+      "wwwroot/js/Promo/promoDetails.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Promo/promoSlider.min.js",
+    "inputFiles": [
+      "wwwroot/js/Promo/promoSlider.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Shared/navigation.min.js",
+    "inputFiles": [
+      "wwwroot/js/Shared/navigation.js"
+    ]
   }
 ]
