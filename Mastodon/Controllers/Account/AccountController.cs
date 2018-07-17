@@ -66,7 +66,7 @@ namespace OsOEasy.Controllers.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
@@ -79,11 +79,6 @@ namespace OsOEasy.Controllers.Account
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal("/Dashboard");
                 }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning(2, "User account locked out.");
-                    return View("Lockout");
-                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -93,6 +88,25 @@ namespace OsOEasy.Controllers.Account
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<string> RegisterGoogleUser(string name, string email)
+        {
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                //User already registered..just sign them in.
+                await _signInManager.SignInAsync(user, true);
+                return "Success";
+            }
+
+            var vm = new RegisterViewModel { UserName = name, Email = email };
+            var result = await Register(vm);
+
+            return "Success";
         }
 
         // GET: /Account/Register
@@ -125,10 +139,6 @@ namespace OsOEasy.Controllers.Account
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    Website = model.Website,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
                     SubscriptionPlan = SubscriptionOptions.FreeAccount,
                     UserPromoScript = "Site script not set yet",
                     IsNewUser = true,
@@ -139,10 +149,10 @@ namespace OsOEasy.Controllers.Account
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, true);
 
                     //Send welcome email
-                    await _emailSender.SendEmailAsync(EmailType.NewUserSignup, user.Email, user.FirstName);
+                    await _emailSender.SendEmailAsync(EmailType.NewUserSignup, user.Email, String.Empty);
 
                     _logger.LogInformation(3, "User created a new account with password.");
 

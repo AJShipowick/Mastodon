@@ -34,6 +34,7 @@ namespace OsOEasy.Services.MailGun
         public async Task<IRestResponse> SendEmailAsync(EmailType emailType, String toAddress, String userName)
         {
             IRestResponse response = null;
+            if (String.IsNullOrEmpty(userName)) { userName = toAddress.Substring(0, toAddress.IndexOf("@")); }
 
             switch (emailType)
             {

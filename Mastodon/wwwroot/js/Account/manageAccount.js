@@ -1,4 +1,6 @@
-﻿$('#subscriptionPlans').change(function () {
+﻿"use strict";
+
+$('#subscriptionPlans').change(function () {
     hideAllPaymentButtons();
     hideUpgradeDowngradeText();
 

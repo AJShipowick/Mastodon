@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace OsOEasy.Controllers.Promo
 {
     [Area("Dashboard")]
+    [Authorize]
     public class DashboardController : Controller
     {
 
@@ -39,19 +41,7 @@ namespace OsOEasy.Controllers.Promo
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
-            //todo, if new user then show something to them????Like how to use the app???
-            //ViewData["NewUser"] = user.NewUser;
-            //if (user.NewUser != false)
-            //{
-            //    using (_dbContext)
-            //    {
-            //        user.NewUser = false;
-            //        _dbContext.Update(user);
-            //        _dbContext.SaveChanges();
-            //    }
-            //}
-
-            return View();
+            return View("Dashboard");
         }
 
         [HttpGet]

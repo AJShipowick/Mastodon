@@ -5,47 +5,54 @@
     ViewData["Title"] = "OsO Easy Promo - User Login";
 }
 <meta name="Description" content="Login to your Oso Easy Promo account.">
+<meta name="google-signin-client_id" content="1029927866471-817snd2hini839grjun4p5l63t6c558n.apps.googleusercontent.com">
 
 <div class="home-header-container">
-    <h1 class="home-header">OsO Easy Promo</h1>
     <h2 style="font-family: 'Indie Flower', serif">Welcome back OsO Easy Promo user!</h2>
     <img src="~/images/osoeasypromo_panda_96.svg" />
 </div>
 
-<section>
-    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-        <div class="row">
-            <div asp-validation-summary="All" class="text-danger col-md-6 col-md-offset-1"></div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email" class="col-md-2 col-md-offset-1 control-label"></label>
-            <div class="col-md-6">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password" class="col-md-2 col-md-offset-1 control-label"></label>
-            <div class="col-md-6">
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-3 col-md-10">
-                <button type="submit" class="btn btn-lg btn-primary">Log in</button>
-            </div>
-        </div>
-        <h2 class="col-md-offset-3">
-            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
-        </h2>
-        <h3 class="col-md-offset-3">
-            <a asp-action="ForgotPassword">Forgot your password?</a>
-        </h3>
-    </form>
-</section>
+<div class="col-md-9 col-md-offset-3">
+    <div id="google-signin"></div>
+    <h3 hidden id="googleLoginStatus"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i>  Signing in with Google...</h3>
+    <br />
+</div>
+<h3 style="text-align:center">OR</h3>
 
+<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+    <div class="row">
+        <div asp-validation-summary="All" class="text-danger col-md-6 col-md-offset-1"></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 col-md-offset-1 control-label"></label>
+        <div class="col-md-6">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 col-md-offset-1 control-label"></label>
+        <div class="col-md-6">
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-10">
+            <button type="submit" class="btn btn-lg btn-primary">Sign in with Email</button>
+        </div>
+    </div>
+    <h2 class="col-md-offset-3">
+        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+    </h2>
+    <h3 class="col-md-offset-3">
+        <a asp-action="ForgotPassword">Forgot your password?</a>
+    </h3>
+</form>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/HomePage/homePage.js"></script>
+    <script src="~/js/Account/signIn.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=showGoogleLogin" async defer></script>
 }

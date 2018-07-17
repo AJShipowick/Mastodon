@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using OsOEasy.Data.Models;
-using System.Reflection;
+using System;
 
 namespace OsOEasy.Data
 {
@@ -28,7 +28,16 @@ namespace OsOEasy.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            //Connection string set when deploying app to Azure
+
+            //For local development..... 
+            //Set the project/properties/debug environment variable 'OSODBCONNECTION' as:
+            //Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=OsOEasy;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=true;
+
+            //For release, this variable must be set as the correct DB connection string in Azure
+
+            var connectionString = Environment.GetEnvironmentVariable("OSODBCONNECTION");
+
+            builder.UseSqlServer(connectionString);
         }
 
         //To update the SQL Server DB scripts and structure run the following commands in Package Manager Console

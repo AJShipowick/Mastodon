@@ -4,29 +4,16 @@ namespace OsOEasy.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
+
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email (User Name)")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Website")]
-        public string Website { get; set; }
-
-        [Required]
-        [Display(Name = "FirstName")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "LastName")]
-        public string LastName { get; set; }
-
-        [Required]
-        [Display(Name ="Phone Number")]
-        public string PhoneNumber { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

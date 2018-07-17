@@ -165,15 +165,15 @@ var newPromoApp = new Vue({
             $("#deletePromoModal").modal('show');
         },
 
-        confirmDeletePromo: function () {
-            axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + newPromoApp.PromoModel.id)
-                .then(function (response) {
-                    window.location.href = '/Dashboard';
-                })
-                .catch(function (error) {
-                    //todo Handle errors
-                });
-        },
+        //confirmDeletePromo: function () {
+        //    axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + newPromoApp.PromoModel.id)
+        //        .then(function (response) {
+        //            window.location.href = '/Dashboard';
+        //        })
+        //        .catch(function (error) {
+        //            //todo Handle errors
+        //        });
+        //},
 
         showHelpStep1: function () {
             $("#promoHelpModalStep1").modal('show');
