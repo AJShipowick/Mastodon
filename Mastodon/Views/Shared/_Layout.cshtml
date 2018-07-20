@@ -63,9 +63,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    <li><a id="home" onclick="clickNavigation('home');" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a id="features" onclick="clickNavigation('features');" asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
-                    <li><a id="pricing" onclick="clickNavigation('pricing');" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
+                    <li><a id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
+                    <li><a id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
+                    <li><a id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
@@ -91,7 +92,7 @@
         @RenderBody()
     </div>
     <footer>
-        <p>&copy; @DateTime.Now.Year - OsO Easy Promo</p>
+        <p>&copy; @DateTime.Now.Year - Oso Easy Promo</p>
 
         <!--Bootstrap JS-->
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"

@@ -14,7 +14,7 @@
                 document.getElementsByTagName('head')[0].appendChild(script);
 
             } else {                
-                console.log('OsO Easy Promo Error' + request.responseText)
+                console.log('Oso Easy Promo Error' + request.responseText)
             }
         }
     };

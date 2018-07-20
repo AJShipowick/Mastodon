@@ -24,11 +24,11 @@ namespace OsOEasy.API.Services
     public class MailGunEmailSender : IMailGunEmailSender
     {
 
-        private static readonly string From_CEO = "Adam@OsOEasyPromo.com";
-        private static readonly string From_Support = "Support@OsOEasyPromo.com";
+        private static readonly string From_CEO = "Adam@OsoEasyPromo.com";
+        private static readonly string From_Support = "Support@OsoEasyPromo.com";
 
         private static readonly string Email_Signature = "\r\n\r\n" +
-                                                    "Made possible by www.OsOEasyPromo.com";
+                                                    "Made possible by www.OsoEasyPromo.com";
         private static readonly string Email_Signature_CEO = "\r\n\r\n" +
                                             "Happy Promotions!\r\n\r\n" +
                                             "Adam Shipowick, CEO and Founder";
@@ -40,10 +40,10 @@ namespace OsOEasy.API.Services
         #endregion
 
         #region Promotion Limit Notice      
-        private static string Subject_LimitNotice = "{0}, Action required, your OsO Easy Promo plan limit has been reached";
+        private static string Subject_LimitNotice = "{0}, Action required, your Oso Easy Promo plan limit has been reached";
         private static string Message_LimitNotice = "Hi {0}, it looks like you have exceeded your current plan limits for accepting promotion entries.  " +
                                                         "No more entries will be accepted unless you upgrade your plan. \r\n" +
-                                                        "Please visit your www.OsOEasyPromo.com Dashboard and upgrade your current plan to continue accepting promotion entries.";
+                                                        "Please visit your www.OsoEasyPromo.com Dashboard and upgrade your current plan to continue accepting promotion entries.";
         #endregion
 
 

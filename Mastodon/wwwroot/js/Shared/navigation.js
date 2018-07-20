@@ -6,6 +6,8 @@
         $('#features').addClass('navClicked')
     } else if (path.indexOf("PRICING") !== -1) {
         $('#pricing').addClass('navClicked')
+    } else if (path.indexOf("CONTACT") !== -1) {
+        $('#contact').addClass('navClicked')
     } else if (path.indexOf("DASHBOARD") !== -1 || (path.indexOf("DETAILS")) !== -1) {
         $('#dashboard').addClass('navClicked')
     } else if (path.indexOf("CREATEPROMO") !== -1) {
@@ -21,5 +23,4 @@
     } else {
         $('#home').addClass('navClicked')
     }
-
 })();

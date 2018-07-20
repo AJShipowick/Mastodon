@@ -14,6 +14,7 @@ namespace OsOEasy.Services.MailGun
     {
         Task<IRestResponse> SendEmailAsync(EmailType emailType, String toAddress, String userName);
         Task<IRestResponse> SendResetPasswordEmailAsync(EmailType emailType, String toAddress, String userName, String callbackURL);
+        Task<IRestResponse> SendContactRequestAsync(EmailType emailType, String userEmail, String userComment);
     }
 
     public enum EmailType
@@ -25,12 +26,12 @@ namespace OsOEasy.Services.MailGun
         DowngradeSubscription_PaidToPaid,
         DowngradeSubscription_PaidToFree,
         CancelSubscription,
+        UserContactRequest,
         Unknown
     }
 
     public class MailGunEmailSender : IMailGunEmailSender
     {
-
         public async Task<IRestResponse> SendEmailAsync(EmailType emailType, String toAddress, String userName)
         {
             IRestResponse response = null;
@@ -99,6 +100,16 @@ namespace OsOEasy.Services.MailGun
             response = await SendMailAsync(emailType, MailGunMessages.From_Support, toAddress, MailGunMessages.Subject_ResetPassword,
                         String.Format(MailGunMessages.Message_ResetPassword, userName) + String.Format(MailGunMessages.Action_ResetPassword, callbackURL) +
                         MailGunMessages.Email_Signature);
+
+            return response;
+        }
+
+        public async Task<IRestResponse> SendContactRequestAsync(EmailType emailType, string userEmail, string userComment)
+        {
+            IRestResponse response = null;
+
+            response = await SendMailAsync(emailType, userEmail, MailGunMessages.From_Support, "User question",
+                        userComment);
 
             return response;
         }

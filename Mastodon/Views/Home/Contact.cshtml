@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Oso Easy Promo Contact - Contact us with any questions you have";
+    ViewData["MetaDescription"] = "Contact Oso Easy Promo support.  Fast and friendly support questions answered.";
+}
+
+<div class="home-header-container">
+    <h1 class="home-header">Oso Easy Promo</h1>
+    <h2 style="font-family: 'Indie Flower', serif">Use the form below to contact us directly</h2>
+</div>
+
+<div class="row">
+    <div class="form-group col-sm-6 col-sm-offset-3">
+        <label for="userEmail">Email address</label>
+        <input type="email" class="form-control" id="userEmail">
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-sm-offset-3">
+        <label for="userComment">Enter question/comment below</label>
+        <textarea class="form-control" id="userComment" rows="4"></textarea>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div onclick="contactUs()" class="btn btn-primary">Send contact request</div>
+    </div>
+</div>
+<div hidden style="text-align:center; color:red" id="sendConfirmation">Email sent, thanks!</div>
+
+<br />
+
+<div class="row" style="text-align:center">
+    <h1>Feel free to email support directly at:</h1>
+    <h3>Support@OsoEasyPromo.com</h3>
+</div>
+
+<script src="~/js/HomePage/homePage.js"></script>
