@@ -52,5 +52,11 @@
     "inputFiles": [
       "wwwroot/js/Shared/navigation.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/HomePage/homePage.min.js",
+    "inputFiles": [
+      "wwwroot/js/HomePage/homePage.js"
+    ]
   }
 ]
