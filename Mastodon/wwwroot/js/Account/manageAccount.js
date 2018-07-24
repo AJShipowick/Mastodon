@@ -46,17 +46,11 @@ function userDowngradingSubscription(currentPlan, selectedPlan) {
             return false;
         }
     }
-
-    if (currentPlan === "Gold") {
-        $("#downgradeText").show();
-        return true;
-    }
 }
 
 function hideAllPaymentButtons() {
     $("#payBronze").hide();
     $("#paySilver").hide();
-    $("#payGold").hide();
     $("#DowngradeSubscription").hide();
 }
 

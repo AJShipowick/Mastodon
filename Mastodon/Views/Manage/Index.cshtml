@@ -29,9 +29,8 @@
             <label asp-for="PaymentViewModel.SubscriptionPlan">Change Subscription Plan:</label>
             <select asp-for="PaymentViewModel.SubscriptionPlan" id="subscriptionPlans" class="form-control">
                 <option value="Free">Free - $0</option>
-                <option value="Bronze">Bronze - $99 / month</option>
-                <option value="Silver">Silver - $299 / month</option>
-                <option value="Gold">Gold - $1,499 / month</option>
+                <option value="Bronze">Bronze - $9.99 / month</option>
+                <option value="Silver">Silver - $19.99 / month</option>
             </select>
         </div>
     </div>
@@ -40,7 +39,7 @@
             <div id="payBronze" hidden>
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_live_q6MpJLtoCDqXLRHA1ieOMuVl"
-                        data-amount="9900"
+                        data-amount="999"
                         data-name="OsO Easy Promo"
                         data-description="Bronze Plan Monthly Subscription"
                         data-image="https://www.osoeasypromo.com/images/osoeasypromo_panda.png"
@@ -52,24 +51,12 @@
             <div id="paySilver" hidden>
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_live_q6MpJLtoCDqXLRHA1ieOMuVl"
-                        data-amount="29900"
+                        data-amount="1999"
                         data-name="OsO Easy Promo"
                         data-description="Silver Plan Monthly Subscription"
                         data-image="https://www.osoeasypromo.com/images/osoeasypromo_panda.png"
                         data-zip-code="true"
                         data-label="Pay Silver Plan"
-                        data-locale="auto">
-                </script>
-            </div>
-            <div id="payGold" hidden>
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_live_q6MpJLtoCDqXLRHA1ieOMuVl"
-                        data-amount="149900"
-                        data-name="OsO Easy Promo"
-                        data-description="Gold Plan Monthly Subscription"
-                        data-image="https://www.osoeasypromo.com/images/osoeasypromo_panda.png"
-                        data-zip-code="true"
-                        data-label="Pay Gold Plan"
                         data-locale="auto">
                 </script>
             </div>

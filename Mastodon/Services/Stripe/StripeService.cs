@@ -93,34 +93,18 @@ namespace OsOEasy.Services.Stripe
             string oldSubName = GetPlanNameFromId(oldSubscriptionId);
             string newSubname = GetPlanNameFromId(newSubscriptionId);
 
-            if (newSubname == SubscriptionOptions.Gold)
-            {
-                return EmailType.UpgradeSubscription;
-            }
-            else if (oldSubName == SubscriptionOptions.Gold && newSubname != SubscriptionOptions.FreeAccount)
-            {
-                return EmailType.DowngradeSubscription_PaidToPaid;
-            }
-            else if (newSubname == SubscriptionOptions.FreeAccount)
+            if (newSubname == SubscriptionOptions.FreeAccount)
             {
                 return EmailType.DowngradeSubscription_PaidToFree;
             }
-
-            if (newSubname == SubscriptionOptions.Silver)
+            else if (newSubname == SubscriptionOptions.Silver)
             {
-                if (oldSubName == SubscriptionOptions.Gold)
-                {
-                    return EmailType.DowngradeSubscription_PaidToPaid;
-                }
-                else
-                {
-                    return EmailType.UpgradeSubscription;
-                }
+                return EmailType.UpgradeSubscription;
             }
 
             if (newSubname == SubscriptionOptions.Bronze)
             {
-                if (oldSubName == SubscriptionOptions.Gold || oldSubName == SubscriptionOptions.Silver)
+                if (oldSubName == SubscriptionOptions.Silver)
                 {
                     return EmailType.DowngradeSubscription_PaidToPaid;
                 }
@@ -131,7 +115,6 @@ namespace OsOEasy.Services.Stripe
             }
 
             return EmailType.Unknown;
-
         }
 
         public void CancleCustomerSubscription(ApplicationUser dbUser)
@@ -193,8 +176,6 @@ namespace OsOEasy.Services.Stripe
                     return SubscriptionOptions.BronzePlanID;
                 case SubscriptionOptions.Silver:
                     return SubscriptionOptions.SilverPlanID;
-                case SubscriptionOptions.Gold:
-                    return SubscriptionOptions.GoldPlanID;
                 default:
                     return "UnknownID";
             }
@@ -208,8 +189,6 @@ namespace OsOEasy.Services.Stripe
                     return SubscriptionOptions.Bronze;
                 case SubscriptionOptions.SilverPlanID:
                     return SubscriptionOptions.Silver;
-                case SubscriptionOptions.GoldPlanID:
-                    return SubscriptionOptions.Gold;
                 default:
                     return "UnknownID";
             }

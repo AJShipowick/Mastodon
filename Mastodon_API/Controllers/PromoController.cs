@@ -56,7 +56,7 @@ namespace OsOEasy.API.Controllers
                     ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientID).First();
                     if (!_SubscriptionService.SubscriptionWithinTrafficLimit(appUser, _DbContext) || appUser.AccountSuspended)
                     {
-                        return "ERROR, issue found with OsOEasyPromo account, please check account status at OsOEasyPromo.com!";
+                        return "ERROR, issue found with OsOEasyPromo account, please check account status at OsoEasyPromo.com!";
                     }
 
                     if (clientPromotion != null)

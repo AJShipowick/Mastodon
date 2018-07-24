@@ -26,15 +26,15 @@ namespace OsOEasy.API.Services
             switch (user.SubscriptionPlan)
             {
                 case SubscriptionOptions.FreeAccount:
-                    //0-100 Claims a month
+                    //0-25 Claims a month
                     subscriptionWithinTrafficLimit = promoClaimsThisMonth <= SubscriptionOptions.MaxFreeAccountClaims;
                     break;
                 case SubscriptionOptions.Bronze:
-                    //Up to 1,500 Claims a month
+                    //Up to 500 Claims a month
                     subscriptionWithinTrafficLimit = promoClaimsThisMonth <= SubscriptionOptions.MaxBronzeAccountClaims;
                     break;
                 case SubscriptionOptions.Silver:
-                    //Up to 5,000 Claims a month
+                    //Up to 2000 Claims a month
                     subscriptionWithinTrafficLimit = promoClaimsThisMonth <= SubscriptionOptions.MaxSilverAccountClaims;
                     break;
                 case SubscriptionOptions.Gold:
