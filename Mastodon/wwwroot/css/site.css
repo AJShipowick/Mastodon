@@ -17,6 +17,7 @@ body {
 }
 
 .home-header-container {
+    padding-top:50px;
     text-align: center;
 }
 
@@ -34,6 +35,39 @@ body {
 }
 
     .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+.card-bronze {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: #CD7F32;
+    padding: 10px;
+}
+
+    .card-bronze:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+.card-silver {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: #dcdcdc;
+    padding: 10px;
+}
+
+    .card-silver:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+.card-gold {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: #ffbf00;
+    padding: 10px;
+}
+
+    .card-gold:hover {
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
 
