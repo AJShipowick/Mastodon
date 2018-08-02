@@ -93,7 +93,32 @@
     @RenderBody()
 
     <footer>
-        <p>&copy; @DateTime.Now.Year - Oso Easy Promo</p>
+        <section style="background-color:#999">
+            <br />
+            <div class="container">
+                <div class="row">
+                    <div class="input-group mb-3 col-sm-5 offset-sm-1">
+
+                        <a class="nav-link" id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link" id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a>
+                        <a class="nav-link" id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a>
+                        <a class="nav-link" id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
+                        <a class="nav-link" id="blog" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a>
+
+                    </div>
+                    <div class="input-group mb-3 col-sm-4 offset-sm-2">
+                        <h4>Request more information</h4>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-primary" type="button" id="freePromoArticle">Send Request</button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Email Address" aria-describedby="freePromoArticle">
+                    </div>
+                </div>
+                <div class="row">
+                    <p>&copy; @DateTime.Now.Year - Oso Easy Promo</p>
+                </div>
+            </div>
+        </section>
 
         <!--Bootstrap JS-->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
