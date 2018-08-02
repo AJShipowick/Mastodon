@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -57,7 +58,20 @@ namespace OsOEasy
                 options.Password.RequireNonAlphanumeric = false;
             });
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("Default",
+                    new CacheProfile()
+                    {
+                        Duration = 86400 //86400 seconds = 1 day
+                    });
+                options.CacheProfiles.Add("Never",
+                    new CacheProfile()
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();

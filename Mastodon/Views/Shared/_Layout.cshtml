@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="theme-color" content="#005eff" />
     <meta name="Description" content="@ViewData["MetaDescription"]" />
 
     <title>@ViewData["Title"]</title>
@@ -48,7 +49,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg fixed-top box-shadow header-shadow" style="background-color:#fff">
         <div class="container">
 
@@ -89,46 +89,6 @@
             </div>
         </div>
     </nav>
-
-    @*<nav class="navbar fixed-top navbar-expand box-shadow header-shadow" style="background-color:#fff">
-            <div class="container">
-                <div class="navbar-header">
-                        <button type="button" class="navbar-toggle small-nav fa-align-justify" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/osoeasypromo_panda_48.svg" /> </a>
-                    </div>
-
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-
-                        <li><a id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
-                        <li><a id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
-                        <li><a id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
-                        <li><a id="blog" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a></li>
-
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li><a id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Dashboard</a></li>
-                            <li><a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo"><i class="fa fa-rocket fa-lg" style="color:red" aria-hidden="true"></i> Create Promo</a></li>
-                        }
-                        else
-                        {
-                            <li style="padding:10px">
-                                <div onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-primary">Try For Free</div>
-                            </li>
-                        }
-                    </ul>
-
-                    @await Html.PartialAsync("_LoginPartial")
-
-                </div>
-            </div>
-        </nav>*@
 
     @RenderBody()
 
