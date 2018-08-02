@@ -6,23 +6,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="Description" content="@ViewData["MetaDescription"]"/>
+    <meta name="Description" content="@ViewData["MetaDescription"]" />
 
     <title>@ViewData["Title"]</title>
     <link rel="icon" type="image/x-icon" href="~/favicon.ico">
 
     <!--jQuery-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"
-            asp-append-version="true"
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous" asp-append-version="true"
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <!--HTTP library for AJAX Request (https://github.com/mzabriskie/axios)-->
     <script async src="https://unpkg.com/axios@0.16.2/dist/axios.min.js" asp-append-version="true"></script>
 
     <!--Bootstrap CSS-->
-    <link async rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
           asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 
@@ -41,65 +41,105 @@
     </environment>
     <environment names="Staging,Production">
         <!--Reference here instead of in footer because of null reference of Vue in a View-->
-        <script src="https://unpkg.com/vue@2.4.4/dist/vue.min.js" asp-append-version="true"
+        <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js" asp-append-version="true"
                 asp-fallback-src="~/lib/vue/vue/min.js">
         </script>
     </environment>
 </head>
 
 <body>
-    <nav class="navbar navbar-fixed-top box-shadow header-shadow" style="background-color:#fff">
+
+    <nav class="navbar navbar-expand-lg fixed-top box-shadow header-shadow" style="background-color:#fff">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle small-nav fa-align-justify" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/osoeasypromo_panda_48.svg" /> </a>
-            </div>
 
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+            <button style="color:black" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
 
-                    <li><a id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
-                    <li><a id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
-                    <li><a id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="blog" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a>
+                    </li>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li style="padding:10px">|</li>
-                        <li><a id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Promo Dashboard</a></li>
-                        <li><a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo"><i class="fa fa-rocket fa-lg" style="color:red" aria-hidden="true"></i> Create New Promo</a></li>
-                    }
-                    else
-                    {
-                        <li style="padding:10px">
-                            <div onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-primary">Try For Free</div>
+                        <li class="nav-item">
+                            <a class="nav-link" id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo"><i class="fa fa-rocket fa-lg" style="color:red" aria-hidden="true"></i> Create Promo</a>
                         </li>
                     }
                 </ul>
-
                 @await Html.PartialAsync("_LoginPartial")
-
             </div>
         </div>
     </nav>
 
-    <div id="contentContainer" class="container body-content">
-        @RenderBody()
-    </div>
+    @*<nav class="navbar fixed-top navbar-expand box-shadow header-shadow" style="background-color:#fff">
+            <div class="container">
+                <div class="navbar-header">
+                        <button type="button" class="navbar-toggle small-nav fa-align-justify" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/images/osoeasypromo_panda_48.svg" /> </a>
+                    </div>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+
+                        <li><a id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a></li>
+                        <li><a id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a></li>
+                        <li><a id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                        <li><a id="blog" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a></li>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li><a id="dashboard" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Dashboard"><i class="fa fa-gears fa-lg" style="color:red" aria-hidden="true"></i> Dashboard</a></li>
+                            <li><a id="createPromo" asp-area="Promotion" asp-controller="CreatePromo" asp-action="CreateNewPromo"><i class="fa fa-rocket fa-lg" style="color:red" aria-hidden="true"></i> Create Promo</a></li>
+                        }
+                        else
+                        {
+                            <li style="padding:10px">
+                                <div onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-primary">Try For Free</div>
+                            </li>
+                        }
+                    </ul>
+
+                    @await Html.PartialAsync("_LoginPartial")
+
+                </div>
+            </div>
+        </nav>*@
+
+    @RenderBody()
+
     <footer>
         <p>&copy; @DateTime.Now.Year - Oso Easy Promo</p>
 
         <!--Bootstrap JS-->
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+                integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy">
         </script>
 
         @RenderSection("Scripts", required: false)

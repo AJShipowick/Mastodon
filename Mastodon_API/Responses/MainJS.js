@@ -1,7 +1,7 @@
 ﻿//***********************************************************************************************
 //***********************************************************************************************
-//Use this file to generate a minified version to be used in MainJS.cs class
-//Using single quotes instead of double quotes to help with the string minification process
+//This file will be minified during the bild process via bundleconfig.json
+//Keep all JS pure here, no JQuery as this will be sent to clients that may not have JQuery
 //***********************************************************************************************
 //***********************************************************************************************
 
@@ -21,6 +21,7 @@
     }
 
     function handleHTMLCallback(data) {
+        if (data.includes('Error')) { return; }
         document.getElementById('osoContainer').innerHTML = data;
     }
 
@@ -50,7 +51,6 @@
 
 function submitOSOEasyPromotion() {
     document.getElementById('osoPromoResponseMessage').style.display = 'none'
-
 
     let name = document.getElementById('osoUserName').value;
     let email = document.getElementById('osoUserEmail').value;

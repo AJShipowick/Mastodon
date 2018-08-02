@@ -8,6 +8,8 @@
         $('#pricing').addClass('navClicked')
     } else if (path.indexOf("CONTACT") !== -1) {
         $('#contact').addClass('navClicked')
+    } else if (path.indexOf("BLOG") !== -1) {
+        $('#blog').addClass('navClicked')
     } else if (path.indexOf("DASHBOARD") !== -1 || (path.indexOf("DETAILS")) !== -1) {
         $('#dashboard').addClass('navClicked')
     } else if (path.indexOf("CREATEPROMO") !== -1) {

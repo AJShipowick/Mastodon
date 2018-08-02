@@ -34,6 +34,11 @@ namespace OsOEasy.Controllers.Home
             return View();
         }
 
+        public IActionResult Blog()
+        {
+            return View();
+        }
+
         public void SendContactRequest(string userEmail, string userComment)
         {
             _emailSender.SendContactRequestAsync(EmailType.UserContactRequest, userEmail, userComment);

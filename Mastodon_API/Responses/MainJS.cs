@@ -1,4 +1,8 @@
-﻿namespace OsOEasy.API.Responses
+﻿using Microsoft.AspNetCore.Hosting;
+using OsOEasy.API.Shared;
+using System.IO;
+
+namespace OsOEasy.API.Responses
 {
     public interface IMainJS
     {
@@ -7,16 +11,26 @@
 
     public class MainJS : IMainJS
     {
+        private IHostingEnvironment _env;
+
+        public MainJS(IHostingEnvironment env)
+        {
+            _env = env;
+        }
 
         /// <summary>
-        /// Gets the main JS to load user defined HTML/CSS/JS in other calls.
-        /// The only varibles here id the clientID that relates currently to only 1 website and 1 promotion.
+        /// Gets the main JS to load user defined HTML/CSS/JS in other calls.        
         /// </summary>
-        /// <param name="clientWebsiteData"></param>
         public string GetMainJS(string clientId, string promotionId)
         {
-            //This minified string is built from MainJS.js
-            string minJS = "(function(){function b(h){document.getElementById('osoContainer').innerHTML=h}function d(h){let i=document.createElement('style');i.type='text/css',i.innerHTML=h,document.getElementsByTagName('head')[0].appendChild(i)}function f(h){let i=document.createElement('script');i.innerHTML=h,document.getElementsByTagName('head')[0].appendChild(i)}let g=document.createElement('div');g.setAttribute('id','osoContainer'),document.body.appendChild(g),document.getElementById('osoContainer').style.right='-300px',function(){getSlickResource('https://api.osoeasypromo.com/api/promo/html/?',b)}(),function(){getSlickResource('https://api.osoeasypromo.com/api/promo/css/?',d)}(),function(){getSlickResource('https://api.osoeasypromo.com/api/promo/js/?',f)}()})();function submitOSOEasyPromotion(){document.getElementById('osoPromoResponseMessage').style.display='none';let a=document.getElementById('osoUserName').value,b=document.getElementById('osoUserEmail').value;if(!a||!b){let d=document.getElementById('osoPromoResponseMessage');return d.innerHTML='Please fill out all form fields.',d.style.color='red',void(document.getElementById('osoPromoResponseMessage').style.display='block')}getSlickResource('https://api.osoeasypromo.com/api/promo/submit/?/'+a+'/'+b+'/CLIENTID',handleSubmitCallback)}function getSlickResource(a,b){let c=new XMLHttpRequest;c.onreadystatechange=function(){4===c.readyState&&b(c.response)},c.open('GET',a,!0),c.send()}function handleSubmitCallback(a){document.getElementById('osoFormInput').style.display='none','SUCCESS'!==a&&(document.getElementById('thankYou').innerHTML='Error sending coupon code, please verify email is correct and try again later.',console.log('Error submitting OsoEasyPromo for user: '+a)),document.getElementById('thankYou').style.display='block'}";
+
+            string minJS = File.ReadAllText("Responses/MainJS.min.js");
+
+            if (_env.IsDevelopment())
+            {
+                minJS = minJS.Replace(Common.LIVE_API_URL, Properties.Resources.Local_API_URL);
+            }
+
             minJS = minJS.Replace("CLIENTID", clientId);
             return minJS.Replace("?", promotionId);            
         }

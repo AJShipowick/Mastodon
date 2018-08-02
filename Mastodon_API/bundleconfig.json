@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "Responses/MainJS.min.js",
+    "inputFiles": [
+      "Responses/MainJS.js"
+    ]
+  },
+  {
+    "outputFileName": "Responses/JS/BasicJS.min.js",
+    "inputFiles": [
+      "Responses/JS/BasicJS.js"
+    ]
+  },
+  {
+    "outputFileName": "Responses/CSS/BasicCSS.min.css",
+    "inputFiles": [
+      "Responses/CSS/BasicCSS.css"
+    ]
+  }
+]
