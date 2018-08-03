@@ -230,6 +230,16 @@
 
 </div>
 
-<script src="~/js/Promo/createPromo.min.js"></script>
-<script src="~/js/Promo/promoSlider.min.js"></script>
-<link rel="stylesheet" href="~/css/promo.min.css" />
+<environment names="Development">
+    <script src="~/lib/vue/vue.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <!--Reference here instead of in footer because of null reference of Vue in a View-->
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js" asp-append-version="true"
+            asp-fallback-src="~/lib/vue/vue/min.js">
+    </script>
+</environment>
+
+<script async src="~/js/Promo/createPromo.min.js"></script>
+<script async src="~/js/Promo/promoSlider.min.js"></script>
+<link async rel="stylesheet" href="~/css/promo.min.css" />

@@ -5,52 +5,34 @@
 <!--Vue container-->
 <div id="dashboardApp">
 
-    <div class="col-sm-6" style="left:50%" id="ajaxLoading">
-        <br /><br /><br />
-        <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
-        <!--todo, add help doc or video on how/why to create promotions when there is not one active yet.....-->
-    </div>
-
-    <div hidden id="activePromoData">
-        <div class="row">
-            <div class="col-sm-6" role="alert">
-                <div class="alert alert-danger helpText" v-on:click="showUserScriptInfo()">
-                    <p style="text-align:center"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> Site Script Info (Action Required)</p>
-                </div>
+    <section>
+        <div class="container home-header-container">
+            <div class="col-sm-12 mx-auto" id="ajaxLoading">
+                <br /><br /><br />
+                <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+                <!--todo, add help doc or video on how/why to create promotions when there is not one active yet.....-->
             </div>
-            <div class="col-sm-6" style="padding-top:15px">
-                <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index"
-                   title="Manage Account">                    
-                    <div v-if="Dashboard.AccountWarning == true"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> {{Dashboard.DashboardMessage}}</div>
-                    <div v-if="Dashboard.AccountWarning == false"><i class="fa fa-paper-plane" aria-hidden="true"></i> {{Dashboard.DashboardMessage}}</div>
-                </a>
-            </div>
-        </div>
-        <br />
 
-        <div class="row">
-            <div v-cloak v-if="Dashboard.ActivePromoName === null">
-                <div class="col-sm-6">
-                    <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotion currently</h3>
-                    <h3>
-                        <a id="createPromo"
-                           asp-area="Promotion"
-                           asp-controller="CreatePromo"
-                           asp-action="CreateNewPromo"
-                           style="color:#005eff">
-                            <i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion
+            <div style="display:none" id="activePromoData">
+                <div class="row card-silver">
+                    <div class="col-sm-6" style="padding-top:15px">
+                        <p class="helpText" v-on:click="showUserScriptInfo()"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> Site Script Info (Action Required)</p>
+                    </div>
+                    <div class="col-sm-6" style="padding-top:15px">
+                        <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index"
+                           title="Manage Account">
+                            <div v-if="Dashboard.AccountWarning == true"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> {{Dashboard.DashboardMessage}}</div>
+                            <div v-if="Dashboard.AccountWarning == false"><i class="fa fa-paper-plane" aria-hidden="true"></i> {{Dashboard.DashboardMessage}}</div>
                         </a>
-                    </h3>
+                    </div>
                 </div>
-            </div>
-            <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
-                <h2><i class="fa fa-flash" style="color:red" aria-hidden="true"></i> Active Promotion</h2>
+                <br />
+
                 <div class="row">
-                    <div v-if="Dashboard.ActivePromoName">
-                        <div class="col-sm-4">
-                            <a v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center"><i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW</a>
-                        </div>
-                        <div class="col-sm-8">
+                    <div v-cloak v-if="Dashboard.ActivePromoName === null">
+
+                        <h3><i class="fa fa-warning" style="color:red" aria-hidden="true"></i> No active promotion currently</h3>
+                        <h3>
                             <a id="createPromo"
                                asp-area="Promotion"
                                asp-controller="CreatePromo"
@@ -58,86 +40,112 @@
                                style="color:#005eff">
                                 <i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion
                             </a>
+                        </h3>
+                    </div>
+                    <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
+                        <h2><i class="fa fa-flash" style="color:red" aria-hidden="true"></i> Active Promotion</h2>
+                        <div v-if="Dashboard.ActivePromoName" class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" v-on:click="confirmStopActivePromo()" class="btn btn-danger" style="text-align:center">
+                                        <i class="fa fa-warning" aria-hidden="true"></i> STOP PROMOTION NOW
+                                    </button>
+                                </div>
+                                <div class="col-sm-6 offset-sm-2">
+                                    <a id="createPromo"
+                                       asp-area="Promotion"
+                                       asp-controller="CreatePromo"
+                                       asp-action="CreateNewPromo"
+                                       style="color:#005eff">
+                                        <i class="fa fa-rocket" aria-hidden="true"></i> Create New Promotion
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card-white" style="width:70%">
+                            <i v-on:click="editOldPromo(Dashboard.ActivePromoId, true)"
+                               class="fa fa-pencil-square-o fa-lg helpText"
+                               style="float:left; color:#005eff"
+                               title="View or edit this promotion"
+                               aria-hidden="true"></i>
+                            <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromoName)"
+                               class="fa fa-info-circle fa-lg helpText"
+                               style="float:right; color:#005eff"
+                               title="View promotion entries"
+                               aria-hidden="true"></i>
+                            <h2 style="text-align:center">
+                                {{Dashboard.ActivePromoName}}
+                            </h2>
+                            <h3>{{Dashboard.ActivePromoDiscount}}</h3>
+                            <h4>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</h4>
+                            <h4>End Date: {{Dashboard.ActivePromoEndDate}}</h4>
+                        </div>
+                    </div>
+
+                    <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
+                        <div v-if="Dashboard.ActivePromoViews > 0">
+                            <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
+                            <div id="pieChartStats"></div>
+                        </div>
+                        <div v-if="Dashboard.ActivePromoViews == 0">
+                            <p style="color:red">
+                                Your active promotion '{{Dashboard.ActivePromoName}}' has not been viewed yet.
+                                Once there are views we will display more promotion stats.
+                            </p>
                         </div>
                     </div>
                 </div>
-                <br />
-                <div class="card" style="width:70%">
-                    <i v-on:click="editOldPromo(Dashboard.ActivePromoId, true)"
-                       class="fa fa-pencil-square-o fa-lg helpText"
-                       style="float:left; color:#005eff"
-                       title="View or edit this promotion"
-                       aria-hidden="true"></i>
-                    <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromoName)"
-                       class="fa fa-info-circle fa-lg helpText"
-                       style="float:right; color:#005eff"
-                       title="View promotion entries"
-                       aria-hidden="true"></i>
-                    <h2 style="text-align:center">
-                        {{Dashboard.ActivePromoName}}
-                    </h2>
-                    <h3>{{Dashboard.ActivePromoDiscount}}</h3>
-                    <h4>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</h4>
-                    <h4>End Date: {{Dashboard.ActivePromoEndDate}}</h4>
+            </div>
+
+            <br /><br />
+
+            <div style="display:none" id="inactivePromoData" v-if="Dashboard.InactivePromos !== null">
+                <div class="row">
+                    <h3><i class="fa fa-star-half-full" style="color:red" aria-hidden="true"></i> Inactive Promotions ({{InactivePromoCount}})</h3>
+                </div>
+                <div v-for="promo in Dashboard.InactivePromos">
+                    <div class="col-sm-3" style="padding:5px">
+                        <div class="card-white">
+                            <i v-on:click="editOldPromo(promo.PromoId, false)"
+                               class="fa fa-pencil-square-o helpText"
+                               style="float:left;color:#005eff"
+                               title="View or edit this promotion"
+                               aria-hidden="true">
+                            </i>
+                            <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
+                               style="float:right; color:#005eff"
+                               class="fa fa-info-circle helpText"
+                               title="View promotion entries"
+                               aria-hidden="true">
+                            </i>
+                            <p style="text-align:center">
+                                <i v-on:click="activatePromoNow(promo.PromoId)"
+                                   style="color:red"
+                                   class="fa fa-play-circle-o fa-lg helpText"
+                                   title="Activate this promotion now"
+                                   aria-hidden="true">
+                                </i> {{promo.PromoName}}
+                            </p>
+                            <p>{{promo.PromoDiscount}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
-                <div v-if="Dashboard.ActivePromoViews > 0">
-                    <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
-                    <div id="pieChartStats"></div>
-                </div>
-                <div v-if="Dashboard.ActivePromoViews == 0">
-                    <p style="color:red">
-                        Your active promotion '{{Dashboard.ActivePromoName}}' has not been viewed yet.
-                        Once there are views we will display more promotion stats.
-                    </p>
-                </div>
-            </div>
         </div>
-    </div>
+    </section>
 
-    <div hidden id="inactivePromoData" v-if="Dashboard.InactivePromos !== null">
-        <div class="row">
-            <div class="col-sm-6">
-                <h3><i class="fa fa-star-half-full" style="color:red" aria-hidden="true"></i> Inactive Promotions</h3>
-            </div>
-        </div>
-        <div v-for="promo in Dashboard.InactivePromos">
-            <div class="col-sm-3" style="padding:5px">
-                <div class="card">
-                    <i v-on:click="editOldPromo(promo.PromoId, false)"
-                       class="fa fa-pencil-square-o helpText"
-                       style="color:#005eff"
-                       title="View or edit this promotion"
-                       aria-hidden="true">
-                    </i>
-                    <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
-                       style="float:right; color:#005eff"
-                       class="fa fa-info-circle helpText"
-                       title="View promotion entries"
-                       aria-hidden="true">
-                    </i>
-                    <p style="text-align:center">
-                        <i v-on:click="activatePromoNow(promo.PromoId)"
-                           style="color:red"
-                           class="fa fa-play-circle-o fa-lg helpText"
-                           title="Activate this promotion now"
-                           aria-hidden="true">
-                        </i> {{promo.PromoName}}
-                    </p>
-                    <p>{{promo.PromoDiscount}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <br /><br />
 
     <div id="stopPromoModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title">Stop Active Promotion {{Dashboard.ActivePromoName}}</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <h3>Want to stop your promotion now?</h3>
@@ -152,18 +160,18 @@
     </div>
 
     <div id="userScriptModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h1 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> Your custom website script</h1>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <h3>Insert this custom script into your website source code on every page you want your promotion to display.</h3>
                     <br />
                     <p id="userScript" class="userScriptDisplay">{{Dashboard.ActivePromoScript}}</p>
                     <button type="button" class="btn btn-primary" v-on:click="copyToClipboard('#userScript')">Copy script</button>
-                    <p hidden id="copySuccess" style="color:blue">Script successfully copied to clipboard, use 'Control-V' to paste into your website!</p>
+                    <p id="copySuccess" style="color:blue; display:none">Script successfully copied to clipboard, use 'Control-V' to paste into your website!</p>
                     <p>
                         <br />
                         Adding our script to your website is very similar to installing a Google Analytics or Hotjar script.
@@ -184,5 +192,15 @@
     </div>
 </div>
 
-<script src="~/js/Promo/dashboard.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<environment names="Development">
+    <script src="~/lib/vue/vue.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <!--Reference here instead of in footer because of null reference of Vue in a View-->
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js" asp-append-version="true"
+            asp-fallback-src="~/lib/vue/vue/min.js">
+    </script>
+</environment>
+
+<script async src="~/js/Promo/dashboard.min.js"></script>
+<script async type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

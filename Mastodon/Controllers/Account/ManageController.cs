@@ -257,6 +257,14 @@ namespace OsOEasy.Controllers.Account
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            //Log out user of session
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)

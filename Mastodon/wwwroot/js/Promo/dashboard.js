@@ -3,7 +3,8 @@
 var dashboardApp = new Vue({
     el: '#dashboardApp',
     data: {
-        Dashboard: []
+        Dashboard: [],
+        InactivePromoCount: 0
     },
     created: function () {
         //get settings onLoad
@@ -14,6 +15,7 @@ var dashboardApp = new Vue({
             axios.get('/Dashboard/Dashboard/GetUserSettings')
                 .then(function (response) {
                     dashboardApp.Dashboard = response.data;
+                    dashboardApp.InactivePromoCount = response.data.InactivePromos.length;
                     $("#activePromoData").show();
                     $("#inactivePromoData").show();
                     $('#ajaxLoading').hide();

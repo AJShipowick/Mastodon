@@ -35,17 +35,7 @@
     <link async href="https://fonts.googleapis.com/css?family=Indie+Flower|Barlow+Semi+Condensed" rel="stylesheet">
 
     <!--Font Awesome CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <environment names="Development">
-        <script src="~/lib/vue/vue.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <!--Reference here instead of in footer because of null reference of Vue in a View-->
-        <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js" asp-append-version="true"
-                asp-fallback-src="~/lib/vue/vue/min.js">
-        </script>
-    </environment>
+    <link async rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -93,25 +83,16 @@
     @RenderBody()
 
     <footer>
-        <section style="background-color:#999">
+        <section style="background-color:#dcdcdc">
             <br />
             <div class="container">
                 <div class="row">
-                    <div class="input-group mb-3 col-sm-5 offset-sm-1">
-
+                    <div class="input-group mb-3">
                         <a class="nav-link" id="home" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         <a class="nav-link" id="features" asp-area="" asp-controller="Home" asp-action="Features">Features</a>
                         <a class="nav-link" id="pricing" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a>
                         <a class="nav-link" id="contact" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
                         <a class="nav-link" id="blog" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a>
-
-                    </div>
-                    <div class="input-group mb-3 col-sm-4 offset-sm-2">
-                        <h4>Request more information</h4>
-                        <div class="input-group-prepend">
-                            <button class="btn btn-primary" type="button" id="freePromoArticle">Send Request</button>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Email Address" aria-describedby="freePromoArticle">
                     </div>
                 </div>
                 <div class="row">
@@ -121,7 +102,7 @@
         </section>
 
         <!--Bootstrap JS-->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        <script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 crossorigin="anonymous"
                 integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy">
