@@ -104,30 +104,32 @@
                 <div class="row">
                     <h3><i class="fa fa-star-half-full" style="color:red" aria-hidden="true"></i> Inactive Promotions ({{InactivePromoCount}})</h3>
                 </div>
-                <div v-for="promo in Dashboard.InactivePromos">
-                    <div class="col-sm-3" style="padding:5px">
-                        <div class="card-white">
-                            <i v-on:click="editOldPromo(promo.PromoId, false)"
-                               class="fa fa-pencil-square-o helpText"
-                               style="float:left;color:#005eff"
-                               title="View or edit this promotion"
-                               aria-hidden="true">
-                            </i>
-                            <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
-                               style="float:right; color:#005eff"
-                               class="fa fa-info-circle helpText"
-                               title="View promotion entries"
-                               aria-hidden="true">
-                            </i>
-                            <p style="text-align:center">
-                                <i v-on:click="activatePromoNow(promo.PromoId)"
-                                   style="color:red"
-                                   class="fa fa-play-circle-o fa-lg helpText"
-                                   title="Activate this promotion now"
+                <div class="row">
+                    <div v-for="promo in Dashboard.InactivePromos" class="col-sm-3">
+                        <div style="padding:5px">
+                            <div class="card-white">
+                                <i v-on:click="editOldPromo(promo.PromoId, false)"
+                                   class="fa fa-pencil-square-o helpText"
+                                   style="float:left;color:#005eff"
+                                   title="View or edit this promotion"
                                    aria-hidden="true">
-                                </i> {{promo.PromoName}}
-                            </p>
-                            <p>{{promo.PromoDiscount}}</p>
+                                </i>
+                                <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
+                                   style="float:right; color:#005eff"
+                                   class="fa fa-info-circle helpText"
+                                   title="View promotion entries"
+                                   aria-hidden="true">
+                                </i>
+                                <p style="text-align:center">
+                                    <i v-on:click="activatePromoNow(promo.PromoId)"
+                                       style="color:red"
+                                       class="fa fa-play-circle-o fa-lg helpText"
+                                       title="Activate this promotion now"
+                                       aria-hidden="true">
+                                    </i> {{promo.PromoName}}
+                                </p>
+                                <p>{{promo.PromoDiscount}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,9 +145,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">Stop Active Promotion {{Dashboard.ActivePromoName}}</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h3>Want to stop your promotion now?</h3>
@@ -164,7 +164,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title"><i class="fa fa-code" style="color:red" aria-hidden="true"></i> Your custom website script</h1>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <h3>Insert this custom script into your website source code on every page you want your promotion to display.</h3>

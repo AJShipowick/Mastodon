@@ -1,4 +1,7 @@
-﻿using OsOEasy.Data.Models;
+﻿using Microsoft.AspNetCore.Hosting;
+using OsOEasy.API.Shared;
+using OsOEasy.Data.Models;
+using System.IO;
 
 namespace OsOEasy.API.Responses.HTML
 {
@@ -10,13 +13,26 @@ namespace OsOEasy.API.Responses.HTML
 
     public class BasicHTML : IBasicHTML
     {
+
+        private IHostingEnvironment _env;
+
+        public BasicHTML(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+
         public string getSliderHTML(Promotion promotion)
         {
-            //todo use stringBuilder???
-            //built from SliderHTML.html
-            string minHTML = "<img id='osoImage' src='?image?' style='right:0px' onclick='osoSliderClicked()'/><div id='osoContactForm' class='osoFont'> <h2>?title?</h2> <h3>?discount?</h3> <p>Ends: ?endDate?</p><dl> <dt>?details1?</dt> <dt>?details2?</dt> </dl> <p><small>?finePrint?</small></p><div id='osoFormInput'> <div class='osoInputBox'> <input required id='osoUserName' type='text' placeholder='Full name'> </div><div class='osoInputBox'> <input required id='osoUserEmail' type='text' placeholder='Email'> </div><p id='osoPromoResponseMessage'></p><div style='text-align:center'> <button id='osoButton' class='button' onclick='submitOSOEasyPromotion()'>Claim Promotion</button> </div></div><div id='thankYou' hidden> <h2>?thankYou?</h2> </div><div style='text-align:center'> <a target='_blank' href='https://www.OsoEasyPromo.com' style='font-size:60%; color:black'>Built with OsoEasyPromo</a> </div></div>";
-            minHTML = minHTML.Replace("?image?", string.Format("https://api.osoeasypromo.com/images/Promo/{0}/{1}",
-                    promotion.ImageType, promotion.ImageName));
+            string minHTML = File.ReadAllText("Responses/HTML/BasicHTML.min.html");
+
+            minHTML = minHTML.Replace("?image?", string.Format("'https://api.osoeasypromo.com/images/Promo/{0}/{1}",
+                    promotion.ImageType, promotion.ImageName + "'"));
+
+            if (_env.IsDevelopment())
+            {
+                minHTML = minHTML.Replace(Common.LIVE_API_URL, Properties.Resources.Local_API_URL);
+            }
+
             minHTML = minHTML.Replace("?title?", promotion.Title);
             minHTML = minHTML.Replace("?discount?", promotion.Discount);
             minHTML = minHTML.Replace("?endDate?", promotion.EndDate);

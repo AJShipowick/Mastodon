@@ -24,11 +24,11 @@
     width: 100%;
     width: -moz-available; /* WebKit-based browsers will ignore this. */
     width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    border: ?couponBorder?;
+    border: oso_coupon_border;
     padding: 10px 20px;
     /*border-radius: 5px;  ...for rounded edges...*/ /*todo Adjust this for user*/
     box-shadow: 5px 0 50px gray; /*todo Adjust this for user*/
-    background-color: ?backgroundColor?; /*todo Adjust this for user*/
+    background-color: oso_background_color; /*todo Adjust this for user*/
     float: right;
 }
 
@@ -60,7 +60,7 @@
     }
 
 .button {
-    background-color: ?buttonColor?;
+    background-color: oso_button_color;
     border: none;
     color: white;
     padding: 5% 5%;

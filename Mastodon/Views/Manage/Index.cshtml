@@ -109,22 +109,22 @@
 
         <form asp-controller="Manage" asp-action="UpdateUserAccount" method="post">
 
-            <div class="row">
-                <div class="form-group col-sm-4 mx-auto">
+            <div class="row offset-sm-3">
+                <div class="form-group col-sm-4">
                     <label asp-for="FirstName">First Name:</label>
                     <input asp-for="FirstName" type="text" class="form-control" value="@Model.FirstName">
                 </div>
-                <div class="form-group col-sm-4 mx-auto">
+                <div class="form-group col-sm-4">
                     <label asp-for="LastName">Last Name:</label>
                     <input asp-for="LastName" type="text" class="form-control" value="@Model.LastName">
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-sm-4 mx-auto">
+            <div class="row offset-sm-3">
+                <div class="form-group col-sm-4">
                     <label asp-for="Website">Website:</label>
                     <input asp-for="Website" type="text" class="form-control" value="@Model.Website">
                 </div>
-                <div class="form-group col-sm-4 mx-auto">
+                <div class="form-group col-sm-4">
                     <label asp-for="PhoneNumber">Phone Number:</label>
                     <input asp-for="PhoneNumber" type="text" class="form-control" value="@Model.PhoneNumber">
                 </div>
@@ -136,8 +136,8 @@
                 </div>
             </div>
             <br />
-            <div class="row">
-                <div class="form-group col-sm-4 offset-sm-1">
+            <div class="row offset-sm-3">
+                <div class="form-group col-sm-4">
                     <button type="submit" class="btn btn-primary">Update Account Information</button>
                 </div>
             </div>
@@ -163,7 +163,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Stop current subscription</h2>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <h3>Want to stop your subscription now?</h3>
@@ -183,7 +182,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Downgrade current subscription</h2>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <h3>Want to downgrade your subscription now?</h3>

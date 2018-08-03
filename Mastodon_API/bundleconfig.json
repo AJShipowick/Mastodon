@@ -12,6 +12,12 @@
     ]
   },
   {
+    "outputFileName": "Responses/HTML/BasicHTML.min.html",
+    "inputFiles": [
+      "Responses/HTML/BasicHTML.html"
+    ]
+  },
+  {
     "outputFileName": "Responses/CSS/BasicCSS.min.css",
     "inputFiles": [
       "Responses/CSS/BasicCSS.css"

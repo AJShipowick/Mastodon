@@ -1,6 +1,6 @@
 ﻿//***********************************************************************************************
 //***********************************************************************************************
-//This file will be minified during the bild process via bundleconfig.json
+//This file will be minified during the build process via bundleconfig.json
 //Keep all JS pure here, no JQuery as this will be sent to clients that may not have JQuery
 //***********************************************************************************************
 //***********************************************************************************************
@@ -8,8 +8,8 @@
 (function () {
     let sliderDiv = document.createElement('div');
     sliderDiv.setAttribute('id', 'osoContainer');
+    sliderDiv.style.display = 'none';
     document.body.appendChild(sliderDiv);
-    document.getElementById('osoContainer').style.right = '-300px'
 
     loadSlickHTML();
     loadSlickCSS();
@@ -22,6 +22,8 @@
 
     function handleHTMLCallback(data) {
         if (data.includes('Error')) { return; }
+        document.getElementById('osoContainer').style.right = '-300px';
+        document.getElementById('osoContainer').style.display = 'block';
         document.getElementById('osoContainer').innerHTML = data;
     }
 
