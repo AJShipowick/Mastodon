@@ -16,7 +16,8 @@ namespace OsOEasy.API.Responses.CSS
             string minCSS = File.ReadAllText("Responses/CSS/BasicCSS.min.css");
 
             minCSS = minCSS.Replace("oso_background_color", promotion.BackgroundColor);
-            minCSS = minCSS.Replace("oso_button_color", promotion.ButtonColor);            
+            minCSS = minCSS.Replace("oso_button_color", promotion.ButtonColor);
+            minCSS = minCSS.Replace("oso_side_of_screen", promotion.SideOfScreen);
 
             if (promotion.ShowCouponBorder)
             {

@@ -6,8 +6,8 @@
 <div id="dashboardApp">
 
     <section>
-        <div class="container home-header-container">
-            <div class="col-sm-12 mx-auto" id="ajaxLoading">
+        <div class="container home-header-padding">
+            <div id="ajaxLoading" class="col-sm-12" style="text-align:center">
                 <br /><br /><br />
                 <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
                 <!--todo, add help doc or video on how/why to create promotions when there is not one active yet.....-->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6" style="padding-top:15px">
                         <p class="helpText" v-on:click="showUserScriptInfo()"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> Site Script Info (Action Required)</p>
                     </div>
-                    <div class="col-sm-6" style="padding-top:15px">
+                    <div class="col-sm-6" style="padding-top:15px; text-align:right">
                         <a id="manage" asp-area="" asp-controller="Manage" asp-action="Index"
                            title="Manage Account">
                             <div v-if="Dashboard.AccountWarning == true"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color:red"></i> {{Dashboard.DashboardMessage}}</div>
@@ -80,6 +80,7 @@
                             <h3>{{Dashboard.ActivePromoDiscount}}</h3>
                             <h4>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</h4>
                             <h4>End Date: {{Dashboard.ActivePromoEndDate}}</h4>
+                            <small style="color:red">{{Dashboard.ActivePromoWarningMessage}}</small>
                         </div>
                     </div>
 

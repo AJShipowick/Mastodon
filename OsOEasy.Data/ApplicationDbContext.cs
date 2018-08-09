@@ -33,7 +33,7 @@ namespace OsOEasy.Data
             //Set the project/properties/debug environment variable 'OSODBCONNECTION' as:
             //Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=OsOEasy;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=true;
 
-            //For release, this variable must be set as the correct DB connection string in Azure
+            //For release, 'OSODBCONNECTION' must be set as the correct DB connection string in Azure
 
             var connectionString = Environment.GetEnvironmentVariable("OSODBCONNECTION");
 

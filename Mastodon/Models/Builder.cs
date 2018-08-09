@@ -97,7 +97,8 @@ namespace OsOEasy.Promo.Models
         {
             model.ActivePromoName = activePromo.Title;
             model.ActivePromoDiscount = activePromo.Discount;
-            model.ActivePromoEndDate = activePromo.EndDate;
+            model.ActivePromoEndDate = activePromo.DisplayEndDate;
+            model.ActivePromoWarningMessage = GetActivePromoWarningMessage(activePromo.EndDate);
             model.ActivePromoId = activePromo.Id;
             //model.IsActivePromo = activePromo.ActivePromotion;
 
@@ -105,6 +106,21 @@ namespace OsOEasy.Promo.Models
 
             model.ActivePromoClaimedEntries = stats != null ? stats.TimesClaimed : 0;
             model.ActivePromoViews = stats != null ? stats.TimesViewed : 0;
+        }
+
+        private string GetActivePromoWarningMessage(string endDate)
+        {
+            var warningMessage = String.Empty;
+
+            var promoEndDate = DateTime.Parse(endDate);
+            var currentDate = DateTime.Today;
+
+            if (currentDate.Date > promoEndDate.Date)
+            {
+                warningMessage = "End date has past, promo will not display!";
+            }
+
+            return warningMessage;
         }
 
         private void SetInactivePromoDetails(Dashboard model, List<Promotion> inactivePromos)

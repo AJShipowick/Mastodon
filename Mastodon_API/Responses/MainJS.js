@@ -22,7 +22,7 @@
 
     function handleHTMLCallback(data) {
         if (data.includes('Error')) { return; }
-        document.getElementById('osoContainer').style.right = '-300px';
+        document.getElementById('osoContainer').style.oso_side_of_screen = '-300px';
         document.getElementById('osoContainer').style.display = 'block';
         document.getElementById('osoContainer').innerHTML = data;
     }

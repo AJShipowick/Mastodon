@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using OsOEasy.API.Shared;
+using OsOEasy.Data.Models;
 using System.IO;
 
 namespace OsOEasy.API.Responses
 {
     public interface IMainJS
     {
-        string GetMainJS(string clientId, string promotionId);
+        string GetMainJS(string clientId, Promotion promotion);
     }
 
     public class MainJS : IMainJS
@@ -21,7 +22,7 @@ namespace OsOEasy.API.Responses
         /// <summary>
         /// Gets the main JS to load user defined HTML/CSS/JS in other calls.        
         /// </summary>
-        public string GetMainJS(string clientId, string promotionId)
+        public string GetMainJS(string clientId, Promotion promotion)
         {
 
             string minJS = File.ReadAllText("Responses/MainJS.min.js");
@@ -32,7 +33,10 @@ namespace OsOEasy.API.Responses
             }
 
             minJS = minJS.Replace("CLIENTID", clientId);
-            return minJS.Replace("?", promotionId);            
+            minJS = minJS.Replace("oso_side_of_screen", promotion.SideOfScreen);
+            minJS = minJS.Replace("?", promotion.Id);
+
+            return minJS;            
         }
     }
 }

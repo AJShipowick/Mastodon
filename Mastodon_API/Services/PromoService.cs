@@ -12,6 +12,7 @@ namespace OsOEasy.API.Services
         void UpdatePromotionStats(Promotion clientPromotion, ApplicationDbContext apiDbContext);
         void HandleCLaimedPromotion(Promotion clientPromotion, ApplicationDbContext apiDbContext, string name, string email, ApplicationUser appUser);
         Task<IRestResponse> SendPromoEmail(String toAddress, String userName, String promoCode);
+        bool ActivePromoExpired(string endDate);
     }
 
     public class PromoService : IPromoService
@@ -74,6 +75,14 @@ namespace OsOEasy.API.Services
         public Task<IRestResponse> SendPromoEmail(String toAddress, String userName, String promoCode)
         {
             return _EmailSender.SendMailGunEmailAsync(EmailType.ClaimPromotion, toAddress, userName, promoCode);
+        }
+
+        public bool ActivePromoExpired(string endDate)
+        {
+            var promoEndDate = DateTime.Parse(endDate);
+            var currentDate = DateTime.Today;
+
+            return currentDate.Date > promoEndDate.Date;
         }
     }
 }

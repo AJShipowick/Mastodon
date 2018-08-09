@@ -5,21 +5,27 @@
                 <h2 class="modal-title">Promo Creation Help (1 of 2)</h2>
             </div>
             <div class="modal-body">
-                <p>Feel free to try out different promotions for your website.  
-                View your creation on this page.  You can only have 1 active promotion at a time.</p>
+                <p>
+                    Feel free to try out different promotions for your website.
+                    View your creation on this page.  You can only have 1 active promotion at a time.
+                </p>
                 <br />
                 <p>Here is a breakdown of some of the different settings you can choose for your promotion, enjoy!</p>
                 <h3>Title:</h3>
-                <p>This will help you to identify your promotion in the future.  
-                It will also be the main headline of your promo.  Some suggested examples could be:</p>
+                <p>
+                    This will help you to identify your promotion in the future.
+                    It will also be the main headline of your promo.  Some suggested examples could be:
+                </p>
                 <ul>
                     <li>Summer Savings</li>
                     <li>Christmas Coupon</li>
                     <li>BOGO Now</li>
                 </ul>
                 <h3>End Date:</h3>
-                <p>This will establish the last day your promotion or coupon will run.  
-                It is advised to let the promotion run for at least a week in time.  Even better would be around a month.</p>
+                <p>
+                    This will establish the last day your promotion or coupon will run.
+                    It is advised to let the promotion run for at least a week in time.  Even better would be around a month.
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" v-on:click="showHelpStep2()">Next</button>
@@ -37,11 +43,15 @@
             </div>
             <div class="modal-body">
                 <h3>Code:</h3>
-                <p>This unique code will be sent to the user via Email once they have entered their name and Email address.  
-                You should use this code to validate your promotion on-line or in store.</p>
+                <p>
+                    This unique code will be sent to the user via Email once they have entered their name and Email address.
+                    You should use this code to validate your promotion on-line or in store.
+                </p>
                 <h3>Discount:</h3>
-                <p>Feel free to use this however you see fit.  
-                Verify that the discount entered here is no more than you are willing to give away with your promotion.</p>
+                <p>
+                    Feel free to use this however you see fit.
+                    Verify that the discount entered here is no more than you are willing to give away with your promotion.
+                </p>
                 <p>Some examples of discounts:</p>
                 <ul>
                     <li>50% off all shirts</li>
@@ -49,12 +59,30 @@
                     <li>20% off entire store</li>
                 </ul>
                 <h3>Image:</h3>
-                <p>Select whatever image you feel best fits your promotion and website.  
-                We will be adding more images in the near future, check back soon!</p>
+                <p>
+                    Select whatever image you feel best fits your promotion and website.
+                    We will be adding more images in the near future, check back soon!
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" v-on:click="showHelpStep1(); closeHelpStep2()">Back</button>
                 <button type="button" class="btn btn-primary" v-on:click="closeHelpStep2()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="formSubmitHelpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Promotion submission</h2>
+            </div>
+            <div class="modal-body">
+                <p>This field is for a custom message to your users once they submit their email and name for your promotion.</p>
+                <p>Make sure to let your users know their promotion code will be emailed to them.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

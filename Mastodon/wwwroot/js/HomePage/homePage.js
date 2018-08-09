@@ -4,7 +4,7 @@
   * 'api.osoeasypromo.com......' to localhost:51186/api/promo/??YOUR_USER_ID??
   * This will allow you to debug the API locally and not get the response from the live API application
   * 
-  * You also MUST enable CORS (Cross site request scrpts)
+  * You also MUST enable CORS (Cross site request scripts)
   * This can be done with the Chrome extension 'Allow-Control-Allow-Origin: *'
  */
 

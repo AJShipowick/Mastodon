@@ -21,6 +21,10 @@ body {
     text-align: center;
 }
 
+.home-header-padding {
+    padding-top:70px;
+}
+
 .home-container-2 {
     height: 250px;
     text-align: center;

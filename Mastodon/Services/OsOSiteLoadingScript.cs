@@ -4,7 +4,7 @@ using System.Text;
 namespace OsOEasy.Services
 {
     /// <summary>
-    /// Buils the loading script for the user
+    /// Builds the loading script for the user
     /// This js is built from a minified version of OsOSiteLoadingScript.js
     /// </summary>
     public class OsOSiteLoadingScript

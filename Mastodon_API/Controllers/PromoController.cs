@@ -59,12 +59,12 @@ namespace OsOEasy.API.Controllers
                         return "ERROR, issue found with OsOEasyPromo account, please check account status at OsoEasyPromo.com!";
                     }
 
-                    if (clientPromotion != null)
+                    if (clientPromotion != null && !_PromoService.ActivePromoExpired(clientPromotion.EndDate))
                     {
                         //Task the update to stats out?
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
                         _PromoService.UpdatePromotionStats(clientPromotion, _DbContext);
-                        return _MainJS.GetMainJS(clientID, clientPromotion.Id);
+                        return _MainJS.GetMainJS(clientID, clientPromotion);
                     }
                     else
                     {
@@ -75,7 +75,7 @@ namespace OsOEasy.API.Controllers
             }
             catch (Exception ex)
             {
-                return "ERROR, unknown exception occured getting promotion.";
+                return "ERROR, unknown exception occurred getting promotion.";
             }
         }
 
@@ -129,9 +129,17 @@ namespace OsOEasy.API.Controllers
         [Route("js/{promoId}")]
         public string GetJS(string promoId)
         {
+            Promotion clientPromotion = null;
+
             try
             {
-                return _PromoJS.GetSliderJS();
+                using (_DbContext)
+                {
+                    clientPromotion = _DbContext.Promotion
+                        .Where(c => c.Id == promoId).FirstOrDefault();
+                }
+
+                return _PromoJS.GetSliderJS(clientPromotion);
             }
             catch (Exception ex)
             {

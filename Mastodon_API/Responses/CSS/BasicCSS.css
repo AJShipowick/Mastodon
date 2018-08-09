@@ -5,7 +5,7 @@
 #osoContainer {
     position: fixed;
     width: 300px;
-    right: -300px;
+    oso_side_of_screen: -300px;
     top: 30%;
 }
 
@@ -13,7 +13,7 @@
     position: fixed;
     z-index: 99 !important;
     /*box-shadow: 0 0 8px gray;*/
-    right: 0px;
+    oso_side_of_screen: 0px;
     top: 50%;
     cursor: pointer;
     width: 64px;
@@ -29,7 +29,7 @@
     /*border-radius: 5px;  ...for rounded edges...*/ /*todo Adjust this for user*/
     box-shadow: 5px 0 50px gray; /*todo Adjust this for user*/
     background-color: oso_background_color; /*todo Adjust this for user*/
-    float: right;
+    float: oso_side_of_screen;
 }
 
 .osoInputBox input[type='text'] {

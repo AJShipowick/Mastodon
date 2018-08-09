@@ -11,7 +11,7 @@ var promoDetailsApp = new Vue({
             .then(function (response) {
                 promoDetailsApp.PromoDetails = response.data;
                 $('#ajaxLoading').hide();
-                $('#promoDetailsApp').show();
+                $('#detailData').show();
             })
             .catch(function (error) {
                 //todo Handle errors
@@ -19,7 +19,6 @@ var promoDetailsApp = new Vue({
     },
     methods: {
         exportEntries: function (promoId) {
-            //export spinner??
             var url = "/Details/PromoDetails/ExportPromoUsers?promoId=" + promoId;
             window.location = url;
         }

@@ -121,4 +121,8 @@
     <value>http://localhost:51186</value>
     <comment>This is your local API host</comment>
   </data>
+  <data name="Local_WEB_URL" xml:space="preserve">
+    <value>http://localhost:65213</value>
+    <comment>This is your local web app</comment>
+  </data>
 </root>

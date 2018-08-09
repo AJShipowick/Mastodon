@@ -20,6 +20,7 @@ namespace OsOEasy.Models.PromoModels
         public int ActivePromoClaimedEntries { get; set; }
         public int ActivePromoViews { get; set; }
         public string ActivePromoEndDate { get; set; }
+        public string ActivePromoWarningMessage { get; set; }
         public List<InactivePromos> InactivePromos { get; set; }
     }
 

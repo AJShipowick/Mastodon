@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace OsOEasy.Data.Models
 {
@@ -14,8 +16,10 @@ namespace OsOEasy.Data.Models
         public string Title { get; set; }
         public string Code { get; set; }
         public string EndDate { get; set; }
+        public string DisplayEndDate { get; set; }
         public string Discount { get; set; }
         public bool ShowCouponBorder { get; set; }
+        public string SideOfScreen { get; set; }
         public string ThankYouMessage { get; set; }
         public string ImageName { get; set; }
         public string ImageType { get; set; }

@@ -2,59 +2,73 @@
     ViewData["Title"] = "Oso Easy Promo - Website Promomotion Stats";
 }
 
-<div id="ajaxLoading" class="row">
-    <br /><br />
-    <div class="col-sm-6" style="left:50%">
-        <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
-    </div>
-</div>
 
 <!--Vue container-->
-<div hidden id="promoDetailsApp">
- 
-    <div class="row">
-        <div class="panel panel-primary col-sm-9 col-sm-offset-1">
-            <div class="panel-heading">
-                <h1>{{PromoDetails.PromoName}} </h1>
+<div id="promoDetailsApp">
+    <section>
+        <div class="container">
+
+            <div id="ajaxLoading" class="col-sm-12 home-header-padding" style="text-align:center">
+                <br /><br /><br />
+                <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
             </div>
-            <div class="panel-body">
-                <h3><i class="fa fa-eye" aria-hidden="true"></i> Times viewed: {{PromoDetails.TimesViewed}} </h3>
-                <h3><i class="fa fa-check" aria-hidden="true"></i> Times claimed: {{PromoDetails.TimesClaimed}} </h3>
+
+            <div id="detailData" style="display:none" class="home-header-container">
+                <div class="row">
+                    <div class="mx-auto card-silver col-sm-9">
+                        <h1>{{PromoDetails.PromoName}} </h1>
+                        <h3><i class="fa fa-eye" aria-hidden="true"></i> Times viewed: {{PromoDetails.TimesViewed}} </h3>
+                        <h3><i class="fa fa-check" aria-hidden="true"></i> Times claimed: {{PromoDetails.TimesClaimed}} </h3>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning" v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length == 0">
+                    <h3><i class="fa fa-ban" aria-hidden="true"></i> No promo users captured yet</h3>
+                </div>
+
+                <br />
+                <div v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length > 0">
+                    <div class="row">
+                        <div v-on:click="exportEntries(PromoDetails.PromoId)" class="col-sm-9 mx-auto btn btn-success btn-lg">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries
+                        </div>
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <div class="col-sm-8 mx-auto">
+                            <table class="table well">
+                                <thead>
+                                    <tr>
+                                        <th><h3>Name</h3></th>
+                                        <th><h3>Email</h3></th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="promo in PromoDetails.PromoEntries">
+                                    <tr>
+                                        <td>{{promo.Name}}</td>
+                                        <td>{{promo.EmailAddress}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="alert alert-warning" v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length == 0">
-        <h3><i class="fa fa-ban" aria-hidden="true"></i> No promo users captured yet</h3>
-    </div>
-
-    <div v-show="PromoDetails.PromoEntries && PromoDetails.PromoEntries.length > 0">
-        <div class="row">
-            <div v-on:click="exportEntries(PromoDetails.PromoId)" class="btn btn-success btn-lg col-sm-offset-1">
-                <i class="fa fa-file-text-o" aria-hidden="true"></i> Export all entries
-            </div>
-        </div>
-        <br /><br />
-
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-1">
-                <table class="table well">
-                    <thead>
-                        <tr>
-                            <th><h3>Name</h3></th>
-                            <th><h3>Email</h3></th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="promo in PromoDetails.PromoEntries">
-                        <tr>
-                            <td>{{promo.Name}}</td>
-                            <td>{{promo.EmailAddress}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    </section>
 </div>
+
+<br /><br />
+
+<environment names="Development">
+    <script src="~/lib/vue/vue.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <!--Reference here instead of in footer because of null reference of Vue in a View-->
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js" asp-append-version="true"
+            asp-fallback-src="~/lib/vue/vue/min.js">
+    </script>
+</environment>
 
 <script src="~/js/Promo/promoDetails.min.js"></script>

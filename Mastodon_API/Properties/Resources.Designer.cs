@@ -68,5 +68,14 @@ namespace OsOEasy.API.Properties {
                 return ResourceManager.GetString("Local_API_URL", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://localhost:65213.
+        /// </summary>
+        internal static string Local_WEB_URL {
+            get {
+                return ResourceManager.GetString("Local_WEB_URL", resourceCulture);
+            }
+        }
     }
 }

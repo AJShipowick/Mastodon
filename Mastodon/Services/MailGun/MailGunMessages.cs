@@ -14,7 +14,7 @@
         public const string Message_NewUser = "Hi {0},\r\n\r\n" +
                                                     "I'm so glad you decided to try www.OsoEasyPromo.com for free!\r\n\r\n" +
                                                     "Make sure to setup your website script so you can start running unlimited custom promotions on your website right away.\r\n\r\n" +
-                                                    "I would love to help you answer any quesitons you may have about our unique service.\r\n" +
+                                                    "I would love to help you answer any questions you may have about our unique service.\r\n" +
                                                     "You can reply directly to this email if you would like.";
         #endregion
 

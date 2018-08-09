@@ -15,34 +15,60 @@ function osoSliderClicked() {
         document.getElementById('osoContainer').style.zIndex = '999';
         slidePromo();
         slidePromoImage();
+        promoOpen = true;
     }
     else {
-        closePromotion();
+        closePromotion();        
     }
-    promoOpen = !promoOpen;
 }
 function closePromotion() {
-    document.getElementById('osoContainer').style.right = '-300px';
-    document.getElementById('osoImage').style.right = '0px';
+    if (newPromoApp.PromoModel.sideOfScreen == "right") {
+        document.getElementById('osoContainer').style.right = '-300px';
+        document.getElementById('osoImage').style.right = '0px';
+
+    } else {
+        document.getElementById('osoContainer').style.left = '-300px';
+        document.getElementById('osoImage').style.left = '0px';
+    }
+
     document.getElementById('osoContactForm').style.visibility = 'hidden';
     document.getElementById('osoContainer').style.zIndex = '0';
+
+    promoOpen = false;
 }
 
 function slidePromo() {
     let slidingDiv = document.getElementById('osoContainer');
     let stopPosition = 0;
-    if (parseInt(slidingDiv.style.right) < stopPosition) {
-        slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
-        setTimeout(slidePromo, 1);
+
+    if (newPromoApp.PromoModel.sideOfScreen == "right") {
+        if (parseInt(slidingDiv.style.right) < stopPosition) {
+            slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
+            setTimeout(slidePromo, 1);
+        }
+    } else {
+        if (parseInt(slidingDiv.style.left) < stopPosition) {
+            slidingDiv.style.left = parseInt(slidingDiv.style.left) + 5 + 'px';
+            setTimeout(slidePromo, 1);
+        }
     }
+
 }
 
 function slidePromoImage() {
     let slidingDiv = document.getElementById('osoImage');
     let stopPosition = 0;
-    if (parseInt(slidingDiv.style.right) < 300) {
-        slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
-        setTimeout(slidePromoImage, 1);
+
+    if (newPromoApp.PromoModel.sideOfScreen == "right") {
+        if (parseInt(slidingDiv.style.right) < 300) {
+            slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
+            setTimeout(slidePromoImage, 1);
+        }
+    } else {
+        if (parseInt(slidingDiv.style.left) < 300) {
+            slidingDiv.style.left = parseInt(slidingDiv.style.left) + 5 + 'px';
+            setTimeout(slidePromoImage, 1);
+        }
     }
 }
 

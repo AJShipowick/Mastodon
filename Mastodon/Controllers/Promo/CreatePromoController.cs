@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using OsOEasy.Data;
 using OsOEasy.Data.Models;
+using OsOEasy.Services.Stripe;
 using OsOEasy.Shared;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,13 @@ namespace OsOEasy.Controllers.Promo
 
         private readonly ApplicationDbContext _dbContext;
         private readonly ICommon _common;
+        private readonly IHostingEnvironment _environment;
 
-        public CreatePromoController(ApplicationDbContext dbContext, ICommon common)
+        public CreatePromoController(ApplicationDbContext dbContext, ICommon common, IHostingEnvironment environment)
         {
             _dbContext = dbContext;
             _common = common;
+            _environment = environment;
         }
 
         public async Task<IActionResult> CreateNewPromo(string promoId)
@@ -34,6 +38,7 @@ namespace OsOEasy.Controllers.Promo
             }
 
             HttpContext.Session.SetString("promoId", (String.IsNullOrEmpty(promoId) ? "" : promoId));
+            ViewBag.subscription = user.SubscriptionPlan;
 
             return View();
         }
@@ -51,9 +56,18 @@ namespace OsOEasy.Controllers.Promo
 
             if (!String.IsNullOrEmpty(promoId))
             {
-                //Edit existing promtion
+                //Edit existing promotion
                 promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
-                //HttpContext.Session.SetInt32("activePromo", Convert.ToInt32(promo.ActivePromotion));
+            }
+            else
+            {
+                //Set new promo defaults
+                promo.ImageType = "coupon";
+                promo.ImageName = "osoeasypromo_coupon (16).svg";
+                promo.BackgroundColor = "#ffffff";
+                promo.ButtonColor = "#4CAF50";
+                promo.SideOfScreen = "right";
+                promo.DisplayEndDate = DateTime.Today.AddDays(14).ToString("MM-dd-yyyy");
             }
 
             return promo;
@@ -74,6 +88,23 @@ namespace OsOEasy.Controllers.Promo
             return Json(imageItems);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetUserImages()
+        {
+            var user = await _common.GetCurrentUserAsync(HttpContext);
+
+            IFileProvider provider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+            IDirectoryContents contents = provider.GetDirectoryContents("wwwroot/images/Promo/Users/" + user.Id);
+
+            List<string> imageItems = new List<string>();
+            foreach (IFileInfo item in contents)
+            {
+                imageItems.Add(user.Id + "/" + item.Name);
+            }
+
+            return Json(imageItems);
+        }
+
         //todo [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> SaveNewPromo([FromBody]Promotion promoItem)
@@ -87,12 +118,12 @@ namespace OsOEasy.Controllers.Promo
                         promoItem.CreationDate = DateTime.Now;
                         if (!string.IsNullOrEmpty(promoItem.Id))
                         {
-                            //Update existing promtion
+                            //Update existing promotion
                             _dbContext.Entry(_dbContext.Promotion.Find(promoItem.Id)).CurrentValues.SetValues(promoItem);
                         }
                         else
                         {
-                            //Creat new promotion
+                            //Create new promotion
                             ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
                             promoItem.ApplicationUser = appUser;
                             _dbContext.Promotion.Add(promoItem);
@@ -112,6 +143,72 @@ namespace OsOEasy.Controllers.Promo
             }
 
             return RedirectToAction("Dashboard", "Dashboard", new { area = "Dashboard" });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadUserImage(List<IFormFile> files)
+        {
+
+            ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
+            if (appUser.SubscriptionPlan == SubscriptionOptions.FreeAccount)
+            {
+                //Image upload only available for paid users
+                return View("CreateNewPromo");
+            }
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    if (FileTypeValid(formFile.FileName))
+                    {
+                        var fileName = BuildUserPicFileName(formFile.FileName, appUser.Id);
+                        using (var stream = new FileStream(fileName, FileMode.Create))
+                        {
+                            await formFile.CopyToAsync(stream);
+                        }
+                    }
+                    else
+                    {
+                        //todo handle invalid file types...here and in JS??
+                    }
+                }
+            }
+
+            return View("CreateNewPromo");
+        }
+
+        private string BuildUserPicFileName(string fileName, string userId)
+        {
+            var userFileDirectory = _environment.WebRootPath + "/images/Promo/Users/" + userId + "/";
+            Directory.CreateDirectory(userFileDirectory);
+
+            var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+            var FileExtension = Path.GetExtension(fileName);
+            var fullFileName = myUniqueFileName + FileExtension;
+
+            return userFileDirectory + fullFileName;
+        }
+
+        bool FileTypeValid(string fileName)
+        {
+            string ext = Path.GetExtension(fileName);
+            switch (ext.ToLower())
+            {
+                case ".jpg":
+                    return true;
+                case ".jpeg":
+                    return true;
+                case ".png":
+                    return true;
+                case ".svg":
+                    return true;
+                case ".gif":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         //[HttpGet]

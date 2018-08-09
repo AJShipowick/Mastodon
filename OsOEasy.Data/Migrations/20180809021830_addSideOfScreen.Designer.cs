@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OsOEasy.Data;
 
 namespace OsOEasy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180809021830_addSideOfScreen")]
+    partial class addSideOfScreen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,8 +258,6 @@ namespace OsOEasy.Data.Migrations
                     b.Property<string>("Details2");
 
                     b.Property<string>("Discount");
-
-                    b.Property<string>("DisplayEndDate");
 
                     b.Property<string>("EndDate");
 

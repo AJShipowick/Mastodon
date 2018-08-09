@@ -1,6 +1,5 @@
-﻿            <!--This partial view will be updated to show the user what their custom promotion will look and act like....-->
+﻿<!--This partial view will be updated to show the user what their custom promotion will look and act like....-->
 @{ await Html.RenderPartialAsync("PromoSlider.cshtml"); }
-
 
 <form id="promoForm">
     <div class="row form-group">
@@ -16,7 +15,7 @@
         </div>
         <div class="col-sm-4">
             <label for="EndDate">End Date:</label>
-            <input for="EndDate" id="endDate" type="date" v-model="PromoModel.endDate" class="form-control">
+            <input for="EndDate" id="endDate" type="date" v-model="PromoModel.endDate" v-on:change="formatDate()" class="form-control">
             <small id="dateMissing" style="color:red; display:none">Date is required</small>
         </div>
     </div>
@@ -42,17 +41,31 @@
     </div>
     <div class="row form-group">
         <div class="col-sm-3">
-            <label for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
-            <input for="ShowCouponBorder" type="checkbox" class="helpText" v-model="PromoModel.showCouponBorder"
-                   v-on:click="showCouponBorder()">
-        </div>
-        <div class="col-sm-3">
             <label for="BackgroundColor" style="padding-right:5px">Background Color: </label>
             <input for="BackgroundColor" id="backgroundColor" type="color" v-model="PromoModel.backgroundColor" v-on:change="setFormBackgroundColor()">
         </div>
         <div class="col-sm-3">
             <label for="ButtonColor" style="padding-right:5px">Button Color: </label>
             <input for="ButtonColor" id="buttonColor" type="color" v-model="PromoModel.buttonColor" v-on:change="setFormButtonColor()">
+        </div>
+        <div class="col-sm-3">
+            <label for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
+            <input for="ShowCouponBorder" type="checkbox" class="helpText" v-model="PromoModel.showCouponBorder"
+                   v-on:click="showCouponBorder()">
+        </div>
+        <div class="col-sm-3">
+            <div class="form-check">
+                <input v-model="PromoModel.sideOfScreen" v-on:change="setUserPromoProperties()" class="form-check-input" type="radio" name="rightSide" id="rightSide" value="right" checked>
+                <label class="form-check-label" for="rightSide">
+                    Right side of screen
+                </label>
+            </div>
+            <div class="form-check">
+                <input v-model="PromoModel.sideOfScreen" v-on:change="setUserPromoProperties()" class="form-check-input" type="radio" name="leftSide" id="leftSide" value="left">
+                <label class="form-check-label" for="leftSide">
+                    Left side of screen
+                </label>
+            </div>
         </div>
     </div>
 
@@ -74,27 +87,7 @@
         </div>
     </div>
 
-    <button type="button"
-            v-on:click="saveCustomPromo()"
-            id="savePromo"
-            class="btn btn-primary">
-        <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
-    </button>
-    @*<button style="display:none"
-                id="deletePromoBtn"
-                type="button"
-                v-on:click="deletePromo()"
-                class="btn btn-danger">
-            <i class="fa fa-remove" aria-hidden="true"></i> Delete
-        </button>*@
-    <br /><br />
-
-    <h3>Use your own image</h3>
-    <div class="custom-file col-sm-6">
-        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-    </div>
-    <h3 class="offset-sm-3">Or</h3>
+    <br />
     <small>*New images being added all the time, check back often</small>
     <h2>
         Choose an image:
@@ -149,18 +142,77 @@
 
     </h2>
 
-    <div class="col-sm-6" style="left:50%; display:none" id="ajaxLoading">
+    <div class="col-sm-6 mx-auto" style="display:none" id="imagesLoading">
         <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
     </div>
 
     <div class="col-sm-10">
         <label v-for="(name, index) in PromoImages">
-            <img :src="getImagePath(name)"
+            <img :src="getDefaultImagePath(name)"
                  class="helpText"
                  v-bind:id="'image_' + index"
-                 v-on:click="setPromoImage(name, 'image_' + index)"
+                 v-on:click="setPromoImage(name, 'image_' + index, false)"
                  style="width:64px; height:64px" />
         </label>
-        <br /><br /><br />
     </div>
 </form>
+<h3 class="offset-sm-3">Or</h3>
+
+<h2>Upload and use your own images:</h2>
+@if (ViewBag.subscription == "Free Account")
+{
+    <div class="col-md-6">
+        <a class="nav-link" id="manage" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage Account"><h4><i class="fa fa-info-circle" aria-hidden="true"></i> Upgrade your account to use custom images</h4></a>
+    </div>
+}
+else
+{
+    <form method="post" enctype="multipart/form-data" asp-controller="CreatePromo" asp-action="UploadUserImage">
+        <div class="row">
+            <div class="custom-file col-md-5">
+                <input type="file" name="files" v-on:change="fileChange($event.target.files)" class="custom-file-input" id="customFileUpload" multiple="multiple" aria-describedby="customFileUpload">
+                <label class="custom-file-label" for="customFileUpload">Choose image </label>
+            </div>
+            <div v-if="FilesToUpload.length > 0 && fileError == ''" class="col-md-2">
+                <button type="submit" class="btn btn-primary">Upload Images</button>
+            </div>
+            <p class="col-sm-4" style="color:red">{{fileError}}</p>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <p v-for="file in FilesToUpload">
+                    {{file}}
+                </p>
+            </div>
+        </div>
+    </form>
+    <br />
+
+    <h2>Your images: </h2>
+    <div class="col-sm-10">
+        <label v-for="(name, index) in UserImages">
+            <img :src="getUserImagePath(name)"
+                 class="helpText"
+                 v-bind:id="'userimage_' + index"
+                 v-on:click="setPromoImage(name, 'userimage_' + index, true)"
+                 style="width:64px; height:64px" />
+        </label>
+    </div>
+}
+
+<div class="col-md-3 mx-auto">
+    <button type="button"
+            v-on:click="saveCustomPromo()"
+            id="savePromo"
+            class="btn btn-primary btn-home-large">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
+    </button>
+</div>
+@*<button style="display:none"
+            id="deletePromoBtn"
+            type="button"
+            v-on:click="deletePromo()"
+            class="btn btn-danger">
+        <i class="fa fa-remove" aria-hidden="true"></i> Delete
+    </button>*@
+<br /><br /><br />
