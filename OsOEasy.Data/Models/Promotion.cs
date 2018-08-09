@@ -19,6 +19,7 @@ namespace OsOEasy.Data.Models
         public string DisplayEndDate { get; set; }
         public string Discount { get; set; }
         public bool ShowCouponBorder { get; set; }
+        public bool ShowLargeImage { get; set; }
         public string SideOfScreen { get; set; }
         public string ThankYouMessage { get; set; }
         public string ImageName { get; set; }

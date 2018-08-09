@@ -28,7 +28,12 @@ var newPromoApp = new Vue({
                     if (newPromoApp.PromoModel.id) {
                         $("#osoContactForm").css({ "background-color": newPromoApp.PromoModel.backgroundColor });
                         $("#osoButton").css({ "background-color": newPromoApp.PromoModel.buttonColor });
-                        if (newPromoApp.PromoModel.showCouponBorder) { $("#osoContactForm").css({ "border": "4px dashed #ccc" }); }
+                        if (newPromoApp.PromoModel.showCouponBorder) {
+                            $("#osoContactForm").css({ "border": "4px dashed #ccc" });
+                        }
+                        if (newPromoApp.PromoModel.showLargeImage) {
+                            $("#osoImage").css({ "width": "96px" })
+                        }
 
                         //get promo image, then set it....
                         newPromoApp.imageType = newPromoApp.PromoModel.imageType;
@@ -51,20 +56,16 @@ var newPromoApp = new Vue({
 
         setUserPromoProperties: function (sideOfScreen) {
             if (newPromoApp.PromoModel.sideOfScreen === "left") {
-                //$('#osoImage').css({ 'left': '0px' });
-                //$('#osoContainer').css({ 'left': '-300px' });
                 $('#osoContactForm').css({ 'float': 'left' });
                 //Remove right properties
                 $('#osoImage').css({ 'right': '' });
                 $('#osoContainer').css({ 'right': '' });
             } else {
-                //$('#osoImage').css({ 'right': '0px' });
-                //$('#osoContainer').css({ 'right': '-300px' });
                 $('#osoContactForm').css({ 'float': 'right' });
                 //Remove left properties
                 $('#osoImage').css({ 'left': '' });
                 $('#osoContainer').css({ 'left': '' });
-            }      
+            }
 
             closePromotion();
         },
@@ -140,12 +141,18 @@ var newPromoApp = new Vue({
         },
 
         showCouponBorder: function () {
-            newPromoApp.PromoModel.showCouponBorder = !newPromoApp.PromoModel.showCouponBorder;
-
             if (newPromoApp.PromoModel.showCouponBorder === true) {
                 $("#osoContactForm").css({ "border": "4px dashed #ccc" });
             } else {
                 $("#osoContactForm").css({ "border": "1px solid #d8d8d8" });
+            }
+        },
+
+        showLargeImage: function () {
+            if (newPromoApp.PromoModel.showLargeImage === true) {
+                $("#osoImage").css({ "width": "96px" });
+            } else {
+                $("#osoImage").css({ "width": "64px" });
             }
         },
 
@@ -183,10 +190,10 @@ var newPromoApp = new Vue({
                 validForm = false;
             }
 
-            if (!newPromoApp.PromoModel.discount) {
-                $("#discountMissing").show();
-                validForm = false;
-            }
+            //if (!newPromoApp.PromoModel.discount) {
+            //    $("#discountMissing").show();
+            //    validForm = false;
+            //}
 
             if (!newPromoApp.PromoModel.thankYouMessage) {
                 $('#thankYouMissing').show();
@@ -200,7 +207,7 @@ var newPromoApp = new Vue({
             $("#titleMissing").hide();
             $("#dateMissing").hide();
             $("#codeMissing").hide();
-            $("#discountMissing").hide();
+            //$("#discountMissing").hide();
             $('#thankYouMissing').hide();
         },
 

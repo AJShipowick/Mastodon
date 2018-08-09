@@ -16,7 +16,7 @@
     oso_side_of_screen: 0px;
     top: 50%;
     cursor: pointer;
-    width: 64px;
+    width: oso_image_width;
 }
 
 #osoContactForm {

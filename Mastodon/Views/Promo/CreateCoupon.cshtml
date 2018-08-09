@@ -51,7 +51,10 @@
         <div class="col-sm-3">
             <label for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
             <input for="ShowCouponBorder" type="checkbox" class="helpText" v-model="PromoModel.showCouponBorder"
-                   v-on:click="showCouponBorder()">
+                   v-on:change="showCouponBorder()">
+            <label for="LargeImageSize" style="padding-right:5px">Show a larger image? </label>
+            <input for="LargeImageSize" type="checkbox" class="helpText" v-model="PromoModel.showLargeImage"
+                   v-on:change="showLargeImage()">
         </div>
         <div class="col-sm-3">
             <div class="form-check">
