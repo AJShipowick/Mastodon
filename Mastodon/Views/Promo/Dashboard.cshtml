@@ -4,7 +4,6 @@
 
 <!--Vue container-->
 <div id="dashboardApp">
-
     <section>
         <div class="container home-header-padding">
             <div id="ajaxLoading" class="col-sm-12" style="text-align:center">
@@ -64,7 +63,7 @@
                         </div>
                         <br />
                         <div class="card-white" style="width:70%">
-                            <i v-on:click="editOldPromo(Dashboard.ActivePromoId, true)"
+                            <i v-on:click="editOldPromo(Dashboard.ActivePromoId, Dashboard.ActivePromoType)"
                                class="fa fa-pencil-square-o fa-lg helpText"
                                style="float:left; color:#005eff"
                                title="View or edit this promotion"
@@ -109,7 +108,7 @@
                     <div v-for="promo in Dashboard.InactivePromos" class="col-sm-3">
                         <div style="padding:5px">
                             <div class="card-white">
-                                <i v-on:click="editOldPromo(promo.PromoId, false)"
+                                <i v-on:click="editOldPromo(promo.PromoId, promo.PromoType)"
                                    class="fa fa-pencil-square-o helpText"
                                    style="float:left;color:#005eff"
                                    title="View or edit this promotion"

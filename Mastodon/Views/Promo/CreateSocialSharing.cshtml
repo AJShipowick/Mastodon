@@ -1,0 +1,143 @@
+﻿<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6 offset-md-1">
+            <h4 for="Title">Social Promo Title:</h4>
+            <input for="Title" id="Title" type="text" v-model="SocialModel.title" class="form-control">
+            <small id="socialTitleMissing" style="color:red; display:none">Title is required</small>
+        </div>
+    </div>
+
+    <div class="custom-control custom-radio col-md-3 offset-md-1">
+        <input v-model="SocialModel.sideOfScreen" type="radio" id="rightSideCoupon" class="custom-control-input" value="right">
+        <label class="custom-control-label helpText" for="rightSideCoupon">Right side of screen</label>
+    </div>
+    <div class="custom-control custom-radio col-md-3 offset-md-1">
+        <input v-model="SocialModel.sideOfScreen" type="radio" id="leftSideCoupon" class="custom-control-input" value="left">
+        <label class="custom-control-label helpText" for="leftSideCoupon">Left side of screen</label>
+    </div>
+
+    <br />
+    <div class="custom-control custom-checkbox offset-md-1">
+        <input v-model="SocialModel.useFacebook" type="checkbox" class="custom-control-input" id="facebooCheckbox" v-on:click="getImagePaths('facebook', $event)">
+        <label class="custom-control-label helpText social-label" for="facebooCheckbox"><i class="fa fa-facebook-square" style="color:#3B5998" aria-hidden="true"></i> Add Facebook </label>
+    </div>
+    <div v-if="SocialModel.useFacebook">
+        <div class="col-sm-6 form-group offset-md-2">
+            <label for="fbURL">Facebook Page URL:</label>
+            <input v-model="SocialModel.facebookURL" type="url" class="form-control" id="fbURL" placeholder="https://www.facebook.com/osoeasypromo/">
+        </div>
+        <div class="col-sm-10 form-group offset-md-2">
+            <p>Select Facebook Icon:</p>
+            <div class="col-sm-10">
+                <label v-for="(name, index) in FacebookImages">
+                    <img :src="getSocialImagePath(name)"
+                         class="helpText"
+                         v-bind:id="'fbimage_' + index"
+                         v-on:click="setFacebookImage(name, 'image_' + index, false)"
+                         style="width:64px; height:64px" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-control custom-checkbox offset-md-1">
+        <input v-model="SocialModel.useTwitter" type="checkbox" class="custom-control-input" id="twitterCheckbox" v-on:click="getImagePaths('twitter', $event)">
+        <label class="custom-control-label helpText social-label" for="twitterCheckbox"><i class="fa fa-twitter-square" style="color:#1DA1F2" aria-hidden="true"></i> Add Twitter</label>
+    </div>
+    <div v-if="SocialModel.useTwitter">
+        <div class="col-sm-6 form-group offset-md-2">
+            <label for="twitterURL">Twitter Page URL:</label>
+            <input v-model="SocialModel.twitterURL" type="url" class="form-control" id="twitterURL" placeholder="https://twitter.com/PromoOso">
+        </div>
+        <div class="col-sm-10 form-group offset-md-2">
+            <p>Select Twitter Icon:</p>
+            <div class="col-sm-10">
+                <label v-for="(name, index) in TwitterImages">
+                    <img :src="getSocialImagePath(name)"
+                         class="helpText"
+                         v-bind:id="'twimage_' + index"
+                         v-on:click="setTwitterImage(name, 'image_' + index, false)"
+                         style="width:64px; height:64px" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-control custom-checkbox offset-md-1">
+        <input v-model="SocialModel.useInstagram" type="checkbox" class="custom-control-input" id="instagramCheckbox" v-on:click="getImagePaths('instagram', $event)">
+        <label class="custom-control-label helpText social-label" for="instagramCheckbox"><i class="fa fa-instagram" style="color:#262626" aria-hidden="true"></i> Add Instagram</label>
+    </div>
+    <div v-if="SocialModel.useInstagram">
+        <div class="col-sm-6 form-group offset-md-2">
+            <label for="instagramURL">Instagram Page URL:</label>
+            <input v-model="SocialModel.instagramURL" type="url" class="form-control" id="instagramURL" placeholder="https://www.instagram.com/steveyeun">
+        </div>
+        <div class="col-sm-10 form-group offset-md-2">
+            <p>Select Instagram Icon:</p>
+            <div class="col-sm-10">
+                <label v-for="(name, index) in InstagramImages">
+                    <img :src="getSocialImagePath(name)"
+                         class="helpText"
+                         v-bind:id="'inimage_' + index"
+                         v-on:click="setInstagramImage(name, 'image_' + index, false)"
+                         style="width:64px; height:64px" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-control custom-checkbox offset-md-1">
+        <input v-model="SocialModel.useLinkedin" type="checkbox" class="custom-control-input" id="linkedinCheckbox" v-on:click="getImagePaths('linkedin', $event)">
+        <label class="custom-control-label helpText social-label" for="linkedinCheckbox"><i class="fa fa-linkedin-square" style="color:#0077B5" aria-hidden="true"></i> Add Linkedin</label>
+    </div>
+    <div v-if="SocialModel.useLinkedin">
+        <div class="col-sm-6 form-group offset-md-2">
+            <label for="linkedinURL">Linkedin Page URL:</label>
+            <input v-model="SocialModel.linkedinURL" type="url" class="form-control" id="linkedinURL" placeholder="https://www.linkedin.com/in/adam-shipowick-work-profile/">
+        </div>
+        <div class="col-sm-10 form-group offset-md-2">
+            <p>Select Linkedin Icon:</p>
+            <div class="col-sm-10">
+                <label v-for="(name, index) in LinkedinImages">
+                    <img :src="getSocialImagePath(name)"
+                         class="helpText"
+                         v-bind:id="'lnimage_' + index"
+                         v-on:click="setLinkedinImage(name, 'image_' + index, false)"
+                         style="width:64px; height:64px" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-control custom-checkbox offset-md-1">
+        <input v-model="SocialModel.usePinterest" type="checkbox" class="custom-control-input" id="pinterestCheckbox" v-on:click="getImagePaths('pinterest', $event)">
+        <label class="custom-control-label helpText social-label" for="pinterestCheckbox"><i class="fa fa-pinterest-square" style="color:#BD081C" aria-hidden="true"></i> Add Pinterest</label>
+    </div>
+    <div v-if="SocialModel.usePinterest">
+        <div class="col-sm-6 form-group offset-md-2">
+            <label for="pinterestURL">Pinterest Page URL:</label>
+            <input v-model="SocialModel.PinterestURL" type="url" class="form-control" id="pinterestURL" placeholder="https://www.pinterest.com/johncorics21/">
+        </div>
+        <div class="col-sm-10 form-group offset-md-2">
+            <p>Select Pinterest Icon:</p>
+            <div class="col-sm-10">
+                <label v-for="(name, index) in PinterestImages">
+                    <img :src="getSocialImagePath(name)"
+                         class="helpText"
+                         v-bind:id="'piimage_' + index"
+                         v-on:click="setPinterestImage(name, 'image_' + index, false)"
+                         style="width:64px; height:64px" />
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3 mx-auto">
+    <button type="button"
+            v-on:click="saveSocialPromo()"
+            id="saveSocial"
+            class="btn btn-primary btn-home-large">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Social Promo
+    </button>
+</div>

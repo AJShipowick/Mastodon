@@ -11,7 +11,7 @@ namespace OsOEasy.Promo.Models
 {
     public interface IBuilder
     {
-        Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> promotions);
+        Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> couponPromotions, List<SocialSharing> socialPromotions);
     }
 
     public class Builder : IBuilder
@@ -23,29 +23,51 @@ namespace OsOEasy.Promo.Models
             _Common = common;
         }
 
-        public Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> allUserPromotions)
+        public Dashboard CreateDashboardModel(ApplicationDbContext dbContext, ApplicationUser user, List<Promotion> couponPromotions, List<SocialSharing> socialPromotions)
         {
             Dashboard model = new Dashboard();
 
-            if (allUserPromotions != null && allUserPromotions.Count() > 0)
+            if (couponPromotions != null && couponPromotions.Count() > 0)
             {
-                Promotion activePromo = (from x in allUserPromotions
-                                         where x.ActivePromotion == true
-                                         select x).SingleOrDefault();
-                if (activePromo != null)
+                Promotion activePromo_Coupon = (from x in couponPromotions
+                                                where x.ActivePromotion == true
+                                                select x).SingleOrDefault();
+                if (activePromo_Coupon != null)
                 {
-                    SetActivePromoDetails(dbContext, model, activePromo);
+                    SetActiveCouponDetails(dbContext, model, activePromo_Coupon);
                 }
 
-                List<Promotion> inactivePromos = (from x in allUserPromotions
-                                                  where x.ActivePromotion != true
-                                                  orderby x.CreationDate descending
-                                                  select x).ToList();
-                if (inactivePromos != null)
+                List<Promotion> inactivePromos_Coupons = (from x in couponPromotions
+                                                          where x.ActivePromotion != true
+                                                          orderby x.CreationDate descending
+                                                          select x).ToList();
+                if (inactivePromos_Coupons != null)
                 {
-                    SetInactivePromoDetails(model, inactivePromos);
+                    SetInactivePromoDetails(model, inactivePromos_Coupons);
                 }
             }
+
+            if (socialPromotions != null && socialPromotions.Count() > 0)
+            {
+                SocialSharing activePromo_Social = (from x in socialPromotions
+                                                    where x.ActivePromotion == true
+                                                    select x).SingleOrDefault();
+
+                if (activePromo_Social != null)
+                {
+                    SetActiveSocialDetails(dbContext, model, activePromo_Social);
+                }
+
+                List<SocialSharing> inactivePromo_Social = (from x in socialPromotions
+                                                            where x.ActivePromotion != true
+                                                            select x).ToList();
+
+                if (inactivePromo_Social != null)
+                {
+                    SetInactiveSocialDetails(model, inactivePromo_Social);
+                }
+            }
+
 
             model.ActivePromoScript = user.UserPromoScript;
             model.CurrentSubscription = user.SubscriptionPlan;
@@ -66,7 +88,7 @@ namespace OsOEasy.Promo.Models
             String dashboardMessage = String.Empty;
             if (user.AccountSuspended)
             {
-                dashboardMessage = "Account suppended, make a payment on your account here";
+                dashboardMessage = "Account suspended, make a payment on your account here";
             }
             else if (user.MonthlyPromotionLimitReached)
             {
@@ -93,19 +115,25 @@ namespace OsOEasy.Promo.Models
             }
         }
 
-        private void SetActivePromoDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
+        private void SetActiveCouponDetails(ApplicationDbContext dbContext, Dashboard model, Promotion activePromo)
         {
             model.ActivePromoName = activePromo.Title;
             model.ActivePromoDiscount = activePromo.Discount;
             model.ActivePromoEndDate = activePromo.DisplayEndDate;
             model.ActivePromoWarningMessage = GetActivePromoWarningMessage(activePromo.EndDate);
             model.ActivePromoId = activePromo.Id;
-            //model.IsActivePromo = activePromo.ActivePromotion;
+            model.ActivePromoType = Common.PromoType_Coupon;
 
             PromotionStats stats = (from x in dbContext.PromotionStats where x.Promotion.Id == activePromo.Id select x).FirstOrDefault();
 
             model.ActivePromoClaimedEntries = stats != null ? stats.TimesClaimed : 0;
             model.ActivePromoViews = stats != null ? stats.TimesViewed : 0;
+        }
+
+        private void SetActiveSocialDetails(ApplicationDbContext dbContext, Dashboard model, SocialSharing activePromo)
+        {
+            model.ActivePromoName = activePromo.Title;
+            model.ActivePromoType = Common.PromoType_Social;
         }
 
         private string GetActivePromoWarningMessage(string endDate)
@@ -128,9 +156,21 @@ namespace OsOEasy.Promo.Models
             model.InactivePromos = new List<InactivePromos>();
             foreach (Promotion item in inactivePromos)
             {
-                //todo limit number of old promos to show?????
-                //page them???
-                var inactiveItem = new InactivePromos { PromoId = item.Id, PromoName = item.Title, PromoDiscount = item.Discount };
+                var inactiveItem = new InactivePromos { PromoId = item.Id, PromoName = item.Title, PromoDiscount = item.Discount, PromoType = Common.PromoType_Coupon };
+                model.InactivePromos.Add(inactiveItem);
+            }
+        }
+
+        private void SetInactiveSocialDetails(Dashboard model, List<SocialSharing> inactivePromos)
+        {
+            if (model.InactivePromos == null)
+            {
+                model.InactivePromos = new List<InactivePromos>();
+            }
+
+            foreach (SocialSharing item in inactivePromos)
+            {
+                var inactiveItem = new InactivePromos { PromoId = item.Id, PromoName = item.Title, PromoType = Common.PromoType_Coupon };
                 model.InactivePromos.Add(inactiveItem);
             }
         }

@@ -170,7 +170,7 @@ var newPromoApp = new Vue({
             $("#submitSliderClick").modal('show');
         },
 
-        validForm: function (e) {
+        validForm: function () {
 
             newPromoApp.hideErrors();
             let validForm = true;

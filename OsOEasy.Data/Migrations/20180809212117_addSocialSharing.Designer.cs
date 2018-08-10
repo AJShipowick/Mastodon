@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OsOEasy.Data;
 
 namespace OsOEasy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180809212117_addSocialSharing")]
+    partial class addSocialSharing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -353,9 +355,13 @@ namespace OsOEasy.Data.Migrations
 
                     b.Property<string>("PinterestURL");
 
-                    b.Property<string>("SideOfScreen");
-
                     b.Property<string>("Title");
+
+                    b.Property<string>("TwitchImageName");
+
+                    b.Property<string>("TwitchImageType");
+
+                    b.Property<string>("TwitchURL");
 
                     b.Property<string>("TwitterImageName");
 
@@ -370,6 +376,8 @@ namespace OsOEasy.Data.Migrations
                     b.Property<bool>("UseLinkedin");
 
                     b.Property<bool>("UsePinterest");
+
+                    b.Property<bool>("UseTwitch");
 
                     b.Property<bool>("UseTwitter");
 

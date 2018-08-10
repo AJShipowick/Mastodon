@@ -28,8 +28,8 @@ var dashboardApp = new Vue({
                 });
         },
 
-        editOldPromo: function (promoId, isActivePromo) {
-            window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId;
+        editOldPromo: function (promoId, promoType) {
+            window.location.href = '/Promotion/CreatePromo/CreateNewPromo?promoId=' + promoId + "&promoType=" + promoType;
         },
 
         drawDashboardPieChart: function () {

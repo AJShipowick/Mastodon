@@ -29,7 +29,7 @@ namespace OsOEasy.Controllers.Promo
             _environment = environment;
         }
 
-        public async Task<IActionResult> CreateNewPromo(string promoId)
+        public async Task<IActionResult> CreateNewPromo(string promoId, string promoType)
         {
             var user = await _common.GetCurrentUserAsync(HttpContext);
             if (user == null)
@@ -39,6 +39,8 @@ namespace OsOEasy.Controllers.Promo
 
             HttpContext.Session.SetString("promoId", (String.IsNullOrEmpty(promoId) ? "" : promoId));
             ViewBag.subscription = user.SubscriptionPlan;
+            ViewBag.newPromo = (String.IsNullOrEmpty(promoId));
+            ViewBag.promoType = promoType;
 
             return View();
         }
@@ -105,6 +107,46 @@ namespace OsOEasy.Controllers.Promo
             return Json(imageItems);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetSocialImages(string socialImageType)
+        {
+            IFileProvider provider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+            IDirectoryContents contents = provider.GetDirectoryContents("wwwroot/images/Social/" + socialImageType);
+
+            List<string> imageItems = new List<string>();
+            foreach (IFileInfo item in contents)
+            {
+                imageItems.Add(item.Name);
+            }
+
+            return Json(imageItems);
+        }
+
+        [HttpGet]
+        public JsonResult GetSocialData()
+        {
+            SocialSharing socialModel = GetSocialModel(HttpContext.Session.GetString("promoId"));
+            return Json(socialModel);
+        }
+
+        public SocialSharing GetSocialModel(string promoId)
+        {
+            var social = new SocialSharing();
+
+            if (!String.IsNullOrEmpty(promoId))
+            {
+                //Edit existing promotion
+                social = (from x in _dbContext.SocialSharing where x.Id == promoId select x).FirstOrDefault();
+            }
+            else
+            {
+                //Set new promo defaults
+                //social.ImageType = "coupon";
+            }
+
+            return social;
+        }
+
         //todo [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> SaveNewPromo([FromBody]Promotion promoItem)
@@ -127,6 +169,44 @@ namespace OsOEasy.Controllers.Promo
                             ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
                             promoItem.ApplicationUser = appUser;
                             _dbContext.Promotion.Add(promoItem);
+                        }
+
+                        _dbContext.SaveChanges();
+                    }
+                }
+                else
+                {
+                    //todo log that user is trying to bypass UI JS validation
+                }
+            }
+            catch (Exception ex)
+            {
+                //todo handle exception
+            }
+
+            return RedirectToAction("Dashboard", "Dashboard", new { area = "Dashboard" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveSocial([FromBody]SocialSharing socialModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (_dbContext)
+                    {
+                        if (!string.IsNullOrEmpty(socialModel.Id))
+                        {
+                            //Update existing promotion
+                            _dbContext.Entry(_dbContext.SocialSharing.Find(socialModel.Id)).CurrentValues.SetValues(socialModel);
+                        }
+                        else
+                        {
+                            //Create new promotion
+                            ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
+                            socialModel.ApplicationUser = appUser;
+                            _dbContext.SocialSharing.Add(socialModel);
                         }
 
                         _dbContext.SaveChanges();

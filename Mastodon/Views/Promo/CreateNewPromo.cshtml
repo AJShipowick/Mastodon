@@ -2,71 +2,82 @@
     ViewData["Title"] = "Oso Easy Promo - Create Custom Website Promotion";
 }
 
-<!--Vue container-->
-<div id="newPromoApp">
-    <section>
-        <div class="container">
+<section>
+    <div class="container">
 
-            <div id="ajaxLoading" class="col-sm-12 home-header-padding" style="text-align:center">
-                <br /><br /><br />
-                <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+        <div id="ajaxLoading" class="col-sm-12 home-header-padding" style="text-align:center">
+            <br /><br /><br />
+            <i class="fa fa-spin fa-circle-o-notch fa-5x" aria-hidden="true"></i>
+        </div>
+
+        <div style="display:none" id="promoData">
+            <div class="row">
+                <h2 class="home-header-container">
+                    <i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" v-on:click="showHelpStep1()">
+                    </i> Create or edit your website promotions
+                </h2>
             </div>
+            <br />
 
-            <div style="display:none" id="promoData">
-                <div class="row">
-                    <h2 class="home-header-container">
-                        <i class="fa fa-question-circle-o helpText" style="color:#337ab7" aria-hidden="true" v-on:click="showHelpStep1()">
-                        </i> Create or edit your website promotions
-                    </h2>
-                </div>
-                <br />
-
+            @if (ViewBag.newPromo == true)
+            {
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="coupon-tab" data-toggle="tab" href="#show-coupon" role="tab" aria-controls="show-coupon" aria-selected="true"><i class="fa fa-tags" aria-hidden="true"></i> Coupon Promotion</a>
-                        <a class="nav-item nav-link" id="show-social-tab" data-toggle="tab" href="#show-social" role="tab" aria-controls="show-social" aria-selected="false"><i class="fa fa-facebook-official" aria-hidden="true"></i> Social Sharing</a>
+                        <a class="nav-item nav-link" id="show-social-tab" data-toggle="tab" href="#show-social" role="tab" aria-controls="show-social" aria-selected="false"><i class="fa fa-facebook-official" aria-hidden="true"></i> Social Promotion</a>
                         <a class="nav-item nav-link" id="product-tab" data-toggle="tab" href="#show-product" role="tab" aria-controls="product-tab" aria-selected="false"><i class="fa fa-bullhorn" aria-hidden="true"></i> Product Promotion</a>
                     </div>
                 </nav>
-                <div class="tab-content" id="nav-tabContent">
+                <div class="tab-content">
                     <div class="tab-pane fade show active" id="show-coupon" role="tabpanel" aria-labelledby="coupon-tab">
                         <br />
-                        @{ await Html.RenderPartialAsync("CreateCoupon.cshtml"); }
+                        <!--Vue container-->
+                        <div id="newPromoApp">
+                            @{ await Html.RenderPartialAsync("CreateCoupon.cshtml"); }
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="show-social" role="tabpanel" aria-labelledby="show-social-tab">
                         <br />
-                        .SOCIAL..
+                        <!--Vue container-->
+                        <div id="socialSharing">
+                            @{ await Html.RenderPartialAsync("CreateSocialSharing.cshtml"); }
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="show-product" role="tabpanel" aria-labelledby="product-tab">
                         <br />
                         Coming soon...
                     </div>
                 </div>
+            }
+            else
+            {
+                if (ViewBag.promoType == "coupon")
+                {
+                    <!--Vue container-->
+                    <div id="newPromoApp">
+                        @{ await Html.RenderPartialAsync("CreateCoupon.cshtml"); }
+                    </div>
+                    <div id="socialSharing">
+                        <!--Empty element so Vue doesn't complain-->
+                    </div>
+                }
+                else if (ViewBag.promoType == "social")
+                {
+                    <!--Vue container-->
+                    <div id="socialSharing">
+                        @{ await Html.RenderPartialAsync("CreateSocialSharing.cshtml"); }
+                    </div>
+                    <div id="newPromoApp">
+                        <!--Empty element so Vue doesn't complain-->
+                    </div>
 
-            </div>
+                }
+
+            }
         </div>
-    </section>
-
-    <br /><br />
-
-    <!--Modals-->
-    @{ await Html.RenderPartialAsync("PromoHelpModal.cshtml"); }
-
-    @*<div id="deletePromoModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Delete this promotion?</h2>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" v-on:click="confirmDeletePromo()"><i class="fa fa-remove" aria-hidden="true"></i> Delete</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>*@
-</div>
+    </div>
+</section>
+<br /><br />
 
 <environment names="Development">
     <script src="~/lib/vue/vue.js"></script>
@@ -78,6 +89,7 @@
     </script>
 </environment>
 
-<script async src="~/js/Promo/createPromo.min.js"></script>
-<script async src="~/js/Promo/promoSlider.min.js"></script>
 <link async rel="stylesheet" href="~/css/promo.min.css" />
+<script async src="~/js/Promo/promoSlider.min.js"></script>
+<script async src="~/js/Promo/createPromo.min.js"></script>
+<script async src="~/js/Promo/createSocialSharing.min.js"></script>

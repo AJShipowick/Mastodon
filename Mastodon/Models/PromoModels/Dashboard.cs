@@ -21,6 +21,7 @@ namespace OsOEasy.Models.PromoModels
         public int ActivePromoViews { get; set; }
         public string ActivePromoEndDate { get; set; }
         public string ActivePromoWarningMessage { get; set; }
+        public string ActivePromoType { get; set; }
         public List<InactivePromos> InactivePromos { get; set; }
     }
 
@@ -29,5 +30,6 @@ namespace OsOEasy.Models.PromoModels
         public string PromoId;
         public string PromoName;
         public string PromoDiscount;
+        public string PromoType;
     }
 }

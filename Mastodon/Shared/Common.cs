@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace OsOEasy.Shared
 {
-
     public interface ICommon
     {
         Task<ApplicationUser> GetCurrentUserAsync(HttpContext context);
@@ -15,6 +14,10 @@ namespace OsOEasy.Shared
 
     public class Common : ICommon
     {
+
+        public const string PromoType_Coupon = "coupon";
+        public const string PromoType_Social = "social";
+
         private readonly UserManager<ApplicationUser> _userManager;
 
         public Common(UserManager<ApplicationUser> userManager)

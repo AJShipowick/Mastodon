@@ -51,6 +51,7 @@ namespace OsOEasy.Data
         public DbSet<PromotionStats> PromotionStats { get; set; }
         public DbSet<PromotionEntries> PromotionEntries { get; set; }
         public DbSet<PaymentActivity> PaymentActivity { get; set; }
+        public DbSet<SocialSharing> SocialSharing { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

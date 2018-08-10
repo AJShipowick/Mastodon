@@ -1,5 +1,7 @@
 ﻿<!--This partial view will be updated to show the user what their custom promotion will look and act like....-->
 @{ await Html.RenderPartialAsync("PromoSlider.cshtml"); }
+<!--Modals-->
+@{ await Html.RenderPartialAsync("PromoHelpModal.cshtml"); }
 
 <form id="promoForm">
     <div class="row form-group">
@@ -49,25 +51,23 @@
             <input for="ButtonColor" id="buttonColor" type="color" v-model="PromoModel.buttonColor" v-on:change="setFormButtonColor()">
         </div>
         <div class="col-sm-3">
-            <label for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
-            <input for="ShowCouponBorder" type="checkbox" class="helpText" v-model="PromoModel.showCouponBorder"
-                   v-on:change="showCouponBorder()">
-            <label for="LargeImageSize" style="padding-right:5px">Show a larger image? </label>
-            <input for="LargeImageSize" type="checkbox" class="helpText" v-model="PromoModel.showLargeImage"
-                   v-on:change="showLargeImage()">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="ShowCouponBorder" v-model="PromoModel.showCouponBorder" v-on:change="showCouponBorder()">
+                <label class="custom-control-label helpText" for="ShowCouponBorder" style="padding-right:5px">Show a coupon border? </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="LargeImageSize" v-model="PromoModel.showLargeImage" v-on:change="showLargeImage()">
+                <label class="custom-control-label helpText" for="LargeImageSize" style="padding-right:5px">Show a larger image? </label>
+            </div>
         </div>
         <div class="col-sm-3">
-            <div class="form-check">
-                <input v-model="PromoModel.sideOfScreen" v-on:change="setUserPromoProperties()" class="form-check-input" type="radio" name="rightSide" id="rightSide" value="right" checked>
-                <label class="form-check-label" for="rightSide">
-                    Right side of screen
-                </label>
+            <div class="custom-control custom-radio">
+                <input v-model="PromoModel.sideOfScreen" v-on:change="setUserPromoProperties()" type="radio" id="rightSidePromo" class="custom-control-input" value="right">
+                <label class="custom-control-label helpText" for="rightSidePromo">Right side of screen</label>
             </div>
-            <div class="form-check">
-                <input v-model="PromoModel.sideOfScreen" v-on:change="setUserPromoProperties()" class="form-check-input" type="radio" name="leftSide" id="leftSide" value="left">
-                <label class="form-check-label" for="leftSide">
-                    Left side of screen
-                </label>
+            <div class="custom-control custom-radio">
+                <input v-model="PromoModel.sideOfScreen" v-on:change="setUserPromoProperties()" type="radio" id="leftSidePromo" class="custom-control-input" value="left">
+                <label class="custom-control-label helpText" for="leftSidePromo">Left side of screen</label>
             </div>
         </div>
     </div>
@@ -211,11 +211,4 @@ else
         <i class="fa fa-cloud-upload" aria-hidden="true"></i> Save Promotion
     </button>
 </div>
-@*<button style="display:none"
-            id="deletePromoBtn"
-            type="button"
-            v-on:click="deletePromo()"
-            class="btn btn-danger">
-        <i class="fa fa-remove" aria-hidden="true"></i> Delete
-    </button>*@
 <br /><br /><br />

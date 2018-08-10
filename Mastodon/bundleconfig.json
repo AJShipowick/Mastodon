@@ -58,5 +58,11 @@
     "inputFiles": [
       "wwwroot/js/HomePage/homePage.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Promo/createSocialSharing.min.js",
+    "inputFiles": [
+      "wwwroot/js/Promo/createSocialSharing.js"
+    ]
   }
 ]

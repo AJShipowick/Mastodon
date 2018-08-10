@@ -49,7 +49,8 @@ namespace OsOEasy.Controllers.Promo
         {
             var user = await _common.GetCurrentUserAsync(HttpContext);
 
-            List<Promotion> allUserPromotions = null;
+            List<Promotion> couponPromotions = null;
+            List<SocialSharing> socialPromotions = null;
             Dashboard dashboardModel = null;
 
             try
@@ -58,11 +59,16 @@ namespace OsOEasy.Controllers.Promo
                 {
                     if (_dbContext.Promotion.Count() > 0)
                     {
-                        allUserPromotions = _dbContext.Promotion
+                        couponPromotions = _dbContext.Promotion
                             .Where(c => c.ApplicationUser == user).ToList();
                     }
+                    if (_dbContext.SocialSharing.Count() > 0)
+                    {
+                        socialPromotions = _dbContext.SocialSharing
+                            .Where(d => d.ApplicationUser == user).ToList();
+                    }
                     
-                    dashboardModel = _dashboardBuilder.CreateDashboardModel(_dbContext, user, allUserPromotions);
+                    dashboardModel = _dashboardBuilder.CreateDashboardModel(_dbContext, user, couponPromotions, socialPromotions);
                 }
             }
             catch (Exception ex)

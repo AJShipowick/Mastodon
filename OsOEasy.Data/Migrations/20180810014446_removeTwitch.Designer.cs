@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OsOEasy.Data;
 
 namespace OsOEasy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180810014446_removeTwitch")]
+    partial class removeTwitch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -352,8 +354,6 @@ namespace OsOEasy.Data.Migrations
                     b.Property<string>("PinterestImageType");
 
                     b.Property<string>("PinterestURL");
-
-                    b.Property<string>("SideOfScreen");
 
                     b.Property<string>("Title");
 
