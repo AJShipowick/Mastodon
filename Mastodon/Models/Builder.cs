@@ -170,7 +170,7 @@ namespace OsOEasy.Promo.Models
 
             foreach (SocialSharing item in inactivePromos)
             {
-                var inactiveItem = new InactivePromos { PromoId = item.Id, PromoName = item.Title, PromoType = Common.PromoType_Coupon };
+                var inactiveItem = new InactivePromos { PromoId = item.Id, PromoName = item.Title, PromoType = Common.PromoType_Social };
                 model.InactivePromos.Add(inactiveItem);
             }
         }

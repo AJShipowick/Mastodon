@@ -1,7 +1,5 @@
 ﻿<!--This partial view will be updated to show the user what their custom promotion will look and act like....-->
 @{ await Html.RenderPartialAsync("PromoSlider.cshtml"); }
-<!--Modals-->
-@{ await Html.RenderPartialAsync("PromoHelpModal.cshtml"); }
 
 <form id="promoForm">
     <div class="row form-group">
@@ -212,3 +210,20 @@ else
     </button>
 </div>
 <br /><br /><br />
+
+<div id="formSubmitHelpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Promotion submission</h2>
+            </div>
+            <div class="modal-body">
+                <p>This field is for a custom message to your users once they submit their email and name for your promotion.</p>
+                <p>Make sure to let your users know their promotion code will be emailed to them.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

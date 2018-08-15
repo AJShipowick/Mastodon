@@ -114,7 +114,7 @@
                                    title="View or edit this promotion"
                                    aria-hidden="true">
                                 </i>
-                                <i v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
+                                <i v-if="promo.PromoType == 'coupon'" v-on:click="viewPromoEntries(promo.PromoId, promo.PromoName)"
                                    style="float:right; color:#005eff"
                                    class="fa fa-info-circle helpText"
                                    title="View promotion entries"
@@ -129,6 +129,12 @@
                                     </i> {{promo.PromoName}}
                                 </p>
                                 <p>{{promo.PromoDiscount}}</p>
+                                <div v-if="promo.PromoType == 'coupon'">
+                                    <p><i class="fa fa-tags" aria-hidden="true"></i> Coupon Promo</p>
+                                </div>
+                                <div v-if="promo.PromoType == 'social'">
+                                    <p><i class="fa fa-facebook-official" aria-hidden="true"></i> Social Promo</p>
+                                </div>
                             </div>
                         </div>
                     </div>

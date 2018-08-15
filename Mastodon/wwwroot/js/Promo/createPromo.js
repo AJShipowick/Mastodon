@@ -22,8 +22,8 @@ var newPromoApp = new Vue({
                 .then(function (response) {
                     newPromoApp.PromoModel = response.data;
 
-                    $("#promoData").show();
                     $('#ajaxLoading').hide();
+                    $("#promoData").show();
 
                     if (newPromoApp.PromoModel.id) {
                         $("#osoContactForm").css({ "background-color": newPromoApp.PromoModel.backgroundColor });
@@ -54,7 +54,7 @@ var newPromoApp = new Vue({
                 });
         },
 
-        setUserPromoProperties: function (sideOfScreen) {
+        setUserPromoProperties: function () {
             if (newPromoApp.PromoModel.sideOfScreen === "left") {
                 $('#osoContactForm').css({ 'float': 'left' });
                 //Remove right properties
@@ -190,11 +190,6 @@ var newPromoApp = new Vue({
                 validForm = false;
             }
 
-            //if (!newPromoApp.PromoModel.discount) {
-            //    $("#discountMissing").show();
-            //    validForm = false;
-            //}
-
             if (!newPromoApp.PromoModel.thankYouMessage) {
                 $('#thankYouMissing').show();
                 validForm = false;
@@ -210,20 +205,6 @@ var newPromoApp = new Vue({
             //$("#discountMissing").hide();
             $('#thankYouMissing').hide();
         },
-
-        //deletePromo: function () {
-        //    $("#deletePromoModal").modal('show');
-        //},
-
-        //confirmDeletePromo: function () {
-        //    axios.get('/Promotion/CreatePromo/DeletePromo?promoId=' + newPromoApp.PromoModel.id)
-        //        .then(function (response) {
-        //            window.location.href = '/Dashboard';
-        //        })
-        //        .catch(function (error) {
-        //            //todo Handle errors
-        //        });
-        //},
 
         fileChange: function (fileList) {
             newPromoApp.FilesToUpload = [];
@@ -247,21 +228,21 @@ var newPromoApp = new Vue({
             newPromoApp.PromoModel.displayEndDate = splitDate[1] + "/" + splitDate[2] + "/" + splitDate[0];
         },
 
-        showHelpStep1: function () {
-            $("#promoHelpModalStep1").modal('show');
-        },
-
-        showHelpStep2: function () {
-            $("#promoHelpModalStep2").modal('show');
-            $("#promoHelpModalStep1").modal('hide');
-        },
-
-        closeHelpStep2: function () {
-            $("#promoHelpModalStep2").modal('hide');
-        },
-
         showFormSubmitHelp: function () {
             $("#formSubmitHelpModal").modal('show');
         }
     }
 });
+
+function showHelpStep1 () {
+    $("#promoHelpModalStep1").modal('show');
+}
+
+function showHelpStep2 () {
+    $("#promoHelpModalStep2").modal('show');
+    $("#promoHelpModalStep1").modal('hide');
+}
+
+function closeHelpStep2 () {
+    $("#promoHelpModalStep2").modal('hide');
+}

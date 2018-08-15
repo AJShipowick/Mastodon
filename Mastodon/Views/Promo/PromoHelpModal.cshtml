@@ -28,7 +28,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" v-on:click="showHelpStep2()">Next</button>
+                <button type="button" class="btn btn-primary" onclick="showHelpStep2()">Next</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -65,24 +65,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" v-on:click="showHelpStep1(); closeHelpStep2()">Back</button>
-                <button type="button" class="btn btn-primary" v-on:click="closeHelpStep2()">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="formSubmitHelpModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Promotion submission</h2>
-            </div>
-            <div class="modal-body">
-                <p>This field is for a custom message to your users once they submit their email and name for your promotion.</p>
-                <p>Make sure to let your users know their promotion code will be emailed to them.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="showHelpStep1(); closeHelpStep2()">Back</button>
+                <button type="button" class="btn btn-primary" onclick="closeHelpStep2()">Close</button>
             </div>
         </div>
     </div>

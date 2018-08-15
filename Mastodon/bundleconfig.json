@@ -64,5 +64,11 @@
     "inputFiles": [
       "wwwroot/js/Promo/createSocialSharing.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/social.min.css",
+    "inputFiles": [
+      "wwwroot/css/social.css"
+    ]
   }
 ]

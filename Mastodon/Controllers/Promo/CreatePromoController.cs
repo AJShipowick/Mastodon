@@ -108,7 +108,7 @@ namespace OsOEasy.Controllers.Promo
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetSocialImages(string socialImageType)
+        public JsonResult GetSocialImages(string socialImageType)
         {
             IFileProvider provider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
             IDirectoryContents contents = provider.GetDirectoryContents("wwwroot/images/Social/" + socialImageType);
@@ -140,8 +140,7 @@ namespace OsOEasy.Controllers.Promo
             }
             else
             {
-                //Set new promo defaults
-                //social.ImageType = "coupon";
+                social.SideOfScreen = "left";
             }
 
             return social;

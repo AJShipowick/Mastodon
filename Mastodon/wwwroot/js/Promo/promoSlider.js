@@ -22,7 +22,7 @@ function osoSliderClicked() {
     }
 }
 function closePromotion() {
-    if (newPromoApp.PromoModel.sideOfScreen == "right") {
+    if (newPromoApp.PromoModel.sideOfScreen === "right") {
         document.getElementById('osoContainer').style.right = '-300px';
         document.getElementById('osoImage').style.right = '0px';
 
@@ -41,7 +41,7 @@ function slidePromo() {
     let slidingDiv = document.getElementById('osoContainer');
     let stopPosition = 0;
 
-    if (newPromoApp.PromoModel.sideOfScreen == "right") {
+    if (newPromoApp.PromoModel.sideOfScreen === "right") {
         if (parseInt(slidingDiv.style.right) < stopPosition) {
             slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
             setTimeout(slidePromo, 1);
@@ -59,7 +59,7 @@ function slidePromoImage() {
     let slidingDiv = document.getElementById('osoImage');
     let stopPosition = 0;
 
-    if (newPromoApp.PromoModel.sideOfScreen == "right") {
+    if (newPromoApp.PromoModel.sideOfScreen === "right") {
         if (parseInt(slidingDiv.style.right) < 300) {
             slidingDiv.style.right = parseInt(slidingDiv.style.right) + 5 + 'px';
             setTimeout(slidePromoImage, 1);

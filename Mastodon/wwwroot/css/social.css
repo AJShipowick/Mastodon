@@ -1,0 +1,13 @@
+﻿.socialContainer {
+    position: fixed;
+    z-index: 99 !important;
+    /*left: 0px;*/
+    top: 45%;
+}
+
+.socialImage {
+    display: none;
+    cursor: pointer;
+    height: 45px;
+    width: 45px;
+}
