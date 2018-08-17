@@ -15,7 +15,8 @@ var dashboardApp = new Vue({
             axios.get('/Dashboard/Dashboard/GetUserSettings')
                 .then(function (response) {
                     dashboardApp.Dashboard = response.data;
-                    dashboardApp.InactivePromoCount = response.data.InactivePromos.length;
+                    dashboardApp.InactivePromoCount = response.data.InactivePromos ? response.data.InactivePromos.length : 0;
+
                     $("#activePromoData").show();
                     $("#inactivePromoData").show();
                     $('#ajaxLoading').hide();
@@ -34,7 +35,7 @@ var dashboardApp = new Vue({
 
         drawDashboardPieChart: function () {
 
-            if (dashboardApp.Dashboard.ActivePromoViews === 0) { return;}
+            if (dashboardApp.Dashboard.ActivePromoViews === 0) { return; }
 
             // Define the chart to be drawn.
             let data = new google.visualization.DataTable();
@@ -58,12 +59,12 @@ var dashboardApp = new Vue({
             chart.draw(data, options);
         },
 
-        activatePromoNow: function (promoId) {
+        activatePromoNow: function (promoId, promoType) {
             $("#activePromoData").hide();
             $("#inactivePromoData").hide();
             $('#ajaxLoading').show();
 
-            axios.get('/Dashboard/Dashboard/ActivatePromo?promoId=' + promoId)
+            axios.get('/Dashboard/Dashboard/ActivatePromo?promoId=' + promoId + "&promoType=" + promoType)
                 .then(function (response) {
                     dashboardApp.getUserSettings();
                 })
@@ -76,13 +77,13 @@ var dashboardApp = new Vue({
             $("#stopPromoModal").modal('show');
         },
 
-        stopPromoNow: function (promoId) {
+        stopPromoNow: function (promoId, promoType) {
             $("#activePromoData").hide();
             $("#inactivePromoData").hide();
             $('#ajaxLoading').show();
             $("#stopPromoModal").modal('hide');
 
-            axios.get('/Dashboard/Dashboard/StopActivePromotion?promoId=' + promoId)
+            axios.get('/Dashboard/Dashboard/StopActivePromotion?promoId=' + promoId + "&promoType=" + promoType)
                 .then(function (response) {
                     dashboardApp.getUserSettings();
                 })

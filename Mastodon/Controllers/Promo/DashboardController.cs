@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -67,7 +66,7 @@ namespace OsOEasy.Controllers.Promo
                         socialPromotions = _dbContext.SocialSharing
                             .Where(d => d.ApplicationUser == user).ToList();
                     }
-                    
+
                     dashboardModel = _dashboardBuilder.CreateDashboardModel(_dbContext, user, couponPromotions, socialPromotions);
                 }
             }
@@ -75,43 +74,75 @@ namespace OsOEasy.Controllers.Promo
             {
                 //todo handle exception
             }
-           
+
             return JsonConvert.SerializeObject(dashboardModel);
         }
 
         [HttpGet]
-        public void ActivatePromo(string promoId)
+        public void ActivatePromo(string promoId, string promoType)
         {
+            var activePromoId = FindActivePromoId(promoType);
+            StopActivePromotion(activePromoId, promoType);
+
+            //Activate selected promo
             using (_dbContext)
             {
-                //Set all promos to inactive
-                foreach (Promotion promo in _dbContext.Promotion)
+                switch (promoType)
                 {
-                    promo.ActivePromotion = false;
+                    case Common.PromoType_Coupon:
+                        var couponPromo = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
+                        couponPromo.ActivePromotion = true;
+                        break;
+                    case Common.PromoType_Social:
+                        var socialPromo = _dbContext.SocialSharing.Where(c => c.Id == promoId).FirstOrDefault();
+                        socialPromo.ActivePromotion = true;
+                        break;
                 }
-
-                if (String.IsNullOrEmpty(promoId) && !String.IsNullOrEmpty(HttpContext.Session.GetString("savedPromoId")))
-                {
-                    //This case handles a NEW promo that is saved and activated at the same time
-                    promoId = HttpContext.Session.GetString("savedPromoId");
-                }
-
-                //Activate selected promo
-                var promoToActivate = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
-                promoToActivate.ActivePromotion = true;
-
                 _dbContext.SaveChanges();
             }
         }
 
-        [HttpGet]
-        public void StopActivePromotion(string promoId)
+        private string FindActivePromoId(string promoType)
         {
+            Promotion activePromo_Coupon = (from x in _dbContext.Promotion
+                                            where x.ActivePromotion == true
+                                            select x).SingleOrDefault();
+
+            if (activePromo_Coupon != null)
+            {
+                return activePromo_Coupon.Id;
+            }
+
+            SocialSharing activePromo_Social = (from x in _dbContext.SocialSharing
+                                                where x.ActivePromotion == true
+                                                select x).SingleOrDefault();
+
+            if (activePromo_Social != null)
+            {
+                return activePromo_Social.Id;
+            }
+
+            return "";
+        }
+
+        [HttpGet]
+        public void StopActivePromotion(string promoId, string promoType)
+        {
+            if (string.IsNullOrEmpty(promoId)) { return; }
+
             using (_dbContext)
             {
-                var activePromo = (from x in _dbContext.Promotion where x.Id == promoId select x).First();
-                activePromo.ActivePromotion = false;
-
+                switch (promoType)
+                {
+                    case Common.PromoType_Coupon:
+                        var couponPromo = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
+                        couponPromo.ActivePromotion = false;
+                        break;
+                    case Common.PromoType_Social:
+                        var socialPromo = _dbContext.SocialSharing.Where(c => c.Id == promoId).FirstOrDefault();
+                        socialPromo.ActivePromotion = false;
+                        break;
+                }
                 _dbContext.SaveChanges();
             }
         }

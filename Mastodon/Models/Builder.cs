@@ -1,7 +1,6 @@
 ﻿using OsOEasy.Data;
 using OsOEasy.Data.Models;
 using OsOEasy.Models.PromoModels;
-using OsOEasy.Services.Stripe;
 using OsOEasy.Shared;
 using System;
 using System.Collections.Generic;
@@ -133,6 +132,7 @@ namespace OsOEasy.Promo.Models
         private void SetActiveSocialDetails(ApplicationDbContext dbContext, Dashboard model, SocialSharing activePromo)
         {
             model.ActivePromoName = activePromo.Title;
+            model.ActivePromoId = activePromo.Id;
             model.ActivePromoType = Common.PromoType_Social;
         }
 

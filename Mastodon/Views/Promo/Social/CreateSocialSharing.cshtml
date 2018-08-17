@@ -29,6 +29,9 @@
         <div class="row">
             <p class="offset-md-2"><strong>Facebook Page URL:</strong></p>
         </div>
+        <div class="row">
+            <small class="offset-md-2" id="fburlMissing" style="color:red; display:none">URL is required</small>
+        </div>
         <div class="input-group col-sm-6 offset-md-2">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="fbBaseURL">https://www.facebook.com/</span>
@@ -37,6 +40,9 @@
         </div>
         <div class="row">
             <p class="offset-md-2"><strong>Select Facebook Icon:</strong></p>
+        </div>
+        <div class="row">
+            <small class="offset-md-2" id="fbimageMissing" style="color:red; display:none">Image is required</small>
         </div>
         <div class="col-sm-10 form-group offset-md-2">
             <label v-for="(name, index) in FacebookImages">
@@ -57,6 +63,9 @@
         <div class="row">
             <p class="offset-md-2"><strong>Twitter Page URL:</strong></p>
         </div>
+        <div class="row">
+            <small class="offset-md-2" id="twurlMissing" style="color:red; display:none">URL is required</small>
+        </div>
         <div class="input-group col-sm-6 offset-md-2">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="twBaseURL">https://www.twitter.com/</span>
@@ -65,6 +74,9 @@
         </div>
         <div class="row">
             <p class="offset-md-2"><strong>Select Twitter Icon:</strong></p>
+        </div>
+        <div class="row">
+            <small class="offset-md-2" id="twimageMissing" style="color:red; display:none">Image is required</small>
         </div>
         <div class="col-sm-10 form-group offset-md-2">
             <label v-for="(name, index) in TwitterImages">
@@ -85,6 +97,9 @@
         <div class="row">
             <p class="offset-md-2"><strong>Instagram Page URL:</strong></p>
         </div>
+        <div class="row">
+            <small class="offset-md-2" id="inurlMissing" style="color:red; display:none">URL is required</small>
+        </div>
         <div class="input-group col-sm-6 offset-md-2">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="insBaseURL">https://www.instagram.com/</span>
@@ -93,6 +108,9 @@
         </div>
         <div class="row">
             <p class="offset-md-2"><strong>Select Instagram Icon:</strong></p>
+        </div>
+        <div class="row">
+            <small class="offset-md-2" id="inimageMissing" style="color:red; display:none">Image is required</small>
         </div>
         <div class="col-sm-10 form-group offset-md-2">
             <label v-for="(name, index) in InstagramImages">
@@ -113,6 +131,9 @@
         <div class="row">
             <p class="offset-md-2"><strong>Linkedin Page URL:</strong></p>
         </div>
+        <div class="row">
+            <small class="offset-md-2" id="liurlMissing" style="color:red; display:none">URL is required</small>
+        </div>
         <div class="input-group col-sm-6 offset-md-2">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="linBaseURL">https://www.linkedin.com/</span>
@@ -121,6 +142,9 @@
         </div>
         <div class="row">
             <p class="offset-md-2"><strong>Select Linkedin Icon:</strong></p>
+        </div>
+        <div class="row">
+            <small class="offset-md-2" id="liimageMissing" style="color:red; display:none">Image is required</small>
         </div>
         <div class="col-sm-10 form-group offset-md-2">
             <label v-for="(name, index) in LinkedinImages">
@@ -141,6 +165,9 @@
         <div class="row">
             <p class="offset-md-2"><strong>Pinterest Page URL:</strong></p>
         </div>
+        <div class="row">
+            <small class="offset-md-2" id="piurlMissing" style="color:red; display:none">URL is required</small>
+        </div>
         <div class="input-group col-sm-6 offset-md-2">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="pinBaseURL">https://www.pinterest.com/</span>
@@ -149,6 +176,9 @@
         </div>
         <div class="row">
             <p class="offset-md-2"><strong>Select Pinterest Icon:</strong></p>
+        </div>
+        <div class="row">
+            <small class="offset-md-2" id="piimageMissing" style="color:red; display:none">Image is required</small>
         </div>
         <div class="col-sm-10 form-group offset-md-2">
             <label v-for="(name, index) in PinterestImages">

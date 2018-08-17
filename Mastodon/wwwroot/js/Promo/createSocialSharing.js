@@ -87,22 +87,32 @@ var socialSharing = new Vue({
             if (event && event.target && event.target.checked) {
                 socialSharing.getSocialImages(socialImageType);
             } else {
-                //Un-check event, remove image from screen
+                //Un-check event, remove image from screen and clear out selected image and URL
                 switch (socialImageType) {
                     case socialSharing.facebook:
                         $('#facebookImage').hide();
+                        socialSharing.SocialModel.facebookURL = "";
+                        socialSharing.SocialModel.facebookImageName = "";
                         break;
                     case socialSharing.twitter:
                         $('#twitterImage').hide();
+                        socialSharing.SocialModel.twitterURL = "";
+                        socialSharing.SocialModel.twitterImageName = "";
                         break;
                     case socialSharing.instagram:
                         $('#instagramImage').hide();
+                        socialSharing.SocialModel.instagramURL = "";
+                        socialSharing.SocialModel.instagramImageName = "";
                         break;
                     case socialSharing.linkedin:
                         $('#linkedinImage').hide();
+                        socialSharing.SocialModel.linkedinURL = "";
+                        socialSharing.SocialModel.linkedinImageName = "";
                         break;
                     case socialSharing.pinterest:
                         $('#pinterestImage').hide();
+                        socialSharing.SocialModel.pinterestURL = "";
+                        socialSharing.SocialModel.pinterestImageName = "";
                         break;
                 }
             }
@@ -226,11 +236,76 @@ var socialSharing = new Vue({
                 validForm = false;
             }
 
+            if (socialSharing.SocialModel.useFacebook) {
+                if (socialSharing.SocialModel.facebookURL === null || socialSharing.SocialModel.facebookURL === "") {
+                    $("#fburlMissing").show();
+                    validForm = false;
+                }
+                if (socialSharing.SocialModel.facebookImageName === null || socialSharing.SocialModel.facebookImageName === "") {
+                    $("#fbimageMissing").show();
+                    validForm = false;
+                }
+            }
+            if (socialSharing.SocialModel.useTwitter) {
+                if (socialSharing.SocialModel.twitterURL === null || socialSharing.SocialModel.twitterURL === "") {
+                    $("#twurlMissing").show();
+                    validForm = false;
+                }
+                if (socialSharing.SocialModel.twitterImageName === null || socialSharing.SocialModel.twitterImageName === "") {
+                    $("#twimageMissing").show();
+                    validForm = false;
+                }
+            }
+            if (socialSharing.SocialModel.useInstagram) {
+                if (socialSharing.SocialModel.instagramURL === null || socialSharing.SocialModel.instagramURL === "") {
+                    $("#inurlMissing").show();
+                    validForm = false;
+                }
+                if (socialSharing.SocialModel.instagramImageName === null || socialSharing.SocialModel.instagramImageName === "") {
+                    $("#inimageMissing").show();
+                    validForm = false;
+                }
+            }
+            if (socialSharing.SocialModel.useLinkedin) {
+                if (socialSharing.SocialModel.linkedinURL === null || socialSharing.SocialModel.linkedinURL === "") {
+                    $("#liurlMissing").show();
+                    validForm = false;
+                }
+                if (socialSharing.SocialModel.linkedinImageName === null || socialSharing.SocialModel.linkedinImageName === "") {
+                    $("#liimageMissing").show();
+                    validForm = false;
+                }
+            }
+            if (socialSharing.SocialModel.usePinterest) {
+                if (socialSharing.SocialModel.pinterestURL === null || socialSharing.SocialModel.pinterestURL === "") {
+                    $("#piurlMissing").show();
+                    validForm = false;
+                }
+                if (socialSharing.SocialModel.pinterestImageName === null || socialSharing.SocialModel.pinterestImageName === "") {
+                    $("#piimageMissing").show();
+                    validForm = false;
+                }
+            }
+
             return validForm;
         },
 
         hideErrors: function () {
             $("#socialTitleMissing").hide();
+
+            //Hide URL errors
+            $("#fburlMissing").hide();
+            $("#twurlMissing").hide();
+            $("#inurlMissing").hide();
+            $("#liurlMissing").hide();
+            $("#piurlMissing").hide();
+
+            //Hide Image errors
+            $("#fbimageMissing").hide();
+            $("#twimageMissing").hide();
+            $("#inimageMissing").hide();
+            $("#liimageMissing").hide();
+            $("#piimageMissing").hide();
         },
 
         saveSocial: function () {

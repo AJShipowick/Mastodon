@@ -91,6 +91,8 @@ namespace OsOEasy
             services.Configure<RazorViewEngineOptions>(options =>
             {
                 options.AreaViewLocationFormats.Clear();
+                options.AreaViewLocationFormats.Add("/Views/Promo/Coupon/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/Views/Promo/Social/{0}.cshtml");
                 options.AreaViewLocationFormats.Add("/Views/Promo/{0}.cshtml");
                 options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });

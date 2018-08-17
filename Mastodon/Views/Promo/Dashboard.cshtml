@@ -68,22 +68,30 @@
                                style="float:left; color:#005eff"
                                title="View or edit this promotion"
                                aria-hidden="true"></i>
-                            <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromoName)"
-                               class="fa fa-info-circle fa-lg helpText"
-                               style="float:right; color:#005eff"
-                               title="View promotion entries"
-                               aria-hidden="true"></i>
+                            <div v-if="Dashboard.ActivePromoType == 'coupon'">
+                                <i v-on:click="viewPromoEntries(Dashboard.ActivePromoId, Dashboard.ActivePromoName)"
+                                   class="fa fa-info-circle fa-lg helpText"
+                                   style="float:right; color:#005eff"
+                                   title="View promotion entries"
+                                   aria-hidden="true"></i>
+                            </div>
                             <h2 style="text-align:center">
                                 {{Dashboard.ActivePromoName}}
                             </h2>
-                            <h3>{{Dashboard.ActivePromoDiscount}}</h3>
-                            <h4>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</h4>
-                            <h4>End Date: {{Dashboard.ActivePromoEndDate}}</h4>
+                            <div v-if="Dashboard.ActivePromoType == 'coupon'">
+                                <h3>{{Dashboard.ActivePromoDiscount}}</h3>
+                                <h4>Claimed Entries: {{Dashboard.ActivePromoClaimedEntries}}</h4>
+                                <h4>End Date: {{Dashboard.ActivePromoEndDate}}</h4>
+                                <p><i class="fa fa-tags" aria-hidden="true"></i> Coupon Promo</p>
+                            </div>
+                            <div v-if="Dashboard.ActivePromoType == 'social'">
+                                <p><i class="fa fa-facebook-official" aria-hidden="true"></i> Social Promo</p>
+                            </div>
                             <small style="color:red">{{Dashboard.ActivePromoWarningMessage}}</small>
                         </div>
                     </div>
 
-                    <div v-if="Dashboard.ActivePromoName !== null" class="col-sm-6">
+                    <div v-if="Dashboard.ActivePromoName !== null && Dashboard.ActivePromoType == 'coupon'" class="col-sm-6">
                         <div v-if="Dashboard.ActivePromoViews > 0">
                             <h2><i class="fa fa-line-chart" style="color:red" aria-hidden="true"></i> Promo Stats</h2>
                             <div id="pieChartStats"></div>
@@ -121,7 +129,7 @@
                                    aria-hidden="true">
                                 </i>
                                 <p style="text-align:center">
-                                    <i v-on:click="activatePromoNow(promo.PromoId)"
+                                    <i v-on:click="activatePromoNow(promo.PromoId, promo.PromoType)"
                                        style="color:red"
                                        class="fa fa-play-circle-o fa-lg helpText"
                                        title="Activate this promotion now"
@@ -158,7 +166,7 @@
                     <p>This action will take effect immediately on your website.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" v-on:click="stopPromoNow(Dashboard.ActivePromoId)"><i class="fa fa-warning" aria-hidden="true"></i> STOP NOW</button>
+                    <button type="button" class="btn btn-danger" v-on:click="stopPromoNow(Dashboard.ActivePromoId, Dashboard.ActivePromoType)"><i class="fa fa-warning" aria-hidden="true"></i> STOP NOW</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
