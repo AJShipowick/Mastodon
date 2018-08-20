@@ -9,12 +9,16 @@
                     return;
                 }
 
-                let script = document.createElement('script');
-                script.innerHTML = request.responseText;
-                document.getElementsByTagName('head')[0].appendChild(script);
+                if (request.responseText.substring(0, 9).indexOf('(function') > 0) {
+                    let script = document.createElement('script');
+                    script.innerHTML = request.responseText;
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                } else {
+                    document.getElementsByTagName('head')[0].appendChild(request.responseText);
+                }
 
-            } else {                
-                console.log('Oso Easy Promo Error' + request.responseText)
+            } else {
+                console.log('Oso Easy Promo Error' + request.responseText);
             }
         }
     };

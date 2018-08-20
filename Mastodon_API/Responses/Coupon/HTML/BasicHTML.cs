@@ -23,7 +23,7 @@ namespace OsOEasy.API.Responses.HTML
 
         public string getSliderHTML(Promotion promotion)
         {
-            string minHTML = File.ReadAllText("Responses/HTML/BasicHTML.min.html");
+            string minHTML = File.ReadAllText("Responses/Coupon/HTML/BasicHTML.min.html");
 
             minHTML = minHTML.Replace("?image?", string.Format("'https://osoeasypromo.com/images/Promo/{0}/{1}",
                     promotion.ImageType, promotion.ImageName + "'"));

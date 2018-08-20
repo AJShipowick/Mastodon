@@ -8,7 +8,33 @@
   * This can be done with the Chrome extension 'Allow-Control-Allow-Origin: *'
  */
 
-/*Begin Oso Easy Promo Script*/(function () { let a = new XMLHttpRequest; a.onreadystatechange = function () { if (4 === a.readyState) if (200 === a.status) { if (document.body.className = 'ok', !a.responseText || a.responseText.includes('ERROR') || a.responseText.includes('WARNING')) return void console.log(a.responseText); let b = document.createElement('script'); b.innerHTML = a.responseText, document.getElementsByTagName('head')[0].appendChild(b) } else console.log('OsO Easy Promo Error' + a.responseText) }, a.open('GET', 'http://localhost:51186/api/promo/a6593502-8f7d-4656-9d79-9cfc695dff9e', !0), a.send(null) })();/*End Oso Easy Promo Script*/
+(function () {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                document.body.className = 'ok';
+                if (!request.responseText || request.responseText.includes('ERROR') || request.responseText.includes('WARNING')) {
+                    console.log(request.responseText);
+                    return;
+                }
+
+                if (request.responseText.substring(0, 9).indexOf('(function') > 0) {
+                    let script = document.createElement('script');
+                    script.innerHTML = request.responseText;
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                } else {
+                    document.getElementsByTagName('head')[0].appendChild(request.responseText);
+                }
+
+            } else {
+                console.log('Oso Easy Promo Error' + request.responseText);
+            }
+        }
+    };
+    request.open("GET", "http://localhost:51186/api/promo/a6593502-8f7d-4656-9d79-9cfc695dff9e", true);
+    request.send(null);
+})();
 
 function contactUs() {
     if (!formValid()) { return; }

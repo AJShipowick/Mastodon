@@ -96,7 +96,7 @@ var dashboardApp = new Vue({
             window.location.href = '/Details/PromoDetails/PromoDetails?promoId=' + promoId + "&promoName=" + promoName;
         },
 
-        showUserScriptInfo: function (userScript) {
+        showUserScriptInfo: function () {
             $("#userScriptModal").modal('show');
             $('#copySuccess').hide();
         },

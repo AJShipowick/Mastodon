@@ -237,51 +237,51 @@ var socialSharing = new Vue({
             }
 
             if (socialSharing.SocialModel.useFacebook) {
-                if (socialSharing.SocialModel.facebookURL === null || socialSharing.SocialModel.facebookURL === "") {
+                if (!socialSharing.SocialModel.facebookURL) {
                     $("#fburlMissing").show();
                     validForm = false;
                 }
-                if (socialSharing.SocialModel.facebookImageName === null || socialSharing.SocialModel.facebookImageName === "") {
+                if (!socialSharing.SocialModel.facebookImageName) {
                     $("#fbimageMissing").show();
                     validForm = false;
                 }
             }
             if (socialSharing.SocialModel.useTwitter) {
-                if (socialSharing.SocialModel.twitterURL === null || socialSharing.SocialModel.twitterURL === "") {
+                if (!socialSharing.SocialModel.twitterURL) {
                     $("#twurlMissing").show();
                     validForm = false;
                 }
-                if (socialSharing.SocialModel.twitterImageName === null || socialSharing.SocialModel.twitterImageName === "") {
+                if (!socialSharing.SocialModel.twitterImageName) {
                     $("#twimageMissing").show();
                     validForm = false;
                 }
             }
             if (socialSharing.SocialModel.useInstagram) {
-                if (socialSharing.SocialModel.instagramURL === null || socialSharing.SocialModel.instagramURL === "") {
+                if (!socialSharing.SocialModel.instagramURL) {
                     $("#inurlMissing").show();
                     validForm = false;
                 }
-                if (socialSharing.SocialModel.instagramImageName === null || socialSharing.SocialModel.instagramImageName === "") {
+                if (!socialSharing.SocialModel.instagramImageName) {
                     $("#inimageMissing").show();
                     validForm = false;
                 }
             }
             if (socialSharing.SocialModel.useLinkedin) {
-                if (socialSharing.SocialModel.linkedinURL === null || socialSharing.SocialModel.linkedinURL === "") {
+                if (!socialSharing.SocialModel.linkedinURL) {
                     $("#liurlMissing").show();
                     validForm = false;
                 }
-                if (socialSharing.SocialModel.linkedinImageName === null || socialSharing.SocialModel.linkedinImageName === "") {
+                if (!socialSharing.SocialModel.linkedinImageName) {
                     $("#liimageMissing").show();
                     validForm = false;
                 }
             }
             if (socialSharing.SocialModel.usePinterest) {
-                if (socialSharing.SocialModel.pinterestURL === null || socialSharing.SocialModel.pinterestURL === "") {
+                if (!socialSharing.SocialModel.pinterestURL) {
                     $("#piurlMissing").show();
                     validForm = false;
                 }
-                if (socialSharing.SocialModel.pinterestImageName === null || socialSharing.SocialModel.pinterestImageName === "") {
+                if (!socialSharing.SocialModel.pinterestImageName) {
                     $("#piimageMissing").show();
                     validForm = false;
                 }

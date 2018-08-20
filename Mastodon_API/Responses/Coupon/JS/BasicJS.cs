@@ -13,7 +13,7 @@ namespace OsOEasy.API.Responses.JS
     {
         public string GetSliderJS(Promotion promotion)
         {
-            string minJS = File.ReadAllText("Responses/JS/BasicJS.min.js");
+            string minJS = File.ReadAllText("Responses/Coupon/JS/BasicJS.min.js");
             minJS = minJS.Replace("oso_side_of_screen", promotion.SideOfScreen);
 
             return minJS;

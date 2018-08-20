@@ -17,6 +17,8 @@ namespace OsOEasy.Shared
 
         public const string PromoType_Coupon = "coupon";
         public const string PromoType_Social = "social";
+        public const string LIVE_API_URL = "https://api.osoeasypromo.com";
+        public const string LIVE_SITE_URL = "https://osoeasypromo.com";
 
         private readonly UserManager<ApplicationUser> _userManager;
 

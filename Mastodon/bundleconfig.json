@@ -70,5 +70,11 @@
     "inputFiles": [
       "wwwroot/css/social.css"
     ]
+  },
+  {
+    "outputFileName": "Services/OsOSiteLoadingScript.min.js",
+    "inputFiles": [
+      "Services/OsOSiteLoadingScript.js"
+    ]
   }
 ]

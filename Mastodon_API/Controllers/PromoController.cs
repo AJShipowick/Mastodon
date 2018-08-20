@@ -41,37 +41,37 @@ namespace OsOEasy.API.Controllers
         [Route("{clientID}")]
         public string GetAsync(string clientID)
         {
-            Promotion clientPromotion = null;
-
             try
             {
                 using (_DbContext)
                 {
-
-                    if (_DbContext.Promotion.Count() < 1) { return "WARNING, no active promotions found."; }
-
-                    clientPromotion = _DbContext.Promotion
-                        .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
-
                     ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientID).First();
                     if (!_SubscriptionService.SubscriptionWithinTrafficLimit(appUser, _DbContext) || appUser.AccountSuspended)
                     {
                         return "ERROR, issue found with OsOEasyPromo account, please check account status at OsoEasyPromo.com!";
                     }
 
-                    if (clientPromotion != null && !_PromoService.ActivePromoExpired(clientPromotion.EndDate))
+                    //Coupon Promotion
+                    Promotion couponPromotion = _DbContext.Promotion
+                        .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
+                    if (couponPromotion != null && !_PromoService.ActivePromoExpired(couponPromotion.EndDate))
                     {
                         //Task the update to stats out?
                         //https://stackoverflow.com/questions/1018610/simplest-way-to-do-a-fire-and-forget-method-in-c
-                        _PromoService.UpdatePromotionStats(clientPromotion, _DbContext);
-                        return _MainJS.GetMainJS(clientID, clientPromotion);
+                        _PromoService.UpdatePromotionStats(couponPromotion, _DbContext);
+                        return _MainJS.GetMainCouponJS(clientID, couponPromotion);
                     }
-                    else
+
+                    //Social Sharing Promotion
+                    SocialSharing socialPromotion = _DbContext.SocialSharing
+                        .Where(c => c.ApplicationUser.Id == clientID && c.ActivePromotion == true).FirstOrDefault();
+                    if (socialPromotion != null)
                     {
-                        return "WARNING, no active promotion found";
+                        return _MainJS.GetMainSocialHTML(socialPromotion);
                     }
                 }
 
+                return "WARNING, no active promotion found";
             }
             catch (Exception ex)
             {

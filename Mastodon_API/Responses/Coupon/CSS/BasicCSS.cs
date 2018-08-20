@@ -13,7 +13,7 @@ namespace OsOEasy.API.Responses.CSS
     {
         public string GetSliderCSS(Promotion promotion)
         {
-            string minCSS = File.ReadAllText("Responses/CSS/BasicCSS.min.css");
+            string minCSS = File.ReadAllText("Responses/Coupon/CSS/BasicCSS.min.css");
 
             var imageWidth = (promotion.ShowLargeImage ? "96px" : "64px");
 

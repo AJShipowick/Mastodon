@@ -1,29 +1,49 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using OsOEasy.Shared;
+using System;
+using System.IO;
 using System.Text;
 
 namespace OsOEasy.Services
 {
+
+    public interface IOsOSiteLoadingScript
+    {
+        string BuildSiteLoadingScript(string customerID);
+    }
+
     /// <summary>
     /// Builds the loading script for the user
-    /// This js is built from a minified version of OsOSiteLoadingScript.js
+    /// This js is built from OsOSiteLoadingScript.min.js
     /// </summary>
-    public class OsOSiteLoadingScript
+    public class OsOSiteLoadingScript : IOsOSiteLoadingScript
     {
 
-        public String BuildSiteLoadingScript(String customerID)
+        private IHostingEnvironment _env;
+
+        public OsOSiteLoadingScript(IHostingEnvironment env)
         {
+            _env = env;
+        }
+
+        public string BuildSiteLoadingScript(string customerID)
+        {
+            string loadingScript = File.ReadAllText("OsOSiteLoadingScript.min.js");
+
             StringBuilder sb = new StringBuilder();
             sb.Append("<script>/*Begin Oso Easy Promo Script*/");
-
-            //Insert minified JS script below from OsOSiteLoadingScript.js
-            sb.Append("(function(){let a=new XMLHttpRequest;a.onreadystatechange=function(){if(4===a.readyState)if(200===a.status){if(document.body.className='ok',!a.responseText||a.responseText.includes('ERROR')||a.responseText.includes('WARNING'))return void console.log(a.responseText);let b=document.createElement('script');b.innerHTML=a.responseText,document.getElementsByTagName('head')[0].appendChild(b)}else console.log('Oso Easy Promo Error'+a.responseText)},a.open('GET','https://api.osoeasypromo.com/api/promo/USERID',!0),a.send(null)})();");
-
+            sb.Append(loadingScript);
             sb.Append("/*End Oso Easy Promo Script*/</script>");
 
             sb = sb.Replace("USERID", customerID);
+
+            if (_env.IsDevelopment())
+            {
+                sb = sb.Replace(Common.LIVE_API_URL, Properties.Resource.Local_API_URL);
+            }
+
             return sb.ToString();
 
         }
-
     }
 }

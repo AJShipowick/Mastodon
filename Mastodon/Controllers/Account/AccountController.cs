@@ -25,6 +25,7 @@ namespace OsOEasy.Controllers.Account
         private readonly IMailGunEmailSender _emailSender;
         private readonly ICommon _common;
         private readonly ILogger _logger;
+        private readonly IOsOSiteLoadingScript _loadingScript;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -32,7 +33,8 @@ namespace OsOEasy.Controllers.Account
             ApplicationDbContext dbContext,
             IMailGunEmailSender emailSender,
             ICommon common,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IOsOSiteLoadingScript loadingScript)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -40,6 +42,7 @@ namespace OsOEasy.Controllers.Account
             _emailSender = emailSender;
             _common = common;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _loadingScript = loadingScript;
         }
 
         //
@@ -131,7 +134,7 @@ namespace OsOEasy.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            String returnURL = "/Dashboard";
+            string returnURL = "/Dashboard";
 
             if (ModelState.IsValid)
             {
@@ -157,8 +160,7 @@ namespace OsOEasy.Controllers.Account
                     _logger.LogInformation(3, "User created a new account with password.");
 
                     //Update user site script after user creation
-                    OsOSiteLoadingScript siteScript = new OsOSiteLoadingScript();
-                    user.UserPromoScript = siteScript.BuildSiteLoadingScript(user.Id);
+                    user.UserPromoScript = _loadingScript.BuildSiteLoadingScript(user.Id);
                     await _userManager.UpdateAsync(user);
 
                     return RedirectToLocal(returnURL);

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OsOEasy.Data;
 using OsOEasy.Data.Models;
+using OsOEasy.Services;
 using OsOEasy.Services.MailGun;
 using OsOEasy.Services.Stripe;
 using OsOEasy.Shared;
@@ -87,6 +88,7 @@ namespace OsOEasy
             services.AddTransient<IStripeService, StripeService>();
             services.AddTransient<ICommon, Common>();
             services.AddTransient<Promo.Models.IBuilder, Promo.Models.Builder>();
+            services.AddTransient<IOsOSiteLoadingScript, OsOSiteLoadingScript>();
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
