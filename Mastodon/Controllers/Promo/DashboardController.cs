@@ -79,15 +79,27 @@ namespace OsOEasy.Controllers.Promo
         }
 
         [HttpGet]
-        public void ActivatePromo(string promoId, string promoType)
+        public void ActivatePromo(string promoId, string promoTypeToActivate, string promoTypeToStop)
         {
-            var activePromoId = FindActivePromoId(promoType);
-            StopActivePromotion(activePromoId, promoType);
-
-            //Activate selected promo
             using (_dbContext)
             {
-                switch (promoType)
+                var activePromoId = FindActivePromoId();
+                if (!string.IsNullOrEmpty(activePromoId) || !string.IsNullOrEmpty(activePromoId))
+                {
+                    switch (promoTypeToStop)
+                    {
+                        case Common.PromoType_Coupon:
+                            var couponPromo = _dbContext.Promotion.Where(c => c.Id == activePromoId).FirstOrDefault();
+                            couponPromo.ActivePromotion = false;
+                            break;
+                        case Common.PromoType_Social:
+                            var socialPromo = _dbContext.SocialSharing.Where(c => c.Id == activePromoId).FirstOrDefault();
+                            socialPromo.ActivePromotion = false;
+                            break;
+                    }
+                }
+
+                switch (promoTypeToActivate)
                 {
                     case Common.PromoType_Coupon:
                         var couponPromo = _dbContext.Promotion.Where(c => c.Id == promoId).FirstOrDefault();
@@ -102,7 +114,7 @@ namespace OsOEasy.Controllers.Promo
             }
         }
 
-        private string FindActivePromoId(string promoType)
+        private string FindActivePromoId()
         {
             Promotion activePromo_Coupon = (from x in _dbContext.Promotion
                                             where x.ActivePromotion == true
@@ -128,7 +140,7 @@ namespace OsOEasy.Controllers.Promo
         [HttpGet]
         public void StopActivePromotion(string promoId, string promoType)
         {
-            if (string.IsNullOrEmpty(promoId)) { return; }
+            if (string.IsNullOrEmpty(promoId) || string.IsNullOrEmpty(promoType)) { return; } //No promo to stop
 
             using (_dbContext)
             {

@@ -19,20 +19,21 @@
                     return;
                 }
 
-                if (request.responseText.substring(0, 9).indexOf('(function') > 0) {
-                    let script = document.createElement('script');
-                    script.innerHTML = request.responseText;
-                    document.getElementsByTagName('head')[0].appendChild(script);
+                let container;
+                if (request.responseText.substring(0, 8).includes('function')) {
+                    container = document.createElement('script');
                 } else {
-                    document.getElementsByTagName('head')[0].appendChild(request.responseText);
+                    container = document.createElement('div');
                 }
+                container.innerHTML = request.responseText;
+                document.body.appendChild(container);
 
             } else {
                 console.log('Oso Easy Promo Error' + request.responseText);
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/promo/a6593502-8f7d-4656-9d79-9cfc695dff9e", true);
+    request.open("GET", "http://localhost:51186/api/promo/7d052744-6a60-4b1f-90c5-b976bcad55bf", true);
     request.send(null);
 })();
 

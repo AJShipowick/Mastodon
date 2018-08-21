@@ -45,7 +45,9 @@ namespace OsOEasy.API.Controllers
             {
                 using (_DbContext)
                 {
-                    ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientID).First();
+                    ApplicationUser appUser = _DbContext.Users.Where(u => u.Id == clientID).FirstOrDefault();
+                    if (appUser == null) { return "ERROR, Unknown user found within Oso script."; }
+
                     if (!_SubscriptionService.SubscriptionWithinTrafficLimit(appUser, _DbContext) || appUser.AccountSuspended)
                     {
                         return "ERROR, issue found with OsOEasyPromo account, please check account status at OsoEasyPromo.com!";

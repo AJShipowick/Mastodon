@@ -59,12 +59,12 @@ var dashboardApp = new Vue({
             chart.draw(data, options);
         },
 
-        activatePromoNow: function (promoId, promoType) {
+        activatePromoNow: function (promoId, promoTypeToActivate, promoTypeToStop) {
             $("#activePromoData").hide();
             $("#inactivePromoData").hide();
             $('#ajaxLoading').show();
 
-            axios.get('/Dashboard/Dashboard/ActivatePromo?promoId=' + promoId + "&promoType=" + promoType)
+            axios.get('/Dashboard/Dashboard/ActivatePromo?promoId=' + promoId + "&promoTypeToActivate=" + promoTypeToActivate + "&promoTypeToStop=" + promoTypeToStop)
                 .then(function (response) {
                     dashboardApp.getUserSettings();
                 })

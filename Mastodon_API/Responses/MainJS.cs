@@ -54,8 +54,8 @@ namespace OsOEasy.API.Responses
         {
             var html = new StringBuilder();
 
-            var sideOfScreen = socialPromotion.SideOfScreen == "right" ? "right:0px" : "left:0px";
-            html.Append("<div style='position:fixed;z-index:99 !important;top: 45%;" + sideOfScreen + "id='OsoEasyPromo.com_SocialPromotion>");
+            var sideOfScreen = socialPromotion.SideOfScreen == "right" ? "right:0px;" : "left:0px;";
+            html.Append("<div style='position:fixed;z-index:99 !important;" + sideOfScreen + "top: 45%;'" + "id='OsoEasyPromo.com_SocialPromotion>'");
 
             //Facebook
             if (socialPromotion.UseFacebook)
@@ -98,8 +98,9 @@ namespace OsOEasy.API.Responses
             var fullSocialURL = string.Format("https://www.{0}.com/{1}", imageType, socialURL);
             var imageURL = GetSocialImageURL(imageType, imageName);
 
-            return string.Format("<a href={0} target=_blank>" +
-                "<img src={1} style='cursor: pointer; height: 45px; width: 45px'/></a>", fullSocialURL, imageURL);
+            var fullHTMLLine = string.Format("<a href={0} target=_blank><img src={1} style='cursor: pointer; height: 45px; width: 45px; display: block'/></a>", fullSocialURL, imageURL);
+
+            return fullHTMLLine;
         }
 
         private string GetSocialImageURL(string imageType, string imageName)

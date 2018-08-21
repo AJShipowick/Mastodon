@@ -12,7 +12,6 @@
         <div class="home-header-container">
             <h1 class="home-header">Login</h1>
             <h2 style="font-family: 'Indie Flower', serif">Welcome back Oso Easy Promo user!</h2>
-            <img src="~/images/osoeasypromo_panda_96.svg" alt="Oso Easy Promo logo, a panda bear" />
         </div>
         <br /><br />
         <div class="row">
@@ -26,6 +25,9 @@
         <br />
         <div class="col-sm-6 offset-sm-3">
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <div class="row">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
                 <div class="form-group">
                     <label asp-for="Email" class="control-label"></label>
                     <input asp-for="Email" class="form-control" />
