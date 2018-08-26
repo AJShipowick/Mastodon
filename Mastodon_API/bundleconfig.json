@@ -6,21 +6,21 @@
     ]
   },
   {
-    "outputFileName": "Responses/JS/BasicJS.min.js",
+    "outputFileName": "Responses/Coupon/JS/BasicJS.min.js",
     "inputFiles": [
-      "Responses/JS/BasicJS.js"
+      "Responses/Coupon/JS/BasicJS.js"
     ]
   },
   {
-    "outputFileName": "Responses/HTML/BasicHTML.min.html",
+    "outputFileName": "Responses/Coupon/HTML/BasicHTML.min.html",
     "inputFiles": [
-      "Responses/HTML/BasicHTML.html"
+      "Responses/Coupon/HTML/BasicHTML.html"
     ]
   },
   {
-    "outputFileName": "Responses/CSS/BasicCSS.min.css",
+    "outputFileName": "Responses/Coupon/CSS/BasicCSS.min.css",
     "inputFiles": [
-      "Responses/CSS/BasicCSS.css"
+      "Responses/Coupon/CSS/BasicCSS.css"
     ]
   }
 ]

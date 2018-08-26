@@ -33,7 +33,7 @@
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/promo/7d052744-6a60-4b1f-90c5-b976bcad55bf", true);
+    request.open("GET", "http://localhost:51186/api/promo/a6593502-8f7d-4656-9d79-9cfc695dff9e", true);
     request.send(null);
 })();
 

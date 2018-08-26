@@ -37,9 +37,9 @@ namespace OsOEasy.Controllers.Promo
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
 
-            HttpContext.Session.SetString("promoId", (String.IsNullOrEmpty(promoId) ? "" : promoId));
+            HttpContext.Session.SetString("promoId", (string.IsNullOrEmpty(promoId) ? "" : promoId));
             ViewBag.subscription = user.SubscriptionPlan;
-            ViewBag.newPromo = (String.IsNullOrEmpty(promoId));
+            ViewBag.newPromo = (string.IsNullOrEmpty(promoId));
             ViewBag.promoType = promoType;
 
             return View();
@@ -56,7 +56,7 @@ namespace OsOEasy.Controllers.Promo
         {
             var promo = new Promotion();
 
-            if (!String.IsNullOrEmpty(promoId))
+            if (!string.IsNullOrEmpty(promoId))
             {
                 //Edit existing promotion
                 promo = (from x in _dbContext.Promotion where x.Id == promoId select x).FirstOrDefault();
@@ -230,27 +230,29 @@ namespace OsOEasy.Controllers.Promo
         {
 
             ApplicationUser appUser = await _common.GetCurrentUserAsync(HttpContext);
-            if (appUser.SubscriptionPlan == SubscriptionOptions.FreeAccount)
-            {
-                //Image upload only available for paid users
-                return View("CreateNewPromo");
-            }
+            ViewBag.subscription = appUser.SubscriptionPlan;
+            //ViewBag.newPromo = (string.IsNullOrEmpty(promoId));
+            ViewBag.promoType = "coupon";
 
-            foreach (var formFile in files)
+            //Image upload only available for paid users
+            if (appUser.SubscriptionPlan != SubscriptionOptions.FreeAccount)
             {
-                if (formFile.Length > 0)
+                foreach (var formFile in files)
                 {
-                    if (FileTypeValid(formFile.FileName))
+                    if (formFile.Length > 0)
                     {
-                        var fileName = BuildUserPicFileName(formFile.FileName, appUser.Id);
-                        using (var stream = new FileStream(fileName, FileMode.Create))
+                        if (FileTypeValid(formFile.FileName))
                         {
-                            await formFile.CopyToAsync(stream);
+                            var fileName = BuildUserPicFileName(formFile.FileName, appUser.Id);
+                            using (var stream = new FileStream(fileName, FileMode.Create))
+                            {
+                                await formFile.CopyToAsync(stream);
+                            }
                         }
-                    }
-                    else
-                    {
-                        //todo handle invalid file types...here and in JS??
+                        else
+                        {
+                            //todo handle invalid file types...here and in JS??
+                        }
                     }
                 }
             }

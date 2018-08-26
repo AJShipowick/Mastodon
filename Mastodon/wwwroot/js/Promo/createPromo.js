@@ -32,7 +32,8 @@ var newPromoApp = new Vue({
                             $("#osoContactForm").css({ "border": "4px dashed #ccc" });
                         }
                         if (newPromoApp.PromoModel.showLargeImage) {
-                            $("#osoImage").css({ "width": "96px" })
+                            $("#osoImage").css({ "width": "96px" });
+                            $("#osoImage").css({ "height": "96px" });
                         }
 
                         //get promo image, then set it....
@@ -151,8 +152,10 @@ var newPromoApp = new Vue({
         showLargeImage: function () {
             if (newPromoApp.PromoModel.showLargeImage === true) {
                 $("#osoImage").css({ "width": "96px" });
+                $("#osoImage").css({ "height": "96px" });
             } else {
                 $("#osoImage").css({ "width": "64px" });
+                $("#osoImage").css({ "height": "64px" });
             }
         },
 
@@ -213,8 +216,8 @@ var newPromoApp = new Vue({
             let ValidImageTypes = ["image/gif", "image/jpeg", "image/png", "image/svg+xml"];
             for (let i = 0; i < fileList.length; i++) {
                 newPromoApp.FilesToUpload.push(fileList[i].name);
-                if (fileList[i].size > 1000000) {  //1MB, 1,000,000KB
-                    newPromoApp.fileError = 'File size too big, max size 1MB';
+                if (fileList[i].size > 5000000) {  //5MB, 5,000,000KB
+                    newPromoApp.fileError = 'File size too big, max size 5MB';
                 }
                 if ($.inArray(fileList[i].type, ValidImageTypes) < 0) {
                     newPromoApp.fileError = 'Image must be (.gif, .jpeg, .png or .svg).';
@@ -236,13 +239,4 @@ var newPromoApp = new Vue({
 
 function showHelpStep1 () {
     $("#promoHelpModalStep1").modal('show');
-}
-
-function showHelpStep2 () {
-    $("#promoHelpModalStep2").modal('show');
-    $("#promoHelpModalStep1").modal('hide');
-}
-
-function closeHelpStep2 () {
-    $("#promoHelpModalStep2").modal('hide');
 }

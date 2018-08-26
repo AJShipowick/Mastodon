@@ -15,12 +15,12 @@ namespace OsOEasy.API.Responses.CSS
         {
             string minCSS = File.ReadAllText("Responses/Coupon/CSS/BasicCSS.min.css");
 
-            var imageWidth = (promotion.ShowLargeImage ? "96px" : "64px");
+            var imageSize = (promotion.ShowLargeImage ? "96px" : "64px");
 
             minCSS = minCSS.Replace("oso_background_color", promotion.BackgroundColor);
             minCSS = minCSS.Replace("oso_button_color", promotion.ButtonColor);
             minCSS = minCSS.Replace("oso_side_of_screen", promotion.SideOfScreen);
-            minCSS = minCSS.Replace("oso_image_width", imageWidth);
+            minCSS = minCSS.Replace("oso_image_size", imageSize);
 
             if (promotion.ShowCouponBorder)
             {

@@ -9,13 +9,14 @@
                     return;
                 }
 
-                if (request.responseText.substring(0, 9).indexOf('(function') > 0) {
-                    let script = document.createElement('script');
-                    script.innerHTML = request.responseText;
-                    document.getElementsByTagName('head')[0].appendChild(script);
+                let container;
+                if (request.responseText.substring(0, 8).includes('function')) {
+                    container = document.createElement('script');
                 } else {
-                    document.getElementsByTagName('head')[0].appendChild(request.responseText);
+                    container = document.createElement('div');
                 }
+                container.innerHTML = request.responseText;
+                document.body.appendChild(container);
 
             } else {
                 console.log('Oso Easy Promo Error' + request.responseText);
