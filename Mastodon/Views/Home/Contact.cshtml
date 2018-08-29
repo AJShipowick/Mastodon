@@ -4,48 +4,27 @@
 }
 
 <section>
-    <img style="width:100%; opacity:.50; padding-top:50px" src="~/images/Home/oso_promo_contact_us.jpg" alt="Picture of kid yelling, it's a contact us picture." />
+    <img class="d-none d-lg-block" style="width:100%; opacity:.50; padding-top:50px" src="~/images/Home/oso_promo_contact_us.jpg" alt="Picture of kid yelling, it's a contact us picture." />
 
     <div class="container">
-        <div class="row d-none d-lg-block">
-            <div class="offset-sm-1" style="position: absolute;top: 35%;">
-                <h1 class="home-header">Contact us at Oso Easy Promo</h1>
-            </div>
-        </div>
-        <div class="row d-none d-lg-block">
-            <div style="position: absolute;top: 60%;">
-                <h2 style="font-family: 'Indie Flower', serif; text-align:center">Use the form below to contact us directly, we would love to hear from you</h2>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br />
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="form-group col-sm-6 mx-auto">
+        <div style="position: absolute;top: 30%;">
+            <div class="row">
                 <h3><label for="userEmail">Email address</label></h3>
                 <input type="email" class="form-control" id="userEmail">
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-6 mx-auto">
-                <h3><label for="userComment">Enter question/comment below</label></h3>
+            <div class="row">
+                <h3><label for="userComment">Enter your question or comment below</label></h3>
                 <textarea class="form-control" id="userComment" rows="4"></textarea>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-sm-6 mx-auto">
+            <br />
+            <div class="row">
                 <div onclick="contactUs()" class="btn btn-primary">Send Contact Request</div>
             </div>
+            <h4 style="color:green; display:none" id="sendConfirmation">Email sent, thanks!</h4>
+            <h4 style="color:red; display:none" id="confirmationError">Please fill out all form fields</h4>
         </div>
-        <div style="text-align:center; color:green; display:none" id="sendConfirmation">Email sent, thanks!</div>
-        <div style="text-align:center; color:red; display:none" id="confirmationError">Please fill out all form fields</div>
     </div>
 </section>
-<br />
 
 <script async src="~/js/HomePage/homePage.min.js"></script>

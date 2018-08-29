@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\Home\" />
+    <Folder Include="wwwroot\images\Features\" />
     <Folder Include="wwwroot\images\Promo\" />
     <Folder Include="wwwroot\lib\fontAwesome\" />
     <Folder Include="wwwroot\lib\vue\" />
