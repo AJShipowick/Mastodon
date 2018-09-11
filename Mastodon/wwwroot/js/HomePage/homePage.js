@@ -33,14 +33,14 @@
             }
         }
     };
-    request.open("GET", "https://api.osoeasypromo.com/api/promo/8899161c-1c6e-4a96-93fd-2870ffad82c4", true);
+    request.open('GET', 'https://api.osoeasypromo.com/api/promo/8899161c-1c6e-4a96-93fd-2870ffad82c4', true);
     request.send(null);
 })();
 
 function contactUs() {
     if (!formValid()) { return; }
 
-    axios.get('SendContactRequest' + "?userEmail=" + $('#userEmail').val() + "&userComment=" + $('#userComment').val())
+    axios.get('SendContactRequest' + '?userEmail=' + $('#userEmail').val() + '&userComment=' + $('#userComment').val())
         .then(function (response) {
             $('#sendConfirmation').show();
         })
