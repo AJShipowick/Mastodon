@@ -33,7 +33,7 @@
             }
         }
     };
-    request.open("GET", "http://localhost:51186/api/promo/a6593502-8f7d-4656-9d79-9cfc695dff9e", true);
+    request.open("GET", "https://api.osoeasypromo.com/api/promo/8899161c-1c6e-4a96-93fd-2870ffad82c4", true);
     request.send(null);
 })();
 
